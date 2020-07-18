@@ -429,6 +429,7 @@ export default function MenuAppBar() {
                 </ul>
               </div>
             </nav>
+
             <div className="container-fluid">
               <Route path="/" exact component={UserDashboard} />
               <Route path="/find" exact component={BurnCalories} />
