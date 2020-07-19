@@ -10,6 +10,7 @@ import NewsList from "../../Lists/NewsList/NewsList.component";
 import CompletedExercises from "../../Tables/CompletedExercises/CompletedExercises.component";
 import DailyMealTrackerTable from "../../Tables/DailyMealTrackerTable/DailyMealTrackerTable";
 import WeightLineChart from "../../Charts/WeightLineChart/WeightLineChart.component";
+import ExercisesPieChart from "../../Charts/ExercisesPieChart/ExercisesPieChart.component";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -127,6 +128,9 @@ const UserDashboard = () => {
       <div className="row">
         <div className="col-md-12 col-xl-6 mb-4">
           <WeightLineChart />
+        </div>
+        <div className="col-md-12 col-xl-6 mb-4">
+          <ExercisesPieChart />
         </div>
       </div>
 
