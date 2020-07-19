@@ -11,13 +11,13 @@ export default function ExercisesPieChart() {
         labels: ["Day1", "Day2", "Day3", "Day4", "Day5"],
         datasets: [
           {
-            data: [231, 68, 112, 61, 41],
+            data: [231, 68, 112, 61, 60],
             backgroundColor: [
-              "#f1c40f",
-              "#fc03f0",
-              "#16a085",
-              "#037ffc",
-              "#fc8003",
+              "#10de47",
+              "#06adbf",
+              "#0965ba",
+              "#bf00c2",
+              "#d9ca00",
             ],
             label: "Weight",
           },

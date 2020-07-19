@@ -11,6 +11,8 @@ import CompletedExercises from "../../Tables/CompletedExercises/CompletedExercis
 import DailyMealTrackerTable from "../../Tables/DailyMealTrackerTable/DailyMealTrackerTable";
 import WeightLineChart from "../../Charts/WeightLineChart/WeightLineChart.component";
 import ExercisesPieChart from "../../Charts/ExercisesPieChart/ExercisesPieChart.component";
+import LineChart from "../../Charts/LineChartWeight/LineChartWeight";
+import Exercises1PieChart from "../../Charts/PieChartExercise/PieChartExercise.component";
 
 import Paper from "@material-ui/core/Paper";
 
@@ -128,9 +130,11 @@ const UserDashboard = () => {
       <div className="row">
         <div className="col-md-12 col-xl-6 mb-4">
           <WeightLineChart />
+          {/* <LineChart /> */}
         </div>
         <div className="col-md-12 col-xl-6 mb-4">
           <ExercisesPieChart />
+          {/* <Exercises1PieChart /> */}
         </div>
       </div>
 
