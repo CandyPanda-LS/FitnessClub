@@ -12,6 +12,7 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import StarBorder from "@material-ui/icons/StarBorder";
+import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 
 import Background from "./img/1.jpg";
 
@@ -61,7 +62,7 @@ export default function NewsList() {
     >
       <ListItem button onClick={handleClick}>
         <ListItemIcon>
-          <InboxIcon />
+          <NotificationsActiveIcon style={{ color: "white" }} />
         </ListItemIcon>
         <ListItemText primary="News" />
         {open ? <ExpandLess /> : <ExpandMore />}
@@ -69,39 +70,27 @@ export default function NewsList() {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            <ListItemIcon></ListItemIcon>
             <ListItemText primary="Chest – Barbell Bench Press – 4 sets of 8 reps" />
           </ListItem>
           <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            <ListItemIcon></ListItemIcon>
             <ListItemText primary="Back – Lat-pulldowns – 4 sets of 10 reps" />
           </ListItem>
           <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            <ListItemIcon></ListItemIcon>
             <ListItemText primary="Shoulders – Seated Dumbbell Press – 4 sets of 10 reps" />
           </ListItem>
           <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            <ListItemIcon></ListItemIcon>
             <ListItemText primary="Legs – Leg Extensions – 4 sets of 10 reps" />
           </ListItem>
           <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            <ListItemIcon></ListItemIcon>
             <ListItemText primary="Biceps – Barbell Bbicep Curls – 3 sets of 10 reps" />
           </ListItem>
           <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
+            <ListItemIcon></ListItemIcon>
             <ListItemText primary="Triceps – Triceps Rope Pushdowns – 3 sets of 15 reps" />
           </ListItem>
         </List>
