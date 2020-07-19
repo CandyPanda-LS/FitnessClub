@@ -49,6 +49,7 @@ export default function ExercisesPieChart() {
             textAlign: "center",
             margin: "auto",
             justifyContent: "center",
+            borderRadius: "20px",
           }}
         >
           {pieChart}

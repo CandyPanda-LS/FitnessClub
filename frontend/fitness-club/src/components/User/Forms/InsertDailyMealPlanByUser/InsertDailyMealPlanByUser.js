@@ -96,6 +96,7 @@ export default class InsertDailyMealPlanByUser extends Component {
         <Card
           className="card-border1"
           style={{
+            background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
             borderRadius: "20px",
             boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
           }}

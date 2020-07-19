@@ -77,6 +77,7 @@ export default function WeightLineChart() {
             textAlign: "center",
             margin: "auto",
             justifyContent: "center",
+            borderRadius: "20px",
           }}
         >
           {lineChart}

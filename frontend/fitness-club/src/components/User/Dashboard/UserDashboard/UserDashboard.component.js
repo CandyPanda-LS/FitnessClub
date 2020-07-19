@@ -18,7 +18,7 @@ const UserDashboard = () => {
   return (
     <>
       <div className="row">
-        <div className="col-md-6 col-xl-3 mb-4">
+        <div className="col-md-6 col-xl-3 mb-4 headerDumbell">
           <Link to="find" style={{ textDecoration: "none" }}>
             <div className=" card shadow border-left-primary py-2">
               <div className="card-body headerOptions">
@@ -32,7 +32,7 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-dumbbell fa-2x text-gray-300"></i>
+                    <i className="fas fa-dumbbell fa-2x headericonDumbell"></i>
                   </div>
                 </div>
               </div>
@@ -40,7 +40,7 @@ const UserDashboard = () => {
           </Link>
         </div>
 
-        <div className="col-md-6 col-xl-3 mb-4">
+        <div className="col-md-6 col-xl-3 mb-4 headerMeal">
           <Link to="food" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-success py-2">
               <div className="card-body headerOptions">
@@ -54,7 +54,7 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-utensils fa-2x text-gray-300"></i>
+                    <i className="fas fa-utensils fa-2x iconheaderMeal"></i>
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@ const UserDashboard = () => {
           </Link>
         </div>
 
-        <div className="col-md-6 col-xl-3 mb-4">
+        <div className="col-md-6 col-xl-3 mb-4 headerRequest">
           <Link to="req" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-info py-2">
               <div className="card-body headerOptions">
@@ -81,14 +81,14 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-bullhorn fa-2x text-gray-300"></i>
+                    <i className="fas fa-bullhorn fa-2x iconheaderRequest"></i>
                   </div>
                 </div>
               </div>
             </div>
           </Link>
         </div>
-        <div className="col-md-6 col-xl-3 mb-4">
+        <div className="col-md-6 col-xl-3 mb-4 headerShopping">
           <Link to="req" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-warning py-2">
               <div className="card-body headerOptions">
@@ -102,7 +102,7 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   <div className="col-auto">
-                    <i className="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                    <i className="fas fa-shopping-cart fa-2x iconheaderShopping"></i>
                   </div>
                 </div>
               </div>
