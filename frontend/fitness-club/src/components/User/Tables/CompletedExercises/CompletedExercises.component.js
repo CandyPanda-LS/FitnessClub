@@ -10,6 +10,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { Container, Box } from "@material-ui/core";
 
+import Background from "./img/1.jpg";
+
 const columns = [
   { id: "Date", label: "Date", minWidth: 170 },
   { id: "Weight", label: "Weight", minWidth: 100 },
@@ -65,6 +67,13 @@ const useStyles = makeStyles({
   },
   container: {
     maxHeight: 550,
+    borderRadius: "20px",
+  },
+  TableBody: {
+    backgroundImage: `url(${Background})`,
+    backgroundRepeat: "no-repeat" /* Do not repeat the image */,
+    backgroundSize: "cover",
+    backgroundOpacity: 0.5,
   },
 });
 
@@ -97,17 +106,20 @@ export default function CompletedExercises() {
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  className="bg-primary"
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, color: "white" }}
+                  style={{
+                    minWidth: column.minWidth,
+                    color: "white",
+                    backgroundColor: "#f7ca02",
+                  }}
                 >
                   {column.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={classes.TableBody}>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
@@ -116,7 +128,11 @@ export default function CompletedExercises() {
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                          style={{ color: "white" }}
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}

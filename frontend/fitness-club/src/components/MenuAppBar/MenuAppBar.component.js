@@ -17,6 +17,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 
+import Footer from "../../components/Footer/Footer.component";
 import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.component";
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
@@ -441,7 +442,12 @@ export default function MenuAppBar() {
               />
             </div>
           </div>
+
+          <Footer />
         </div>
+        <a class="border rounded d-inline scroll-to-top" href="#page-top">
+          <i class="fas fa-angle-up"></i>
+        </a>
       </div>
     </Router>
   );

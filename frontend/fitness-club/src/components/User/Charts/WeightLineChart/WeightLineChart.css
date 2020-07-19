@@ -1,0 +1,10 @@
+.weightLineChart {
+  justify-content: center !important;
+  width: 95% !important;
+}
+
+@media only screen and (max-width: 770px) {
+  .weightLineChart {
+    width: 100% !important;
+  }
+}

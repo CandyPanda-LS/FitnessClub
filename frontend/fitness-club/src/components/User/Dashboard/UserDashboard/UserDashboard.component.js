@@ -7,6 +7,12 @@ import "./UserDashboard.css";
 import WorkoutList from "../../Lists/WorkoutList/WorkoutList.component";
 import MealPlanList from "../../Lists/MealPlanList/MealPlanList.component";
 import NewsList from "../../Lists/NewsList/NewsList.component";
+import CompletedExercises from "../../Tables/CompletedExercises/CompletedExercises.component";
+import DailyMealTrackerTable from "../../Tables/DailyMealTrackerTable/DailyMealTrackerTable";
+import WeightLineChart from "../../Charts/WeightLineChart/WeightLineChart.component";
+
+import Paper from "@material-ui/core/Paper";
+
 const UserDashboard = () => {
   return (
     <>
@@ -113,6 +119,48 @@ const UserDashboard = () => {
         </div>
         <div className="col-md-6 col-xl-4 mb-4">
           <NewsList />
+        </div>
+      </div>
+
+      <hr />
+
+      <div className="row">
+        <div className="col-md-12 col-xl-6 mb-4">
+          <WeightLineChart />
+        </div>
+      </div>
+
+      <hr />
+      <div className="row">
+        <div className="col-md-12 col-xl-6 mb-4">
+          <h5
+            style={{
+              fontFamily: "Comic Sans MS",
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#e3c100",
+              height: 48,
+              padding: "10px 30px",
+            }}
+          >
+            Daily Exercise Tracker
+          </h5>
+          <CompletedExercises />
+        </div>
+        <div className="col-md-12 col-xl-6 mb-4">
+          <h5
+            style={{
+              fontFamily: "Comic Sans MS",
+              fontWeight: "bold",
+              textAlign: "center",
+              color: "#e0542d",
+              height: 48,
+              padding: "10px 30px",
+            }}
+          >
+            Daily Meal Tracker
+          </h5>
+          <DailyMealTrackerTable />
         </div>
       </div>
     </>

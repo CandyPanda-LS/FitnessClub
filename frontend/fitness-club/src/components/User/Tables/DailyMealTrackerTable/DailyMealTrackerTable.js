@@ -11,6 +11,8 @@ import TableRow from "@material-ui/core/TableRow";
 import { Container, Box } from "@material-ui/core";
 import { shadows } from "@material-ui/system";
 
+import Background from "./img/1.jpg";
+
 const columns = [
   { id: "Date", label: "Date", minWidth: 170 },
   { id: "Meal", label: "Meal", minWidth: 100 },
@@ -66,6 +68,13 @@ const useStyles = makeStyles({
   },
   container: {
     maxHeight: 550,
+    borderRadius: "20px",
+  },
+  TableBody: {
+    backgroundImage: `url(${Background})`,
+    backgroundRepeat: "no-repeat" /* Do not repeat the image */,
+    backgroundSize: "cover",
+    backgroundOpacity: 0.5,
   },
 });
 
@@ -98,17 +107,20 @@ export default function DailyMealTrackerTable() {
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  className="bg-primary"
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth, color: "white" }}
+                  style={{
+                    minWidth: column.minWidth,
+                    color: "white",
+                    backgroundColor: "#db8465",
+                  }}
                 >
                   {column.label}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className={classes.TableBody}>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
@@ -117,7 +129,11 @@ export default function DailyMealTrackerTable() {
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                          style={{ color: "white" }}
+                          key={column.id}
+                          align={column.align}
+                        >
                           {column.format && typeof value === "number"
                             ? column.format(value)
                             : value}
