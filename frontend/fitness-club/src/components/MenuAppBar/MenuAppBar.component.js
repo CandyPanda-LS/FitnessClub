@@ -22,6 +22,7 @@ import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.compone
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
+import UserLogin from "../Login/UserLogin/userlogin.component";
 
 export default function MenuAppBar() {
   return (
@@ -432,6 +433,7 @@ export default function MenuAppBar() {
             </nav>
 
             <div className="container-fluid">
+              <Route path ="/userlogin" exact component = {UserLogin} />
               <Route path="/" exact component={UserDashboard} />
               <Route path="/find" exact component={BurnCalories} />
               <Route path="/food" exact component={DailyMealPlanByUser} />

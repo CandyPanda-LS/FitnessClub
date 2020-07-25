@@ -14,7 +14,7 @@ users.post("/register", (req, res) => {
   const userData = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    email: "senura@gmail.com",
+    email: req.body.email,
     mobileNo: req.body.mobileNo,
     address: req.body.address,
     gender: req.body.email,
@@ -23,19 +23,24 @@ users.post("/register", (req, res) => {
   };
 
   User.findOne({
-    email: "senura@gmail.com",
+    email: req.body.email,
   })
 
     .then((user) => {
       if (!user) {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
           userData.password = hash;
-          User.create(userData);
+          User.create(userData)
+            .then((user) => {
+              res.json({ status: user.email + "registered!" });
+            })
+            .catch((err) => {
+              res.send("error:" + err);
+            });
         });
+      } else {
+        res.json({ error: "User already exists" });
       }
-    })
-    .then((user) => {
-      res.json({ status: user.email + "registered!" });
     })
     .catch((err) => {
       res.send("error:" + err);
