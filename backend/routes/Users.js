@@ -31,16 +31,23 @@ users.post('/register', (req, res) => {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     userData.password = hash
                     User.create(userData)
+                    .then(user => {
+                        res.json({ status: user.email + 'registered!' });
                 })
-            }
+                .catch(err => {
+                    res.send('error:' + err);
+                })
+
         })
-        .then(user => {
-            res.json({ status: user.email + 'registered!' });
+    }else{
+        res.json({error:'User already exists'})
+    }
+        
         })
         .catch(err => {
-            res.send('error:' + err);
+            res.send('error:' + err)
         })
-
+        
     users.post('/login', (req, res) => {
         User.findOne({
             email: req.body.email
