@@ -10,7 +10,6 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    required: true,
   },
   mobileNo: {
     type: String,
@@ -30,5 +29,4 @@ const UserSchema = new Schema({
     default: Date.now,
   },
 });
-
 module.exports = User = mongoose.model("Users", UserSchema);
