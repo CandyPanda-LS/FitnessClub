@@ -9,6 +9,11 @@ users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
 
+//@route  POST /Users/register
+//@desc   create an account
+//@access Private
+//@author Dilmi
+
 users.post('/register', (req, res) => {
     const today = new Date();
     const userData = {
@@ -32,7 +37,7 @@ users.post('/register', (req, res) => {
                     userData.password = hash
                     User.create(userData)
                     .then(user => {
-                        res.json({ status: user.email + 'registered!' });
+                        res.json({ status: user.email + ' registered!' });
                 })
                 .catch(err => {
                     res.send('error:' + err);
@@ -47,7 +52,14 @@ users.post('/register', (req, res) => {
         .catch(err => {
             res.send('error:' + err)
         })
-        
+    })   
+    
+//@route  POST /Users/login
+//@desc   create an account
+//@access Private
+//@author Dilmi
+
+    
     users.post('/login', (req, res) => {
         User.findOne({
             email: req.body.email
@@ -77,6 +89,12 @@ users.post('/register', (req, res) => {
             .catch(err => {
                 res.send('error:' + err)
             })
+
+ //@route  POST /Users/profile
+//@desc   create an account
+//@access Private
+//@author Dilmi
+
             users.get('/profile',(req,res) => {
                 var decoded = jwt.verify(req.headers['authorization'],process.env.SECRET_KEY)
 
@@ -97,6 +115,6 @@ users.post('/register', (req, res) => {
                 })
             })
     })
-})
+
 
 module.exports = users

@@ -14,7 +14,7 @@ export default class UserLogin extends Component  {
                                 <div class="col-lg-6 d-none d-lg-flex">
                                      <div class="flex-grow-1 bg-login-image" style={{
         
-        // weborder: "2px solid blue",
+        // border: "2px solid blue",
         backgroundImage: `url(${Background})`,
         backgroundRepeat: "no-repeat" /* Do not repeat the image*/ ,
         backgroundSize: "cover",
