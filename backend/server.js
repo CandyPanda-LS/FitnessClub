@@ -1,41 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+const connectDB = require("./config/db");
+
 const app = express();
-const port = process.env.PORT || 5000;
 
-require("dotenv").config();
+//Connect Database
+connectDB();
 
-app.use(bodyParser.json());
+//Using Cors
 app.use(cors());
-app.use(express.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: false,
-  })
-);
 
-const uri = process.env.ATLAS_URI;
+//Init Middleware( include  bodyparser through express)
+app.use(express.json({ extended: false }));
 
-mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+app.get("/", (req, res) => res.send("Api Running"));
 
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("MongoDB database connection established successfully");
-});
+//Define Routes
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/profile", require("./routes/api/profile"));
 
-const Users = require("./routes/Users");
+const PORT = process.env.PORT || 5000;
 
-app.use("/Users", Users);
-
-app.listen(port, () => {
-  console.log("Server is running on port :" + port);
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
