@@ -1,18 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Paper from "@material-ui/core/Paper";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
 import "./WeightLineChart.css";
 //https://codepen.io/SPRS/pen/ebMqNZ - donut chart
 
 export default function WeightLineChart() {
+  const [dailyWeight, setDailyWeight] = useState([]);
+
+  //fetching completed Exercise List data from the backend
+  useEffect(() => {
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+      },
+    };
+
+    axios
+      .get("http://localhost:5000/api/profile/me", config)
+      .then(({ data }) => {
+        console.log(data.completedWorkoutList);
+        console.log(data.completedWorkoutList.length);
+
+        if (data.completedWorkoutList.length > 0) {
+          setDailyWeight(data.completedWorkoutList);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const lineChart = (
     <Line
       data={{
-        labels: ["Day1", "Day2", "Day3", "Day4", "Day5", "Day6", "Day7"],
+        labels: dailyWeight
+          .slice(0, 15)
+          .map((weight) => "")
+          .reverse(),
         datasets: [
           {
-            data: [65, 65, 66, 65, 64, 64, 64, 63, 62],
+            //get data decending order
+            data: dailyWeight.map((weight) => weight.weight).reverse(),
+            // data: dailyWeight
+            //   .slice(0, 15)
+            //   .map((weight) => weight.weight)
+            //   .reverse(),
             label: "Weight",
 
             borderColor: "#06adbf",
@@ -42,7 +77,7 @@ export default function WeightLineChart() {
           xAxes: [
             {
               gridLines: {
-                display: true,
+                display: false,
                 drawBorder: true,
                 drawOnChartArea: false,
               },

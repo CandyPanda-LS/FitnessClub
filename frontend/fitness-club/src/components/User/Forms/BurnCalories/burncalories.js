@@ -99,7 +99,7 @@ export default class BurnCalories extends Component {
     });
   }
 
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
 
     const exercise = {
@@ -112,7 +112,7 @@ export default class BurnCalories extends Component {
 
     console.log(exercise);
 
-    const config = {
+    const configuration = {
       headers: {
         "x-app-id": "3d2faaaf",
         "x-app-key": "4bbd5317c21ba6bd31ebe8229bc69d4f",
@@ -120,11 +120,11 @@ export default class BurnCalories extends Component {
       },
     };
 
-    axios
+    await axios
       .post(
         "https://trackapi.nutritionix.com/v2/natural/exercise",
         exercise,
-        config
+        configuration
       )
       .then(({ data }) => {
         console.log(data);
@@ -136,6 +136,40 @@ export default class BurnCalories extends Component {
       .catch(function (error) {
         console.log(error);
       });
+
+    //Pass Data into the backend
+
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+        "Content-Type": "application/json",
+      },
+    };
+
+    const newCompletedExercise = {
+      weight: this.state.weight_kg,
+      height: this.state.height_cm,
+      exercise: this.state.query,
+      time: this.state.time,
+      calories: this.state.nf_calories,
+      date: this.state.date,
+    };
+
+    await axios
+      .put(
+        "http://localhost:5000/api/profile/addcompletedexerciselist",
+        newCompletedExercise,
+        config
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    window.location = "/find";
   }
 
   render() {
@@ -251,7 +285,7 @@ export default class BurnCalories extends Component {
             </CardContent>
           </Card>
 
-          <Card
+          {/* <Card
             className="card-border"
             variant="outlined"
             color="palette.success.light"
@@ -262,7 +296,7 @@ export default class BurnCalories extends Component {
                 {this.state.duration_min} minutes
               </Typography>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
 
         <div className="col-md-8">

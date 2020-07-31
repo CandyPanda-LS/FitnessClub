@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -8,13 +10,15 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { Container, Box } from "@material-ui/core";
-import { shadows } from "@material-ui/system";
 
 import Background from "./img/1.jpg";
 
 const columns = [
-  { id: "Date", label: "Date", minWidth: 170 },
+  {
+    id: "Date",
+    label: "Date",
+    minWidth: 170,
+  },
   { id: "Meal", label: "Meal", minWidth: 100 },
   {
     id: "Calories",
@@ -39,28 +43,9 @@ const columns = [
   },
 ];
 
-function createData(Date, Meal, Calories, Proteins) {
-  const Fat = Calories / Proteins;
+function createData(Date, Meal, Calories, Proteins, Fat) {
   return { Date, Meal, Calories, Proteins, Fat };
 }
-
-const rows = [
-  createData("India", "IN", 1324171354, 3287263),
-  createData("China", "CN", 1403500365, 9596961),
-  createData("Italy", "IT", 60483973, 301340),
-  createData("United States", "US", 327167434, 9833520),
-  createData("Canada", "CA", 37602103, 9984670),
-  createData("Australia", "AU", 25475400, 7692024),
-  createData("Germany", "DE", 83019200, 357578),
-  createData("Ireland", "IE", 4857000, 70273),
-  createData("Mexico", "MX", 126577691, 1972550),
-  createData("Japan", "JP", 126317000, 377973),
-  createData("France", "FR", 67022000, 640679),
-  createData("United Kingdom", "GB", 67545757, 242495),
-  createData("Russia", "RU", 146793744, 17098246),
-  createData("Nigeria", "NG", 200962417, 923768),
-  createData("Brazil", "BR", 210147125, 8515767),
-];
 
 const useStyles = makeStyles({
   root: {
@@ -82,6 +67,42 @@ export default function DailyMealTrackerTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [DailyMealList, setDailyMealList] = useState([]);
+
+  //fetching meallist data from the backend
+  useEffect(() => {
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+      },
+    };
+
+    axios
+      .get("http://localhost:5000/api/profile/me", config)
+      .then(({ data }) => {
+        console.log(data.dailymeallist);
+        console.log(data.dailymeallist.length);
+
+        if (data.dailymeallist.length > 0) {
+          setDailyMealList(data.dailymeallist);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  //map table row data
+  const rows = DailyMealList.map((currentMeal) => {
+    return createData(
+      currentMeal.date.substring(0, 10),
+      currentMeal.mealName,
+      currentMeal.calories,
+      currentMeal.proteins,
+      currentMeal.fat
+    );
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

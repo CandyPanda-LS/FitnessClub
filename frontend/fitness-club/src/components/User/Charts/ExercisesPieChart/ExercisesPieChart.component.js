@@ -1,23 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Paper from "@material-ui/core/Paper";
-import { Doughnut, Pie, Line, Bar } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 import "./ExercisesPieChart.css";
 
 export default function ExercisesPieChart() {
+  const [burnedCalories, setBurnedCalories] = useState([]);
+
+  //fetching completed Exercise List data from the backend
+  useEffect(() => {
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+      },
+    };
+
+    axios
+      .get("http://localhost:5000/api/profile/me", config)
+      .then(({ data }) => {
+        console.log(data.completedWorkoutList);
+        console.log(data.completedWorkoutList.length);
+
+        if (data.completedWorkoutList.length > 0) {
+          setBurnedCalories(data.completedWorkoutList);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const pieChart = (
     <Doughnut
       data={{
-        labels: ["Day1", "Day2", "Day3", "Day4", "Day5"],
+        labels: burnedCalories
+          .slice(0, 6)
+          .map((burnedcalories) => burnedcalories.exercise)
+          .reverse(),
         datasets: [
           {
-            data: [231, 68, 112, 61, 60],
+            data: burnedCalories
+              .slice(0, 6)
+              .map((burnedcalories) => burnedcalories.calories)
+              .reverse(),
             backgroundColor: [
               "#10de47",
               "#06adbf",
               "#0965ba",
               "#bf00c2",
               "#d9ca00",
+              "#06adbf",
             ],
             label: "Weight",
           },

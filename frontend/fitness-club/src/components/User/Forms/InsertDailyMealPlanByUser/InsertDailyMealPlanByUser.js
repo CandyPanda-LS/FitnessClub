@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {
-  NativeSelect,
   FormControl,
   TextField,
-  Select,
-  MenuItem,
   Button,
-  Container,
-  Paper,
   CardContent,
   Card,
-  Box,
   Typography,
 } from "@material-ui/core";
 
@@ -21,8 +15,6 @@ import {
 } from "@material-ui/pickers";
 
 import DateFnsUtils from "@date-io/date-fns";
-
-import { shadows } from "@material-ui/system";
 
 import "./InsertDailyMealPlanByUser.css";
 
@@ -43,7 +35,7 @@ export default class InsertDailyMealPlanByUser extends Component {
       FAT: "",
       CHOCDF: "",
       FIBTG: "",
-      FoodName: "apple",
+      FoodName: "",
     };
   }
 
@@ -61,19 +53,10 @@ export default class InsertDailyMealPlanByUser extends Component {
     });
   }
 
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
 
-    const meal = {
-      ENERC_KCAL: this.state.ENERC_KCAL,
-      ENERC_KCAL: this.state.ENERC_KCAL,
-      ENERC_KCAL: this.state.ENERC_KCAL,
-      ENERC_KCAL: this.state.ENERC_KCAL,
-    };
-
-    console.log(meal);
-
-    axios
+    await axios
       .get(
         `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${this.state.FoodName}&app_id=a2edaaed&app_key=57145938b514b65e64ce9ca1ce8d7da8`
       )
@@ -88,6 +71,35 @@ export default class InsertDailyMealPlanByUser extends Component {
       .catch(function (error) {
         console.log(error);
       });
+
+    //Pass Data into the backend
+
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+        "Content-Type": "application/json",
+      },
+    };
+
+    const newMeal = {
+      mealName: this.state.FoodName,
+      calories: this.state.ENERC_KCAL,
+      proteins: this.state.PROCNT,
+      fat: this.state.FAT,
+      date: this.state.date,
+    };
+
+    await axios
+      .put("http://localhost:5000/api/profile/addmeallist", newMeal, config)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    window.location = "/food";
   }
 
   render() {
@@ -138,7 +150,7 @@ export default class InsertDailyMealPlanByUser extends Component {
           </CardContent>
         </Card>
 
-        <Card
+        {/* <Card
           className="card-border"
           variant="outlined"
           color="palette.success.light"
@@ -150,7 +162,7 @@ export default class InsertDailyMealPlanByUser extends Component {
               {this.state.FAT} grams of fat
             </Typography>
           </CardContent>
-        </Card>
+        </Card> */}
       </>
     );
   }
