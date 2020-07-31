@@ -1,6 +1,5 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
-import { Doughnut, Pie, Line, Bar } from "react-chartjs-2";
 
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";

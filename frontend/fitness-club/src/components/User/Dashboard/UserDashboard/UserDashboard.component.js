@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./UserDashboard.css";
 
@@ -11,10 +9,6 @@ import CompletedExercises from "../../Tables/CompletedExercises/CompletedExercis
 import DailyMealTrackerTable from "../../Tables/DailyMealTrackerTable/DailyMealTrackerTable";
 import WeightLineChart from "../../Charts/WeightLineChart/WeightLineChart.component";
 import ExercisesPieChart from "../../Charts/ExercisesPieChart/ExercisesPieChart.component";
-import LineChart from "../../Charts/LineChartWeight/LineChartWeight";
-import Exercises1PieChart from "../../Charts/PieChartExercise/PieChartExercise.component";
-
-import Paper from "@material-ui/core/Paper";
 
 const UserDashboard = () => {
   return (

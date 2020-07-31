@@ -1,28 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import { fade, makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
-
+import { Link } from "react-router-dom";
 import Footer from "../../components/Footer/Footer.component";
 import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.component";
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
 import UserLogin from "../Login/UserLogin/userlogin.component";
+// import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
   return (
@@ -35,12 +20,10 @@ export default function MenuAppBar() {
           className="navbar navbar-dark align-items-start sidebar sidebar-dark accordion p-0"
         >
           <div className="container-fluid d-flex flex-column p-0">
-            <a
-              className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
-              href="#"
-            >
+            <Link className="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0">
               <div className="sidebar-brand-icon logo-Desktop">
                 <img
+                  alt="logo"
                   className="rounded-circle"
                   src="assets/img/logo/logoicon.png"
                   width="50px"
@@ -51,46 +34,47 @@ export default function MenuAppBar() {
               <div className="sidebar-brand-text mx-3">
                 <span>
                   <img
+                    alt="logo"
                     className="rounded-circle"
                     src="assets/img/logo/logoname.png"
                     width="100px"
                   />
                 </span>
               </div>
-            </a>
+            </Link>
 
             <hr className="sidebar-divider my-0" />
 
             <ul className="nav navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item" role="presentation">
-                <a className="nav-link" href="/">
+                <Link className="nav-link" to="/">
                   <i className="fas fa-tachometer-alt"></i>
                   <span>Dashboard</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <a className="nav-link" href="profile.html">
+                <Link className="nav-link" to="profile">
                   <i className="fas fa-user"></i>
                   <span>Profile</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <a className="nav-link" href="table.html">
+                <Link className="nav-link" to="table.html">
                   <i className="fas fa-table"></i>
                   <span>Table</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <a className="nav-link" href="login.html">
+                <Link className="nav-link" to="userlogin">
                   <i className="far fa-user-circle"></i>
                   <span>Login</span>
-                </a>
+                </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <a className="nav-link" href="register.html">
+                <Link className="nav-link" to="register.html">
                   <i className="fas fa-user-circle"></i>
                   <span>Register</span>
-                </a>
+                </Link>
               </li>
             </ul>
             <div className="text-center d-none d-md-inline">
@@ -129,14 +113,13 @@ export default function MenuAppBar() {
                 </form>
                 <ul className="nav navbar-nav flex-nowrap ml-auto">
                   <li className="nav-item dropdown d-sm-none no-arrow">
-                    <a
+                    <Link
                       className="dropdown-toggle nav-link"
                       data-toggle="dropdown"
                       aria-expanded="false"
-                      href="#"
                     >
                       <i className="fas fa-search"></i>
-                    </a>
+                    </Link>
                     <div
                       className="dropdown-menu dropdown-menu-right p-3 animated--grow-in"
                       role="menu"
@@ -166,26 +149,22 @@ export default function MenuAppBar() {
                     role="presentation"
                   >
                     <div className="nav-item dropdown no-arrow">
-                      <a
+                      <Link
                         className="dropdown-toggle nav-link"
                         data-toggle="dropdown"
                         aria-expanded="false"
-                        href="#"
                       >
                         <span className="badge badge-danger badge-counter">
                           3+
                         </span>
                         <i className="fas fa-bell fa-fw"></i>
-                      </a>
+                      </Link>
                       <div
                         className="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
                         role="menu"
                       >
                         <h6 className="dropdown-header">alerts center</h6>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="mr-3">
                             <div className="bg-primary icon-circle">
                               <i className="fas fa-file-alt text-white"></i>
@@ -197,11 +176,8 @@ export default function MenuAppBar() {
                             </span>
                             <p>A new monthly report is ready to download!</p>
                           </div>
-                        </a>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="mr-3">
                             <div className="bg-success icon-circle">
                               <i className="fas fa-donate text-white"></i>
@@ -213,11 +189,8 @@ export default function MenuAppBar() {
                             </span>
                             <p>$290.29 has been deposited into your account!</p>
                           </div>
-                        </a>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="mr-3">
                             <div className="bg-warning icon-circle">
                               <i className="fas fa-exclamation-triangle text-white"></i>
@@ -232,13 +205,10 @@ export default function MenuAppBar() {
                               spending for your account.
                             </p>
                           </div>
-                        </a>
-                        <a
-                          className="text-center dropdown-item small text-gray-500"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="text-center dropdown-item small text-gray-500">
                           Show All Alerts
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </li>
@@ -247,28 +217,25 @@ export default function MenuAppBar() {
                     role="presentation"
                   >
                     <div className="nav-item dropdown no-arrow">
-                      <a
+                      <Link
                         className="dropdown-toggle nav-link"
                         data-toggle="dropdown"
                         aria-expanded="false"
-                        href="#"
                       >
                         <i className="fas fa-envelope fa-fw"></i>
                         <span className="badge badge-danger badge-counter">
                           7
                         </span>
-                      </a>
+                      </Link>
                       <div
                         className="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
                         role="menu"
                       >
                         <h6 className="dropdown-header">alerts center</h6>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="dropdown-list-image mr-3">
                             <img
+                              alt="logo"
                               className="rounded-circle"
                               src="assets/img/avatars/avatar4.jpeg"
                             />
@@ -285,13 +252,11 @@ export default function MenuAppBar() {
                               Emily Fowler - 58m
                             </p>
                           </div>
-                        </a>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="dropdown-list-image mr-3">
                             <img
+                              alt="logo"
                               className="rounded-circle"
                               src="assets/img/avatars/avatar2.jpeg"
                             />
@@ -307,13 +272,11 @@ export default function MenuAppBar() {
                               Jae Chun - 1d
                             </p>
                           </div>
-                        </a>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="dropdown-list-image mr-3">
                             <img
+                              alt="logo"
                               className="rounded-circle"
                               src="assets/img/avatars/avatar3.jpeg"
                             />
@@ -330,13 +293,11 @@ export default function MenuAppBar() {
                               Morgan Alvarez - 2d
                             </p>
                           </div>
-                        </a>
-                        <a
-                          className="d-flex align-items-center dropdown-item"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="d-flex align-items-center dropdown-item">
                           <div className="dropdown-list-image mr-3">
                             <img
+                              alt="avatar"
                               className="rounded-circle"
                               src="assets/img/avatars/avatar5.jpeg"
                             />
@@ -354,13 +315,10 @@ export default function MenuAppBar() {
                               Chicken the Dog · 2w
                             </p>
                           </div>
-                        </a>
-                        <a
-                          className="text-center dropdown-item small text-gray-500"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="text-center dropdown-item small text-gray-500">
                           Show All Alerts
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div
@@ -374,57 +332,41 @@ export default function MenuAppBar() {
                     role="presentation"
                   >
                     <div className="nav-item dropdown no-arrow">
-                      <a
+                      <Link
                         className="dropdown-toggle nav-link"
                         data-toggle="dropdown"
                         aria-expanded="false"
-                        href="#"
                       >
                         <span className="d-none d-lg-inline mr-2 text-gray-600 small">
                           Valerie Luna
                         </span>
                         <img
+                          alt="profileimage"
                           className="border rounded-circle img-profile"
                           src="assets/img/avatars/avatar1.jpeg"
                         />
-                      </a>
+                      </Link>
                       <div
                         className="dropdown-menu shadow dropdown-menu-right animated--grow-in"
                         role="menu"
                       >
-                        <a
-                          className="dropdown-item"
-                          role="presentation"
-                          href="#"
-                        >
+                        <Link className="dropdown-item" role="presentation">
                           <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                           &nbsp;Profile
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          role="presentation"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="dropdown-item" role="presentation">
                           <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                           &nbsp;Settings
-                        </a>
-                        <a
-                          className="dropdown-item"
-                          role="presentation"
-                          href="#"
-                        >
+                        </Link>
+                        <Link className="dropdown-item" role="presentation">
                           <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                           &nbsp;Activity log
-                        </a>
+                        </Link>
                         <div className="dropdown-divider"></div>
-                        <a
-                          className="dropdown-item"
-                          role="presentation"
-                          href="#"
-                        >
+                        <Link className="dropdown-item" role="presentation">
                           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                           &nbsp;Logout
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </li>
@@ -433,7 +375,7 @@ export default function MenuAppBar() {
             </nav>
 
             <div className="container-fluid">
-              <Route path ="/userlogin" exact component = {UserLogin} />
+              <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/" exact component={UserDashboard} />
               <Route path="/find" exact component={BurnCalories} />
               <Route path="/food" exact component={DailyMealPlanByUser} />

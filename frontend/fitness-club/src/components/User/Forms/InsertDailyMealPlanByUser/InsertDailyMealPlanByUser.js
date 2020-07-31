@@ -6,7 +6,6 @@ import {
   Button,
   CardContent,
   Card,
-  Typography,
 } from "@material-ui/core";
 
 import {

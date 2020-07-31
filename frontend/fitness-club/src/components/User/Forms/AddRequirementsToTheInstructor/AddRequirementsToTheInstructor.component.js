@@ -1,18 +1,4 @@
 import React from "react";
-import {
-  NativeSelect,
-  FormControl,
-  TextField,
-  Select,
-  MenuItem,
-  Button,
-  Container,
-  Paper,
-  CardContent,
-  Card,
-  Box,
-  Typography,
-} from "@material-ui/core";
 
 import "./AddRequirementsToTheInstructor.css";
 

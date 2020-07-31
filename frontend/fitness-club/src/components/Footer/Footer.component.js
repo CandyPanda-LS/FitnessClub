@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import "./Footer.css";
 
@@ -14,13 +14,13 @@ const Footer = () => {
               <h4>Lorem Ipsum dolor</h4>
               <ul class="footer-links">
                 <li>
-                  <a href="#">Consectetur adipiscing</a>
+                  <Link to="#">Consectetur adipiscing</Link>
                 </li>
                 <li>
-                  <a href="#">Facilisis vulputate est eget</a>
+                  <Link to="#">Facilisis vulputate est eget</Link>
                 </li>
                 <li>
-                  <a href="#">Lorem ipsum dolor</a>
+                  <Link to="#">Lorem ipsum dolor</Link>
                 </li>
               </ul>
             </div>
@@ -28,10 +28,10 @@ const Footer = () => {
               <h4>Sed elit eros</h4>
               <ul class="footer-links">
                 <li>
-                  <a href="#">Aenean condimentum viverra</a>
+                  <Link to="#">Aenean condimentum viverra</Link>
                 </li>
                 <li>
-                  <a href="#">Proin porta diam</a>
+                  <Link to="#">Proin porta diam</Link>
                 </li>
               </ul>
             </div>
@@ -39,19 +39,19 @@ const Footer = () => {
               <h4>Donec quis turpis vel</h4>
               <ul class="footer-links">
                 <li>
-                  <a href="#">Proin laoreet volutpat</a>
+                  <Link to="#">Proin laoreet volutpat</Link>
                 </li>
                 <li>
-                  <a href="#">Aenean tincidunt est</a>
+                  <Link to="#">Aenean tincidunt est</Link>
                 </li>
               </ul>
               <h4>Nulla cursus finibus</h4>
               <ul class="footer-links">
                 <li>
-                  <a href="#">Curabitur elementum odio</a>
+                  <Link to="#">Curabitur elementum odio</Link>
                 </li>
                 <li>
-                  <a href="#">Proin condimentum ac</a>
+                  <Link to="#">Proin condimentum ac</Link>
                 </li>
               </ul>
             </div>
@@ -59,19 +59,19 @@ const Footer = () => {
               <h4>Nullam ut rutrum elit</h4>
               <ul class="footer-links">
                 <li>
-                  <a href="#">Praesent gravida</a>
+                  <Link to="#">Praesent gravida</Link>
                 </li>
                 <li>
-                  <a href="#">Praesent egestas</a>
+                  <Link to="#">Praesent egestas</Link>
                 </li>
               </ul>
               <h4>Ut eget feugiat ante</h4>
               <ul class="footer-links">
                 <li>
-                  <a href="#">Etiam ornare vestibulum</a>
+                  <Link to="#">Etiam ornare vestibulum</Link>
                 </li>
                 <li>
-                  <a href="#">Donec tincidunt tempus</a>
+                  <Link to="#">Donec tincidunt tempus</Link>
                 </li>
               </ul>
             </div>
@@ -83,10 +83,10 @@ const Footer = () => {
           <hr />
           <div class="footer-legal">
             <div class="float-md-right region">
-              <a href="#">
-                <img src="assets/img/united-states-flag.png" />
+              <Link to="#">
+                <img alt="sateflag" src="assets/img/united-states-flag.png" />
                 United States
-              </a>
+              </Link>
             </div>
             <div class="d-inline-block copyright">
               <p class="d-inline-block">
