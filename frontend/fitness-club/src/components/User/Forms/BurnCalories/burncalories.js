@@ -164,6 +164,26 @@ export default class BurnCalories extends Component {
         console.log(error);
       });
 
+    //Update Current Weight and Height into the backend
+    const newWeightHeight = {
+      weight: this.state.weight_kg,
+      height: this.state.height_cm,
+    };
+
+    await axios
+      .post(
+        "http://localhost:5000/api/profile/addcurrentweightheight",
+        newWeightHeight,
+        config
+      )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    //Refresh Page
     window.location = "/find";
   }
 

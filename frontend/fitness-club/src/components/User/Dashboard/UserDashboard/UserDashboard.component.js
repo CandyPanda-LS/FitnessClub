@@ -9,6 +9,8 @@ import CompletedExercises from "../../Tables/CompletedExercises/CompletedExercis
 import DailyMealTrackerTable from "../../Tables/DailyMealTrackerTable/DailyMealTrackerTable";
 import WeightLineChart from "../../Charts/WeightLineChart/WeightLineChart.component";
 import ExercisesPieChart from "../../Charts/ExercisesPieChart/ExercisesPieChart.component";
+import MealBarChart from "../../Charts/MealBarChart/MealBarChart.component";
+import BMICard from "../../BMI/bmicard";
 
 const UserDashboard = () => {
   return (
@@ -129,6 +131,12 @@ const UserDashboard = () => {
         <div className="col-md-12 col-xl-6 mb-4">
           <ExercisesPieChart />
           {/* <Exercises1PieChart /> */}
+        </div>
+        <div className="col-md-12 col-xl-6 mb-4">
+          <BMICard />
+        </div>
+        <div className="col-md-12 col-xl-6 mb-4">
+          <MealBarChart />
         </div>
       </div>
 

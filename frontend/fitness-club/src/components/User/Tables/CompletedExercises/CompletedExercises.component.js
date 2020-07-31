@@ -14,13 +14,13 @@ import TableRow from "@material-ui/core/TableRow";
 import Background from "./img/1.jpg";
 
 const columns = [
-  { id: "Date", label: "Date", minWidth: 120 },
-  { id: "Weight", label: "Weight", minWidth: 50 },
+  { id: "Date", label: "Date", align: "center", minWidth: 120 },
+  { id: "Weight", label: "Weight", align: "center", minWidth: 50 },
   {
     id: "Height",
     label: "Height",
     minWidth: 50,
-    align: "right",
+    align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
@@ -34,13 +34,13 @@ const columns = [
     id: "Time",
     label: "Time",
     minWidth: 50,
-    align: "right",
+    align: "center",
   },
   {
     id: "Calories",
     label: "Calories",
     minWidth: 50,
-    align: "right",
+    align: "center",
   },
 ];
 

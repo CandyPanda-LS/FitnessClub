@@ -17,28 +17,29 @@ const columns = [
   {
     id: "Date",
     label: "Date",
+    align: "center",
     minWidth: 120,
   },
-  { id: "Meal", label: "Meal", minWidth: 100 },
+  { id: "Meal", label: "Meal", align: "center", minWidth: 100 },
   {
     id: "Calories",
     label: "Calories",
     minWidth: 50,
-    align: "right",
+    align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "Proteins",
     label: "Proteins",
     minWidth: 50,
-    align: "right",
+    align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "Fat",
     label: "Fat",
     minWidth: 50,
-    align: "right",
+    align: "center",
     format: (value) => value.toFixed(2),
   },
 ];

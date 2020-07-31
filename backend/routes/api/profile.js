@@ -208,6 +208,46 @@ router.delete("/dailymeallist/:dailymeal_id", auth, async (req, res) => {
   }
 });
 
+//@route  POST  api/profile/addcurrentweightheight
+//@desc  Add Current Weight Height
+//@access private
+//@author Senura
+
+router.post(
+  "/addcurrentweightheight",
+  [
+    auth,
+
+    [
+      check("weight", "mealName is required").not().isEmpty(),
+      check("height", "height is required").not().isEmpty(),
+    ],
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id }).then(
+        (weightheight) => {
+          (weightheight.currentWeight = req.body.weight),
+            (weightheight.currentHeight = req.body.height),
+            weightheight
+              .save()
+              .then(() => res.json(profile))
+              .catch((error) => res.status(400).json("Error :" + error));
+        }
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
 //@route  PUT  api/profile/addmeallist
 //@desc  Add daily meallist
 //@access private

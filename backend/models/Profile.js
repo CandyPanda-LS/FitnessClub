@@ -11,6 +11,14 @@ const ProfileSchema = new mongoose.Schema({
   package: {
     type: String,
   },
+  //@author Senura
+  currentWeight: {
+    type: String,
+  },
+  //@author Senura
+  currentHeight: {
+    type: String,
+  },
   //@desc daily meal list
   //@author Senura
   dailymeallist: [
