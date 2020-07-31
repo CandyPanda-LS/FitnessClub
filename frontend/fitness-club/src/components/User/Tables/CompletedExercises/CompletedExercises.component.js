@@ -14,12 +14,12 @@ import TableRow from "@material-ui/core/TableRow";
 import Background from "./img/1.jpg";
 
 const columns = [
-  { id: "Date", label: "Date", minWidth: 170 },
-  { id: "Weight", label: "Weight", minWidth: 100 },
+  { id: "Date", label: "Date", minWidth: 120 },
+  { id: "Weight", label: "Weight", minWidth: 50 },
   {
     id: "Height",
     label: "Height",
-    minWidth: 170,
+    minWidth: 50,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
@@ -27,19 +27,19 @@ const columns = [
     id: "Exercise",
     label: "Exercise",
     minWidth: 170,
-    align: "right",
+    align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "Time",
     label: "Time",
-    minWidth: 170,
+    minWidth: 50,
     align: "right",
   },
   {
     id: "Calories",
     label: "Calories",
-    minWidth: 170,
+    minWidth: 50,
     align: "right",
   },
 ];

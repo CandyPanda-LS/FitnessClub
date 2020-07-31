@@ -1,28 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
-import {
-  NativeSelect,
-  FormControl,
-  TextField,
-  Select,
-  MenuItem,
-  Button,
-  Container,
-  Paper,
-  CardContent,
-  Card,
-  Box,
-  Typography,
-} from "@material-ui/core";
-
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-
-import DateFnsUtils from "@date-io/date-fns";
-
-import { shadows } from "@material-ui/system";
+import { Box, Typography } from "@material-ui/core";
 
 import "./DailyMealPlanByUser.css";
 
