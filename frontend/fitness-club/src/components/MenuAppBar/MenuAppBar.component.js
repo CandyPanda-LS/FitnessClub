@@ -377,10 +377,18 @@ export default function MenuAppBar() {
             <div className="container-fluid">
               <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/" exact component={UserDashboard} />
-              <Route path="/find" exact component={BurnCalories} />
-              <Route path="/food" exact component={DailyMealPlanByUser} />
               <Route
-                path="/req"
+                path="/profile/addcompletedexerciselist"
+                exact
+                component={BurnCalories}
+              />
+              <Route
+                path="/profile/adddailymeal"
+                exact
+                component={DailyMealPlanByUser}
+              />
+              <Route
+                path="/profile/requestplan"
                 exact
                 component={AddRequirementsToTheInstructor}
               />

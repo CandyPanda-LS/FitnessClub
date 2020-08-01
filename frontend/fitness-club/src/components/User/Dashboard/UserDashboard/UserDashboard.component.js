@@ -17,7 +17,10 @@ const UserDashboard = () => {
     <>
       <div className="row">
         <div className="col-md-6 col-xl-3 mb-4 headerDumbell">
-          <Link to="find" style={{ textDecoration: "none" }}>
+          <Link
+            to="/profile/addcompletedexerciselist"
+            style={{ textDecoration: "none" }}
+          >
             <div className=" card shadow border-left-primary py-2">
               <div className="card-body headerOptions">
                 <div className="row align-items-center no-gutters">
@@ -39,7 +42,7 @@ const UserDashboard = () => {
         </div>
 
         <div className="col-md-6 col-xl-3 mb-4 headerMeal">
-          <Link to="food" style={{ textDecoration: "none" }}>
+          <Link to="profile/adddailymeal" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-success py-2">
               <div className="card-body headerOptions">
                 <div className="row align-items-center no-gutters">
@@ -61,7 +64,7 @@ const UserDashboard = () => {
         </div>
 
         <div className="col-md-6 col-xl-3 mb-4 headerRequest">
-          <Link to="req" style={{ textDecoration: "none" }}>
+          <Link to="/profile/requestplan" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-info py-2">
               <div className="card-body headerOptions">
                 <div className="row align-items-center no-gutters">
