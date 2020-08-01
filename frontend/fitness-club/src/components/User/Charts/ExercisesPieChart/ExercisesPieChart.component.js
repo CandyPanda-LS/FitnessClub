@@ -46,12 +46,12 @@ export default function ExercisesPieChart() {
               .map((burnedcalories) => burnedcalories.calories)
               .reverse(),
             backgroundColor: [
-              "#10de47",
-              "#06adbf",
-              "#0965ba",
               "#bf00c2",
-              "#d9ca00",
+              "#ff2684",
+              "#3254a8",
+              "#3da19c",
               "#06adbf",
+              "#f7d619",
             ],
             label: "Weight",
           },

@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { Paper } from "@material-ui/core";
 
+import "./bmicard.css";
+
 export default function BMICard() {
   const [BMIDetails, setBMIdetails] = useState([]);
   const [BMIValue, setBMIValue] = useState(0);
@@ -47,30 +49,65 @@ export default function BMICard() {
   }, []);
 
   return (
-    <div
-      style={{
-        padding: "10px",
-        textAlign: "center",
-        margin: "auto",
-        justifyContent: "center",
-      }}
-    >
-      <Paper
-        elevation={3}
+    <div>
+      <div
+        className="weightLineChart"
         style={{
           padding: "10px",
           textAlign: "center",
           margin: "auto",
           justifyContent: "center",
-          borderRadius: "20px",
         }}
       >
-        {" "}
-        <p>Current Weight {BMIWeight}</p>
-        <p>Current Height {BMIHeight}</p>
-        <p>Your BMI {BMIValue}</p>
-        <p>{BMIDetails}</p>
-      </Paper>
+        <Paper
+          elevation={3}
+          style={{
+            padding: "65px",
+            textAlign: "center",
+            margin: "auto",
+            justifyContent: "center",
+            borderRadius: "20px",
+            //fontWeight: "bold",
+            fontFamily: "Kanit, sans-serif",
+            fontSize: "18px",
+          }}
+        >
+          {" "}
+          <p style={{ color: "#0c76f7" }}>
+            <span>
+              <i class="fas fa-weight" style={{ color: "#0c76f7" }}></i>&nbsp;
+              &nbsp;
+            </span>
+            Current Weight {BMIWeight} Kg
+          </p>
+          <p style={{ color: "#29bcc2" }}>
+            <span>
+              <i class="fas fa-male" style={{ color: "#29bcc2" }}></i>&nbsp;
+              &nbsp;
+            </span>
+            Current Height {BMIHeight} cm
+          </p>
+          <p style={{ color: "#e3c205" }}>
+            {" "}
+            <span>
+              <i class="fas fa-laptop-medical" style={{ color: "#e3c205" }}></i>
+              &nbsp; &nbsp;
+            </span>
+            Your BMI {BMIValue}
+          </p>
+          <p style={{ color: "#10c716" }} className="blinking">
+            {" "}
+            <span>
+              <i
+                class="fas fa-stethoscope blinking"
+                style={{ color: "#10c716", fontSize: "20px" }}
+              ></i>
+              &nbsp; &nbsp;
+            </span>
+            {BMIDetails}
+          </p>
+        </Paper>
+      </div>
     </div>
   );
 }

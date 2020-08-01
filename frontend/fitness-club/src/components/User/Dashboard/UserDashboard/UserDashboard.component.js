@@ -125,15 +125,15 @@ const UserDashboard = () => {
 
       <div className="row">
         <div className="col-md-12 col-xl-6 mb-4">
+          <BMICard />
+        </div>
+        <div className="col-md-12 col-xl-6 mb-4">
           <WeightLineChart />
           {/* <LineChart /> */}
         </div>
         <div className="col-md-12 col-xl-6 mb-4">
           <ExercisesPieChart />
           {/* <Exercises1PieChart /> */}
-        </div>
-        <div className="col-md-12 col-xl-6 mb-4">
-          <BMICard />
         </div>
         <div className="col-md-12 col-xl-6 mb-4">
           <MealBarChart />
