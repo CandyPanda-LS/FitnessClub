@@ -1,5 +1,13 @@
+/*
+ *
+ * @author Senura Jaydeva
+ * @desc DailyMeal List Table
+ *
+ */
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -10,8 +18,18 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 import Background from "./img/1.jpg";
+
+//Hover Component For Delete Icon
+const HoverDeleteButton = styled.p`
+  color: #ffffff;
+  :hover {
+    color: #ed1212;
+    cursor: pointer;
+  }
+`;
 
 const columns = [
   {
@@ -42,10 +60,16 @@ const columns = [
     align: "center",
     format: (value) => value.toFixed(2),
   },
+  {
+    id: "MealID",
+    label: "",
+    minWidth: 50,
+    align: "center",
+  },
 ];
 
-function createData(Date, Meal, Calories, Proteins, Fat) {
-  return { Date, Meal, Calories, Proteins, Fat };
+function createData(Date, Meal, Calories, Proteins, Fat, MealID) {
+  return { Date, Meal, Calories, Proteins, Fat, MealID };
 }
 
 const useStyles = makeStyles({
@@ -101,7 +125,8 @@ export default function DailyMealTrackerTable() {
       currentMeal.mealName,
       currentMeal.calories,
       currentMeal.proteins,
-      currentMeal.fat
+      currentMeal.fat,
+      currentMeal._id
     );
   });
 
@@ -113,6 +138,38 @@ export default function DailyMealTrackerTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  async function deleteMeal(id) {
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+      },
+    };
+
+    console.log("Delete meal id is " + id);
+    await axios
+      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
+      .then((response) => {
+        console.log(response);
+      });
+
+    //rerender meal list(Get meallist Data from the backend)
+
+    await axios
+      .get("http://localhost:5000/api/profile/me", config)
+      .then(({ data }) => {
+        console.log(data.dailymeallist);
+        console.log(data.dailymeallist.length);
+
+        if (data.dailymeallist.length > 0) {
+          setDailyMealList(data.dailymeallist);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <Paper
@@ -156,9 +213,19 @@ export default function DailyMealTrackerTable() {
                           key={column.id}
                           align={column.align}
                         >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : column.id === "MealID" ? (
+                            <HoverDeleteButton>
+                              <DeleteOutlineIcon
+                                onClick={() => {
+                                  deleteMeal(value);
+                                }}
+                              />
+                            </HoverDeleteButton>
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}

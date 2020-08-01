@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -10,19 +11,21 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 import Background from "./img/1.jpg";
 
+//Hover Component For Delete Icon
+const HoverDeleteButton = styled.p`
+  color: #ffffff;
+  :hover {
+    color: #ed1212;
+    cursor: pointer;
+  }
+`;
+
 const columns = [
   { id: "Date", label: "Date", align: "center", minWidth: 120 },
-  { id: "Weight", label: "Weight", align: "center", minWidth: 50 },
-  {
-    id: "Height",
-    label: "Height",
-    minWidth: 50,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
-  },
   {
     id: "Exercise",
     label: "Exercise",
@@ -42,10 +45,22 @@ const columns = [
     minWidth: 50,
     align: "center",
   },
+  {
+    id: "CompletedExerciseID",
+    label: "",
+    minWidth: 50,
+    align: "center",
+  },
 ];
 
-function createData(Date, Weight, Height, Exercise, Time, Calories) {
-  return { Date, Weight, Height, Exercise, Time, Calories };
+function createData(Date, Exercise, Time, Calories, CompletedExerciseID) {
+  return {
+    Date,
+    Exercise,
+    Time,
+    Calories,
+    CompletedExerciseID,
+  };
 }
 
 const useStyles = makeStyles({
@@ -94,15 +109,49 @@ export default function CompletedExercises() {
       });
   }, []);
 
+  async function deleteExercise(id) {
+    const config = {
+      headers: {
+        "x-auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWYyMjMyYjM1ZDFkMmMzYWM0MDJjZjM3In0sImlhdCI6MTU5NjA4NTQ1NywiZXhwIjoxNTk2NDQ1NDU3fQ.wtLn4S2joLleR0LA-mKYzWKNYIrRuojipRuINPUCZ5I",
+      },
+    };
+
+    console.log("Delete Exercise id is " + id);
+    await axios
+      .delete(
+        "http://localhost:5000/api/profile/dailyexerciselist/" + id,
+        config
+      )
+      .then((response) => {
+        console.log(response);
+      });
+
+    //rerender meal list(Get meallist Data from the backend)
+
+    await axios
+      .get("http://localhost:5000/api/profile/me", config)
+      .then(({ data }) => {
+        console.log(data.completedWorkoutList);
+        console.log(data.completedWorkoutList.length);
+
+        if (data.completedWorkoutList.length > 0) {
+          setCompletedExerciseList(data.completedWorkoutList);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   //map table row data
   const rows = completedExerciseList.map((currentCompletedExercise) => {
     return createData(
       currentCompletedExercise.date.substring(0, 10),
-      currentCompletedExercise.weight,
-      currentCompletedExercise.height,
       currentCompletedExercise.exercise,
       currentCompletedExercise.time,
-      currentCompletedExercise.calories
+      currentCompletedExercise.calories,
+      currentCompletedExercise._id
     );
   });
 
@@ -157,9 +206,19 @@ export default function CompletedExercises() {
                           key={column.id}
                           align={column.align}
                         >
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : column.id === "CompletedExerciseID" ? (
+                            <HoverDeleteButton>
+                              <DeleteOutlineIcon
+                                onClick={() => {
+                                  deleteExercise(value);
+                                }}
+                              />
+                            </HoverDeleteButton>
+                          ) : (
+                            value
+                          )}
                         </TableCell>
                       );
                     })}
