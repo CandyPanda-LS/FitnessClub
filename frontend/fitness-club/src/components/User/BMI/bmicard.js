@@ -31,7 +31,7 @@ export default function BMICard() {
         const bmi =
           data.currentWeight /
           ((data.currentHeight / 100) * (data.currentHeight / 100));
-        setBMIValue(bmi);
+        setBMIValue(bmi.toFixed(2));
 
         if (bmi >= 30) {
           setBMIdetails("Obesity");
