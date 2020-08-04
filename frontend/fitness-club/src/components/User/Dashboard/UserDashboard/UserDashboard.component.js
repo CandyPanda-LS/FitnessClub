@@ -64,7 +64,7 @@ const UserDashboard = () => {
         </div>
 
         <div className="col-md-6 col-xl-3 mb-4 headerRequest">
-          <Link to="/profile/requestplan" style={{ textDecoration: "none" }}>
+          <Link to="/requestplan" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-info py-2">
               <div className="card-body headerOptions">
                 <div className="row align-items-center no-gutters">
