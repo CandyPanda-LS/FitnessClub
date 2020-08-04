@@ -8,8 +8,14 @@ import "./bmicard.css";
 export default function BMICard() {
   const [BMIDetails, setBMIdetails] = useState([]);
   const [BMIValue, setBMIValue] = useState(0);
-  const [BMIWeight, setWeight] = useState();
-  const [BMIHeight, setHeight] = useState();
+  const [BMIWeight, setWeight] = useState(0);
+  const [BMIHeight, setHeight] = useState(0);
+  const [BMIColorClass, setBMIColorClass] = useState(
+    "fas fa-stethoscope blinkingEmpty"
+  );
+  const [BMIParagraphColorClass, setBMIParagraphColorClass] = useState(
+    "blinkingEmpty"
+  );
 
   //fetching completed Exercise List data from the backend
   useEffect(() => {
@@ -34,12 +40,20 @@ export default function BMICard() {
 
         if (bmi >= 30) {
           setBMIdetails("Obesity");
+          setBMIColorClass("fas fa-stethoscope blinkingUnderOverWeight");
+          setBMIParagraphColorClass("blinkingUnderOverWeight");
         } else if (bmi >= 25 && bmi < 29.9) {
           setBMIdetails("Overweight");
+          setBMIColorClass("fas fa-stethoscope blinkingUnderOverWeight");
+          setBMIParagraphColorClass("blinkingUnderOverWeight");
         } else if (bmi >= 18.5 && bmi < 24.9) {
           setBMIdetails("Healthy Range");
+          setBMIColorClass("fas fa-stethoscope blinkingHealthy");
+          setBMIParagraphColorClass("blinkingHealthy");
         } else if (bmi < 18.5) {
           setBMIdetails("Underweight ");
+          setBMIColorClass("fas fa-stethoscope blinkingUnderOverWeight");
+          setBMIParagraphColorClass("blinkingUnderOverWeight");
         }
       })
       .catch((error) => {
@@ -94,13 +108,10 @@ export default function BMICard() {
             </span>
             Your BMI {BMIValue}
           </p>
-          <p style={{ color: "#10c716" }} className="blinking">
+          <p className={BMIParagraphColorClass}>
             {" "}
             <span>
-              <i
-                class="fas fa-stethoscope blinking"
-                style={{ color: "#10c716", fontSize: "20px" }}
-              ></i>
+              <i className={BMIColorClass} style={{ fontSize: "20px" }}></i>
               &nbsp; &nbsp;
             </span>
             {BMIDetails}

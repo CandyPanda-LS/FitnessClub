@@ -5,6 +5,15 @@ import { Bar } from "react-chartjs-2";
 
 import "./MealBarChart.css";
 
+import loadingBarChart from "./img/bar_chart.png";
+
+const EmptyBarChart = () => (
+  <div>
+    <p>Meal Intake</p>
+    <img src={loadingBarChart} style={{ width: "60%" }} alt="bar cahrt" />
+  </div>
+);
+
 export default function MealBarChart() {
   const [mealCalories, setMealCalories] = useState([]);
 
@@ -111,7 +120,7 @@ export default function MealBarChart() {
             borderRadius: "20px",
           }}
         >
-          {pieChart}
+          {mealCalories ? <EmptyBarChart /> : pieChart}
         </Paper>
       </div>
     </div>

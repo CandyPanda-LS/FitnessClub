@@ -3,7 +3,16 @@ import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import { Doughnut } from "react-chartjs-2";
 
+import loadingpieChart from "./img/pie_chart.png";
+
 import "./ExercisesPieChart.css";
+
+const EmptyPieChart = () => (
+  <div>
+    <p>Exercise Tracker</p>
+    <img src={loadingpieChart} style={{ width: "53%" }} alt="pie cahrt" />
+  </div>
+);
 
 export default function ExercisesPieChart() {
   const [burnedCalories, setBurnedCalories] = useState([]);
@@ -85,7 +94,7 @@ export default function ExercisesPieChart() {
             borderRadius: "20px",
           }}
         >
-          {pieChart}
+          {burnedCalories ? <EmptyPieChart /> : pieChart}
         </Paper>
       </div>
     </div>

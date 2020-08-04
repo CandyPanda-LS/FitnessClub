@@ -3,8 +3,17 @@ import axios from "axios";
 import Paper from "@material-ui/core/Paper";
 import { Line } from "react-chartjs-2";
 
+import loadingchart from "./img/line_chart.png";
+
 import "./WeightLineChart.css";
 //https://codepen.io/SPRS/pen/ebMqNZ - donut chart
+
+const EmptyLineChart = () => (
+  <div>
+    <p>Weigth Progress</p>
+    <img src={loadingchart} style={{ width: "60%" }} alt="line cahrt" />
+  </div>
+);
 
 export default function WeightLineChart() {
   const [dailyWeight, setDailyWeight] = useState([]);
@@ -117,7 +126,7 @@ export default function WeightLineChart() {
             borderRadius: "20px",
           }}
         >
-          {lineChart}
+          {dailyWeight ? <EmptyLineChart /> : lineChart}
         </Paper>
       </div>
     </div>
