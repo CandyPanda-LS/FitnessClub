@@ -94,7 +94,7 @@ export default function ExercisesPieChart() {
             borderRadius: "20px",
           }}
         >
-          {burnedCalories ? <EmptyPieChart /> : pieChart}
+          {burnedCalories.length === 0 ? <EmptyPieChart /> : pieChart}
         </Paper>
       </div>
     </div>

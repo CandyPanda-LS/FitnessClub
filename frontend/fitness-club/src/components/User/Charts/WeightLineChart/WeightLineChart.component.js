@@ -126,7 +126,7 @@ export default function WeightLineChart() {
             borderRadius: "20px",
           }}
         >
-          {dailyWeight ? <EmptyLineChart /> : lineChart}
+          {dailyWeight.length === 0 ? <EmptyLineChart /> : lineChart}
         </Paper>
       </div>
     </div>

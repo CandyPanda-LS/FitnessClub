@@ -120,7 +120,7 @@ export default function MealBarChart() {
             borderRadius: "20px",
           }}
         >
-          {mealCalories ? <EmptyBarChart /> : pieChart}
+          {mealCalories.length === 0 ? <EmptyBarChart /> : pieChart}
         </Paper>
       </div>
     </div>
