@@ -378,17 +378,17 @@ export default function MenuAppBar() {
               <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/" exact component={UserDashboard} />
               <Route
-                path="/profile/addcompletedexerciselist"
+                path="/addcompletedexerciselist"
                 exact
                 component={BurnCalories}
               />
               <Route
-                path="/profile/adddailymeal"
+                path="/adddailymeal"
                 exact
                 component={DailyMealPlanByUser}
               />
               <Route
-                path="/profile/requestplan"
+                path="/requestplan"
                 exact
                 component={AddRequirementsToTheInstructor}
               />

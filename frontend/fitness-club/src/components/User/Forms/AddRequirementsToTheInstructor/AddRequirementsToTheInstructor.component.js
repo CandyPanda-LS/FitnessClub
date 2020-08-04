@@ -52,6 +52,19 @@ const AddRequirementsToTheInstructor = () => {
                         />
                       </div>
                       <div class="form-group">
+                        <select
+                          class="form-control form-control-user"
+                          id="exampleInputEmail"
+                        >
+                          <option class="form-control form-control-user">
+                            Male
+                          </option>
+                          <option class="form-control form-control-user">
+                            Female
+                          </option>
+                        </select>
+                      </div>
+                      <div class="form-group">
                         <textarea
                           class="form-control form-control-user"
                           type="text"

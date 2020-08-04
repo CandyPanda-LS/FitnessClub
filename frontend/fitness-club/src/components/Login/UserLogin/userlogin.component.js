@@ -1,8 +1,66 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Background from "./image/1.jpg";
+import axios from "axios";
 
 export default class UserLogin extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePassword = this.onChangePassword.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+    this.state = {
+      email: "",
+      password: "",
+    };
+  }
+
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
+
+  onChangePassword(e) {
+    this.setState({
+      password: e.target.value,
+    });
+  }
+
+  async onSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const loginDetails = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const loginResponse = await axios.post(
+        "http://localhost:5000/api/auth",
+        loginDetails,
+        config
+      );
+      const setUserData = {
+        token: loginResponse.data.token,
+        user: loginResponse.data.user,
+        err: loginResponse.data.error,
+      };
+      localStorage.setItem("x-auth-token", setUserData.token);
+      window.location = "/";
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -29,15 +87,16 @@ export default class UserLogin extends Component {
                       <div className="text-center">
                         <h4 className="text-dark mb-4">Welcome Back!</h4>
                       </div>
-                      <form className="user">
+                      <form className="user" onSubmit={this.onSubmit}>
                         <div className="form-group">
                           <input
                             className="form-control form-control-user"
                             type="email"
                             id="exampleInputEmail"
                             aria-describedby="emailHelp"
-                            placeholder="Enter Email Address..."
                             name="email"
+                            value={this.state.email}
+                            onChange={this.onChangeEmail}
                           />
                         </div>
                         <div className="form-group">
@@ -47,47 +106,17 @@ export default class UserLogin extends Component {
                             id="exampleInputPassword"
                             placeholder="Password"
                             name="password"
+                            value={this.state.password}
+                            onChange={this.onChangePassword}
                           />
                         </div>
-                        <div className="form-group">
-                          <div className="custom-control custom-checkbox small">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input custom-control-input"
-                                type="checkbox"
-                                id="formCheck-1"
-                              />
-                              <label
-                                className="form-check-label custom-control-label"
-                                for="formCheck-1"
-                              >
-                                Remember Me
-                              </label>
-                            </div>
-                          </div>
-                        </div>
+
                         <button
                           className="btn btn-primary btn-block text-white btn-user"
                           type="submit"
                         >
                           Login
                         </button>
-                        <hr />
-                        <Link
-                          className="btn btn-primary btn-block text-white btn-google btn-user"
-                          role="button"
-                        >
-                          <i className="fab fa-google"></i>&nbsp; Login with
-                          Google
-                        </Link>
-                        <Link
-                          className="btn btn-primary btn-block text-white btn-facebook btn-user"
-                          role="button"
-                        >
-                          <i className="fab fa-facebook-f"></i>&nbsp; Login with
-                          Facebook
-                        </Link>
-                        <hr />
                       </form>
                       <div className="text-center">
                         <Link className="small" to="forgot-password.html">

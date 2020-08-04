@@ -18,7 +18,7 @@ const UserDashboard = () => {
       <div className="row">
         <div className="col-md-6 col-xl-3 mb-4 headerDumbell">
           <Link
-            to="/profile/addcompletedexerciselist"
+            to="/addcompletedexerciselist"
             style={{ textDecoration: "none" }}
           >
             <div className=" card shadow border-left-primary py-2">
@@ -42,7 +42,7 @@ const UserDashboard = () => {
         </div>
 
         <div className="col-md-6 col-xl-3 mb-4 headerMeal">
-          <Link to="profile/adddailymeal" style={{ textDecoration: "none" }}>
+          <Link to="/adddailymeal" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-success py-2">
               <div className="card-body headerOptions">
                 <div className="row align-items-center no-gutters">
