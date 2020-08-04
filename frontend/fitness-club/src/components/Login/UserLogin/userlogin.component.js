@@ -93,6 +93,7 @@ export default class UserLogin extends Component {
                             className="form-control form-control-user"
                             type="email"
                             id="exampleInputEmail"
+                            placeholder="Email"
                             aria-describedby="emailHelp"
                             name="email"
                             value={this.state.email}

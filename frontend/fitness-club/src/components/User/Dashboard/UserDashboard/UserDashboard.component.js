@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./UserDashboard.css";
 
@@ -13,6 +13,15 @@ import MealBarChart from "../../Charts/MealBarChart/MealBarChart.component";
 import BMICard from "../../BMI/bmicard";
 
 const UserDashboard = () => {
+  /*Redirect to login page if there is no token*/
+  useEffect(() => {
+    const token = localStorage.getItem("x-auth-token");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+  });
+
   return (
     <>
       <div className="row">

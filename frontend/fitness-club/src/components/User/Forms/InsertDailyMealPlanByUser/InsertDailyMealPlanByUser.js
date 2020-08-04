@@ -38,7 +38,14 @@ export default class InsertDailyMealPlanByUser extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    /*Redirect to login page if there is no token*/
+    const token = localStorage.getItem("x-auth-token");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+  }
 
   onChangeDate(date) {
     this.setState({
