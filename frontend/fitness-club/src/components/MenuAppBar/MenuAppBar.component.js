@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Footer from "../../components/Footer/Footer.component";
@@ -10,6 +10,13 @@ import UserLogin from "../Login/UserLogin/userlogin.component";
 // import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
+  const [token, setToken] = useState(0);
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("x-auth-token");
+    setToken(userToken);
+  }, []);
+
   return (
     <Router>
       <div id="wrapper">
@@ -86,6 +93,8 @@ export default function MenuAppBar() {
             </div>
           </div>
         </nav>
+
+        {/* Header Nav bar  */}
         <div className="d-flex flex-column" id="content-wrapper">
           <div id="content">
             <nav className="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -338,7 +347,7 @@ export default function MenuAppBar() {
                         aria-expanded="false"
                       >
                         <span className="d-none d-lg-inline mr-2 text-gray-600 small">
-                          Valerie Luna
+                          {token === 0 ? "user" : "Valerie Luna"}
                         </span>
                         <img
                           alt="profileimage"
