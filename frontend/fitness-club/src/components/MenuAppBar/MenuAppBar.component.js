@@ -7,6 +7,9 @@ import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
 import UserLogin from "../Login/UserLogin/userlogin.component";
+import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
+import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
+
 // import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
@@ -401,6 +404,12 @@ export default function MenuAppBar() {
                 exact
                 component={AddRequirementsToTheInstructor}
               />
+              <Route
+                path="/insertItemShop"
+                exact
+                component={EcommerceInsertitem}
+              />
+              <Route path="/shop" exact component={ItemsGrid} />
             </div>
           </div>
 
