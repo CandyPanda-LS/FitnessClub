@@ -10,32 +10,38 @@ export default class Imageslider extends Component {
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item">
                 <div class="jumbotron pulse animated hero-nature carousel-hero">
-                  <h1 class="hero-title">Hero Nature</h1>
-                  <p class="hero-subtitle">
-                    Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                    justo odio, dapibus ac facilisis in, egestas eget quam.
-                  </p>
-                  <p></p>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                 </div>
               </div>
               <div class="carousel-item">
                 <div class="jumbotron pulse animated hero-photography carousel-hero">
-                  <h1 class="hero-title">Hero Photography</h1>
-                  <p class="hero-subtitle">
-                    Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                    justo odio, dapibus ac facilisis in, egestas eget quam.
-                  </p>
-                  <p></p>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+
+                  {/* Make Space to adjust heigth */}
                 </div>
               </div>
               <div class="carousel-item active">
                 <div class="jumbotron pulse animated hero-technology carousel-hero">
-                  <h1 class="hero-title">Hero Technology</h1>
-                  <p class="hero-subtitle">
-                    Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                    justo odio, dapibus ac facilisis in, egestas eget quam.
-                  </p>
-                  <p></p>
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  <br />
+                  {/* Make Space to adjust heigth */}
                 </div>
               </div>
             </div>
