@@ -21,6 +21,11 @@ import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
 
 // @desc import Components
+// @author Ayodya
+import InsertFeedback from "../Feedback/InsertFeedback/InsertFeedback.component";
+import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
+
+// @desc import Components
 // @author Dilumi
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
@@ -416,7 +421,6 @@ export default function MenuAppBar() {
               {/* Routes
               @author Dilmi */}
               <Route path="/userlogin" exact component={UserLogin} />
-
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={UserDashboard} />
@@ -435,9 +439,7 @@ export default function MenuAppBar() {
                 exact
                 component={AddRequirementsToTheInstructor}
               />
-
               <Route path="/articlelist" exact component={ArticleList} />
-
               {/* Routes
               @author Lasal */}
               <Route
@@ -447,7 +449,6 @@ export default function MenuAppBar() {
               />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
-
               {/* Routes
               @author Dilumi */}
               <Route path="/inventory" exact component={InventoryGrid} />
@@ -456,7 +457,6 @@ export default function MenuAppBar() {
                 exact
                 component={InsertInventoryItems}
               />
-
               {/* Routes
               @author Jayani */}
               <Route path="/userforms" exact component={UserPlan} />
@@ -490,6 +490,10 @@ export default function MenuAppBar() {
                 exact
                 component={FitnessUpdatesTable}
               />
+              {/* Routes
+              @author Ayodya */}
+              <Route path="/InsertFeedback" exact component={InsertFeedback} />
+              <Route path="/FeedbackTable" exact component={FeedbackTable} />
             </div>
           </div>
 
