@@ -11,6 +11,7 @@ import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
+import Item from "../Shop/Pages/Item/Item.component";
 
 // import { Link } from "@material-ui/core";
 
@@ -418,6 +419,7 @@ export default function MenuAppBar() {
                 exact
                 component={InsertInventoryItems}
               />
+              <Route path="/shopItem" exact component={Item} />
             </div>
           </div>
 
