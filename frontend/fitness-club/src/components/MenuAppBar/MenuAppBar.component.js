@@ -12,6 +12,8 @@ import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
 import Item from "../Shop/Pages/Item/Item.component";
+import RequestedPlansTable from "../Instructor/UserRequirements/userrequirement";
+import UserPlan from "../Instructor/forms/userforms";
 
 // import { Link } from "@material-ui/core";
 
@@ -390,7 +392,12 @@ export default function MenuAppBar() {
             </nav>
 
             <div className="container-fluid">
+              {/* Routes
+              @author Dilmi */}
               <Route path="/userlogin" exact component={UserLogin} />
+
+              {/* Routes
+              @author Senura */}
               <Route path="/" exact component={UserDashboard} />
               <Route
                 path="/addcompletedexerciselist"
@@ -407,19 +414,34 @@ export default function MenuAppBar() {
                 exact
                 component={AddRequirementsToTheInstructor}
               />
+
+              {/* Routes
+              @author Lasal */}
               <Route
                 path="/insertItemShop"
                 exact
                 component={EcommerceInsertitem}
               />
               <Route path="/shop" exact component={ItemsGrid} />
+              <Route path="/shopItem" exact component={Item} />
+
+              {/* Routes
+              @author Dilumi */}
               <Route path="/inventory" exact component={InventoryGrid} />
               <Route
                 path="/inventoryitems"
                 exact
                 component={InsertInventoryItems}
               />
-              <Route path="/shopItem" exact component={Item} />
+
+              {/* Routes
+              @author Jayani */}
+              <Route path="/userforms" exact component={UserPlan} />
+              <Route
+                path="/userrequirement"
+                exact
+                component={RequestedPlansTable}
+              />
             </div>
           </div>
 
