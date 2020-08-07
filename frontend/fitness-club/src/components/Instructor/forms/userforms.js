@@ -1,413 +1,857 @@
 import React, { Component } from "react";
-import axios from "axios";
-import {
-  FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
-  Button,
-  CardContent,
-  Card,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { Paper, Card } from "@material-ui/core";
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import Background from "./img/gym.jpg";
+import BackgroundMeal from "./img/meal.jpg";
 
-import DateFnsUtils from "@date-io/date-fns";
+import "./userforms.css";
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 150,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
-
-export default function UserPlan() {
-  const classes = useStyles();
-
-  return (
-    <>
+export default class userforms extends Component {
+  render() {
+    return (
       <div>
-        <div className="row">
-          <div className="col-md-12">
-            <h3
-              className="text-center"
-              style={{ padding: "20px", color: "#1e678f", fontWeight: "bold" }}
-            >
-              Add Meal & Workout Plan
-            </h3>
-          </div>
-          <div className="col-md-12" style={{ margin: "0px 0px 20px" }}>
-            <Card
-              className="card-border1"
-              style={{
-                // background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
-                borderRadius: "20px",
-              }}
-            >
-              <CardContent>
-                <p>Senura Jayadeva</p>
-                <p>Male</p>
-                <p>Weight 65Kg</p>
-                <p>Heigth 180cm</p>
-                <p>
-                  Lorem ipsum, or lipsum as it is sometimes known, is dummy text
-                  used in laying out print, graphic or web designs. The passage
-                  is attributed to an unknown typesetter in the 15th century who
-                  is thought to have scrambled parts{" "}
-                </p>
-              </CardContent>
-            </Card>
+        <div>
+          <div className="row" className="text-center">
+            <h3 style={{ color: "#073370" }}>Add Meal & Workout Plan </h3>
           </div>
 
-          <div className="col-md-6">
+          <Paper
+            elevation={3}
+            style={{
+              margin: "20px 0px",
+
+              borderRadius: "15px",
+            }}
+          >
             <Card
-              className="card-border1"
               style={{
-                background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
-                borderRadius: "20px",
-                boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
+                margin: "20px 0px",
+                padding: "30px",
               }}
             >
-              <CardContent>
-                <div className="row">
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Workout One
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        sets
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        reps
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
+              <div className="row">
+                <div className="col-md-3">
+                  <p>Senura Jaydeva</p>
                 </div>
 
-                <br />
-
-                {/* Second Workout option */}
-                <div className="row">
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Workout One
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        sets
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        reps
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
+                <div className="col-md-3">
+                  <p>Weight 60 kg</p>
                 </div>
-
-                <br />
-
-                {/* Third Workout option */}
-                <div className="row">
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Workout One
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        sets
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="col-md-4">
-                    <FormControl
-                      variant="outlined"
-                      className={classes.formControl}
-                    >
-                      {/* First Workout option */}
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        reps
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value=""
-                        label="Workout One"
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
+                <div className="col-md-3">
+                  <p>Height 180 cm</p>
                 </div>
-
-                <br />
-
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <Button variant="contained" color="primary">
-                    Add Workout Plan
-                  </Button>
-                </FormControl>
-              </CardContent>
+                <div className="col-md-3">
+                  <p>
+                    Contrary to popular belief, Lorem Ipsum is not simply random
+                    text. It has roots in a piece of classical Latin literature
+                  </p>
+                </div>
+              </div>
             </Card>
-          </div>
+          </Paper>
 
-          {/* Add Meal Plan */}
-          <div className="col-md-6">
-            <Card
-              className="card-border1"
-              style={{
-                background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
-                borderRadius: "20px",
-                boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
-              }}
-            >
-              <CardContent>
-                <FormControl variant="outlined" className={classes.formControl}>
-                  {/* First Workout option */}
-                  <InputLabel id="demo-simple-select-outlined-label">
-                    Workout One
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value=""
-                    label="Workout One"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
+          <div class="row" style={{ margin: "10px" }}>
+            <div class="col-md-6">
+              <div class="card" style={{ borderRadius: "15px" }}>
+                <div
+                  class="card-body"
+                  style={{
+                    borderRadius: "15px",
+                    boxShadow: "4px 5px 7px rgba(68,69,69,0.44)",
+                    backgroundImage: `url(${Background})`,
+                    backgroundRepeat: "no-repeat" /* Do not repeat the image */,
+                    backgroundSize: "cover",
+                    backgroundOpacity: 0.5,
+                  }}
+                >
+                  <form>
+                    {/* Workout 1  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
 
-                <br />
+                    {/* Workout 1 End */}
 
-                {/* Second Workout option */}
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-outlined-label-two">
-                    {" "}
-                    Workout Two
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-outlined-label-two"
-                    id="demo-simple-select-outlined"
-                    value=""
-                    label="Workout Two"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
+                    {/* Workout 1  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
 
-                <br />
+                    {/* Workout 1 End */}
 
-                {/* Third Workout option */}
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-outlined-label-three">
-                    {" "}
-                    Workout Three
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-outlined-label-three"
-                    id="demo-simple-select-outlined"
-                    value=""
-                    label="Workout Three"
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
+                    {/* Workout 2  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
 
-                <br />
+                    {/* Workout 2 End */}
 
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <Button variant="contained" color="primary">
-                    Add Meal Plan
-                  </Button>
-                </FormControl>
-              </CardContent>
-            </Card>
+                    {/* Workout 3  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Workout 3 End */}
+
+                    {/* Workout 4  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Workout 4 End */}
+
+                    {/* Workout 5  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Workout 5 End */}
+
+                    {/* Workout 6  */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Workout 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 3
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Exercise 4
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="sets" selected="">
+                            sets
+                          </option>
+                          <option value="5" selected="">
+                            5
+                          </option>
+                          <option value="10" selected="">
+                            10
+                          </option>
+                          <option value="15" selected="">
+                            15
+                          </option>
+                          <option value="20" selected="">
+                            20
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="reps" selected="">
+                            reps
+                          </option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Workout 6 End */}
+
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col text-center">
+                        <button class="btn btn-primary" type="button">
+                          Add Workout Plan
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card" style={{ borderRadius: "15px" }}>
+                <div
+                  class="card-body"
+                  style={{
+                    borderRadius: "15px",
+                    boxShadow: "4px 5px 7px rgba(68,69,69,0.44)",
+                    backgroundImage: `url(${BackgroundMeal})`,
+                    backgroundRepeat: "no-repeat" /* Do not repeat the image */,
+                    backgroundSize: "cover",
+                    backgroundOpacity: 0.5,
+                  }}
+                >
+                  <form>
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+
+                    {/* Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col">
+                        <select
+                          class="form-control"
+                          style={{
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(243,243,243,0)",
+                            color: "rgb(255,255,255)",
+                            borderWidth: "1.5px",
+                            borderColor: "rgb(252,252,252)",
+                          }}
+                        >
+                          <option value="Workout 1" selected="">
+                            Meal 1
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 2
+                          </option>
+                          <option value="Workout 1" selected="">
+                            Meal 3
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    {/* End of Meal 1 */}
+                    <div class="form-row" style={{ margin: "10px 0px" }}>
+                      <div class="col text-center">
+                        <button class="btn btn-primary" type="button">
+                          Add Meal Plan
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <br />
-    </>
-  );
+    );
+  }
 }

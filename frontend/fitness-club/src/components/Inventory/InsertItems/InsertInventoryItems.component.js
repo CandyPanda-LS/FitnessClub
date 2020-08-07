@@ -122,7 +122,7 @@ export default class InsertInventoryItems extends Component {
 
                         <div class="form-group">
                           <button
-                            class="btn btn-primary btn-block text-white btn-user"
+                            class="btn btn-primary btn-block text-white btn-user additemBtn"
                             type="submit"
                           >
                             Add Item

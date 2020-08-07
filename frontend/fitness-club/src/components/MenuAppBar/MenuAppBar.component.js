@@ -14,6 +14,8 @@ import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.
 import Item from "../Shop/Pages/Item/Item.component";
 import RequestedPlansTable from "../Instructor/UserRequirements/userrequirement";
 import UserPlan from "../Instructor/forms/userforms";
+import ViewMealWorkoutPlan from "../Instructor/ViewMealWorkoutPlan/ViewMealWorkoutPlan.component";
+import UpdateMealWorkoutPlan from "../Instructor/updatemealworkoutplan/updatemealworkoutplan.component";
 
 // import { Link } from "@material-ui/core";
 
@@ -441,6 +443,16 @@ export default function MenuAppBar() {
                 path="/userrequirement"
                 exact
                 component={RequestedPlansTable}
+              />
+              <Route
+                path="/viewmealworkout"
+                exact
+                component={ViewMealWorkoutPlan}
+              />
+              <Route
+                path="/updatemealworkoutplan"
+                exact
+                component={UpdateMealWorkoutPlan}
               />
             </div>
           </div>
