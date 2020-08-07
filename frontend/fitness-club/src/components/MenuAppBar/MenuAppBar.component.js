@@ -9,6 +9,7 @@ import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheIn
 import UserLogin from "../Login/UserLogin/userlogin.component";
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
+import Item from "../Shop/Pages/Item/Item.component";
 
 // import { Link } from "@material-ui/core";
 
@@ -410,6 +411,7 @@ export default function MenuAppBar() {
                 component={EcommerceInsertitem}
               />
               <Route path="/shop" exact component={ItemsGrid} />
+              <Route path="/shopItem" exact component={Item} />
             </div>
           </div>
 
