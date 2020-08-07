@@ -1,112 +1,140 @@
 import React, { Component } from "react";
-import axios from "axios";
-import {
-  FormControl,
-  TextField,
-  Select,
-  MenuItem,
-  Button,
-  CardContent,
-  Card,
-  Box,
-  Typography,
-} from "@material-ui/core";
-
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
-
-import DateFnsUtils from "@date-io/date-fns";
 
 import "./InsertInventoryItems.css";
 
-export default class BurnCalories extends Component {
+import Background from "./img/gymbanner.jpg";
+
+export default class InsertInventoryItems extends Component {
   render() {
     return (
-      <div className="row">
-        <div className="col-md-6">
-          <Card
-            className="card-border1"
-            style={{
-              // border: "1px solid #ccc",
-              background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
-              borderRadius: "20px",
-              boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
-              margin: "30px",
-            }}
-          >
-            <CardContent>
-              <FormControl className="form1">
-                <TextField
-                  id="filled-basic"
-                  className="formInputs"
-                  label="Item"
-                />
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-9 col-lg-12 col-xl-10">
+            <div
+              class="card  o-hidden border-0 my-5"
+              style={{
+                // border: "2px solid blue",
+                borderRadius: "20px",
+                boxShadow: "10px 7px 10px rgba(110, 107, 107, 0.548)",
+              }}
+            >
+              <div class="card-body p-0">
+                <div class="row">
+                  <div class="col-lg-6 d-none d-lg-flex">
+                    <div
+                      class="flex-grow-1 bg-login-image"
+                      style={{
+                        backgroundImage: `url(${Background})`,
+                      }}
+                    >
+                      {" "}
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="p-5">
+                      <div class="text-center">
+                        <h4 class="text-dark mb-4">Inventory | Add Items</h4>
+                      </div>
+                      <form class="user">
+                        <div class="form-group">
+                          <input
+                            class="form-control form-control-user"
+                            type="text"
+                            id="exampleInputEmail"
+                            placeholder="Enter Item Type..."
+                            name="Type"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <input
+                            class="form-control form-control-user"
+                            type="text"
+                            id="exampleInputEmail"
+                            placeholder="Enter Item Brand..."
+                            name="Brand"
+                          />
+                        </div>
 
-                <TextField
-                  id="filled-basic"
-                  className="formInputs"
-                  label="Brand"
-                />
+                        <div class="form-group">
+                          <label
+                            style={{ fontSize: "12px", marginLeft: "15px" }}
+                          >
+                            Manufactural Date
+                          </label>
+                          <input
+                            class="form-control form-control-user"
+                            type="date"
+                            style={{ borderRadius: "20px" }}
+                            placeholder="Enter Manufactural Date..."
+                            name="ManufacturalDate"
+                          />
+                        </div>
 
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    id="date-picker-dialog"
-                    label="Manufactured date"
-                    format="MM/dd/yyyy"
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
+                        <div class="form-group">
+                          <label
+                            style={{ fontSize: "12px", marginLeft: "15px" }}
+                          >
+                            Service Date
+                          </label>
+                          <input
+                            class="form-control form-control-user"
+                            type="date"
+                            style={{ borderRadius: "20px" }}
+                            placeholder="Enter Service Date..."
+                            name="ServiceDate"
+                          />
+                        </div>
 
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Service date"
-                    format="MM/dd/yyyy"
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
+                        <div class="form-group">
+                          <input
+                            class="form-control form-control-user"
+                            type="number"
+                            id="exampleInputEmail"
+                            placeholder="Enter Warranty Period (Years)..."
+                            name="Warranty"
+                          />
+                        </div>
 
-                <TextField
-                  id="filled-basic"
-                  className="formInputs"
-                  label="Warranty period"
-                />
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    margin="normal"
-                    id="date-picker-dialog"
-                    label="Purchased date"
-                    format="MM/dd/yyyy"
-                    style={{ maxWidth: "400px" }}
-                    KeyboardButtonProps={{
-                      "aria-label": "change date",
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
-                <TextField
-                  id="filled-basic"
-                  className="formInputs"
-                  type="file"
-                  variant="outlined"
-                />
+                        <div class="form-group">
+                          <label
+                            style={{ fontSize: "12px", marginLeft: "15px" }}
+                          >
+                            Purchased Date
+                          </label>
+                          <input
+                            class="form-control form-control-user"
+                            type="date"
+                            style={{ borderRadius: "20px" }}
+                            placeholder="Enter Purchased Date..."
+                            name="PurchasedDate"
+                          />
+                        </div>
 
-                <Button
-                  className="formInputs"
-                  variant="outlined"
-                  color="primary"
-                >
-                  Estimate
-                </Button>
-              </FormControl>
-            </CardContent>
-          </Card>
+                        <div class="form-group">
+                          <input
+                            class="form-control form-control-user"
+                            type="file"
+                            id="exampleInputEmail"
+                            name="Image"
+                            style={{ padding: "2px" }}
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <button
+                            class="btn btn-primary btn-block text-white btn-user"
+                            type="submit"
+                          >
+                            Add Item
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
