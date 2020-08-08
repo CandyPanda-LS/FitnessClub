@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 
 
 import Imageslider from "../../Slider/imageslider.component";
+import Cart from "../cart/shopCart.component";
 
 import "./ItemsGrid.css";
 
 function Item(props) {
   return (
+
     <div className="col-md-3" style={{ padding: "10px" }}>
       <div
         class="card shadow ShopItem"
@@ -79,6 +81,9 @@ export default class ItemsGrid extends Component {
   render() {
     return (
       <div>
+        {/* Cart */}
+        <Cart/>
+        {/* cart end */}
         {/* Image Slider */}
         <Imageslider />
         {/* Ecommerce grid */}
