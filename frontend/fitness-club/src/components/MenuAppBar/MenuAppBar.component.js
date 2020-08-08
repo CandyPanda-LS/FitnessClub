@@ -30,7 +30,6 @@ import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
 import UpdateInventoryItems from "../Inventory/UpdateItems/UpdateInventoryItems";
-import Item from "../Shop/Pages/Item/Item.component";
 
 // @desc import Components
 // @author Jayani
@@ -459,7 +458,7 @@ export default function MenuAppBar() {
                 exact
                 component={InsertInventoryItems}
               />
-               <Route
+              <Route
                 path="/UpdateInventoryitems"
                 exact
                 component={UpdateInventoryItems}

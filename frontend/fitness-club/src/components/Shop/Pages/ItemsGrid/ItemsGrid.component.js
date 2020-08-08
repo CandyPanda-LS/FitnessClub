@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-
 import Imageslider from "../../Slider/imageslider.component";
 import Cart from "../cart/shopCart.component";
 
@@ -15,7 +13,6 @@ import "./ItemsGrid.css";
 // Single item functional component start
 function Item(props) {
   return (
-
     <div className="col-md-3" style={{ padding: "10px" }}>
       <div
         class="card shadow ShopItem"
@@ -55,7 +52,7 @@ function Item(props) {
               </button>
             </div>
             <div class="col">
-              <p style={{margin: "6px"}}>Rs{props.Item.ItemPrice}</p>
+              <p style={{ margin: "6px" }}>Rs{props.Item.ItemPrice}</p>
             </div>
           </div>
         </div>
@@ -69,7 +66,11 @@ function Item(props) {
 
 const SizeSideDrawer = ({ isOpen, onClose }) => {
   return (
-    <SideDrawer isOpen={isOpen} onClose={onClose} w={{ xs: "100vw", sm: "24rem" }}>
+    <SideDrawer
+      isOpen={isOpen}
+      onClose={onClose}
+      w={{ xs: "100vw", sm: "24rem" }}
+    >
       <Div d="flex" m={{ b: "4rem" }}>
         <Icon name="AlertSolid" color="warning700" />
         <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
@@ -97,14 +98,14 @@ export default class ItemsGrid extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { Items: [],showSideDrawer: false };
+    this.state = { Items: [], showSideDrawer: false };
   }
 
   componentDidMount() {
     axios
       .get("http://localhost:5000/ShopItems/")
       .then((response) => {
-        this.setState({Items: response.data});
+        this.setState({ Items: response.data });
         console.log(response);
       })
       .catch((error) => {
@@ -116,7 +117,7 @@ export default class ItemsGrid extends Component {
     return (
       <div>
         {/* Cart */}
-        <Cart/>
+        <Cart />
         {/* cart end */}
         {/* Image Slider */}
         <Imageslider />
@@ -137,27 +138,24 @@ export default class ItemsGrid extends Component {
                 ItemDescriprion={currentItem.ItemDescriprion}
                 ItemColors={currentItem.ItemColors}
               />
-
             ))}
 
-
-        <Button
-          bg="info700"
-          hoverBg="info600"
-          m={{ r: "0.5rem" }}
-          onClick={() =>
-            this.setState({
-              showSideDrawer: true,
-            })
-          }
-        >
-          Open 24rem width SideDrawer
-        </Button>
-        <SizeSideDrawer
-          isOpen={showSideDrawer}
-          onClose={() => this.setState({ showSideDrawer: false })}
-        />
-
+            <Button
+              bg="info700"
+              hoverBg="info600"
+              m={{ r: "0.5rem" }}
+              onClick={() =>
+                this.setState({
+                  showSideDrawer: true,
+                })
+              }
+            >
+              Open 24rem width SideDrawer
+            </Button>
+            <SizeSideDrawer
+              isOpen={this.state.showSideDrawer}
+              onClose={() => this.setState({ showSideDrawer: false })}
+            />
           </div>
         </div>
       </div>
