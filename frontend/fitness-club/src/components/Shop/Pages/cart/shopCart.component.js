@@ -24,7 +24,7 @@ export default class shopCart extends Component {
     render()
     {
         return (
-
+        <div></div>
 
         )
     }
