@@ -90,37 +90,6 @@ const AddRequirementsToTheInstructor = () => {
         </div>
       </div>
     </div>
-
-    // <div style={{ textAlign: "center" }}>
-    //   <Paper elevation={3}>
-    //     <FormControl className="form1">
-    //       <TextField
-    //         id="filled-basic"
-    //         className="formInputs"
-    //         label="Add Weight"
-    //         variant="outlined"
-    //       />
-    //       <TextField
-    //         id="filled-basic"
-    //         className="formInputs"
-    //         label="Add Height"
-    //         variant="outlined"
-    //       />
-    //       <TextField
-    //         id="outlined-multiline-static"
-    //         label="Multiline"
-    //         multiline
-    //         rows={4}
-    //         defaultValue="Default Value"
-    //         variant="outlined"
-    //       />
-
-    //       <Button className="formInputs" variant="outlined" color="primary">
-    //         Request
-    //       </Button>
-    //     </FormControl>
-    //   </Paper>
-    // </div>
   );
 };
 

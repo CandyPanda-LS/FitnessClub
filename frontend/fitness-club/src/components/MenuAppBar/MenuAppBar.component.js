@@ -1,20 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+
+// @desc import Components
+// @author Dilmi
+import UserLogin from "../Login/UserLogin/userlogin.component";
+
+// @desc import Components
+// @author Senura
 import Footer from "../../components/Footer/Footer.component";
 import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.component";
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
-import UserLogin from "../Login/UserLogin/userlogin.component";
+
+// @desc import Components
+// @author Lasal
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
+import Item from "../Shop/Pages/Item/Item.component";
+
+// @desc import Components
+// @author Ayodya
+import InsertFeedback from "../Feedback/InsertFeedback/InsertFeedback.component";
+import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
+
+// @desc import Components
+// @author Dilumi
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
 import UpdateInventoryItems from "../Inventory/UpdateItems/UpdateInventoryItems";
 import Item from "../Shop/Pages/Item/Item.component";
+
+// @desc import Components
+// @author Jayani
 import RequestedPlansTable from "../Instructor/UserRequirements/userrequirement";
 import UserPlan from "../Instructor/forms/userforms";
+import ViewMealWorkoutPlan from "../Instructor/ViewMealWorkoutPlan/ViewMealWorkoutPlan.component";
+import UpdateMealWorkoutPlan from "../Instructor/updatemealworkoutplan/updatemealworkoutplan.component";
+import ArticleList from "../FitnessUpdates/ArticlesList/ArticleList.component";
+import InsertFitnessUpdate from "../FitnessUpdates/InsertFitnessUpdate/InsertFitnessUpdate.component";
+import updateFitnessUpdate from "../FitnessUpdates/UpdateFitnessUpdate/updatefitnessupdate.component";
+import FitnessUpdatesTable from "../FitnessUpdates/FitnessUpdatesTable/FitnessUpdatesTable.component";
 
 // import { Link } from "@material-ui/core";
 
@@ -396,7 +423,6 @@ export default function MenuAppBar() {
               {/* Routes
               @author Dilmi */}
               <Route path="/userlogin" exact component={UserLogin} />
-
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={UserDashboard} />
@@ -425,7 +451,6 @@ export default function MenuAppBar() {
               />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
-
               {/* Routes
               @author Dilumi */}
               <Route path="/inventory" exact component={InventoryGrid} />
@@ -448,6 +473,36 @@ export default function MenuAppBar() {
                 exact
                 component={RequestedPlansTable}
               />
+              <Route
+                path="/viewmealworkout"
+                exact
+                component={ViewMealWorkoutPlan}
+              />
+              <Route
+                path="/updatemealworkoutplan"
+                exact
+                component={UpdateMealWorkoutPlan}
+              />
+              <Route path="/articlelist" exact component={ArticleList} />
+              <Route
+                path="/insertFitnessUpdate"
+                exact
+                component={InsertFitnessUpdate}
+              />
+              <Route
+                path="/updateFitnessUpdate"
+                exact
+                component={updateFitnessUpdate}
+              />
+              <Route
+                path="/FitnessUpdatesTable"
+                exact
+                component={FitnessUpdatesTable}
+              />
+              {/* Routes
+              @author Ayodya */}
+              <Route path="/InsertFeedback" exact component={InsertFeedback} />
+              <Route path="/FeedbackTable" exact component={FeedbackTable} />
             </div>
           </div>
 
