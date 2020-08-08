@@ -11,6 +11,7 @@ import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
+import UpdateInventoryItems from "../Inventory/UpdateItems/UpdateInventoryItems";
 import Item from "../Shop/Pages/Item/Item.component";
 import RequestedPlansTable from "../Instructor/UserRequirements/userrequirement";
 import UserPlan from "../Instructor/forms/userforms";
@@ -432,6 +433,11 @@ export default function MenuAppBar() {
                 path="/inventoryitems"
                 exact
                 component={InsertInventoryItems}
+              />
+               <Route
+                path="/UpdateInventoryitems"
+                exact
+                component={UpdateInventoryItems}
               />
 
               {/* Routes
