@@ -439,7 +439,7 @@ export default function MenuAppBar() {
                 exact
                 component={AddRequirementsToTheInstructor}
               />
-              <Route path="/articlelist" exact component={ArticleList} />
+
               {/* Routes
               @author Lasal */}
               <Route
@@ -475,6 +475,7 @@ export default function MenuAppBar() {
                 exact
                 component={UpdateMealWorkoutPlan}
               />
+              <Route path="/articlelist" exact component={ArticleList} />
               <Route
                 path="/insertFitnessUpdate"
                 exact
