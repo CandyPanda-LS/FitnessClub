@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
+import Chart from "../../Charts/YearlyIncome/YearlyIncomeChart";
 
 export default class adminDashboardShop extends Component {
   render() {
@@ -15,10 +16,10 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "107px" }}>
+                        <div class="card" style={{ width: "80px" }}>
                           <img
                             class="card-img w-100 d-block"
-                            src="assets/img/avatars/3%20adidas%20Ultraboost.png"
+                            src="./assets/img/Shop/3 adidas Ultraboost.png "
                             style={{ width: "64px" }}
                           />
                         </div>
@@ -48,10 +49,10 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "107px" }}>
+                        <div class="card" style={{ width: "80px" }}>
                           <img
                             class="card-img w-100 d-block"
-                            src="assets/img/avatars/gettyimages-1213796751-612x612.png"
+                            src="./assets/img/Shop/gettyimages-1213796751-612x612.png"
                             style={{ width: "64px" }}
                           />
                         </div>
@@ -81,10 +82,10 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "107px" }}>
+                        <div class="card" style={{ width: "85px" }}>
                           <img
                             class="card-img w-100 d-block"
-                            src="assets/img/avatars/report-documents-research-vector-21162870.jpg"
+                            src="assets/img/Shop/report-documents-research-vector-21162870.jpg"
                             style={{ width: "64px" }}
                           />
                         </div>
@@ -114,10 +115,10 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "107px" }}>
+                        <div class="card" style={{ width: "80px" }}>
                           <img
                             class="card-img w-100 d-block"
-                            src="assets/img/avatars/soon-coming-sign-illustration-vector-stamp-isolated-icon-background-symbol-announcement-poster-element-label-tag-promotion-148064155.jpg"
+                            src="assets/img/Shop/a.jpg"
                             style={{ width: "64px" }}
                           />
                         </div>
@@ -139,11 +140,13 @@ export default class adminDashboardShop extends Component {
               class="card shadow-lg"
               style={{
                 background: "linearGradient(90deg, rgb(146,173,232) 0%, white)",
-                height: "239px",
+                height: "339px",
                 borderRadius: "29px",
               }}
             >
-              <div class="card-body" style={{ borderRadius: "49px" }}></div>
+              <div class="card-body" style={{borderRadius: "49px"}}>
+                <Chart/>
+              </div>
             </div>
           </div>
         </div>
