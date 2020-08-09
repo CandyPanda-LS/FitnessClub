@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 
 import Imageslider from "../../Slider/imageslider.component";
-import Cart from "../cart/shopCart.component";
 
 // atomize import for the side card
 import { Div, Button, SideDrawer, Icon, Text } from "atomize";
@@ -69,7 +68,7 @@ function Item(props) {
 
 const SizeSideDrawer = ({ isOpen, onClose }) => {
   return (
-    <SideDrawer isOpen={isOpen} onClose={onClose} w={{ xs: "100vw", sm: "24rem" }}>
+    <SideDrawer isOpen={isOpen} onClose={onClose} w={{ xs: "100vw", sm: "24rem",xl:"24rem" }}>
       <Div d="flex" m={{ b: "4rem" }}>
         <Icon name="AlertSolid" color="warning700" />
         <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
@@ -114,10 +113,8 @@ export default class ItemsGrid extends Component {
 
   render() {
     return (
+
       <div>
-        {/* Cart */}
-        <Cart/>
-        {/* cart end */}
         {/* Image Slider */}
         <Imageslider />
         {/* Ecommerce grid */}
@@ -151,10 +148,10 @@ export default class ItemsGrid extends Component {
             })
           }
         >
-          Open 24rem width SideDrawer
+              Open 24rem width SideDrawer
         </Button>
         <SizeSideDrawer
-          isOpen={showSideDrawer}
+          isOpen={this.state.showSideDrawer}
           onClose={() => this.setState({ showSideDrawer: false })}
         />
 

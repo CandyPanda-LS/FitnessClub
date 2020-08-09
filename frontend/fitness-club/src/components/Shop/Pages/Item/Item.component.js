@@ -53,7 +53,6 @@ const SizeSideDrawer = ({ isOpen, onClose }) => {
     </SideDrawer>
   );
 };
-
 // cart code end
 
 export default class Item extends Component {
