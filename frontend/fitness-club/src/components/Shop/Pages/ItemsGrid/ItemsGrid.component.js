@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
-
 import Imageslider from "../../Slider/imageslider.component";
 
 // atomize import for the side card
@@ -14,7 +12,6 @@ import "./ItemsGrid.css";
 // Single item functional component start
 function Item(props) {
   return (
-
     <div className="col-md-3" style={{ padding: "10px" }}>
       <div
         class="card shadow ShopItem"
@@ -54,7 +51,7 @@ function Item(props) {
               </button>
             </div>
             <div class="col">
-              <p style={{margin: "6px"}}>Rs{props.Item.ItemPrice}</p>
+              <p style={{ margin: "6px" }}>Rs{props.Item.ItemPrice}</p>
             </div>
           </div>
         </div>
@@ -96,14 +93,14 @@ export default class ItemsGrid extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { Items: [],showSideDrawer: false };
+    this.state = { Items: [], showSideDrawer: false };
   }
 
   componentDidMount() {
     axios
       .get("http://localhost:5000/ShopItems/")
       .then((response) => {
-        this.setState({Items: response.data});
+        this.setState({ Items: response.data });
         console.log(response);
       })
       .catch((error) => {
@@ -134,7 +131,6 @@ export default class ItemsGrid extends Component {
                 ItemDescriprion={currentItem.ItemDescriprion}
                 ItemColors={currentItem.ItemColors}
               />
-
             ))}
 
 

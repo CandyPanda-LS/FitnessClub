@@ -29,6 +29,7 @@ import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
 // @author Dilumi
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
+import UpdateInventoryItems from "../Inventory/UpdateItems/UpdateInventoryItems";
 
 // @desc import Components
 // @author Jayani
@@ -457,6 +458,12 @@ export default function MenuAppBar() {
                 exact
                 component={InsertInventoryItems}
               />
+              <Route
+                path="/UpdateInventoryitems"
+                exact
+                component={UpdateInventoryItems}
+              />
+
               {/* Routes
               @author Jayani */}
               <Route path="/userforms" exact component={UserPlan} />
