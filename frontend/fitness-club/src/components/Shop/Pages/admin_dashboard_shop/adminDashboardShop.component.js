@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import Chart from "../../Charts/YearlyIncome/YearlyIncomeChart";
+import BarChart from "../../Charts/BestSellingItems/BestSellingItemBarchart";
+
 
 export default class adminDashboardShop extends Component {
   render() {
@@ -154,9 +156,9 @@ export default class adminDashboardShop extends Component {
           <div class="col" style={{ margin: "15px" }}>
             <div
               class="card shadow-lg"
-              style={{ borderRadius: "30px", backgroundColor: "rgb(7,70,102)" }}
+              style={{ borderRadius: "30px", backgroundColor: "rgb(255,255,255)" }}
             >
-              <div class="card-body"></div>
+              <div class="card-body"><BarChart/></div>
             </div>
           </div>
           <div class="col" style={{ margin: "15px" }}>

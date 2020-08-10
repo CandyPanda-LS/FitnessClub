@@ -17,6 +17,7 @@ import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheIn
 // @desc import Components
 // @author Lasal
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
+import EcommerceUpdateitem from "../Shop/Forms/UpdateItems/UpdateItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
 import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
@@ -449,6 +450,11 @@ export default function MenuAppBar() {
                 path="/insertItemShop"
                 exact
                 component={EcommerceInsertitem}
+              />
+              <Route
+                path="/UpdateItemShop"
+
+                component={EcommerceUpdateitem}
               />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
