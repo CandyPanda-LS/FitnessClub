@@ -4,9 +4,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
+const Validator = require("validator");
 
 //Bring User Model
 const User = require("../../models/User");
+
+//Load password validation
+//const validateRegisterInput = require("../../validation/register");
 
 router.get("/", (req, res) => res.send("user route"));
 
@@ -23,12 +27,21 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    //check password
+    let pass = req.body.password;
+    let pass2 = req.body.password2;
+
+    if (pass != pass2) {
+      return res.status(400).json({ errors: [{ msg: "Password mismatch!" }] });
+    }
+
     const {
       firstName,
       lastName,
       email,
       password,
-      mobileNo,
+      password2,
+      mobileNumber,
       address,
       gender,
     } = req.body;
@@ -49,7 +62,8 @@ router.post(
         lastName,
         email,
         password,
-        mobileNo,
+        password2,
+        mobileNumber,
         address,
         gender,
       });

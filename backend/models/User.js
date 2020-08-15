@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   //@author Dilmi
+
   firstName: {
     type: String,
   },
@@ -17,7 +18,11 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  mobileNo: {
+  password2: {
+    type: String,
+    required: true,
+  },
+  mobileNumber: {
     type: String,
   },
   address: {

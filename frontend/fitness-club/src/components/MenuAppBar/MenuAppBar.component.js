@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 // @desc import Components
 // @author Dilmi
 import UserLogin from "../Login/UserLogin/userlogin.component";
+import UserProfile from "../ProfileUpdate/profileUpdate.component";
+import UserRegistration from "../Register/registration.component";
+// import ForgotPassword from "../Forgotpassword/forgotpassword.component";
+import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
 // @author Senura
@@ -13,6 +17,7 @@ import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.compone
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
+import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/AddWorkoutMealToDatabase";
 
 // @desc import Components
 // @author Lasal
@@ -113,7 +118,7 @@ export default function MenuAppBar() {
                 </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="register.html">
+                <Link className="nav-link" to="/registration">
                   <i className="fas fa-user-circle"></i>
                   <span>Register</span>
                 </Link>
@@ -421,7 +426,11 @@ export default function MenuAppBar() {
             <div className="container-fluid">
               {/* Routes
               @author Dilmi */}
+              {/* <Route path="/forgotpassword" exact component={ForgotPassword} /> */}
+              <Route path="/registration" exact component={UserRegistration} />
+              <Route path="/profileUpdate" exact component={ProfileUpdate} />
               <Route path="/userlogin" exact component={UserLogin} />
+
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={UserDashboard} />
@@ -439,6 +448,11 @@ export default function MenuAppBar() {
                 path="/requestplan"
                 exact
                 component={AddRequirementsToTheInstructor}
+              />
+              <Route
+                path="/addworkoutmeal"
+                exact
+                component={AddWorkoutMealToDatabase}
               />
 
               {/* Routes
