@@ -27,7 +27,8 @@ function Item(props) {
           <div class="col">
             <div class="row">
               <div class="col">
-                <h1 style={{ color: "rgb(255,255,255)" }}>Nike Airmax Pro</h1>
+                              <h1 style={{color: "rgb(255,255,255)"}}>Nike Airmax Pro{props.Item.ItemName
+                              }</h1>
                 <h1
                   class="align-content-end align-self-baseline"
                   style={{

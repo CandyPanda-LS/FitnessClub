@@ -22,8 +22,11 @@ import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/Add
 // @desc import Components
 // @author Lasal
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
+import EcommerceUpdateitem from "../Shop/Forms/UpdateItems/UpdateItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
+import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
+import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 
 // @desc import Components
 // @author Ayodya
@@ -462,8 +465,18 @@ export default function MenuAppBar() {
                 exact
                 component={EcommerceInsertitem}
               />
+              <Route
+                path="/UpdateItemShop"
+
+                component={EcommerceUpdateitem}
+              />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
+
+
+              <Route path="/adminItemShop" exact component={AdminViewItemShop} />
+              <Route path="/adminDashboardShop" exact component={AdminDashboardShop} />
+
               {/* Routes
               @author Dilumi */}
               <Route path="/inventory" exact component={InventoryGrid} />
