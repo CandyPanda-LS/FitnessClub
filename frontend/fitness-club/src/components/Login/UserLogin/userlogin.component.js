@@ -14,7 +14,17 @@ export default class UserLogin extends Component {
     this.state = {
       email: "",
       password: "",
+      response: "",
+      userToken: "",
     };
+  }
+
+  componentDidMount() {
+    //reset the state after 9 seconds
+    this.interval = setInterval(() => this.setState({ response: "" }), 7000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   onChangeEmail(e) {
@@ -54,10 +64,16 @@ export default class UserLogin extends Component {
         user: loginResponse.data.user,
         err: loginResponse.data.error,
       };
+
       localStorage.setItem("x-auth-token", setUserData.token);
       window.location = "/";
     } catch (err) {
       console.log(err);
+      if (!this.state.userToken) {
+        this.setState({
+          response: "username or password is invalid",
+        });
+      }
     }
   }
 
@@ -85,6 +101,7 @@ export default class UserLogin extends Component {
                   <div className="col-lg-6">
                     <div className="p-5">
                       <div className="text-center">
+                        <h6 style={{ color: "red" }}>{this.state.response}</h6>
                         <h4 className="text-dark mb-4">Welcome Back!</h4>
                       </div>
                       <form className="user" onSubmit={this.onSubmit}>
