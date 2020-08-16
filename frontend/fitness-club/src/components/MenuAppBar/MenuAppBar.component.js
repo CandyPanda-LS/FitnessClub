@@ -60,7 +60,7 @@ import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
 import DeleteNotice from "../GymNotices/DeleteNotice/DeleteNotice.component";
 import PackageDetails from "../GymPackages/PackageDetailsTable/PackageDetails.component";
 import NoticesTable from "../GymNotices/GymNoticesTable/NoticesTable.component";
-
+import GymPackageGrid from "../GymPackages/GymPackageGrid/GymPackageGrid.component";
 
 // import { Link } from "@material-ui/core";
 
@@ -136,6 +136,12 @@ export default function MenuAppBar() {
                 <Link className="nav-link" to="/registration">
                   <i className="fas fa-user-circle"></i>
                   <span>Register</span>
+                </Link>
+              </li>
+              <li className="nav-item" role="presentation">
+                <Link className="nav-link" to="/gympackages">
+                  <i className="fas fa-user-circle"></i>
+                  <span>Packages</span>
                 </Link>
               </li>
             </ul>
@@ -477,17 +483,20 @@ export default function MenuAppBar() {
                 exact
                 component={EcommerceInsertitem}
               />
-              <Route
-                path="/UpdateItemShop"
-
-                component={EcommerceUpdateitem}
-              />
+              <Route path="/UpdateItemShop" component={EcommerceUpdateitem} />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
 
-
-              <Route path="/adminItemShop" exact component={AdminViewItemShop} />
-              <Route path="/adminDashboardShop" exact component={AdminDashboardShop} />
+              <Route
+                path="/adminItemShop"
+                exact
+                component={AdminViewItemShop}
+              />
+              <Route
+                path="/adminDashboardShop"
+                exact
+                component={AdminDashboardShop}
+              />
 
               {/* Routes
               @author Dilumi */}
@@ -544,15 +553,27 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Chamodi */}
-              <Route path="/InsertGymPackges" exact component={InsertGymPackages} />
-              <Route path="/UpdateGymPackage" exact component={UpdateGymPackage} />
-              <Route path="/DeleteGymPackage" exact component={DeleteGymPackage} />
+              <Route path="/gympackages" exact component={GymPackageGrid} />
+              <Route
+                path="/InsertGymPackges"
+                exact
+                component={InsertGymPackages}
+              />
+              <Route
+                path="/UpdateGymPackage"
+                exact
+                component={UpdateGymPackage}
+              />
+              <Route
+                path="/DeleteGymPackage"
+                exact
+                component={DeleteGymPackage}
+              />
               <Route path="/InsertNotice" exact component={InsertNotice} />
               <Route path="/UpdateNotice" exact component={UpdateNotice} />
               <Route path="/DeleteNotice" exact component={DeleteNotice} />
               <Route path="/PackageDetails" exact component={PackageDetails} />
               <Route path="/NoticesTable" exact component={NoticesTable} />
-
             </div>
           </div>
 

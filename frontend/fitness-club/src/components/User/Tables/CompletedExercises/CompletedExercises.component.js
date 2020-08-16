@@ -13,7 +13,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
-import Background from "./img/1.jpg";
+import Background from "./img/2.jpg";
 
 //Hover Component For Delete Icon
 const HoverDeleteButton = styled.p`
@@ -182,7 +182,7 @@ export default function CompletedExercises() {
                   style={{
                     minWidth: column.minWidth,
                     color: "white",
-                    backgroundColor: "#f7ca02",
+                    backgroundColor: "#e6af00",
                   }}
                 >
                   {column.label}
