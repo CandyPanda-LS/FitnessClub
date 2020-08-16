@@ -37,8 +37,9 @@ export default class HeaderCardsNoPackage extends Component {
               style={{
                 padding: "10px",
                 color: "white",
-                backgroundColor: "red",
+                backgroundColor: "#c44233",
                 fontFamily: "Tahoma, Geneva, sans-serif",
+                borderRadius: "20px",
               }}
               className="text-center"
             >
