@@ -8,7 +8,7 @@ export default class GymPackageGrid extends Component {
       <div>
         <div className="row">
           {/* Gym Package 1 */}
-          <div className="col-md-3">
+          <div className="col-lg-3 col-md-6">
             <figure class="snip1527">
               <div class="image">
                 <img src="./assets/img/packages/1.jpg" alt="pr-sample23" />
@@ -32,7 +32,7 @@ export default class GymPackageGrid extends Component {
           </div>
 
           {/* Gym Package 2 */}
-          <div className="col-md-3">
+          <div className="col-lg-3 col-md-6">
             <figure class="snip1527">
               <div class="image">
                 <img src="./assets/img/packages/2.jpg" alt="pr-sample25" />
@@ -54,7 +54,7 @@ export default class GymPackageGrid extends Component {
           </div>
 
           {/* Gym Package 3 */}
-          <div className="col-md-3">
+          <div className="col-lg-3 col-md-6">
             <figure class="snip1527">
               <div class="image">
                 <img src="./assets/img/packages/3.jpg" alt="pr-sample25" />
@@ -78,7 +78,7 @@ export default class GymPackageGrid extends Component {
           </div>
 
           {/* Gym Package 4*/}
-          <div className="col-md-3">
+          <div className="col-lg-3 col-md-6">
             <figure class="snip1527">
               <div class="image">
                 <img src="./assets/img/packages/4.jpg" alt="pr-sample25" />
