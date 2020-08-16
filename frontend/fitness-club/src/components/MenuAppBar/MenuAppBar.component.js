@@ -41,6 +41,18 @@ import InsertFitnessUpdate from "../FitnessUpdates/InsertFitnessUpdate/InsertFit
 import updateFitnessUpdate from "../FitnessUpdates/UpdateFitnessUpdate/updatefitnessupdate.component";
 import FitnessUpdatesTable from "../FitnessUpdates/FitnessUpdatesTable/FitnessUpdatesTable.component";
 
+//@desc import components
+//@author Chamodi
+import InsertGymPackages from "../GymPackages/InsertPackages/InsertGymPackages.component";
+import UpdateGymPackage from "../GymPackages/UpdateGymPackages/UpdateGymPackage.component";
+import DeleteGymPackage from "../GymPackages/DeletePackage/DeleteGymPackage.component";
+import InsertNotice from "../GymNotices/InsertNotice/InsertNotice.component";
+import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
+import DeleteNotice from "../GymNotices/DeleteNotice/DeleteNotice.component";
+import PackageDetails from "../GymPackages/PackageDetailsTable/PackageDetails.component";
+import NoticesTable from "../GymNotices/GymNoticesTable/NoticesTable.component";
+
+
 // import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
@@ -494,6 +506,18 @@ export default function MenuAppBar() {
               @author Ayodya */}
               <Route path="/InsertFeedback" exact component={InsertFeedback} />
               <Route path="/FeedbackTable" exact component={FeedbackTable} />
+
+              {/* Routes
+              @author Chamodi */}
+              <Route path="/InsertGymPackges" exact component={InsertGymPackages} />
+              <Route path="/UpdateGymPackage" exact component={UpdateGymPackage} />
+              <Route path="/DeleteGymPackage" exact component={DeleteGymPackage} />
+              <Route path="/InsertNotice" exact component={InsertNotice} />
+              <Route path="/UpdateNotice" exact component={UpdateNotice} />
+              <Route path="/DeleteNotice" exact component={DeleteNotice} />
+              <Route path="/PackageDetails" exact component={PackageDetails} />
+              <Route path="/NoticesTable" exact component={NoticesTable} />
+
             </div>
           </div>
 
