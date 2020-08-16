@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Background from "./image/1.jpg";
+import Background from "./image/pic2.jpg";
 import axios from "axios";
 
 export default class UserLogin extends Component {
@@ -120,12 +120,12 @@ export default class UserLogin extends Component {
                         </button>
                       </form>
                       <div className="text-center">
-                        <Link className="small" to="forgot-password.html">
+                        <Link className="small" to="forgotpassword">
                           Forgot Password?
                         </Link>
                       </div>
                       <div className="text-center">
-                        <Link className="small" to="register.html">
+                        <Link className="small" to="registration">
                           Create an Account!
                         </Link>
                       </div>

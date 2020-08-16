@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 // @desc import Components
 // @author Dilmi
 import UserLogin from "../Login/UserLogin/userlogin.component";
+import UserProfile from "../ProfileUpdate/profileUpdate.component";
+import UserRegistration from "../Register/registration.component";
+// import ForgotPassword from "../Forgotpassword/forgotpassword.component";
+import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
 // @author Senura
@@ -13,12 +17,16 @@ import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.compone
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
+import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/AddWorkoutMealToDatabase";
 
 // @desc import Components
 // @author Lasal
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
+import EcommerceUpdateitem from "../Shop/Forms/UpdateItems/UpdateItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
+import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
+import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 
 // @desc import Components
 // @author Ayodya
@@ -29,6 +37,7 @@ import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
 // @author Dilumi
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
+import UpdateInventoryItems from "../Inventory/UpdateItems/UpdateInventoryItems";
 
 // @desc import Components
 // @author Jayani
@@ -124,7 +133,7 @@ export default function MenuAppBar() {
                 </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="register.html">
+                <Link className="nav-link" to="/registration">
                   <i className="fas fa-user-circle"></i>
                   <span>Register</span>
                 </Link>
@@ -432,7 +441,11 @@ export default function MenuAppBar() {
             <div className="container-fluid">
               {/* Routes
               @author Dilmi */}
+              {/* <Route path="/forgotpassword" exact component={ForgotPassword} /> */}
+              <Route path="/registration" exact component={UserRegistration} />
+              <Route path="/profileUpdate" exact component={ProfileUpdate} />
               <Route path="/userlogin" exact component={UserLogin} />
+
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={UserDashboard} />
@@ -451,7 +464,12 @@ export default function MenuAppBar() {
                 exact
                 component={AddRequirementsToTheInstructor}
               />
-              <Route path="/articlelist" exact component={ArticleList} />
+              <Route
+                path="/addworkoutmeal"
+                exact
+                component={AddWorkoutMealToDatabase}
+              />
+
               {/* Routes
               @author Lasal */}
               <Route
@@ -459,8 +477,18 @@ export default function MenuAppBar() {
                 exact
                 component={EcommerceInsertitem}
               />
+              <Route
+                path="/UpdateItemShop"
+
+                component={EcommerceUpdateitem}
+              />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
+
+
+              <Route path="/adminItemShop" exact component={AdminViewItemShop} />
+              <Route path="/adminDashboardShop" exact component={AdminDashboardShop} />
+
               {/* Routes
               @author Dilumi */}
               <Route path="/inventory" exact component={InventoryGrid} />
@@ -469,6 +497,12 @@ export default function MenuAppBar() {
                 exact
                 component={InsertInventoryItems}
               />
+              <Route
+                path="/UpdateInventoryitems"
+                exact
+                component={UpdateInventoryItems}
+              />
+
               {/* Routes
               @author Jayani */}
               <Route path="/userforms" exact component={UserPlan} />
@@ -487,6 +521,7 @@ export default function MenuAppBar() {
                 exact
                 component={UpdateMealWorkoutPlan}
               />
+              <Route path="/articlelist" exact component={ArticleList} />
               <Route
                 path="/insertFitnessUpdate"
                 exact
