@@ -67,7 +67,7 @@ export default class Item extends Component {
       ItemsName: "",
       ItemPrice: 0,
       ItemDescription: "",
-      ItemColor: ["", "", ""],
+      ItemImage:"",
       ItemSize: 6,
       ItemQuantity: 0,
     };
@@ -79,13 +79,15 @@ export default class Item extends Component {
       .get("http://localhost:5000/api/shop/5f412e15aee7ea2ea050d320")
       .then((response) => {
 
-        console.log("One Item : " + response);
-        // this.setState({
-        //   ItemsName: response.data.ItemName,
-        //   ItemPrice: response.data.ItemPrice,
-        //   ItemDescription: response.data.ItemDescriprion,
-        //   ItemColor: response.data.ItemColors,
-        // });
+        this.setState({
+          ItemsName: response.data.ItemName,
+          ItemPrice: response.data.ItemPrice,
+          ItemDescription: response.data.ItemDescriprion,
+          ItemImage: Buffer.from(
+            response.data.ItemImage.data,
+          ).toString("base64")
+
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -156,7 +158,8 @@ export default class Item extends Component {
               <div class="col">
                 <img
                   data-bs-hover-animate="pulse"
-                  src="./assets/img/shoes/1.png"
+                  src={`data:image/png;base64,${this.state.ItemImage}`}
+
                   style={{
                     width: "600px",
                     height: " 600px",
@@ -190,7 +193,7 @@ export default class Item extends Component {
                         fontSize: "40px",
                       }}
                     >
-                      ADIDAS ULRABOOT DNA
+                      {this.state.ItemsName}
                     </h1>
                     <br />
                     <br />
@@ -261,7 +264,7 @@ export default class Item extends Component {
                         fontWeight: "bold",
                       }}
                     >
-                      Rs.2000.00
+                      {this.state.ItemPrice}
                     </h1>
                   </div>
                 </div>
