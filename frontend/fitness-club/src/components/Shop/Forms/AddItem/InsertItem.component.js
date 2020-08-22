@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import { Paper, FormControl, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -11,66 +12,82 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   selectEmpty: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(2),
   },
 }));
 
 export default function EcommerceInsertitem() {
   const classes = useStyles();
-  const [color1, setColor1] = useState("#025beb");
-  const [color2, setColor2] = useState("#ff0019");
-  const [color3, setColor3] = useState("#05fa53");
-  const [name, setItemName] = useState("");
-  const [price, setPrice] = useState();
-  const [description, setDescription] = useState("");
 
-  function onChangeColor1(e) {
-    setColor1(e.target.value);
+  const [ItemName, setItemName] = useState(null);
+  const [ItemPrice, setItemPrice] = useState(null);
+  const [ItemDescriprion, setItemDescriprion] = useState(null);
+  const [ItemImage, setItemImage] = useState(null);
+
+
+   function onSubmit(e){
+
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("ItemName",ItemName);
+    formData.append("ItemPrice",ItemPrice);
+    formData.append("ItemDescriprion",ItemDescriprion);
+    formData.append("ItemImage",ItemImage);
+
+    const config = {
+
+      headers:{
+        "content-type":"multipart/form-data",
+      }
+
+    }
+
+    axios.post("http://localhost:5000/api/shop/additems",formData,config).then((res)=>{
+      alert("Item Added");
+    }).catch((error)=>{
+      alert(error);
+    });
+
+
+
   }
-  function onChangeColor2(e) {
-    setColor2(e.target.value);
-  }
-  function onChangeColor3(e) {
-    setColor3(e.target.value);
-  }
-  function onChangeName(e) {
-    setItemName(e.target.value);
-  }
-  function onChangePrice(e) {
-    setPrice(e.target.value);
-  }
-  function onChangeCDescription(e) {
-    setDescription(e.target.value);
-  }
+
 
   return (
     <>
-      <div className="row">
-        <div className="col-md-6">
-          <Paper
-            elevation={3}
-            style={{
-              padding: "10px",
-              background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
-              borderRadius: "20px",
-              boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
-            }}
-          >
-            <h3>Update Item</h3>
-            <FormControl className={classes.formControl}>
+      <div class="card" style={{margin: "100px",borderRadius: "43px",backgroundColor: "#73a8f0"}}>
+                <div class="card-body" style={{backgroundColor: "rgba(115,168,240,0)",padding: "65px"}}>
+                    <div class="row">
+                        <div class="col">
+              <div class="card" style={{borderRadius: "78px"}}><img class="card-img w-100 d-block" src="assets/img/shoes/1.png"/></div>
+                        </div>
+                        <div class="col">
+              <div class="card" style={{borderRadius: "70px"}}>
+                  <div class="card-body">
+
+
+                  <FormControl className={classes.formControl}>
               <TextField
-                value={name}
+
                 className={classes.inputControl}
                 label="Name"
-                onChange={onChangeName}
+                onChange={(e) => setItemName(e.target.value)}
                 variant="outlined"
+                style={{
+                  minWidth: "250px",
+                  maxWidth: "275px",
+
+
+                }}
               />
 
               <TextField
-                value={price}
+
                 className={classes.inputControl}
                 label="Price"
-                onChange={onChangePrice}
+                onChange={(e) => setItemPrice(e.target.value)}
                 variant="outlined"
               />
 
@@ -80,56 +97,20 @@ export default function EcommerceInsertitem() {
                 label="Description"
                 multiline
                 rowsMax={4}
-                value={description}
-                onChange={onChangeCDescription}
+
+                onChange={(e) => setItemDescriprion(e.target.value)}
                 variant="outlined"
               />
 
-              <div className="row">
-                <TextField
-                  type="color"
-                  className={classes.inputControl}
-                  style={{
-                    minWidth: "45px",
-                    maxWidth: "50px",
-                  }}
-                  value={color1}
-                  onChange={onChangeColor1}
-                  variant="outlined"
-                />
-                <TextField
-                  type="color"
-                  className={classes.inputControl}
-                  style={{
-                    minWidth: "45px",
-                    maxWidth: "50px",
-                  }}
-                  value={color2}
-                  onChange={onChangeColor2}
-                  variant="outlined"
-                />
-                <TextField
-                  type="color"
-                  className={classes.inputControl}
-                  style={{
-                    minWidth: "45px",
-                    maxWidth: "50px",
-                  }}
-                  value={color3}
-                  onChange={onChangeColor3}
-                  variant="outlined"
-                />
-              </div>
-
               <TextField
                 type="file"
-                value={name}
-                className={classes.inputControl}
-                onChange={onChangeName}
+
+                onChange={(e) => setItemImage(e.target.files[0])}
                 variant="outlined"
               />
 
               <Button
+                onClick = {onSubmit}
                 variant="contained"
                 style={{
                   backgroundColor: "#263238",
@@ -139,9 +120,13 @@ export default function EcommerceInsertitem() {
                 Insert
               </Button>
             </FormControl>
-          </Paper>
-        </div>
-      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
       <br />
     </>
   );
