@@ -79,9 +79,8 @@ export default class Item extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/shop/5f41214fec9b972d0c95d38d")
+      .get("http://localhost:5000/api/shop/"+this.props.match.params.id)
       .then((response) => {
-<<<<<<< HEAD
 
         this.setState({
           ItemsName: response.data.ItemName,
@@ -92,9 +91,6 @@ export default class Item extends Component {
           ).toString("base64")
 
         });
-=======
-        console.log("Item Detials : " + response.data);
->>>>>>> 84853733f2edf2adb2a95cc8954d4bb010a978a5
       })
       .catch((error) => {
         console.log("No Item");
