@@ -154,20 +154,6 @@ export default class InsertDailyMealPlanByUser extends Component {
             </FormControl>
           </CardContent>
         </Card>
-
-        {/* <Card
-          className="card-border"
-          variant="outlined"
-          color="palette.success.light"
-        >
-          <CardContent>
-            <Typography variant="h6" component="h2">
-              {this.state.FoodName} has about {this.state.ENERC_KCAL} kcal of
-              calories , {this.state.PROCNT} grams of proteins and{" "}
-              {this.state.FAT} grams of fat
-            </Typography>
-          </CardContent>
-        </Card> */}
       </>
     );
   }

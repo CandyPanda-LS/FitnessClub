@@ -197,22 +197,12 @@ export default class BurnCalories extends Component {
     return (
       <div className="row">
         <div className="col-md-12" style={{ textAlign: "center" }}>
-          <Typography component="div" variant="body1">
-            <Box
-              style={{
-                background: "linear-gradient(45deg, #4f79bd 30%, #1fb1f0 90%)",
-                border: 0,
-                borderRadius: 3,
-                boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-                color: "white",
-                height: 48,
-                padding: "10px 30px",
-                textAlign: "center",
-              }}
-              color="primary.main"
-            >
-              Workout Tracker
-            </Box>
+          <Typography
+            style={{ color: "#d18b08", fontSize: "20px", fontWeight: "bold" }}
+            component="div"
+            variant="body1"
+          >
+            Workout Tracker
             <hr />
           </Typography>
         </div>
