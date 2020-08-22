@@ -485,7 +485,7 @@ export default function MenuAppBar() {
               />
               <Route path="/UpdateItemShop" component={EcommerceUpdateitem} />
               <Route path="/shop" exact component={ItemsGrid} />
-              <Route path="/shopItem" exact component={Item} />
+              <Route path="/shopItem/:id" exact component={Item} />
 
               <Route
                 path="/adminItemShop"
