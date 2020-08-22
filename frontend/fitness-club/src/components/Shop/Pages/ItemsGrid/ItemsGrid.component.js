@@ -23,7 +23,7 @@ function Item({ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
             <img
               class="card-img w-100 d-block"
               data-bs-hover-animate="pulse"
-              src={`data:image/png;,base64${Buffer.from(
+              src={`data:image/png;base64,${Buffer.from(
                 ItemImage.data
               ).toString("base64")}`}
               alt="itemImage"
@@ -44,16 +44,16 @@ function Item({ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
           </h6>
           <div class="row">
             <div class="col">
-              <Link>
+
               <button
                 class="btn"
                 type="button"
                 style={{backgroundColor: "#0c4c6d", color: "#ffffff"}}
-                
+
               >
                 view
               </button>
-              </Link>
+
             </div>
             <div class="col">
               <p style={{ margin: "6px" }}>Rs{ItemPrice}</p>
