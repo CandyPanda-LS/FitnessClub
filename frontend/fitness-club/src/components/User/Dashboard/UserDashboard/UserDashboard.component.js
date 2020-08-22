@@ -16,7 +16,7 @@ import MealBarChart from "../../Charts/MealBarChart/MealBarChart.component";
 import BMICard from "../../BMI/bmicard";
 
 const UserDashboard = () => {
-  const [profile, setProfile] = useState("false");
+  const [profile, setProfile] = useState("true");
   /*Redirect to login page if there is no token*/
   useEffect(() => {
     const token = localStorage.getItem("x-auth-token");
@@ -31,13 +31,21 @@ const UserDashboard = () => {
       },
     };
 
-    axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then((response) => {
-        if (response.data.package) setProfile("true");
-        else setProfile("false");
-      });
-  });
+    async function checkProfile() {
+      await axios
+        .get("http://localhost:5000/api/profile/me", config)
+        .then((response) => {
+          if (response.data.package) {
+            setProfile("true");
+          } else {
+            setProfile("false");
+          }
+        })
+        .catch(setProfile("false"));
+    }
+    // Execute the checkProfile function directly
+    checkProfile();
+  }, []);
 
   return (
     <>
