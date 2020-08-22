@@ -19,7 +19,12 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.get("/ShopItems:id", (req, res) => {
+
+//@route  GET api/shop/:id
+//@desc   Get one Item from the database
+//@access Private
+
+router.get("/:id", (req, res) => {
   Item.findById(req.params.id)
     .then((Item) => res.json(Item))
     .catch((err) => res.status(400).json("Error: " + err));

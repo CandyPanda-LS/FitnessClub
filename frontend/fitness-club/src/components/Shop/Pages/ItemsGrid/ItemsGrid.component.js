@@ -10,7 +10,7 @@ import { Div, Button, SideDrawer, Icon, Text } from "atomize";
 import "./ItemsGrid.css";
 
 // Single item functional component start
-function Item({ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
+function Item({id,ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
   return (
     <div className="col-md-3" style={{ padding: "10px" }}>
       <div
@@ -44,7 +44,7 @@ function Item({ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
           </h6>
           <div class="row">
             <div class="col">
-
+              <Link to= {"/shopItem/" + id}>
               <button
                 class="btn"
                 type="button"
@@ -53,7 +53,7 @@ function Item({ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
               >
                 view
               </button>
-
+              </Link>
             </div>
             <div class="col">
               <p style={{ margin: "6px" }}>Rs{ItemPrice}</p>
