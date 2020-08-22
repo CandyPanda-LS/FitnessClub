@@ -10,7 +10,7 @@ import { Div, Button, SideDrawer, Icon, Text } from "atomize";
 import "./ItemsGrid.css";
 
 // Single item functional component start
-function Item({id,ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
+function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
   return (
     <div className="col-md-3" style={{ padding: "10px" }}>
       <div
@@ -44,15 +44,14 @@ function Item({id,ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
           </h6>
           <div class="row">
             <div class="col">
-              <Link to= {"/shopItem/" + id}>
-              <button
-                class="btn"
-                type="button"
-                style={{backgroundColor: "#0c4c6d", color: "#ffffff"}}
-
-              >
-                view
-              </button>
+              <Link to={"/shopItem/" + id}>
+                <button
+                  class="btn"
+                  type="button"
+                  style={{ backgroundColor: "#0c4c6d", color: "#ffffff" }}
+                >
+                  view
+                </button>
               </Link>
             </div>
             <div class="col">
@@ -70,7 +69,11 @@ function Item({id,ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
 
 const SizeSideDrawer = ({ isOpen, onClose }) => {
   return (
-    <SideDrawer isOpen={isOpen} onClose={onClose} w={{ xs: "100vw", sm: "24rem",xl:"24rem" }}>
+    <SideDrawer
+      isOpen={isOpen}
+      onClose={onClose}
+      w={{ xs: "100vw", sm: "24rem", xl: "24rem" }}
+    >
       <Div d="flex" m={{ b: "4rem" }}>
         <Icon name="AlertSolid" color="warning700" />
         <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
@@ -116,7 +119,6 @@ export default class ItemsGrid extends Component {
 
   render() {
     return (
-
       <div>
         {/* Image Slider */}
         <Imageslider />
@@ -140,24 +142,22 @@ export default class ItemsGrid extends Component {
               />
             ))}
 
-
-        <Button
-          bg="info700"
-          hoverBg="info600"
-          m={{ r: "0.5rem" }}
-          onClick={() =>
-            this.setState({
-              showSideDrawer: true,
-            })
-          }
-        >
+            <Button
+              bg="info700"
+              hoverBg="info600"
+              m={{ r: "0.5rem" }}
+              onClick={() =>
+                this.setState({
+                  showSideDrawer: true,
+                })
+              }
+            >
               Open 24rem width SideDrawer
-        </Button>
-        <SizeSideDrawer
-          isOpen={this.state.showSideDrawer}
-          onClose={() => this.setState({ showSideDrawer: false })}
-        />
-
+            </Button>
+            <SizeSideDrawer
+              isOpen={this.state.showSideDrawer}
+              onClose={() => this.setState({ showSideDrawer: false })}
+            />
           </div>
         </div>
       </div>

@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
 
 const SizeSideDrawer = ({ isOpen, onClose }) => {
   return (
-    <SideDrawer isOpen={isOpen} onClose={onClose} w={{ xs: "100vw", sm: "24rem" }}>
+    <SideDrawer
+      isOpen={isOpen}
+      onClose={onClose}
+      w={{ xs: "100vw", sm: "24rem" }}
+    >
       <Div d="flex" m={{ b: "4rem" }}>
         <Icon name="AlertSolid" color="warning700" />
         <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
@@ -74,10 +78,10 @@ export default class Item extends Component {
   }
 
   componentDidMount() {
-    const id = "5f411b1507a45c2388ad2cbe";
     axios
-      .get("http://localhost:5000/api/shop/5f412e15aee7ea2ea050d320")
+      .get("http://localhost:5000/api/shop/5f41214fec9b972d0c95d38d")
       .then((response) => {
+<<<<<<< HEAD
 
         this.setState({
           ItemsName: response.data.ItemName,
@@ -88,9 +92,12 @@ export default class Item extends Component {
           ).toString("base64")
 
         });
+=======
+        console.log("Item Detials : " + response.data);
+>>>>>>> 84853733f2edf2adb2a95cc8954d4bb010a978a5
       })
       .catch((error) => {
-        console.log(error);
+        console.log("No Item");
       });
   }
 
@@ -98,7 +105,7 @@ export default class Item extends Component {
 
   addItem() {
     this.setState({
-        ItemQuantity: ++this.state.ItemQuantity,
+      ItemQuantity: ++this.state.ItemQuantity,
     });
   }
 
@@ -113,13 +120,12 @@ export default class Item extends Component {
   // quantity changing functions end
   // size changing functions
 
-    addSize() {
+  addSize() {
     if (this.state.ItemSize <= 11) {
-        this.setState({
-            ItemSize: ++this.state.ItemSize,
-        });
+      this.setState({
+        ItemSize: ++this.state.ItemSize,
+      });
     }
-
   }
 
   substractSize() {
@@ -197,7 +203,7 @@ export default class Item extends Component {
                     </h1>
                     <br />
                     <br />
-                                    <br />
+                    <br />
                     {/* size picker start                 */}
                     <div class="row" style={{ marginTop: "0px" }}>
                       <div class="col">
