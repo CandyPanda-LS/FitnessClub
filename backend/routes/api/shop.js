@@ -5,9 +5,17 @@ let Item = require("../../models/ShopItem");
 const multer = require("multer");
 const sharp = require("sharp");
 
-router.get("/ShopItems", (req, res) => {
+
+// @route         GET /shop
+// @description   get Shop Items
+// @access        Private
+router.get("/", async (req, res) => {
+
+
   Item.find()
-    .then((ShopItems) => res.json(ShopItems))
+    .then((items) => {
+      res.json(items);
+    })
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
