@@ -15,17 +15,11 @@ const ShopItemSchema = new Schema({
     ItemDescriprion: {
         type: String,
     },
-    ItemColors: [{
-        Color1: {
-            type:String,
-        },
-        Color2: {
-            type:String,
-        },
-        Color3: {
-            type:String,
-        },
-    }],
+
+    ItemImage:{
+        type: Buffer,
+        required: true,
+    }
 
 });
 

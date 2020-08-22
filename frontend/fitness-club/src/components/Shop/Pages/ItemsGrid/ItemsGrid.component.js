@@ -10,7 +10,7 @@ import { Div, Button, SideDrawer, Icon, Text } from "atomize";
 import "./ItemsGrid.css";
 
 // Single item functional component start
-function Item(props) {
+function Item({id,ItemName,ItemDescriprion,ItemPrice,ItemImage}) {
   return (
     <div className="col-md-3" style={{ padding: "10px" }}>
       <div
@@ -23,7 +23,9 @@ function Item(props) {
             <img
               class="card-img w-100 d-block"
               data-bs-hover-animate="pulse"
-              src="assets/img/1-1.png"
+              src={`data:image/png;base64,${Buffer.from(
+                ItemImage.data
+              ).toString("base64")}`}
               alt="itemImage"
             />
           </div>
@@ -32,26 +34,29 @@ function Item(props) {
             style={{ fontFamily: "Nunito, sans-serif", color: "black" }}
           >
             Nike
-            {props.Item.ItemName}
+            {ItemName}
           </h4>
           <h6 class="text-muted card-subtitle mb-2">
             <br />
-            {props.Item.ItemDescriprion}
+            {ItemDescriprion}
             <br />
             <br />
           </h6>
           <div class="row">
             <div class="col">
+              <Link to= {"/shopItem/" + id}>
               <button
                 class="btn"
                 type="button"
-                style={{ backgroundColor: "#0c4c6d", color: "#ffffff" }}
+                style={{backgroundColor: "#0c4c6d", color: "#ffffff"}}
+
               >
                 view
               </button>
+              </Link>
             </div>
             <div class="col">
-              <p style={{ margin: "6px" }}>Rs{props.Item.ItemPrice}</p>
+              <p style={{ margin: "6px" }}>Rs{ItemPrice}</p>
             </div>
           </div>
         </div>
@@ -98,8 +103,9 @@ export default class ItemsGrid extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/ShopItems/")
+      .get("http://localhost:5000/api/shop/")
       .then((response) => {
+        console.log(response);
         this.setState({ Items: response.data });
         console.log(response);
       })
@@ -125,11 +131,12 @@ export default class ItemsGrid extends Component {
 
             {this.state.Items.map((currentItem) => (
               <Item
+                id={currentItem._id}
                 key={currentItem._id}
                 ItemName={currentItem.ItemName}
                 ItemPrice={currentItem.ItemPrice}
                 ItemDescriprion={currentItem.ItemDescriprion}
-                ItemColors={currentItem.ItemColors}
+                ItemImage={currentItem.ItemImage}
               />
             ))}
 

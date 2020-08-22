@@ -74,15 +74,18 @@ export default class Item extends Component {
   }
 
   componentDidMount() {
+    const id = "5f411b1507a45c2388ad2cbe";
     axios
-      .get("http://localhost:5000/ShopItems/" + this.props.match.params.id)
+      .get("http://localhost:5000/api/shop/5f412e15aee7ea2ea050d320")
       .then((response) => {
-        this.setState({
-          ItemsName: response.data.ItemName,
-          ItemPrice: response.data.ItemPrice,
-          ItemDescription: response.data.ItemDescriprion,
-          ItemColor: response.data.ItemColors,
-        });
+
+        console.log("One Item : " + response);
+        // this.setState({
+        //   ItemsName: response.data.ItemName,
+        //   ItemPrice: response.data.ItemPrice,
+        //   ItemDescription: response.data.ItemDescriprion,
+        //   ItemColor: response.data.ItemColors,
+        // });
       })
       .catch((error) => {
         console.log(error);
