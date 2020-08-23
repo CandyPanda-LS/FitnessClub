@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 // @desc import Components
@@ -87,7 +87,7 @@ export default function MenuAppBar() {
                 <img
                   alt="logo"
                   className="rounded-circle"
-                  src="assets/img/logo/logoicon.png"
+                  src="/assets/img/logo/logoicon.png"
                   width="50px"
                 />
                 {/* <i className="fas fa-laugh-wink"></i> */}
@@ -98,7 +98,7 @@ export default function MenuAppBar() {
                   <img
                     alt="logo"
                     className="rounded-circle"
-                    src="assets/img/logo/logoname.png"
+                    src="/assets/img/logo/logoname.png"
                     width="100px"
                   />
                 </span>
@@ -478,6 +478,9 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Lasal */}
+              <Switch>
+                <Route exact path="/shopItem/:id" component={Item} />
+              </Switch>
               <Route
                 path="/insertItemShop"
                 exact
@@ -485,7 +488,6 @@ export default function MenuAppBar() {
               />
               <Route path="/UpdateItemShop" component={EcommerceUpdateitem} />
               <Route path="/shop" exact component={ItemsGrid} />
-              <Route path="/shopItem/:id" exact component={Item} />
 
               <Route
                 path="/adminItemShop"
