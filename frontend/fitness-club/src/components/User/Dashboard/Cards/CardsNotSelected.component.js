@@ -133,7 +133,7 @@ export default class HeaderCardsNoPackage extends Component {
           </Link>
         </div>
         <div className="col-md-6 col-xl-3 mb-4 headerShopping">
-          <Link to="/Shop" style={{ textDecoration: "none" }}>
+          <Link to="/shop" style={{ textDecoration: "none" }}>
             <div className="card shadow border-left-warning py-2">
               <div className="card-body headerOptions">
                 <div className="row align-items-center no-gutters">
