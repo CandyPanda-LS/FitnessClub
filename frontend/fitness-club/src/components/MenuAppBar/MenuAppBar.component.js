@@ -110,7 +110,7 @@ export default function MenuAppBar() {
 
             <ul className="nav navbar-nav text-light" id="accordionSidebar">
               <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="/">
+                <Link className="nav-link" to="/dashboard">
                   <i className="fas fa-tachometer-alt"></i>
                   <span>Dashboard</span>
                 </Link>
