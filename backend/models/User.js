@@ -31,7 +31,7 @@ const UserSchema = new Schema({
   gender: {
     type: String,
   },
-  image: {
+  profImage: {
     type: Buffer,
   }
 });
