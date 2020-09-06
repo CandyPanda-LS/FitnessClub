@@ -12,7 +12,7 @@ const User = require("../../models/User");
 
 router.get("/", auth, async (req, res) => {
   try {
-    const userProfile = await User.findOne({ _id: req.user.id }).then(
+    const userprofile = await User.findOne({ _id: req.user.id }).then(
       "firstName",
       "lastName",
       "email",
@@ -20,13 +20,13 @@ router.get("/", auth, async (req, res) => {
       "address"
     );
 
-    if (!userProfile) {
+    if (!userprofile) {
       return res
         .status(400)
         .json({ msg: "There is no profile details for this user" });
     }
 
-    res.json(userProfile);
+    res.json(userprofile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
@@ -72,15 +72,15 @@ router.post(
     if (address) profileFields.address = address;
     if (mobileNumber) profileFields.mobileNumber = mobileNumber;
 
-    res.send("Hello");
+    
 
     try {
-      let profile = UserProfile.findOne({ user: req.user.id });
+      let profile = userprofile.findOne({ user: req.user.id });
 
       if (profile) {
         //update
 
-        profile = await UserProfile.findByIdAndUpdate(
+        profile = await userprofile.findByIdAndUpdate(
           { user: req.user.is },
           { $set: profileFields },
           { new: true }
@@ -89,9 +89,10 @@ router.post(
         return req.json(profile);
       }
 
+      res.send("Hello");
       //create
 
-      profile = new UserProfile(profileFields);
+      profile = new userprofile(profileFields);
       await profile.save();
       res.json(profile);
     } catch (err) {
@@ -107,7 +108,7 @@ router.post(
 
 router.get("/user/:user_id", async (req, res) => {
   try {
-    const profile = await UserProfile.findOne({
+    const profile = await userprofile.findOne({
       user: req.params.user_id,
     }).populate("user", ["name"]);
 
@@ -136,7 +137,9 @@ router.delete("/", auth, async (req, res) => {
     await User.findOneAndRemove({ _id: req.user.id });
 
     res.json({ msg: "User Deleted" });
-  } catch (err) {}
+  } catch (err) {
+    
+  }
 });
 
 module.exports = router;

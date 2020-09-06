@@ -31,5 +31,8 @@ const UserSchema = new Schema({
   gender: {
     type: String,
   },
+  image: {
+    type: Buffer,
+  }
 });
 module.exports = User = mongoose.model("user", UserSchema);
