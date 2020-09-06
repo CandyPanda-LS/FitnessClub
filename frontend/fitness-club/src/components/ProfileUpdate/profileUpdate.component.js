@@ -89,17 +89,18 @@ onChangeMobileNo(e){
   })
 }
 
-  onSubmitContact(e){
+  onSubmitPersonal(e){
     e.preventDefault();
 
-    const contact = {
+    const personal = {
       username : this.state.username,
       fristName : this.state.fristName,
       lastName : this.state.lastName,
-      email : this.state.email
+      email : this.state.email,
+
     };
 
-    console.log(contact);
+    console.log(personal);
 
     const token = localStorage.getItem("x-auth-token");
 
@@ -117,7 +118,7 @@ onChangeMobileNo(e){
 
   }
 
-  onSubmitPersonal(e){
+  onSubmitContact(e){
     e.preventDefault();
 
     const contact = {
