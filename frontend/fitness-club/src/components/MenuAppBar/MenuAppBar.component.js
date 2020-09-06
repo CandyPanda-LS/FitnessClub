@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // @desc import Components
 // @author Dilmi
 import UserLogin from "../Login/UserLogin/userlogin.component";
-import UserProfile from "../ProfileUpdate/profileUpdate.component";
+import Profile from "../Profile/profile";
 import UserRegistration from "../Register/registration.component";
 // import ForgotPassword from "../Forgotpassword/forgotpassword.component";
 import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
@@ -452,6 +452,7 @@ export default function MenuAppBar() {
               <Route path="/registration" exact component={UserRegistration} />
               <Route path="/profileUpdate" exact component={ProfileUpdate} />
               <Route path="/userlogin" exact component={UserLogin} />
+              <Route path="/profile" exact component={Profile} />
 
               {/* Routes
               @author Senura */}

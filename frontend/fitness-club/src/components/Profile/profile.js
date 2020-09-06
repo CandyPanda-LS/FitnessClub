@@ -1,30 +1,28 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React,{Component} from 'react';
+import axios from 'axios';
 
-export default class ProfileUpdate extends Component {
-  constructor(props) {
-    super(props);
 
-   this.onSubmitContact = this.onSubmitContact.bind(this);
-  // this.onSubmitPersonal = this.onSubmitPersonal.bind(this);
-  this.onChangeEmail = this.onChangeEmail.bind(this);
-  this.onChangeFirstname = this.onChangeFirstname.bind(this);
-  this.onChangeLastname = this.onChangeLastname.bind(this);
-  this.onChangeUsername = this.onChangeUsername.bind(this);
-  this.onChangeAddress = this.onChangeAddress.bind(this);
-  this.onChangeMobileNo = this.onChangeMobileNo.bind(this);
+export default class Profile extends Component{
 
-    this.state = {
+    constructor(props){
+        super(props);
+
+        this.profileDelete = this.profileDelete.bind(this);
+        this.editInfo = this.editInfo.bind(this);
+
+           this.state = {
                username : "",
                fristName:"",
                lastName:"",
                email:"",
                address:"",
                mobileNo:""
-    };
-  }
+           }
+            
+    }
 
-  componentDidMount(){
+//fetching user details from backend
+componentDidMount(){
 
     const token = localStorage.getItem("x-auth-token");
 
@@ -53,53 +51,8 @@ export default class ProfileUpdate extends Component {
         })
 }
 
-onChangeUsername(e){
-  this.setState({
-    username:e.target.value
-  })
-}
 
-onChangeLastname(e){
-  this.setState({
-    lastName:e.target.value
-  })
-}
-
-onChangeFirstname(e){
-  this.setState({
-    firstName:e.target.value
-  })
-}
-
-onChangeEmail(e){
-  this.setState({
-    email:e.target.value
-  })
-}
-
-onChangeAddress(e){
-  this.setState({
-    address:e.target.value
-  })
-}
-
-onChangeMobileNo(e){
-  this.setState({
-    mobileNo:e.target.value
-  })
-}
-
-  onSubmitContact(e){
-    e.preventDefault();
-
-    const contact = {
-      username : this.state.username,
-      fristName : this.state.fristName,
-      lastName : this.state.lastName,
-      email : this.state.email
-    };
-
-    console.log(contact);
+profileDelete(e){
 
     const token = localStorage.getItem("x-auth-token");
 
@@ -109,45 +62,26 @@ onChangeMobileNo(e){
         }
     }
 
-    axios
-      .post("http://localhost:5000/api/userprofile/",config)
-      .then((response) => console.log("Profile Updated"))
 
-      window.location = "/profile";
+     axios
+        .delete("http://localhost:5000/api/userprofile/",config)
+        .then((response) => console.log("Profile Deleted"))
+        .catch((error) => {
+            console.log(error);
+          });
 
-  }
+         window.location = "/";
+}
 
-  onSubmitPersonal(e){
-    e.preventDefault();
+editInfo(e){
+    window.location = "/profileUpdate";
+}
 
-    const contact = {
-      address : this.state.address,
-      mobileNo : this.state.mobileNo,
-      
-    };
-
-    console.log(contact);
-
-    const token = localStorage.getItem("x-auth-token");
-
-    const config = {
-        headers: {
-            "x-auth-token" : localStorage.getItem("x-auth-token")
-        }
-    }
-
-    axios
-      .post("http://localhost:5000/api/userprofile/",config)
-      .then((response) => console.log("Profile Updated"))
-
-      window.location = "/profile";
-
-  }
-
-  render() {
-    return (
-      <div class="container-fluid">
-        <h3 class="text-dark mb-4">Edit Info</h3>
+    render(){
+        return(
+            
+            <div class="container-fluid">
+        <h3 class="text-dark mb-4">My Profile</h3>
         <div class="row mb-3">
           <div class="col-lg-4">
             <div class="card mb-3">
@@ -158,15 +92,6 @@ onChangeMobileNo(e){
                   width="160"
                   height="160"
                 />
-                <div class="mb-3">
-                  <button
-                    class="btn btn-primary btn-sm"
-                    type="button"
-                    onClick={this.updateImageHandler}
-                  >
-                    Change Photo
-                  </button>
-                </div>
               </div>
             </div>
             <div class="card shadow mb-4"></div>
@@ -216,14 +141,9 @@ onChangeMobileNo(e){
             </div>
             <div class="row">
               <div class="col">
-                <div class="card shadow mb-3">
-                  <div class="card-header py-3">
-                    <p class="text-primary m-0 font-weight-bold">
-                      User Settings
-                    </p>
-                  </div>
+                <div class="card shadow mb-3">                 
                   <div class="card-body">
-                    <form onSubmit={this.onSubmitPersonal} class="profileUpdate1">
+                    <form class="profileUpdate1">
                       <div class="form-row">
                         <div class="col">
                           <div class="form-group">
@@ -233,8 +153,8 @@ onChangeMobileNo(e){
                             <input
                               class="form-control"
                               type="text"
-                              value={this.state.username}
-                              onChange={this.onChangeUsername}
+                              placeholder="Username"
+                              value={this.state.firstName}
                               name="username"
                             />
                           </div>
@@ -247,8 +167,8 @@ onChangeMobileNo(e){
                             <input
                               class="form-control"
                               type="email"
+                              placeholder="user@example.com"
                               value={this.state.email}
-                              onChange={this.onChangeEmail}
                               name="email"
                             />
                           </div>
@@ -257,49 +177,40 @@ onChangeMobileNo(e){
                       <div class="form-row">
                         <div class="col">
                           <div class="form-group">
-                            <label for="first_name">
+                            <label for="firstName">
                               <strong>First Name</strong>
                             </label>
                             <input
                               class="form-control"
                               type="text"
+                              placeholder="First name"
                               value={this.state.firstName}
-                              onChange={this.onChangeFirstname}
                               name="firstName"
                             />
                           </div>
                         </div>
                         <div class="col">
                           <div class="form-group">
-                            <label for="last_name">
+                            <label for="lastName">
                               <strong>Last Name</strong>
                             </label>
                             <input
                               class="form-control"
                               type="text"
+                              placeholder="Last name"
                               value={this.state.lastName}
-                              onChange={this.onChangeLastname}
                               name="lastName"
                             />
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <button class="btn btn-primary btn-sm" type="submit">
-                          Save Settings
-                        </button>
-                      </div>
+                      </div>                      
                     </form>
                   </div>
                 </div>
                 <div class="card shadow">
-                  <div class="card-header py-3">
-                    <p class="text-primary m-0 font-weight-bold">
-                      Contact Settings
-                    </p>
-                  </div>
+                  
                   <div class="card-body">
-                    <form onSubmit={this.onSubmitContact} class="profileUpdate2">
+                    <form class="profileUpdate2">
                       <div class="form-group">
                         <label for="address">
                           <strong>Address</strong>
@@ -307,8 +218,8 @@ onChangeMobileNo(e){
                         <input
                           class="form-control"
                           type="text"
+                          placeholder="Address"
                           value={this.state.address}
-                          onChange={this.onChangeAddress}
                           name="address"
                         />
                       </div>
@@ -321,18 +232,13 @@ onChangeMobileNo(e){
                             <input
                               class="form-control"
                               type="text"
+                              placeholder="Mobile Number"
                               value={this.state.mobileNo}
-                              onChange={this.onChangeMobileNo}
                               name="mobileNo"
                             />
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group">
-                        <button class="btn btn-primary btn-sm" type="submit">
-                          Save&nbsp;Settings
-                        </button>
-                      </div>
+                      </div>            
                     </form>
                   </div>
                 </div>
@@ -340,7 +246,31 @@ onChangeMobileNo(e){
             </div>
           </div>
         </div>
+        <center>
+        <div class="mb-3" style = {{justifyContent:"space-between"}}>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    onClick={this.editInfo}
+                  >
+                    Change Info
+                  </button>{' '}{' '}
+                  
+
+                  
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    onClick={this.profileDelete}
+                  >
+                    Delete Profile
+                  </button>
+
+                  </div>
+                  </center>
+                  
       </div>
-    );
-  }
+
+        );
+    }
 }
