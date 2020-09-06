@@ -12,6 +12,7 @@ import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
 // @author Senura
+import HomeComponent from "../Home/homepage.component";
 import Footer from "../../components/Footer/Footer.component";
 import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.component";
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
@@ -455,7 +456,8 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Senura */}
-              <Route path="/" exact component={UserDashboard} />
+              <Route path="/" exact component={HomeComponent} />
+              <Route path="/dashboard" exact component={UserDashboard} />
               <Route
                 path="/addcompletedexerciselist"
                 exact
