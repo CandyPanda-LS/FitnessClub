@@ -32,7 +32,7 @@ const UserSchema = new Schema({
     type: String,
   },
   profImage: {
-    type: Buffer,
+    type: String,
   }
 });
 module.exports = User = mongoose.model("user", UserSchema);

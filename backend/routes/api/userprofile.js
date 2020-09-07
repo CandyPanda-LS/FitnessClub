@@ -149,4 +149,77 @@ router.delete("/", auth, async (req, res) => {
   } catch (err) {}
 });
 
+//@route  POST api/advertisement/
+//@desc   Add advertisement into the database
+//@access Private
+//to protect auth add as the second parameter
+router.post("/", async (req, res) => {
+  if (req.files == null) {
+    return res.status(400).json({ msg: "No file uploaded" });
+  }
+ 
+  const file = req.files.file;
+  file.mv(`${dirPath}/${file.name}`, (err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+ 
+    const profImage = file.name;
+
+    const {
+      userName,
+      firstName,
+      lastName,
+      email,
+      mobileNo,
+      address,
+      gender,
+      password,
+      password2,
+    } = req.body;
+
+    const profileFields = {};
+    profileFields.user = req.user.id;
+    if (userName) profileFields.userName = userName;
+    if (firstName) profileFields.firstName = firstName;
+    if (lastName) profileFields.lastName = lastName;
+    if (email) profileFields.email = email;
+    if (address) profileFields.address = address;
+    if (mobileNo) profileFields.mobileNo = mobileNo;
+    if (gender) profileFields.gender = gender;
+    if (password) profileFields.password = password;
+    if (password2) profileFields.password2 = password2;
+    if (profImage) profileFields.profImage = profImage;
+
+    try {
+      let profile = User.findOne({ _id: req.user.id });
+
+      if (profile) {
+        //update
+
+        profile =  User.findByIdAndUpdate(
+          { _id: req.user.id },
+          { $set: profileFields },
+          { new: true }
+        );
+
+        return res.json(profile);
+      }
+
+      res.send("Hello");
+      //create
+
+      profile = new User(profileFields);
+       profile.save();
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+ 
+    
+  });
+});
+
 module.exports = router;
