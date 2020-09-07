@@ -111,26 +111,19 @@ export default function Createadvertiesement() {
                     <div class="form-group row">
                       <div class="col-sm-6 mb-3 mb-sm-0">
                         <input
+                          style={{ padding: "3px" }}
                           class="form-control form-control-user"
                           type="file"
                           id="ItemImage"
-                          placeholder="Image"
+                          placeholder="{filename}"
                           name="image"
                           onChange={onChangeFile}
                           required
                         />
-
-                        <label
-                          className="custom-file-label"
-                          htmlFor="ItemImage"
-                        >
-                          {filename}
-                        </label>
                       </div>
                     </div>
-
                     <Progress percentage={uploadPercentage} />
-
+                    <br />
                     <button
                       class="btn btn-primary btn-block text-white btn-user"
                       id="signup"
