@@ -12,6 +12,14 @@ import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 
 // import { Link } from "@material-ui/core";
 
+//-----------------------Rajindu--------------------------------------
+import InstructorManage from "../Admin/Dashboards/InstructorManage/instructorManage";
+import InsertInstructor from "../Admin/Forms/InstructorManage/InsertInstructor";
+import UpdateInstructor from "../Admin/Forms/InstructorManage/UpdateInstructor";
+import InstructorList from "../Admin/Lists/InstructorList";
+import Image from "../Admin/Forms/InstructorManage/InsertImage";
+//--------------------------------------------------------------------
+
 export default function MenuAppBar() {
   const [token, setToken] = useState(0);
 
@@ -410,6 +418,14 @@ export default function MenuAppBar() {
                 component={EcommerceInsertitem}
               />
               <Route path="/shop" exact component={ItemsGrid} />
+
+              {/*-------------------------Rajindu---------------------------------*/}
+              <Route path="/admin" exact component={InstructorManage} />
+              <Route path="/insert" exact component={InsertInstructor} />
+              <Route path="/update/:id" exact component={UpdateInstructor} />
+              <Route path="/list" exact component={InstructorList} />
+              <Route path="/img" exact component={Image} />
+              {/*-----------------------------------------------------------------*/}
             </div>
           </div>
 
