@@ -146,15 +146,9 @@ export default function AdvertisementTable() {
       },
     };
 
-<<<<<<< HEAD
-    console.log("Delete meal id is " + id);
+    console.log("Delete Advertisement id is " + id);
     await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
-=======
-    console.log('Delete Advertisement id is ' + id);
-    await axios
-      .delete('http://localhost:5000/api/advertisement' + id)
->>>>>>> 71e06a63836276d452ff2b2123771e3031ea03d7
+      .delete("http://localhost:5000/api/advertisement" + id)
       .then((response) => {
         console.log(response);
       });
@@ -162,11 +156,7 @@ export default function AdvertisementTable() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
-<<<<<<< HEAD
-      .get("http://localhost:5000/api/profile/me", config)
-=======
-      .get('http://localhost:5000/api/advertisement')
->>>>>>> 71e06a63836276d452ff2b2123771e3031ea03d7
+      .get("http://localhost:5000/api/advertisement")
       .then(({ data }) => {
         console.log(data);
         // console.log(data.dailymeallist);
@@ -200,8 +190,8 @@ export default function AdvertisementTable() {
                   align={column.align}
                   style={{
                     minWidth: column.minWidth,
-                    color: 'white',
-                    backgroundColor: '#1f5587',
+                    color: "white",
+                    backgroundColor: "#1f5587",
                   }}
                 >
                   {column.label}
