@@ -190,7 +190,7 @@ export default function AdvertisementTable() {
                   style={{
                     minWidth: column.minWidth,
                     color: 'white',
-                    backgroundColor: '#db8465',
+                    backgroundColor: '#1f5587',
                   }}
                 >
                   {column.label}
