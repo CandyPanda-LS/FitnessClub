@@ -66,7 +66,7 @@ export default class UserLogin extends Component {
       };
 
       localStorage.setItem("x-auth-token", setUserData.token);
-      window.location = "/";
+      window.location = "/dashboard";
     } catch (err) {
       console.log(err);
       if (!this.state.userToken) {

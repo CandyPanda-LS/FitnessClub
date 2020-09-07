@@ -65,8 +65,7 @@ router.post(
       address,
       gender,
       password,
-      password2
-
+      password2,
     } = req.body;
 
     //build profile object
@@ -81,9 +80,6 @@ router.post(
     if (gender) profileFields.gender = gender;
     if (password) profileFields.password = password;
     if (password2) profileFields.password2 = password2;
-    
-
-    
 
     try {
       let profile = User.findOne({ _id: req.user.id });
@@ -119,9 +115,11 @@ router.post(
 
 router.get("/user/:user_id", async (req, res) => {
   try {
-    const profile = await userprofile.findOne({
-      user: req.params.user_id,
-    }).populate("user", ["name"]);
+    const profile = await userprofile
+      .findOne({
+        user: req.params.user_id,
+      })
+      .populate("user", ["name"]);
 
     if (!profile)
       return res.status(400).json({ msg: "There is no profile for this user" });
@@ -148,9 +146,7 @@ router.delete("/", auth, async (req, res) => {
     await User.findOneAndRemove({ _id: req.user.id });
 
     res.json({ msg: "User Deleted" });
-  } catch (err) {
-    
-  }
+  } catch (err) {}
 });
 
 module.exports = router;
