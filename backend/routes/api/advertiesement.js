@@ -1,15 +1,15 @@
-const express = require('express');
-const fileUpload = require('express-fileupload');
+const express = require("express");
+const fileUpload = require("express-fileupload");
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator');
-const advertiesement = require('../../models/advertiesement');
-const cors = require('cors');
+const auth = require("../../middleware/auth");
+const { check, validationResult } = require("express-validator");
+const advertiesement = require("../../models/advertiesement");
+const cors = require("cors");
 
-const path = require('path'); //for seting path
+const path = require("path"); //for seting path
 const dirPath = path.join(
   __dirname,
-  '../../../frontend/fitness-club/public/uploads'
+  "../../../frontend/fitness-club/public/uploads"
 ); //for seting path
 
 const app = express();
@@ -23,9 +23,9 @@ router.use(cors());
 //@access Private
 //@author Ayodya
 
-router.post('/create', (req, res) => {
+router.post("/create", (req, res) => {
   if (req.files == null) {
-    return res.status(400).json({ msg: 'No file uploaded' });
+    return res.status(400).json({ msg: "No file uploaded" });
   }
 
   const file = req.files.file;
@@ -49,8 +49,8 @@ router.post('/create', (req, res) => {
 
     newadvertiesement
       .save()
-      .then(() => res.json('advertiesement Added'))
-      .catch((err) => res.status(400).json('Error: ' + err));
+      .then(() => res.json("advertiesement Added"))
+      .catch((err) => res.status(400).json("Error: " + err));
   });
 });
 
@@ -59,17 +59,16 @@ router.post('/create', (req, res) => {
 //@access Private
 //@author Ayodya
 
-router.delete('/', async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
     //Remove Workout
     await advertiesement.findOneAndRemove({ _id: req.body.id });
 
-    res.json({ msg: 'advertiesement Deleted' });
+    res.json({ msg: "advertiesement Deleted" });
   } catch (err) {
     console.log(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 
 module.exports = router;
-advertiese;
