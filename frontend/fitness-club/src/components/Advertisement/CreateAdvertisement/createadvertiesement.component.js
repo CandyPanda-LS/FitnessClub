@@ -1,6 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
 
+import './createadvertisement.css';
+
 import Background from './image/gymbanner.jpg';
 
 import Progress from './Progress';
@@ -127,7 +129,7 @@ export default function Createadvertiesement() {
                     <Progress percentage={uploadPercentage} />
                     <br />
                     <button
-                      class='btn btn-primary btn-block text-white btn-user'
+                      class='CreateBTN btn btn-primary btn-block text-white btn-user'
                       id='signup'
                       name='signup'
                       type='submit'
