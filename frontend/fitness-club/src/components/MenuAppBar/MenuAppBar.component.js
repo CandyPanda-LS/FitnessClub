@@ -33,7 +33,7 @@ import AdminDashboardShop from '../Shop/Pages/admin_dashboard_shop/adminDashboar
 // @author Ayodya
 import InsertFeedback from '../Feedback/InsertFeedback/InsertFeedback.component';
 import FeedbackTable from '../Feedback/FeedbackTable/FeedbackTable.component';
-
+import createadvertiesement from '../Advertisement/CreateAdvertisement/createadvertiesement.component';
 import AdvertisementComponent from '../Advertisement/advertiesment_view/advertiesment.component';
 
 // @desc import Components
@@ -567,6 +567,11 @@ export default function MenuAppBar() {
                 path='/advertisements'
                 exact
                 component={AdvertisementComponent}
+              />
+              <Route
+                path='/createadvertiesement'
+                exact
+                component={createadvertiesement}
               />
 
               {/* Routes
