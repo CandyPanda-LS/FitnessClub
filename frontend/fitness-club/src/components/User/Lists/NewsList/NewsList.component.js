@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,7 +8,7 @@ import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
-
+import axios from "axios";
 import Background from "./img/1.jpg";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,12 +24,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function NewsList() {
+  const [token, setToken] = useState(0);
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
+  const [NoticeList, setNoticeList] = useState([]);
   const handleClick = () => {
     setOpen(!open);
   };
+  useEffect(() => {
+    const userToken = localStorage.getItem("x-auth-token");
+    setToken(userToken);
+    const config = {
+      headers: {
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+  };
+
+  axios
+      .get("http://localhost:5000/api/notices", config)
+      .then(({
+          data
+      }) => {
+
+          if (data.length > 0) {
+              console.log(data);
+              setNoticeList(data);
+          }
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+  }, []);
+
 
   return (
     <List
@@ -59,30 +85,13 @@ export default function NewsList() {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
+        {NoticeList.map((pack,index)=>(
           <ListItem button className={classes.nested}>
             <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Chest – Barbell Bench Press – 4 sets of 8 reps" />
+            <ListItemText primary={pack.NoticeTitle+ " – " +pack.NoticeTitle} />
           </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Back – Lat-pulldowns – 4 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Shoulders – Seated Dumbbell Press – 4 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Legs – Leg Extensions – 4 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Biceps – Barbell Bbicep Curls – 3 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Triceps – Triceps Rope Pushdowns – 3 sets of 15 reps" />
-          </ListItem>
+        ))}
+
         </List>
       </Collapse>
     </List>

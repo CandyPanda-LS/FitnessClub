@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 // @desc import Components
 // @author Dilmi
 import UserLogin from "../Login/UserLogin/userlogin.component";
+import UserProfile from "../ProfileUpdate/profileUpdate.component";
+import UserRegistration from "../Register/registration.component";
+// import ForgotPassword from "../Forgotpassword/forgotpassword.component";
+import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
 // @author Senura
@@ -13,12 +17,16 @@ import UserDashboard from "../User/Dashboard/UserDashboard/UserDashboard.compone
 import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
+import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/AddWorkoutMealToDatabase";
 
 // @desc import Components
 // @author Lasal
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
+import EcommerceUpdateitem from "../Shop/Forms/UpdateItems/UpdateItem.component";
 import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
+import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
+import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 
 // @desc import Components
 // @author Ayodya
@@ -29,6 +37,7 @@ import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
 // @author Dilumi
 import InventoryGrid from "../Inventory/InventoryList/Inventory.component";
 import InsertInventoryItems from "../Inventory/InsertItems/InsertInventoryItems.component";
+import UpdateInventoryItems from "../Inventory/UpdateItems/UpdateInventoryItems";
 
 // @desc import Components
 // @author Jayani
@@ -43,24 +52,43 @@ import FitnessUpdatesTable from "../FitnessUpdates/FitnessUpdatesTable/FitnessUp
 
 //@desc import components
 //@author Chamodi
-import InsertGymPackages from "../GymPackages/InsertPackages/InsertGymPackages.component";
-import UpdateGymPackage from "../GymPackages/UpdateGymPackages/UpdateGymPackage.component";
-import DeleteGymPackage from "../GymPackages/DeletePackage/DeleteGymPackage.component";
-import InsertNotice from "../GymNotices/InsertNotice/InsertNotice.component";
-import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
-import DeleteNotice from "../GymNotices/DeleteNotice/DeleteNotice.component";
+
+import ManageGymPackage from "../GymPackages/ManageGymPackages/ManageGymPackage.component";
+import ManageNotice from "../GymNotices/ManageNotice/ManageNotice.component";
 import PackageDetails from "../GymPackages/PackageDetailsTable/PackageDetails.component";
 import NoticesTable from "../GymNotices/GymNoticesTable/NoticesTable.component";
-
-
+import Packages from "../Packages/Packages.component";
+import PaymentDetails from "../Packages/PaymentDetails.component";
 // import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
   const [token, setToken] = useState(0);
-
+  const [NoticeList, setNoticeList] = useState([]);
+  const [NoticeCount, setNoticeCount] = useState([]);
   useEffect(() => {
     const userToken = localStorage.getItem("x-auth-token");
     setToken(userToken);
+    const config = {
+      headers: {
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+  };
+
+  axios
+      .get("http://localhost:5000/api/notices", config)
+      .then(({
+          data
+      }) => {
+
+          if (data.length > 0) {
+              console.log(data);
+              setNoticeList(data);
+              setNoticeCount(data.length);
+          }
+      })
+      .catch((error) => {
+          console.log(error);
+      });
   }, []);
 
   return (
@@ -124,7 +152,7 @@ export default function MenuAppBar() {
                 </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="register.html">
+                <Link className="nav-link" to="/registration">
                   <i className="fas fa-user-circle"></i>
                   <span>Register</span>
                 </Link>
@@ -210,7 +238,7 @@ export default function MenuAppBar() {
                         aria-expanded="false"
                       >
                         <span className="badge badge-danger badge-counter">
-                          3+
+                          {NoticeCount}
                         </span>
                         <i className="fas fa-bell fa-fw"></i>
                       </Link>
@@ -218,8 +246,9 @@ export default function MenuAppBar() {
                         className="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
                         role="menu"
                       >
-                        <h6 className="dropdown-header">alerts center</h6>
-                        <Link className="d-flex align-items-center dropdown-item">
+                        <h6 className="dropdown-header">notices</h6>
+                        {NoticeList.map((pack,index)=>(
+                          <Link className="d-flex align-items-center dropdown-item">
                           <div className="mr-3">
                             <div className="bg-primary icon-circle">
                               <i className="fas fa-file-alt text-white"></i>
@@ -227,42 +256,14 @@ export default function MenuAppBar() {
                           </div>
                           <div>
                             <span className="small text-gray-500">
-                              December 12, 2019
+                              {pack.Date.substring(0, 10)}
                             </span>
-                            <p>A new monthly report is ready to download!</p>
+                            <p>{pack.NoticeTitle}</p>
                           </div>
                         </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="mr-3">
-                            <div className="bg-success icon-circle">
-                              <i className="fas fa-donate text-white"></i>
-                            </div>
-                          </div>
-                          <div>
-                            <span className="small text-gray-500">
-                              December 7, 2019
-                            </span>
-                            <p>$290.29 has been deposited into your account!</p>
-                          </div>
-                        </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="mr-3">
-                            <div className="bg-warning icon-circle">
-                              <i className="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                          </div>
-                          <div>
-                            <span className="small text-gray-500">
-                              December 2, 2019
-                            </span>
-                            <p>
-                              Spending Alert: We've noticed unusually high
-                              spending for your account.
-                            </p>
-                          </div>
-                        </Link>
+                        ))}
                         <Link className="text-center dropdown-item small text-gray-500">
-                          Show All Alerts
+                          Show All Notices
                         </Link>
                       </div>
                     </div>
@@ -432,7 +433,11 @@ export default function MenuAppBar() {
             <div className="container-fluid">
               {/* Routes
               @author Dilmi */}
+              {/* <Route path="/forgotpassword" exact component={ForgotPassword} /> */}
+              <Route path="/registration" exact component={UserRegistration} />
+              <Route path="/profileUpdate" exact component={ProfileUpdate} />
               <Route path="/userlogin" exact component={UserLogin} />
+
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={UserDashboard} />
@@ -451,7 +456,12 @@ export default function MenuAppBar() {
                 exact
                 component={AddRequirementsToTheInstructor}
               />
-              <Route path="/articlelist" exact component={ArticleList} />
+              <Route
+                path="/addworkoutmeal"
+                exact
+                component={AddWorkoutMealToDatabase}
+              />
+
               {/* Routes
               @author Lasal */}
               <Route
@@ -459,8 +469,18 @@ export default function MenuAppBar() {
                 exact
                 component={EcommerceInsertitem}
               />
+              <Route
+                path="/UpdateItemShop"
+
+                component={EcommerceUpdateitem}
+              />
               <Route path="/shop" exact component={ItemsGrid} />
               <Route path="/shopItem" exact component={Item} />
+
+
+              <Route path="/adminItemShop" exact component={AdminViewItemShop} />
+              <Route path="/adminDashboardShop" exact component={AdminDashboardShop} />
+
               {/* Routes
               @author Dilumi */}
               <Route path="/inventory" exact component={InventoryGrid} />
@@ -469,6 +489,12 @@ export default function MenuAppBar() {
                 exact
                 component={InsertInventoryItems}
               />
+              <Route
+                path="/UpdateInventoryitems"
+                exact
+                component={UpdateInventoryItems}
+              />
+
               {/* Routes
               @author Jayani */}
               <Route path="/userforms" exact component={UserPlan} />
@@ -487,6 +513,7 @@ export default function MenuAppBar() {
                 exact
                 component={UpdateMealWorkoutPlan}
               />
+              <Route path="/articlelist" exact component={ArticleList} />
               <Route
                 path="/insertFitnessUpdate"
                 exact
@@ -509,15 +536,12 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Chamodi */}
-              <Route path="/InsertGymPackges" exact component={InsertGymPackages} />
-              <Route path="/UpdateGymPackage" exact component={UpdateGymPackage} />
-              <Route path="/DeleteGymPackage" exact component={DeleteGymPackage} />
-              <Route path="/InsertNotice" exact component={InsertNotice} />
-              <Route path="/UpdateNotice" exact component={UpdateNotice} />
-              <Route path="/DeleteNotice" exact component={DeleteNotice} />
+              <Route path="/ManageGymPackage" exact component={ManageGymPackage} />
+              <Route path="/ManageNotice" exact component={ManageNotice} />
               <Route path="/PackageDetails" exact component={PackageDetails} />
               <Route path="/NoticesTable" exact component={NoticesTable} />
-
+              <Route path="/Packages" exact component={Packages} />
+              <Route path="/Payment" exact component={PaymentDetails} />
             </div>
           </div>
 
