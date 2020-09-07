@@ -6,7 +6,7 @@ export default class ProfileUpdate extends Component {
     super(props);
 
    this.onSubmitContact = this.onSubmitContact.bind(this);
-  // this.onSubmitPersonal = this.onSubmitPersonal.bind(this);
+  this.onSubmitPersonal = this.onSubmitPersonal.bind(this);
   this.onChangeEmail = this.onChangeEmail.bind(this);
   this.onChangeFirstname = this.onChangeFirstname.bind(this);
   this.onChangeLastname = this.onChangeLastname.bind(this);
@@ -43,7 +43,10 @@ export default class ProfileUpdate extends Component {
                 firstName : response.data.firstName,
                 lastName : response.data.lastName,
                 address : response.data.address,
-                mobileNo : response.data.mobileNumber,
+                mobileNo : response.data.mobileNo,
+                gender:response.data.gender,
+                password:response.data.password,
+                password2:response.data.password2,
             })
          
         })
@@ -51,6 +54,20 @@ export default class ProfileUpdate extends Component {
         .catch((error) => {
             console.log(error);
         })
+
+        // axios
+        //   .get("http://localhost:5000/api/users/")
+        //   .then((response) => {
+        //     if(response.data.length > 0){
+        //       this.setState({
+        //         users: response.data.map((user) => user.email)
+        //       })
+        //     }
+        //   })
+        //   .catch((error) => {
+        //     console.log(error);
+        // })
+
 }
 
 onChangeUsername(e){
@@ -94,9 +111,14 @@ onChangeMobileNo(e){
 
     const personal = {
       username : this.state.username,
-      fristName : this.state.fristName,
+      firstName : this.state.firstName,
       lastName : this.state.lastName,
       email : this.state.email,
+      address : this.state.address,
+      mobileNo : this.state.mobileNo,
+      gender:this.state.gender,
+      password:this.state.password,
+      password2:this.state.password2,
 
     };
 
@@ -111,10 +133,14 @@ onChangeMobileNo(e){
     }
 
     axios
-      .post("http://localhost:5000/api/userprofile/",config)
-      .then((response) => console.log("Profile Updated"))
+      .post("http://localhost:5000/api/userprofile/",personal,config)
+      .then((response) => console.log(response.data),alert("Success"))
+      .catch((error) => {
+            alert(error);
+        })
 
       window.location = "/profile";
+      
 
   }
 
@@ -122,8 +148,15 @@ onChangeMobileNo(e){
     e.preventDefault();
 
     const contact = {
+      username : this.state.username,
+      firstName : this.state.firstName,
+      lastName : this.state.lastName,
+      email : this.state.email,
       address : this.state.address,
       mobileNo : this.state.mobileNo,
+      gender:this.state.gender,
+      password:this.state.password,
+      password2:this.state.password2,
       
     };
 
@@ -138,8 +171,8 @@ onChangeMobileNo(e){
     }
 
     axios
-      .post("http://localhost:5000/api/userprofile/",config)
-      .then((response) => console.log("Profile Updated"))
+      .post("http://localhost:5000/api/userprofile/",contact,config)
+      .then((response) => console.log(response.data))
 
       window.location = "/profile";
 
@@ -151,7 +184,7 @@ onChangeMobileNo(e){
         <h3 class="text-dark mb-4">Edit Info</h3>
         <div class="row mb-3">
           <div class="col-lg-4">
-            <div class="card mb-3">
+            {/* <div class="card mb-3">
               <div class="card-body text-center shadow">
                 <img
                   class="rounded-circle mb-3 mt-4"
@@ -169,7 +202,7 @@ onChangeMobileNo(e){
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div class="card shadow mb-4"></div>
           </div>
           <div class="col-lg-8">
