@@ -16,7 +16,7 @@ router.get("/", auth, async (req, res) => {
       "firstName",
       "lastName",
       "email",
-      "mobileNumber",
+      "mobileNo",
       "address",
       "gender",
       "password",
@@ -61,7 +61,7 @@ router.post(
       firstName,
       lastName,
       email,
-      mobileNumber,
+      mobileNo,
       address,
       gender,
       password,
@@ -77,7 +77,7 @@ router.post(
     if (lastName) profileFields.lastName = lastName;
     if (email) profileFields.email = email;
     if (address) profileFields.address = address;
-    if (mobileNumber) profileFields.mobileNumber = mobileNumber;
+    if (mobileNo) profileFields.mobileNo = mobileNo;
     if (gender) profileFields.gender = gender;
     if (password) profileFields.password = password;
     if (password2) profileFields.password2 = password2;

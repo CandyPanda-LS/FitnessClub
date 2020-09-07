@@ -44,6 +44,7 @@ router.post(
       mobileNumber,
       address,
       gender,
+      
     } = req.body;
 
     try {
@@ -66,6 +67,7 @@ router.post(
         mobileNumber,
         address,
         gender,
+       
       });
 
       //Encrypt Password

@@ -41,7 +41,7 @@ componentDidMount(){
                 firstName : response.data.firstName,
                 lastName : response.data.lastName,
                 address : response.data.address,
-                mobileNo : response.data.mobileNumber,
+                mobileNo : response.data.mobileNo,
             })
          
         })
@@ -84,7 +84,7 @@ editInfo(e){
         <h3 class="text-dark mb-4">My Profile</h3>
         <div class="row mb-3">
           <div class="col-lg-4">
-            <div class="card mb-3">
+          <div class="card mb-3">
               <div class="card-body text-center shadow">
                 <img
                   class="rounded-circle mb-3 mt-4"
@@ -92,6 +92,24 @@ editInfo(e){
                   width="160"
                   height="160"
                 />
+                <div class="form-group row">
+                      <div class="col-sm-6">
+                        <input
+                          type="file"
+                          id="profImage"
+                          name="profImage"/>.
+                      </div>
+                      </div>
+
+                <div class="mb-3">
+                  <button
+                    class="btn btn-primary btn-sm"
+                    type="button"
+                    onClick={this.updateImageHandler}
+                  >
+                    Change Photo
+                  </button>
+                </div>
               </div>
             </div>
             <div class="card shadow mb-4"></div>
