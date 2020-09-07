@@ -20,11 +20,12 @@ export default function Createadvertiesement() {
 
   function onFormSubmit(e) {
     e.preventDefault();
+
     setError("Item Added");
     const formData = new FormData();
 
-    formData.append("Title", Title);
-    formData.append("Description", Description);
+    formData.append("title", Title);
+    formData.append("description", Description);
     formData.append("file", file);
 
     const config = {
@@ -44,9 +45,9 @@ export default function Createadvertiesement() {
     };
 
     axios
-      .post("http://localhost:5000/api/advertisement/create", formData, config)
+      .post("http://localhost:5000/api/advertisement", formData, config)
       .then((res) => {
-        setError("Advertisement Added");
+        setError("Item Added");
         window.location = "/";
       })
       .catch((error) => {
@@ -78,7 +79,7 @@ export default function Createadvertiesement() {
                   <div class="text-center">
                     <h4 class="text-dark mb-4">Create an Advertisement</h4>
                   </div>
-                  <form class="user">
+                  <form class="user" onSubmit={onFormSubmit}>
                     <div class="form-group row">
                       <div class="col-sm-6 mb-3 mb-sm-0">
                         <input
@@ -135,7 +136,6 @@ export default function Createadvertiesement() {
                       id="signup"
                       name="signup"
                       type="submit"
-                      onClick={onFormSubmit}
                     >
                       Create
                     </button>

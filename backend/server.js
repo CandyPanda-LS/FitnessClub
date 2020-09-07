@@ -26,7 +26,7 @@ app.use("/api/instructor/workout", require("./routes/api/Workout"));
 app.use("/api/instructor/meal", require("./routes/api/meal"));
 app.use("/api/shop", require("./routes/api/shop"));
 app.use("/api/userprofile", require("./routes/api/userprofile"));
-app.use("/api/advertisement", require("./routes/api/advertiesement"));
+app.use("/api/advertisement", require("./routes/api/advertisement"));
 
 const PORT = process.env.PORT || 5000;
 
