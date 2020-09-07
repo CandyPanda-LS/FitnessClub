@@ -19,6 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import Background from './image/3548.jpg';
 
@@ -27,6 +28,15 @@ const HoverDeleteButton = styled.p`
   color: #ffffff;
   :hover {
     color: #ed1212;
+    cursor: pointer;
+  }
+`;
+
+//Hover Component For Edit Icon
+const HoverEditButton = styled.p`
+  color: #ffffff;
+  :hover {
+    color: blue;
     cursor: pointer;
   }
 `;
@@ -45,10 +55,28 @@ const columns = [
     minWidth: 50,
     align: 'center',
   },
+  {
+    id: 'EditAdvertisement',
+    label: '',
+    minWidth: 50,
+    align: 'center',
+  },
+  {
+    id: 'DeleteAdvertisement',
+    label: '',
+    minWidth: 50,
+    align: 'center',
+  },
 ];
 
-function createData(Title, Description, Image) {
-  return { Title, Description, Image };
+function createData(
+  Title,
+  Description,
+  Image,
+  EditAdvertisement,
+  DeleteAdvertisement
+) {
+  return { Title, Description, Image, EditAdvertisement, DeleteAdvertisement };
 }
 
 const useStyles = makeStyles({
@@ -96,7 +124,9 @@ export default function AdvertisementTable() {
     return createData(
       currentAdvertisement.title,
       currentAdvertisement.description,
-      currentAdvertisement.advertiesementImage
+      currentAdvertisement.advertiesementImage,
+      currentAdvertisement._id,
+      currentAdvertisement._id
     );
   });
 
@@ -184,7 +214,24 @@ export default function AdvertisementTable() {
                         >
                           {column.format && typeof value === 'number' ? (
                             column.format(value)
-                          ) : column.id === 'MealID' ? (
+                          ) : column.id === 'Image' ? (
+                            <img
+                              src={'uploads/' + value}
+                              style={{
+                                width: '50px',
+                                height: '50px',
+                                borderRadius: '50%',
+                              }}
+                            />
+                          ) : column.id === 'EditAdvertisement' ? (
+                            <HoverEditButton>
+                              <SettingsIcon
+                                onClick={() => {
+                                  deleteMeal(value);
+                                }}
+                              />
+                            </HoverEditButton>
+                          ) : column.id === 'DeleteAdvertisement' ? (
                             <HoverDeleteButton>
                               <DeleteOutlineIcon
                                 onClick={() => {
