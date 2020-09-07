@@ -1,6 +1,12 @@
 .CreateBTN {
-  padding: '3px';
-  outline: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.CreateBTN:hover {
   transform: scale(1.1);
-  transition: 1s ease-in-out;
+  transition: ease-in-out all 0.5s !important;
+}
+
+.choosebtn {
+  border: none;
 }
