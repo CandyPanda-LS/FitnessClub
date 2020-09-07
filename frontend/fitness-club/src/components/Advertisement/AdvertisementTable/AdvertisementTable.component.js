@@ -139,16 +139,22 @@ export default function AdvertisementTable() {
     setPage(0);
   };
 
-  async function deleteMeal(id) {
+  async function deleteAdvertisement(id) {
     const config = {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
     };
 
+<<<<<<< HEAD
     console.log("Delete meal id is " + id);
     await axios
       .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
+=======
+    console.log('Delete Advertisement id is ' + id);
+    await axios
+      .delete('http://localhost:5000/api/advertisement' + id)
+>>>>>>> 71e06a63836276d452ff2b2123771e3031ea03d7
       .then((response) => {
         console.log(response);
       });
@@ -156,13 +162,18 @@ export default function AdvertisementTable() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
+<<<<<<< HEAD
       .get("http://localhost:5000/api/profile/me", config)
+=======
+      .get('http://localhost:5000/api/advertisement')
+>>>>>>> 71e06a63836276d452ff2b2123771e3031ea03d7
       .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+        console.log(data);
+        // console.log(data.dailymeallist);
+        console.log(data.length);
 
-        if (data.dailymeallist.length > 0) {
-          setAdvertiesementList(data.dailymeallist);
+        if (data.length > 0) {
+          setAdvertiesementList(data);
         }
       })
       .catch((error) => {
@@ -189,8 +200,8 @@ export default function AdvertisementTable() {
                   align={column.align}
                   style={{
                     minWidth: column.minWidth,
-                    color: "white",
-                    backgroundColor: "blue",
+                    color: 'white',
+                    backgroundColor: '#1f5587',
                   }}
                 >
                   {column.label}
@@ -227,7 +238,7 @@ export default function AdvertisementTable() {
                             <HoverEditButton>
                               <SettingsIcon
                                 onClick={() => {
-                                  deleteMeal(value);
+                                  deleteAdvertisement(value);
                                 }}
                               />
                             </HoverEditButton>
@@ -235,7 +246,7 @@ export default function AdvertisementTable() {
                             <HoverDeleteButton>
                               <DeleteOutlineIcon
                                 onClick={() => {
-                                  deleteMeal(value);
+                                  deleteAdvertisement(value);
                                 }}
                               />
                             </HoverDeleteButton>

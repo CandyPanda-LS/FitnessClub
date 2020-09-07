@@ -71,29 +71,12 @@ router.get('/', async (req, res) => {
 // //@route  DELETE api/shop
 // //@desc  Delete Item
 // //@access Private
-// //@author Senura
+// //@author Ayodya
 
-// router.delete("/", auth, async (req, res) => {
-//   try {
-//     //Remove Workout
-//     await Shop.findOneAndRemove({ _id: req.body.id });
-
-//     res.json({ msg: "Item Deleted" });
-//   } catch (err) {
-//     console.log(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
-
-// // @route         GET /shop
-// // @description   get Shop Items
-// // @access        Private
-// router.get("/", async (req, res) => {
-//   Shop.find()
-//     .then((items) => {
-//       res.json(items);
-//     })
-//     .catch((err) => res.status(400).json("Error: " + err));
-// });
+router.delete('/:id', async (req, res) => {
+  Advertisement.findByIdAndDelete(req.params.id)
+    .then(() => res.json('Exercise deleted.'))
+    .catch((err) => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;
