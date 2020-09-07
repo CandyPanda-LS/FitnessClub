@@ -68,15 +68,15 @@ router.get('/', async (req, res) => {
     .catch((err) => res.status(400).json('Error: ' + err));
 });
 
-// //@route  DELETE api/shop
+// //@route  DELETE api/advertiesement
 // //@desc  Delete Item
 // //@access Private
 // //@author Ayodya
-
 router.delete('/:id', async (req, res) => {
   Advertisement.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Exercise deleted.'))
+    .then(() => {
+      res.json('Advertisement Deleted');
+    })
     .catch((err) => res.status(400).json('Error: ' + err));
 });
-
 module.exports = router;
