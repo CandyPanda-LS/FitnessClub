@@ -153,7 +153,7 @@ router.delete("/", auth, async (req, res) => {
 //@desc   Add advertisement into the database
 //@access Private
 //to protect auth add as the second parameter
-router.post("/", async (req, res) => {
+router.post("/changeprofilepic", async (req, res) => {
   if (req.files == null) {
     return res.status(400).json({ msg: "No file uploaded" });
   }
