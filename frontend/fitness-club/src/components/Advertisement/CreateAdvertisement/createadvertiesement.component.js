@@ -116,7 +116,7 @@ export default function Createadvertiesement() {
                       <div class='col-sm-6 mb-3 mb-sm-0'>
                         <input
                           style={{ padding: '3px', borderRadius: '10px' }}
-                          class='form-control form-control-user'
+                          class='choosebtn form-control form-control-user'
                           type='file'
                           id='ItemImage'
                           placeholder='{filename}'
