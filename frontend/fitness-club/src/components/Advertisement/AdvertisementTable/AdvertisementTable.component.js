@@ -139,7 +139,7 @@ export default function AdvertisementTable() {
     setPage(0);
   };
 
-  async function deleteAdvertisement(id) {
+  function deleteAdvertisement(id) {
     const config = {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
@@ -147,15 +147,18 @@ export default function AdvertisementTable() {
     };
 
     console.log("Delete Advertisement id is " + id);
-    await axios
-      .delete("http://localhost:5000/api/advertisement" + id)
+    axios
+      .delete("http://localhost:5000/api/advertisement/" + id)
       .then((response) => {
         console.log(response);
+      })
+      .catch((error) => {
+        alert(error);
       });
 
     //rerender meal list(Get meallist Data from the backend)
 
-    await axios
+    axios
       .get("http://localhost:5000/api/advertisement")
       .then(({ data }) => {
         console.log(data);
