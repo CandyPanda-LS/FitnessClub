@@ -139,16 +139,16 @@ export default function AdvertisementTable() {
     setPage(0);
   };
 
-  async function deleteMeal(id) {
+  async function deleteAdvertisement(id) {
     const config = {
       headers: {
         'x-auth-token': localStorage.getItem('x-auth-token'),
       },
     };
 
-    console.log('Delete meal id is ' + id);
+    console.log('Delete Advertisement id is ' + id);
     await axios
-      .delete('http://localhost:5000/api/profile/dailymeallist/' + id, config)
+      .delete('http://localhost:5000/api/advertisement' + id)
       .then((response) => {
         console.log(response);
       });
@@ -156,13 +156,14 @@ export default function AdvertisementTable() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
-      .get('http://localhost:5000/api/profile/me', config)
+      .get('http://localhost:5000/api/advertisement')
       .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+        console.log(data);
+        // console.log(data.dailymeallist);
+        console.log(data.length);
 
-        if (data.dailymeallist.length > 0) {
-          setAdvertiesementList(data.dailymeallist);
+        if (data.length > 0) {
+          setAdvertiesementList(data);
         }
       })
       .catch((error) => {
@@ -227,7 +228,7 @@ export default function AdvertisementTable() {
                             <HoverEditButton>
                               <SettingsIcon
                                 onClick={() => {
-                                  deleteMeal(value);
+                                  deleteAdvertisement(value);
                                 }}
                               />
                             </HoverEditButton>
@@ -235,7 +236,7 @@ export default function AdvertisementTable() {
                             <HoverDeleteButton>
                               <DeleteOutlineIcon
                                 onClick={() => {
-                                  deleteMeal(value);
+                                  deleteAdvertisement(value);
                                 }}
                               />
                             </HoverDeleteButton>
