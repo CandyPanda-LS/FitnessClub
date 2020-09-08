@@ -19,14 +19,26 @@ app.use(express.json({ extended: false }));
 app.get("/", (req, res) => res.send("Api Running"));
 
 //Define Routes
-app.use("/api/users", require("./routes/api/users"));
-app.use("/api/auth", require("./routes/api/auth"));
+
+//-------------------Senura---------------------
+app.use("/api/instructor/meal", require("./routes/api/meal"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/instructor/workout", require("./routes/api/Workout"));
-app.use("/api/instructor/meal", require("./routes/api/meal"));
+
+//-------------------Lasal---------------------
 app.use("/api/shop", require("./routes/api/shop"));
+
+//-------------------Dilmi---------------------
 app.use("/api/userprofile", require("./routes/api/userprofile"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/users", require("./routes/api/users"));
+
+//-------------------Ayodya---------------------
 app.use("/api/advertisement", require("./routes/api/advertisement"));
+
+//-------------------Rajindu---------------------
+app.use("/api/instructors", require("./routes/api/instructors"));
+// app.use("/api/images", require("./routes/api/images"));
 
 const PORT = process.env.PORT || 5000;
 
