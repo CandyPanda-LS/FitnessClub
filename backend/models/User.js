@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  mobileNumber: {
+  mobileNo: {
     type: String,
   },
   address: {
@@ -33,6 +33,6 @@ const UserSchema = new Schema({
   },
   profImage: {
     type: String,
-  }
+  },
 });
 module.exports = User = mongoose.model("user", UserSchema);

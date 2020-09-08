@@ -1,9 +1,22 @@
 const express = require("express");
+const fileUpload = require("express-fileupload"); //image uploading
 const router = express.Router();
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
+
+const path = require("path"); //for image seting path
+const dirPath = path.join(
+  __dirname,
+  "../../../frontend/fitness-club/public/uploads"
+); //for image seting path
+
+const app = express();
+const cors = require("cors");
+router.use(cors());
+
+app.use(fileUpload()); //for image uploading
 
 //@route GET api/userprofile/me
 //@desc Get current users profile
@@ -153,22 +166,21 @@ router.delete("/", auth, async (req, res) => {
 //@desc   Add advertisement into the database
 //@access Private
 //to protect auth add as the second parameter
-router.post("/changeprofilepic", async (req, res) => {
+router.post("/changeprofilepic", auth, async (req, res) => {
   if (req.files == null) {
     return res.status(400).json({ msg: "No file uploaded" });
   }
- 
+
   const file = req.files.file;
   file.mv(`${dirPath}/${file.name}`, (err) => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);
     }
- 
+
     const profImage = file.name;
 
     const {
-      userName,
       firstName,
       lastName,
       email,
@@ -181,7 +193,7 @@ router.post("/changeprofilepic", async (req, res) => {
 
     const profileFields = {};
     profileFields.user = req.user.id;
-    if (userName) profileFields.userName = userName;
+
     if (firstName) profileFields.firstName = firstName;
     if (lastName) profileFields.lastName = lastName;
     if (email) profileFields.email = email;
@@ -193,12 +205,13 @@ router.post("/changeprofilepic", async (req, res) => {
     if (profImage) profileFields.profImage = profImage;
 
     try {
+      console.log("success");
       let profile = User.findOne({ _id: req.user.id });
 
       if (profile) {
         //update
 
-        profile =  User.findByIdAndUpdate(
+        profile = User.findByIdAndUpdate(
           { _id: req.user.id },
           { $set: profileFields },
           { new: true }
@@ -207,18 +220,15 @@ router.post("/changeprofilepic", async (req, res) => {
         return res.json(profile);
       }
 
-      res.send("Hello");
       //create
 
       profile = new User(profileFields);
-       profile.save();
+      profile.save();
       res.json(profile);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
     }
- 
-    
   });
 });
 
