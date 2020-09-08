@@ -230,10 +230,22 @@ export default class UserRegistration extends Component {
                           required
                         />
                       </div>
+                      
+                      
                       <div class="col-sm-12">
                         <p style={{ color: "#c44233" }}>{this.state.status}</p>
                       </div>
                     </div>
+
+                    {/* <div class="form-group row">
+                      <div class="col-sm-6">
+                        <input
+                          type="file"
+                          id="profImage"
+                          name="profImage"/>.
+                      </div>
+                      </div> */}
+                      
                     <button
                       class="btn btn-primary btn-block text-white btn-user"
                       id="signup"
