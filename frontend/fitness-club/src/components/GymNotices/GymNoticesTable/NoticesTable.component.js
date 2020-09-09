@@ -18,10 +18,16 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { Button } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
-
+import Add from "@material-ui/icons/Add";
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
+import {
+  confirmAlert
+} from 'react-confirm-alert'; // Import
 import Background from "./img/gym4.png";
 
 //Hover Component For Delete Icon
@@ -40,6 +46,21 @@ const HoverEditButton = styled.p`
     color: blue;
     cursor: pointer;
   }
+`;
+
+//Hover Component For Add Icon
+const HoverAddButton = styled.p `
+color: #ffffff;
+border-radius: 5px;
+width: 40px;
+height: 40px;
+padding: 7px 0;
+text-align: center;
+background: rgb(8 87 130);
+:hover {
+  color: rgb(80 222 71);
+  cursor: pointer;
+}
 `;
 
 const columns = [
@@ -120,40 +141,40 @@ export default function NoticesTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [DailyMealList, setDailyMealList] = useState([]);
+  const [NoticeList, setNoticeList] = useState([]);
 
   //fetching meallist data from the backend
   useEffect(() => {
     const config = {
       headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
+          "x-auth-token": localStorage.getItem("x-auth-token"),
       },
-    };
+  };
 
-    axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+  axios
+      .get("http://localhost:5000/api/notices", config)
+      .then(({
+          data
+      }) => {
 
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
+          if (data.length > 0) {
+              setNoticeList(data);
+          }
       })
       .catch((error) => {
-        console.log(error);
+          console.log(error);
       });
-  }, []);
+}, []);
+
 
   //map table row data
-  const rows = DailyMealList.map((currentMeal) => {
+  const rows = NoticeList.map((note) => {
     return createData(
-      currentMeal.date.substring(0, 10),
-      currentMeal.mealName,
-      currentMeal.calories,
-      currentMeal.proteins,
-      currentMeal.fat,
-      currentMeal._id
+      note.NoticeTitle,
+      note.NoticeDescriprion,
+      note.Date.substring(0, 10),
+      note._id,
+      note._id
     );
   });
 
@@ -165,37 +186,55 @@ export default function NoticesTable() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  function deleteButtonClick(id) {
+    confirmAlert({
+        title: 'Confirm to Delete',
+        message: 'Are you sure to do this.',
+        buttons: [{
+                label: 'Yes',
+                onClick: () => {
+                  deleteNotice(id)
+                }
+            },
+            {
+                label: 'No',
 
-  async function deleteMeal(id) {
+            }
+        ]
+    });
+
+}
+async function deleteNotice(id) {
     const config = {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
+        headers: {
+            "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
     };
 
-    console.log("Delete meal id is " + id);
     await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
-      .then((response) => {
-        console.log(response);
-      });
+        .delete("http://localhost:5000/api/notices/" + id, config)
+        .then((response) => {
+            console.log(response);
+        });
 
-    //rerender meal list(Get meallist Data from the backend)
+    //rerender notice list(Get packagelist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+        .get("http://localhost:5000/api/notices", config)
+        .then(({
+            data
+        }) => {
 
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+            if (data.length > 0) {
+              setNoticeList(data);
+            } else {
+                window.location.reload();
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
 
   return (
     <>
@@ -207,6 +246,15 @@ export default function NoticesTable() {
         }}
         boxShadow={3}
       >
+         <div class="input-group-append">
+          <Link to={{
+            pathname: "/ManageNotice",
+          }}>
+            <HoverAddButton>
+              <Add/>
+            </HoverAddButton>
+          </Link>
+        </div>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -240,33 +288,35 @@ export default function NoticesTable() {
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
-                            <TableCell
-                            style={{ color: "white" }}
-                            key={column.id}
-                            align={column.align}
-                          >
-                            {column.format && typeof value === "number" ? (
-                              column.format(value)
-                            ) : column.id === "deletePackage" ? (
-                              <HoverDeleteButton>
-                                <DeleteOutlineIcon
-                                  onClick={() => {
-                                    deleteMeal(value);
-                                  }}
-                                />
-                              </HoverDeleteButton>
-                            ) : column.id === "edit" ? (
-                              <HoverEditButton>
-                                <SettingsIcon
-                                  onClick={() => {
-                                    deleteMeal(value);
-                                  }}
-                                />
-                              </HoverEditButton>
-                            ) : (
-                              value
-                            )}
-                          </TableCell>
+                          <TableCell
+                          style={{ color: "white" }}
+                          key={column.id}
+                          align={column.align}
+                        >
+                          {column.format && typeof value === "number" ? (
+                            column.format(value)
+                          ) : column.id === "deleteNotice" ? (
+                            <HoverDeleteButton>
+                              <DeleteOutlineIcon
+                                onClick={() => {
+                                  deleteButtonClick(value);
+                                }}
+                              />
+                            </HoverDeleteButton>
+                          ) : column.id === "edit" ? (
+                            <Link to={{
+                              pathname: "/ManageNotice",
+                              data: value 
+                            }}>
+                            <HoverEditButton>
+                              <SettingsIcon
+                              />
+                            </HoverEditButton>
+                            </Link>
+                          ) : (
+                            value
+                          )}
+                        </TableCell>
                         );
                       })}
                     </TableRow>

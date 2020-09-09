@@ -1,15 +1,19 @@
 /*
  *
- * @author Jayanai
- * @desc Requested Plan List Table
+ * @author nayana
  *
  */
-
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+  Component
+} from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeStyles
+} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -18,67 +22,87 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { Button } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
-
+import Add from "@material-ui/icons/Add";
+import {
+  confirmAlert
+} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Background from "./img/gym4.png";
-
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 //Hover Component For Delete Icon
-const HoverDeleteButton = styled.p`
-  color: #ffffff;
-  :hover {
-    color: #ed1212;
-    cursor: pointer;
-  }
+const HoverDeleteButton = styled.p `
+color: #ffffff;
+:hover {
+  color: #ed1212;
+  cursor: pointer;
+}
 `;
 
 //Hover Component For Edit Icon
-const HoverEditButton = styled.p`
-  color: #ffffff;
-  :hover {
-    color: blue;
-    cursor: pointer;
-  }
+const HoverEditButton = styled.p `
+color: #ffffff;
+:hover {
+  color: blue;
+  cursor: pointer;
+}
 `;
 
+//Hover Component For Add Icon
+const HoverAddButton = styled.p `
+color: #ffffff;
+border-radius: 5px;
+width: 40px;
+height: 40px;
+padding: 7px 0;
+text-align: center;
+background: rgb(8 87 130);
+:hover {
+  color: rgb(80 222 71);
+  cursor: pointer;
+}
+`;
 const columns = [
 
   {
-    id: "name",
-    label: "Package Name",
-    minWidth: 80,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
+      id: "name",
+      label: "Package Name",
+      minWidth: 80,
+      align: "center",
+      format: (value) => value.toLocaleString("en-US"),
   },
 
   {
-    id: "description",
-    label: "Package Description",
-    minWidth: 100,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
-  },
- 
-  {
-    id: "price",
-    label: "Package Price",
-    minWidth: 50,
-    align: "center",
-    format: (value) => value.toLocaleString("en-US"),
+      id: "description",
+      label: "Package Description",
+      minWidth: 100,
+      align: "center",
+      format: (value) => value.toLocaleString("en-US"),
   },
 
   {
-    id: "edit",
-    label: "Edit",
-    minWidth: 30,
-    align: "center",
+      id: "price",
+      label: "Package Price",
+      minWidth: 50,
+      align: "center",
+      format: (value) => value.toLocaleString("en-US"),
+  },
+
+  {
+      id: "edit",
+      label: "Edit",
+      minWidth: 30,
+      align: "center",
   },
   {
-    id: "deletePackage",
-    label: "Delete",
-    minWidth: 30,
-    align: "center",
+      id: "deletePackage",
+      label: "Delete",
+      minWidth: 30,
+      align: "center",
   }
 ];
 
@@ -90,29 +114,29 @@ function createData(
   deletePackage
 ) {
   return {
-    name,
-    description,
-    price,
-    edit,
-    deletePackage
+      name,
+      description,
+      price,
+      edit,
+      deletePackage
   };
 }
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
+      width: "100%",
   },
   container: {
-    maxHeight: 550,
-    borderRadius: "20px",
+      maxHeight: 550,
+      borderRadius: "20px",
   },
   TableBody: {
-    background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
-    borderRadius: "20px",
-    backgroundImage: `url(${Background})`,
-    backgroundRepeat: "no-repeat" /* Do not repeat the image */,
-    backgroundSize: "cover",
-    backgroundOpacity: 0.5,
+      background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
+      borderRadius: "20px",
+      backgroundImage: `url(${Background})`,
+      backgroundRepeat: "no-repeat" /* Do not repeat the image */ ,
+      backgroundSize: "cover",
+      backgroundOpacity: 0.5,
   },
 });
 
@@ -120,82 +144,101 @@ export default function PackageDetails() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [DailyMealList, setDailyMealList] = useState([]);
+  const [PackageList, setPackageList] = useState([]);
 
-  //fetching meallist data from the backend
+  //fetching package list data from the backend
   useEffect(() => {
-    const config = {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    };
+      const config = {
+          headers: {
+              "x-auth-token": localStorage.getItem("x-auth-token"),
+          },
+      };
 
-    axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+      axios
+          .get("http://localhost:5000/api/packages", config)
+          .then(({
+              data
+          }) => {
 
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+              if (data.length > 0) {
+                  setPackageList(data);
+              }
+          })
+          .catch((error) => {
+              console.log(error);
+          });
   }, []);
 
   //map table row data
-  const rows = DailyMealList.map((currentMeal) => {
-    return createData(
-      currentMeal.date.substring(0, 10),
-      currentMeal.mealName,
-      currentMeal.calories,
-      currentMeal.proteins,
-      currentMeal.fat,
-      currentMeal._id
-    );
+  const rows = PackageList.map((pack) => {
+      return createData(
+          pack.PackageName,
+          pack.PackageDescriprion,
+          pack.PackagePrice,
+          pack._id,
+          pack._id
+      );
   });
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+      setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
+      setRowsPerPage(+event.target.value);
+      setPage(0);
   };
 
-  async function deleteMeal(id) {
-    const config = {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    };
+  function deleteButtonClick(id) {
+      confirmAlert({
+          title: 'Confirm to Delete',
+          message: 'Are you sure to do this.',
+          buttons: [{
+                  label: 'Yes',
+                  onClick: () => {
+                      deletePackage(id)
+                  }
+              },
+              {
+                  label: 'No',
 
-    console.log("Delete meal id is " + id);
-    await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
-      .then((response) => {
-        console.log(response);
+              }
+          ]
       });
 
-    //rerender meal list(Get meallist Data from the backend)
-
-    await axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
-
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
+  async function deletePackage(id) {
+      const config = {
+          headers: {
+              "x-auth-token": localStorage.getItem("x-auth-token"),
+          },
+      };
+
+      await axios
+          .delete("http://localhost:5000/api/packages/" + id, config)
+          .then((response) => {
+              console.log(response);
+          });
+
+      //rerender package list(Get packagelist Data from the backend)
+
+      await axios
+          .get("http://localhost:5000/api/packages", config)
+          .then(({
+              data
+          }) => {
+
+              if (data.length > 0) {
+                  setPackageList(data);
+              } else {
+                  window.location.reload();
+              }
+          })
+          .catch((error) => {
+              console.log(error);
+          });
+  }
+
 
   return (
     <>
@@ -207,6 +250,15 @@ export default function PackageDetails() {
         }}
         boxShadow={3}
       >
+        <div class="input-group-append">
+        <Link to={{
+          pathname: "/ManageGymPackage",
+        }}>
+          <HoverAddButton>
+            <Add/>
+          </HoverAddButton>
+        </Link>
+        </div>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -251,18 +303,20 @@ export default function PackageDetails() {
                               <HoverDeleteButton>
                                 <DeleteOutlineIcon
                                   onClick={() => {
-                                    deleteMeal(value);
+                                    deleteButtonClick(value);
                                   }}
                                 />
                               </HoverDeleteButton>
                             ) : column.id === "edit" ? (
+                              <Link to={{
+                                pathname: "/ManageGymPackage",
+                                data: value 
+                              }}>
                               <HoverEditButton>
                                 <SettingsIcon
-                                  onClick={() => {
-                                    deleteMeal(value);
-                                  }}
                                 />
                               </HoverEditButton>
+                              </Link>
                             ) : (
                               value
                             )}
@@ -285,8 +339,9 @@ export default function PackageDetails() {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-
+      
       <br />
+      
     </>
   );
 }

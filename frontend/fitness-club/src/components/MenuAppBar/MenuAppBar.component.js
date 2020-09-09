@@ -64,15 +64,25 @@ import FitnessUpdatesTable from "../FitnessUpdates/FitnessUpdatesTable/FitnessUp
 
 //@desc import components
 //@author Chamodi
-import InsertGymPackages from "../GymPackages/InsertPackages/InsertGymPackages.component";
-import UpdateGymPackage from "../GymPackages/UpdateGymPackages/UpdateGymPackage.component";
-import DeleteGymPackage from "../GymPackages/DeletePackage/DeleteGymPackage.component";
-import InsertNotice from "../GymNotices/InsertNotice/InsertNotice.component";
-import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
-import DeleteNotice from "../GymNotices/DeleteNotice/DeleteNotice.component";
+// import InsertGymPackages from "../GymPackages/InsertPackages/InsertGymPackages.component";
+// import UpdateGymPackage from "../GymPackages/UpdateGymPackages/UpdateGymPackage.component";
+// import DeleteGymPackage from "../GymPackages/DeletePackage/DeleteGymPackage.component";
+// import InsertNotice from "../GymNotices/InsertNotice/InsertNotice.component";
+// import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
+// import DeleteNotice from "../GymNotices/DeleteNotice/DeleteNotice.component";
+// import PackageDetails from "../GymPackages/PackageDetailsTable/PackageDetails.component";
+// import NoticesTable from "../GymNotices/GymNoticesTable/NoticesTable.component";
+// import GymPackageGrid from "../GymPackages/GymPackageGrid/GymPackageGrid.component";
+
+//@desc import components
+//@author Chamodi
+
+import ManageGymPackage from "../GymPackages/ManageGymPackages/ManageGymPackage.component";
+import ManageNotice from "../GymNotices/ManageNotice/ManageNotice.component";
 import PackageDetails from "../GymPackages/PackageDetailsTable/PackageDetails.component";
 import NoticesTable from "../GymNotices/GymNoticesTable/NoticesTable.component";
-import GymPackageGrid from "../GymPackages/GymPackageGrid/GymPackageGrid.component";
+import Packages from "../Packages/Packages.component";
+import PaymentDetails from "../Packages/PaymentDetails.component";
 
 // import { Link } from "@material-ui/core";
 
@@ -151,7 +161,7 @@ export default function MenuAppBar() {
                 </Link>
               </li>
               <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="/gympackages">
+                <Link className="nav-link" to="/Packages">
                   <i className="fas fa-user-circle"></i>
                   <span>Packages</span>
                 </Link>
@@ -599,7 +609,7 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Chamodi */}
-              <Route path="/gympackages" exact component={GymPackageGrid} />
+              {/* <Route path="/gympackages" exact component={GymPackageGrid} />
               <Route
                 path="/InsertGymPackges"
                 exact
@@ -619,7 +629,20 @@ export default function MenuAppBar() {
               <Route path="/UpdateNotice" exact component={UpdateNotice} />
               <Route path="/DeleteNotice" exact component={DeleteNotice} />
               <Route path="/PackageDetails" exact component={PackageDetails} />
+              <Route path="/NoticesTable" exact component={NoticesTable} /> */}
+
+              {/* Routes
+              @author Chamodi */}
+              <Route
+                path="/ManageGymPackage"
+                exact
+                component={ManageGymPackage}
+              />
+              <Route path="/ManageNotice" exact component={ManageNotice} />
+              <Route path="/PackageDetails" exact component={PackageDetails} />
               <Route path="/NoticesTable" exact component={NoticesTable} />
+              <Route path="/Packages" exact component={Packages} />
+              <Route path="/Payment" exact component={PaymentDetails} />
             </div>
           </div>
 

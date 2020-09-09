@@ -40,6 +40,11 @@ app.use("/api/advertisement", require("./routes/api/advertisement"));
 app.use("/api/instructors", require("./routes/api/instructors"));
 // app.use("/api/images", require("./routes/api/images"));
 
+//------------------Chamodi-----------------------
+app.use("/api/packages", require("./routes/api/packages"));
+app.use("/api/notices", require("./routes/api/notices"));
+app.use("/packageImages", express.static("./packageImages"));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

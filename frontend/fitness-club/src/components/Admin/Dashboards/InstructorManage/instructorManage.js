@@ -15,14 +15,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import KeyboardVoiceIcon from "@material-ui/icons/KeyboardVoice";
-import Icon from "@material-ui/core/Icon";
-import SaveIcon from "@material-ui/icons/Save";
-
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +34,7 @@ export default function InstructorManage() {
     <div style={{ marginBottom: "100px" }}>
       <div className="container">
         <div className="row">
-          <div className="col-sm">
+          <div className="col-sm-6 col-md-4">
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -64,7 +56,10 @@ export default function InstructorManage() {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link to="/insert" style={{ textDecoration: "none" }}>
+                <Link
+                  to="/insert"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   <Button
                     variant="contained"
                     color="primary"
@@ -103,7 +98,7 @@ export default function InstructorManage() {
               </CardActions>
             </Card>
           </div>
-          <div className="col-sm">
+          <div className="col-sm-6 col-md-4">
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -135,7 +130,7 @@ export default function InstructorManage() {
               </CardActions>
             </Card>
           </div>
-          <div className="col-sm">
+          <div className="col-sm-6 col-md-4">
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
