@@ -58,8 +58,7 @@ router.route("/update/:id").put((req, res) => {
   Instructor.findByIdAndUpdate(req.params.id)
     .then((instructor) => {
       instructor.instructorID = req.body.instructorID;
-      instructor.firstname = req.body.firstname;
-      instructor.lastname = req.body.lastname;
+      instructor.name = req.body.name;
       instructor.dob = Date.parse(req.body.dob);
       instructor.gender = req.body.gender;
       instructor.address = req.body.address;

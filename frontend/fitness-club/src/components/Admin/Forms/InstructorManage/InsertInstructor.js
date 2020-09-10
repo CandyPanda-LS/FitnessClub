@@ -53,6 +53,8 @@ export default class InsertInstructor extends Component {
     axios
       .post("http://localhost:5000/api/instructors/add", instructor, config)
       .then((res) => console.log(res.data));
+
+    window.location = "/list";
   }
 
   onChangeInstructorId = (e) => {
@@ -91,21 +93,11 @@ export default class InsertInstructor extends Component {
     return (
       <>
         <header>
-          <h1
-            style={{
-              marginTop: "14px",
-              marginBottom: "24px",
-              fontSize: "38px",
-              fontFamily: "",
-              marginLeft: "13px",
-            }}
-          >
-            INSTRUCTOR INFO
-          </h1>
+          <h3 style={{ marginLeft: "20px" }}>Instructor Info</h3>
         </header>
         <div class="card" style={{ margin: "20px", padding: "0px" }}>
           <div
-            class="card-body border rounded-0 shadow"
+            class="card-body border rounded-0"
             style={{ margin: "0px", padding: "20px" }}
           >
             <form onSubmit={this.submitHandler} style={{ margin: "0px" }}>

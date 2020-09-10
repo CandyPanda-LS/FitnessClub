@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Background1 from "../../Images/1.jpg";
 import Background2 from "../../Images/2.jpg";
-import Background3 from "../../Images/3.png";
+import Background3 from "../../Images/Reports.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -59,7 +59,7 @@ export default function InstructorManage() {
                     color="textSecondary"
                     component="p"
                   >
-                    Add, View, Update, Remove Instructor from Here
+                    Instructor Manipulations from Here
                   </Typography>
                 </CardContent>
               </CardActionArea>
@@ -73,31 +73,13 @@ export default function InstructorManage() {
                     Add
                   </Button>
                 </Link>
-                <Link to="/view" style={{ textDecoration: "none" }}>
+                <Link to="/admin/list" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     color="secondary"
                     href="#contained-buttons"
                   >
-                    View
-                  </Button>
-                </Link>
-                <Link to="/update" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href="#contained-buttons"
-                  >
-                    Update
-                  </Button>
-                </Link>
-                <Link to="/remove" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    href="#contained-buttons"
-                  >
-                    Remove
+                    List | Remove | Update
                   </Button>
                 </Link>
               </CardActions>
@@ -145,32 +127,18 @@ export default function InstructorManage() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Insructor Utilities
+                    Utils
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                    Manage Salary, Leaves, and Reports
+                    Manage Reports
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  href="#contained-buttons"
-                >
-                  Salary
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  href="#contained-buttons"
-                >
-                  Leave
-                </Button>
                 <Button
                   variant="contained"
                   color="primary"

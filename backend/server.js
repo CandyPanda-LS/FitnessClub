@@ -22,7 +22,6 @@ app.use("/api/profile", require("./routes/api/profile"));
 
 //-------------------Rajindu---------------------
 app.use("/api/instructors", require("./routes/api/instructors"));
-app.use("/api/images", require("./routes/api/images"));
 
 const PORT = process.env.PORT || 5000;
 
