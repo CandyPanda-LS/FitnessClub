@@ -35,7 +35,7 @@ import InstructorManage from "../Admin/Dashboards/InstructorManage/instructorMan
 import InsertInstructor from "../Admin/Forms/InstructorManage/InsertInstructor";
 import UpdateInstructor from "../Admin/Forms/InstructorManage/UpdateInstructor";
 import InstructorList from "../Admin/Lists/InstructorList";
-import Image from "../Admin/Forms/InstructorManage/InsertImage";
+import InstructorProfile from "../Admin/Lists/InstructorProfile";
 
 // @desc import Components
 // @author Ayodya
@@ -585,7 +585,7 @@ export default function MenuAppBar() {
               <Route path="/insert" exact component={InsertInstructor} />
               <Route path="/update/:id" exact component={UpdateInstructor} />
               <Route path="/list" exact component={InstructorList} />
-              <Route path="/img" exact component={Image} />
+              <Route path="/view/:id" exact component={InstructorProfile} />
 
               {/* Routes
               @author Ayodya */}

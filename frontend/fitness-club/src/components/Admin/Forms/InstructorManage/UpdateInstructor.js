@@ -103,17 +103,20 @@ export default class UpdateInstructor extends Component {
         instructor
       )
       .then((res) => console.log(res.data));
+
+    window.location = "/list";
   }
 
   render() {
     return (
       <div>
-        <h3>Update Instructor</h3>
-        <form onSubmit={this.onSubmit}>
+        <h3 style={{ margin: "20px" }}>Update Instructor</h3>
+        <form onSubmit={this.onSubmit} style={{ margin: "20px" }}>
           <div className="form-group">
             <label>Instructor ID: </label>
             <select
-              //ref="userInput"
+              readOnly
+              disabled
               required
               className="form-control"
               value={this.state.instructorId}
