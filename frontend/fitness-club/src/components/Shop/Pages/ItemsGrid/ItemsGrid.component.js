@@ -65,38 +65,6 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
 }
 // Single item functional component end
 
-// cart code
-
-const SizeSideDrawer = ({ isOpen, onClose }) => {
-  return (
-    <SideDrawer
-      isOpen={isOpen}
-      onClose={onClose}
-      w={{ xs: "100vw", sm: "24rem", xl: "24rem" }}
-    >
-      <Div d="flex" m={{ b: "4rem" }}>
-        <Icon name="AlertSolid" color="warning700" />
-        <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
-      </Div>
-      <Div d="flex" justify="flex-end">
-        <Button
-          onClick={onClose}
-          bg="gray200"
-          textColor="medium"
-          m={{ r: "1rem" }}
-        >
-          Cancel
-        </Button>
-        <Button onClick={onClose} bg="info700">
-          Submit
-        </Button>
-      </Div>
-    </SideDrawer>
-  );
-};
-
-// cart code end
-
 export default class ItemsGrid extends Component {
   constructor(props) {
     super(props);
@@ -142,22 +110,6 @@ export default class ItemsGrid extends Component {
               />
             ))}
 
-            <Button
-              bg="info700"
-              hoverBg="info600"
-              m={{ r: "0.5rem" }}
-              onClick={() =>
-                this.setState({
-                  showSideDrawer: true,
-                })
-              }
-            >
-              Open 24rem width SideDrawer
-            </Button>
-            <SizeSideDrawer
-              isOpen={this.state.showSideDrawer}
-              onClose={() => this.setState({ showSideDrawer: false })}
-            />
           </div>
         </div>
       </div>
