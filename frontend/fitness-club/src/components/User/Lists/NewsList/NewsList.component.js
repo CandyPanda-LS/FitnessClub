@@ -76,7 +76,7 @@ export default function NewsList() {
         <ListItemIcon>
           <NotificationsActiveIcon style={{ color: "white" }} />
         </ListItemIcon>
-        <ListItemText primary="News" />
+        <ListItemText primary="Notices" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
@@ -84,9 +84,7 @@ export default function NewsList() {
           {NoticeList.map((pack, index) => (
             <ListItem button className={classes.nested}>
               <ListItemIcon></ListItemIcon>
-              <ListItemText
-                primary={pack.NoticeTitle + " – " + pack.NoticeTitle}
-              />
+              <ListItemText primary={pack.NoticeTitle} />
             </ListItem>
           ))}
         </List>

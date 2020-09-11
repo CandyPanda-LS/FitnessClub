@@ -633,6 +633,7 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Chamodi */}
+
               <Route
                 path="/ManageGymPackage"
                 exact
