@@ -227,7 +227,7 @@ export default function AdvertisementTable() {
                             column.format(value)
                           ) : column.id === "Image" ? (
                             <img
-                              src={"uploads/" + value}
+                              src={"uploads/advertisement/" + value}
                               style={{
                                 width: "50px",
                                 height: "50px",
