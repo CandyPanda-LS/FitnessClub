@@ -25,7 +25,7 @@ export default class Profile extends Component {
 
   //fetching user details from backend
   componentDidMount() {
-    const token = localStorage.getItem("x-auth-token");
+    //const token = localStorage.getItem("x-auth-token");
 
     const config = {
       headers: {

@@ -7,6 +7,18 @@ const cors = require("cors");
 
 router.use(cors());
 
+//@route  get api/instructor/workout/
+//@desc   fetch Workout into the database
+//@access Public
+//to protect auth add as the second parameter
+//author Senura
+
+router.get("/", async (req, res) => {
+  Workout.find()
+    .then((workout) => res.json(workout))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 //@route  POST api/instructor/workout/
 //@desc   Add Workout into the database
 //@access Private

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from 'axios';
-import { Paper, FormControl, TextField, Button } from "@material-ui/core";
+import axios from "axios";
+import { FormControl, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,108 +24,111 @@ export default function EcommerceInsertitem() {
   const [ItemDescriprion, setItemDescriprion] = useState(null);
   const [ItemImage, setItemImage] = useState(null);
 
-
-   function onSubmit(e){
-
+  function onSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData();
 
-    formData.append("ItemName",ItemName);
-    formData.append("ItemPrice",ItemPrice);
-    formData.append("ItemDescriprion",ItemDescriprion);
-    formData.append("ItemImage",ItemImage);
+    formData.append("ItemName", ItemName);
+    formData.append("ItemPrice", ItemPrice);
+    formData.append("ItemDescriprion", ItemDescriprion);
+    formData.append("ItemImage", ItemImage);
 
     const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
 
-      headers:{
-        "content-type":"multipart/form-data",
-      }
-
-    }
-
-    axios.post("http://localhost:5000/api/shop/additems",formData,config).then((res)=>{
-      alert("Item Added");
-    }).catch((error)=>{
-      alert(error);
-    });
-
-
-
+    axios
+      .post("http://localhost:5000/api/shop/additems", formData, config)
+      .then((res) => {
+        alert("Item Added");
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
-
 
   return (
     <>
-      <div class="card" style={{margin: "100px",borderRadius: "43px",backgroundColor: "#73a8f0"}}>
-                <div class="card-body" style={{backgroundColor: "rgba(115,168,240,0)",padding: "65px"}}>
-                    <div class="row">
-                        <div class="col">
-              <div class="card" style={{borderRadius: "78px"}}><img class="card-img w-100 d-block" src="assets/img/shoes/1.png"/></div>
-                        </div>
-                        <div class="col">
-              <div class="card" style={{borderRadius: "70px"}}>
-                  <div class="card-body">
-
-
-                  <FormControl className={classes.formControl}>
-              <TextField
-
-                className={classes.inputControl}
-                label="Name"
-                onChange={(e) => setItemName(e.target.value)}
-                variant="outlined"
-                style={{
-                  minWidth: "250px",
-                  maxWidth: "275px",
-
-
-                }}
-              />
-
-              <TextField
-
-                className={classes.inputControl}
-                label="Price"
-                onChange={(e) => setItemPrice(e.target.value)}
-                variant="outlined"
-              />
-
-              <TextField
-                id="filled-multiline-flexible"
-                className={classes.inputControl}
-                label="Description"
-                multiline
-                rowsMax={4}
-
-                onChange={(e) => setItemDescriprion(e.target.value)}
-                variant="outlined"
-              />
-
-              <TextField
-                type="file"
-
-                onChange={(e) => setItemImage(e.target.files[0])}
-                variant="outlined"
-              />
-
-              <Button
-                onClick = {onSubmit}
-                variant="contained"
-                style={{
-                  backgroundColor: "#263238",
-                  color: "white",
-                }}
-              >
-                Insert
-              </Button>
-            </FormControl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div
+        class="card"
+        style={{
+          margin: "100px",
+          borderRadius: "43px",
+          backgroundColor: "#73a8f0",
+        }}
+      >
+        <div
+          class="card-body"
+          style={{ backgroundColor: "rgba(115,168,240,0)", padding: "65px" }}
+        >
+          <div class="row">
+            <div class="col">
+              <div class="card" style={{ borderRadius: "78px" }}>
+                <img
+                  class="card-img w-100 d-block"
+                  src="assets/img/shoes/1.png"
+                  alt="imageInsetitems"
+                />
+              </div>
             </div>
+            <div class="col">
+              <div class="card" style={{ borderRadius: "70px" }}>
+                <div class="card-body">
+                  <FormControl className={classes.formControl}>
+                    <TextField
+                      className={classes.inputControl}
+                      label="Name"
+                      onChange={(e) => setItemName(e.target.value)}
+                      variant="outlined"
+                      style={{
+                        minWidth: "250px",
+                        maxWidth: "275px",
+                      }}
+                    />
+
+                    <TextField
+                      className={classes.inputControl}
+                      label="Price"
+                      onChange={(e) => setItemPrice(e.target.value)}
+                      variant="outlined"
+                    />
+
+                    <TextField
+                      id="filled-multiline-flexible"
+                      className={classes.inputControl}
+                      label="Description"
+                      multiline
+                      rowsMax={4}
+                      onChange={(e) => setItemDescriprion(e.target.value)}
+                      variant="outlined"
+                    />
+
+                    <TextField
+                      type="file"
+                      onChange={(e) => setItemImage(e.target.files[0])}
+                      variant="outlined"
+                    />
+
+                    <Button
+                      onClick={onSubmit}
+                      variant="contained"
+                      style={{
+                        backgroundColor: "#263238",
+                        color: "white",
+                      }}
+                    >
+                      Insert
+                    </Button>
+                  </FormControl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <br />
     </>

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { ThemeProvider } from "@material-ui/core";
 import "../../assets/css/styles.css";
 import "../../assets/bootstrap/css/bootstrap.min.css";
 

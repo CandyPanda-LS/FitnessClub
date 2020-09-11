@@ -5,121 +5,117 @@ export default class ProfileUpdate extends Component {
   constructor(props) {
     super(props);
 
-   this.onSubmitContact = this.onSubmitContact.bind(this);
-  this.onSubmitPersonal = this.onSubmitPersonal.bind(this);
-  this.onChangeEmail = this.onChangeEmail.bind(this);
-  this.onChangeFirstname = this.onChangeFirstname.bind(this);
-  this.onChangeLastname = this.onChangeLastname.bind(this);
-  this.onChangeUsername = this.onChangeUsername.bind(this);
-  this.onChangeAddress = this.onChangeAddress.bind(this);
-  this.onChangeMobileNo = this.onChangeMobileNo.bind(this);
+    this.onSubmitContact = this.onSubmitContact.bind(this);
+    this.onSubmitPersonal = this.onSubmitPersonal.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeFirstname = this.onChangeFirstname.bind(this);
+    this.onChangeLastname = this.onChangeLastname.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
+    this.onChangeMobileNo = this.onChangeMobileNo.bind(this);
 
     this.state = {
-               username : "",
-               fristName:"",
-               lastName:"",
-               email:"",
-               address:"",
-               mobileNo:""
+      username: "",
+      fristName: "",
+      lastName: "",
+      email: "",
+      address: "",
+      mobileNo: "",
     };
   }
 
-  componentDidMount(){
-
-    const token = localStorage.getItem("x-auth-token");
+  componentDidMount() {
+    //const token = localStorage.getItem("x-auth-token");
 
     const config = {
-        headers: {
-            "x-auth-token" : localStorage.getItem("x-auth-token")
-        }
-    }
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
 
     axios
-        .get("http://localhost:5000/api/userprofile/",config)
-        .then((response) => {
-            this.setState({
-                username : response.data.firstName,
-                email : response.data.email,
-                firstName : response.data.firstName,
-                lastName : response.data.lastName,
-                address : response.data.address,
-                mobileNo : response.data.mobileNo,
-                gender:response.data.gender,
-                password:response.data.password,
-                password2:response.data.password2,
-            })
-         
-        })
+      .get("http://localhost:5000/api/userprofile/", config)
+      .then((response) => {
+        this.setState({
+          username: response.data.firstName,
+          email: response.data.email,
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          address: response.data.address,
+          mobileNo: response.data.mobileNo,
+          gender: response.data.gender,
+          password: response.data.password,
+          password2: response.data.password2,
+        });
+      })
 
-        .catch((error) => {
-            console.log(error);
-        })
+      .catch((error) => {
+        console.log(error);
+      });
 
-        // axios
-        //   .get("http://localhost:5000/api/users/")
-        //   .then((response) => {
-        //     if(response.data.length > 0){
-        //       this.setState({
-        //         users: response.data.map((user) => user.email)
-        //       })
-        //     }
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        // })
+    // axios
+    //   .get("http://localhost:5000/api/users/")
+    //   .then((response) => {
+    //     if(response.data.length > 0){
+    //       this.setState({
+    //         users: response.data.map((user) => user.email)
+    //       })
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    // })
+  }
 
-}
+  onChangeUsername(e) {
+    this.setState({
+      username: e.target.value,
+    });
+  }
 
-onChangeUsername(e){
-  this.setState({
-    username:e.target.value
-  })
-}
+  onChangeLastname(e) {
+    this.setState({
+      lastName: e.target.value,
+    });
+  }
 
-onChangeLastname(e){
-  this.setState({
-    lastName:e.target.value
-  })
-}
+  onChangeFirstname(e) {
+    this.setState({
+      firstName: e.target.value,
+    });
+  }
 
-onChangeFirstname(e){
-  this.setState({
-    firstName:e.target.value
-  })
-}
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value,
+    });
+  }
 
-onChangeEmail(e){
-  this.setState({
-    email:e.target.value
-  })
-}
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value,
+    });
+  }
 
-onChangeAddress(e){
-  this.setState({
-    address:e.target.value
-  })
-}
+  onChangeMobileNo(e) {
+    this.setState({
+      mobileNo: e.target.value,
+    });
+  }
 
-onChangeMobileNo(e){
-  this.setState({
-    mobileNo:e.target.value
-  })
-}
-
-  onSubmitPersonal(e){
+  onSubmitPersonal(e) {
     e.preventDefault();
 
     const personal = {
-      username : this.state.username,
-      firstName : this.state.firstName,
-      lastName : this.state.lastName,
-      email : this.state.email,
-      address : this.state.address,
-      mobileNo : this.state.mobileNo,
-      gender:this.state.gender,
-      password:this.state.password,
-      password2:this.state.password2,
-
+      username: this.state.username,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      address: this.state.address,
+      mobileNo: this.state.mobileNo,
+      gender: this.state.gender,
+      password: this.state.password,
+      password2: this.state.password2,
     };
 
     console.log(personal);
@@ -127,37 +123,34 @@ onChangeMobileNo(e){
     const token = localStorage.getItem("x-auth-token");
 
     const config = {
-        headers: {
-            "x-auth-token" : localStorage.getItem("x-auth-token")
-        }
-    }
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
 
     axios
-      .post("http://localhost:5000/api/userprofile/",personal,config)
-      .then((response) => console.log(response.data),alert("Success"))
+      .post("http://localhost:5000/api/userprofile/", personal, config)
+      .then((response) => console.log(response.data), alert("Success"))
       .catch((error) => {
-            alert(error);
-        })
+        alert(error);
+      });
 
-      window.location = "/profile";
-      
-
+    window.location = "/profile";
   }
 
-  onSubmitContact(e){
+  onSubmitContact(e) {
     e.preventDefault();
 
     const contact = {
-      username : this.state.username,
-      firstName : this.state.firstName,
-      lastName : this.state.lastName,
-      email : this.state.email,
-      address : this.state.address,
-      mobileNo : this.state.mobileNo,
-      gender:this.state.gender,
-      password:this.state.password,
-      password2:this.state.password2,
-      
+      username: this.state.username,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      address: this.state.address,
+      mobileNo: this.state.mobileNo,
+      gender: this.state.gender,
+      password: this.state.password,
+      password2: this.state.password2,
     };
 
     console.log(contact);
@@ -165,17 +158,16 @@ onChangeMobileNo(e){
     const token = localStorage.getItem("x-auth-token");
 
     const config = {
-        headers: {
-            "x-auth-token" : localStorage.getItem("x-auth-token")
-        }
-    }
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
 
     axios
-      .post("http://localhost:5000/api/userprofile/",contact,config)
-      .then((response) => console.log(response.data))
+      .post("http://localhost:5000/api/userprofile/", contact, config)
+      .then((response) => console.log(response.data));
 
-      window.location = "/profile";
-
+    window.location = "/profile";
   }
 
   render() {
@@ -257,7 +249,10 @@ onChangeMobileNo(e){
                     </p>
                   </div>
                   <div class="card-body">
-                    <form onSubmit={this.onSubmitPersonal} class="profileUpdate1">
+                    <form
+                      onSubmit={this.onSubmitPersonal}
+                      class="profileUpdate1"
+                    >
                       <div class="form-row">
                         <div class="col">
                           <div class="form-group">
@@ -333,7 +328,10 @@ onChangeMobileNo(e){
                     </p>
                   </div>
                   <div class="card-body">
-                    <form onSubmit={this.onSubmitContact} class="profileUpdate2">
+                    <form
+                      onSubmit={this.onSubmitContact}
+                      class="profileUpdate2"
+                    >
                       <div class="form-group">
                         <label for="address">
                           <strong>Address</strong>

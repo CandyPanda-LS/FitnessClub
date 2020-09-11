@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Background from "./image/pic2.jpg";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import axios from "axios";
 
 export default class UserRegistration extends Component {
@@ -53,7 +53,7 @@ export default class UserRegistration extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    if (this.state.password != this.state.password2) {
+    if (this.state.password !== this.state.password2) {
       this.setState({
         status: "Password Mismatch",
       });
@@ -230,8 +230,7 @@ export default class UserRegistration extends Component {
                           required
                         />
                       </div>
-                      
-                      
+
                       <div class="col-sm-12">
                         <p style={{ color: "#c44233" }}>{this.state.status}</p>
                       </div>
@@ -245,7 +244,7 @@ export default class UserRegistration extends Component {
                           name="profImage"/>.
                       </div>
                       </div> */}
-                      
+
                     <button
                       class="btn btn-primary btn-block text-white btn-user"
                       id="signup"

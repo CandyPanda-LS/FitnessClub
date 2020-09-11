@@ -76,6 +76,7 @@ export default function AdvertisementComponent() {
                           margin: "0px",
                           padding: "0px",
                         }}
+                        alt="imageCard"
                       />
                     </div>
                     <div class="card-body">
