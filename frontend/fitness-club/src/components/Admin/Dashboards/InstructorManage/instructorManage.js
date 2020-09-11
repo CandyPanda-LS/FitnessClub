@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Background1 from "../../Images/1.jpg";
 import Background2 from "../../Images/2.jpg";
-import Background3 from "../../Images/3.png";
+import Background3 from "../../Images/Reports.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -15,6 +15,14 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
 import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import KeyboardVoiceIcon from "@material-ui/icons/KeyboardVoice";
+import Icon from "@material-ui/core/Icon";
+import SaveIcon from "@material-ui/icons/Save";
+
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +42,7 @@ export default function InstructorManage() {
     <div style={{ marginBottom: "100px" }}>
       <div className="container">
         <div className="row">
-          <div className="col-sm-6 col-md-4">
+          <div className="col-sm">
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -51,15 +59,12 @@ export default function InstructorManage() {
                     color="textSecondary"
                     component="p"
                   >
-                    Add, View, Update, Remove Instructor from Here
+                    Instructor Manipulations from Here
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link
-                  to="/insert"
-                  style={{ textDecoration: "none", color: "white" }}
-                >
+                <Link to="/insert" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     color="primary"
@@ -74,31 +79,13 @@ export default function InstructorManage() {
                     color="secondary"
                     href="#contained-buttons"
                   >
-                    View
-                  </Button>
-                </Link>
-                <Link to="/update/:id" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href="#contained-buttons"
-                  >
-                    Update
-                  </Button>
-                </Link>
-                <Link to="/remove" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    href="#contained-buttons"
-                  >
-                    Remove
+                    List | Remove | Update
                   </Button>
                 </Link>
               </CardActions>
             </Card>
           </div>
-          <div className="col-sm-6 col-md-4">
+          <div className="col-sm">
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -130,7 +117,7 @@ export default function InstructorManage() {
               </CardActions>
             </Card>
           </div>
-          <div className="col-sm-6 col-md-4">
+          <div className="col-sm">
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -140,32 +127,18 @@ export default function InstructorManage() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Insructor Utilities
+                    Utils
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                    Manage Salary, Leaves, and Reports
+                    Manage Reports
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  href="#contained-buttons"
-                >
-                  Salary
-                </Button>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  href="#contained-buttons"
-                >
-                  Leave
-                </Button>
                 <Button
                   variant="contained"
                   color="primary"

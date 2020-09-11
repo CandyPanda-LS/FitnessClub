@@ -38,7 +38,6 @@ app.use("/api/advertisement", require("./routes/api/advertisement"));
 
 //-------------------Rajindu---------------------
 app.use("/api/instructors", require("./routes/api/instructors"));
-// app.use("/api/images", require("./routes/api/images"));
 
 //------------------Chamodi-----------------------
 app.use("/api/packages", require("./routes/api/packages"));

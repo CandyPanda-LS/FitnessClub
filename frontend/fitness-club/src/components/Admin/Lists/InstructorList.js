@@ -12,6 +12,7 @@ const Instructor = (props) => (
     <td>{props.instructor.phone}</td>
     <td>{props.instructor.email}</td>
     <td>
+      <Link to={"/view/" + props.instructor._id}>Profile</Link> |{" "}
       <Link to={"/update/" + props.instructor._id}>Edit</Link> |{" "}
       <a
         href="#"
