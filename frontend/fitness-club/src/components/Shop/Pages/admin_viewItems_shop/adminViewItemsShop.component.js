@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 // Single item functional component start
-function Item(props) {
+function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
   return (
     <div
       class="card"
@@ -18,9 +20,11 @@ function Item(props) {
             <div class="card" style={{ width: "113px" }}>
               <img
                 class="card-img w-100 d-block"
-                style={{ width: "675px" }}
-                src="assets/img/2%20Nike%20infinity%20Run.png"
-                alt="imageAdz"
+                data-bs-hover-animate="pulse"
+                src={`data:image/png;base64,${Buffer.from(
+                  ItemImage.data
+                ).toString("base64")}`}
+                alt="itemImage"
               />
             </div>
           </div>
@@ -28,7 +32,7 @@ function Item(props) {
             <div class="row">
               <div class="col">
                 <h1 style={{ color: "rgb(255,255,255)" }}>
-                  Nike Airmax Pro{props.Item.ItemName}
+                  {ItemName}
                 </h1>
                 <h1
                   class="align-content-end align-self-baseline"
@@ -38,7 +42,7 @@ function Item(props) {
                     color: "rgb(248,248,248)",
                   }}
                 >
-                  Rs.25000.00
+                  {ItemPrice}
                 </h1>
               </div>
             </div>
@@ -46,6 +50,7 @@ function Item(props) {
           <div class="col" style={{ padding: "30px" }}>
             <div class="row">
               <div class="col">
+                <Link>
                 <button
                   class="btn btn-primary m-auto"
                   type="button"
@@ -59,8 +64,9 @@ function Item(props) {
                     fontWeight: "bold",
                   }}
                 >
-                  EDIT
+                    EDIT
                 </button>
+                </Link>
               </div>
               <div class="col">
                 <button
@@ -96,7 +102,7 @@ export default class adminViewItemsShop extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/ShopItems/")
+      .get("http://localhost:5000/api/shop/")
       .then((response) => {
         this.setState({ Items: response.data });
         console.log(response);
@@ -111,12 +117,13 @@ export default class adminViewItemsShop extends Component {
         <div class="card-body">
           {this.state.Items.map((currentItem) => (
             <Item
-              key={currentItem._id}
-              ItemName={currentItem.ItemName}
-              ItemPrice={currentItem.ItemPrice}
-              ItemDescriprion={currentItem.ItemDescriprion}
-              ItemColors={currentItem.ItemColors}
-            />
+                id={currentItem._id}
+                key={currentItem._id}
+                ItemName={currentItem.ItemName}
+                ItemPrice={currentItem.ItemPrice}
+                ItemDescriprion={currentItem.ItemDescriprion}
+                ItemImage={currentItem.ItemImage}
+              />
           ))}
         </div>
       </div>
