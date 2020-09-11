@@ -532,9 +532,9 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Dilumi */}
-              <Route path="/inventory" exact component={InventoryGrid} />
+              <Route path="/inventorytable" exact component={InventoryGrid} />
               <Route
-                path="/inventoryitems"
+                path="/addinventoryitems"
                 exact
                 component={InsertInventoryItems}
               />

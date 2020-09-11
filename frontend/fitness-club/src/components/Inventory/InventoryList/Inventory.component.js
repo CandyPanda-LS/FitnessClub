@@ -8,7 +8,9 @@ export default class InventoryGrid extends Component {
       <div>
         <div class="row">
           <div class="col-md-12">
-            <button class="btn btn-primary additem-btn"> Add Item </button>
+            <a href="/addinventoryitems">
+              <button class="btn btn-primary additem-btn"> Add Item </button>
+            </a>
           </div>
         </div>
 
