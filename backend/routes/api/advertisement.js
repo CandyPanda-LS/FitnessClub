@@ -8,7 +8,7 @@ const Advertisement = require("../../models/Advertisement");
 const path = require("path"); //for seting path
 const dirPath = path.join(
   __dirname,
-  "../../../frontend/fitness-club/public/uploads"
+  "../../../frontend/fitness-club/public/uploads/advertisement"
 ); //for seting path
 
 const app = express();

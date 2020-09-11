@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { FormControl, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import Progress from "./Progress";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -22,7 +23,8 @@ export default function EcommerceInsertitem() {
   const [ItemName, setItemName] = useState(null);
   const [ItemPrice, setItemPrice] = useState(null);
   const [ItemDescriprion, setItemDescriprion] = useState(null);
-  const [ItemImage, setItemImage] = useState(null);
+  const [file, setFile] = useState();
+  const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -32,11 +34,20 @@ export default function EcommerceInsertitem() {
     formData.append("ItemName", ItemName);
     formData.append("ItemPrice", ItemPrice);
     formData.append("ItemDescriprion", ItemDescriprion);
-    formData.append("ItemImage", ItemImage);
+    formData.append("file", file);
 
     const config = {
       headers: {
         "content-type": "multipart/form-data",
+      },
+      onUploadProgress: (progressEvent) => {
+        setuploadPercentage(
+          parseInt(
+            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          )
+        );
+        //Clear percentage
+        setTimeout(() => setuploadPercentage(0), 10000);
       },
     };
 
@@ -48,6 +59,10 @@ export default function EcommerceInsertitem() {
       .catch((error) => {
         alert(error);
       });
+  }
+
+  function onChangeFile(e) {
+    setFile(e.target.files[0]);
   }
 
   return (
@@ -108,10 +123,12 @@ export default function EcommerceInsertitem() {
 
                     <TextField
                       type="file"
-                      onChange={(e) => setItemImage(e.target.files[0])}
+                      onChange={onChangeFile}
                       variant="outlined"
                     />
 
+                    <Progress percentage={uploadPercentage} />
+                    <br />
                     <Button
                       onClick={onSubmit}
                       variant="contained"
