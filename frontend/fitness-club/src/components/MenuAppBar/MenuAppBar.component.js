@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // @desc import Components
 // @author Dilmi
@@ -87,11 +88,23 @@ import PaymentDetails from "../Packages/PaymentDetails.component";
 // import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
-  const [token, setToken] = useState(0);
+  const [token, setToken] = useState(null);
+  const [username, setUserName] = useState("Guest");
+  const [userImage, setUserImage] = useState("user.png");
 
   useEffect(() => {
     const userToken = localStorage.getItem("x-auth-token");
     setToken(userToken);
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    axios.get("http://localhost:5000/api/auth", config).then((res) => {
+      setUserName(res.data.firstName + " " + res.data.lastName);
+    });
   }, []);
 
   return (
@@ -436,35 +449,62 @@ export default function MenuAppBar() {
                         aria-expanded="false"
                       >
                         <span className="d-none d-lg-inline mr-2 text-gray-600 small">
-                          {token === 0 ? "user" : "Valerie Luna"}
+                          {username}
                         </span>
                         <img
                           alt="profileimage"
                           className="border rounded-circle img-profile"
-                          src="assets/img/avatars/avatar1.jpeg"
+                          src={"uploads/users/" + userImage}
                         />
                       </Link>
                       <div
                         className="dropdown-menu shadow dropdown-menu-right animated--grow-in"
                         role="menu"
                       >
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Profile
-                        </Link>
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Settings
-                        </Link>
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Activity log
-                        </Link>
-                        <div className="dropdown-divider"></div>
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Logout
-                        </Link>
+                        {token === null ? (
+                          <>
+                            <Link
+                              to="registration"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Register
+                            </Link>
+                            <div className="dropdown-divider"></div>
+                            <Link
+                              to="/userlogin"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Login
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link className="dropdown-item" role="presentation">
+                              <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Profile
+                            </Link>
+                            <Link className="dropdown-item" role="presentation">
+                              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Settings
+                            </Link>
+                            <div className="dropdown-divider"></div>
+                            <Link
+                              onClick={() => {
+                                localStorage.removeItem("x-auth-token");
+                                window.location = "/";
+                              }}
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Logout
+                            </Link>
+                          </>
+                        )}
                       </div>
                     </div>
                   </li>
