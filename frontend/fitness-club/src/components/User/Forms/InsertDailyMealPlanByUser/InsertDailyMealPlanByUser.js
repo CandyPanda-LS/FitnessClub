@@ -35,16 +35,25 @@ export default class InsertDailyMealPlanByUser extends Component {
       CHOCDF: "",
       FIBTG: "",
       FoodName: "",
+      response: "",
     };
   }
 
   componentDidMount() {
+    //reset the state after 9 seconds
+    this.interval = setInterval(() => this.setState({ response: "" }), 4000);
+
     /*Redirect to login page if there is no token*/
     const token = localStorage.getItem("x-auth-token");
 
     if (!token) {
       window.location = "/userlogin";
     }
+  }
+
+  //Clear interval
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   onChangeDate(date) {
@@ -61,6 +70,10 @@ export default class InsertDailyMealPlanByUser extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
+
+    this.setState({
+      response: "Loading...",
+    });
 
     await axios
       .get(
@@ -99,9 +112,15 @@ export default class InsertDailyMealPlanByUser extends Component {
       .put("http://localhost:5000/api/profile/addmeallist", newMeal, config)
       .then((response) => {
         console.log(response);
+        this.setState({
+          response: "Meal Added",
+        });
       })
       .catch((error) => {
         console.log(error);
+        this.setState({
+          response: "Unsuccessful",
+        });
       });
 
     window.location = "/adddailymeal";
@@ -119,6 +138,11 @@ export default class InsertDailyMealPlanByUser extends Component {
           }}
         >
           <CardContent>
+            <div class="col-sm-12">
+              <p style={{ color: "#c44233", fontWeight: "bold" }}>
+                {this.state.response}
+              </p>
+            </div>
             <FormControl className="form1">
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker

@@ -46,16 +46,25 @@ export default class BurnCalories extends Component {
       nf_calories: 0,
       duration_min: 0,
       time: "",
+      response: "",
     };
   }
 
   componentDidMount() {
+    //reset the state after 9 seconds
+    this.interval = setInterval(() => this.setState({ response: "" }), 10000);
+
     /*Redirect to login page if there is no token*/
     const token = localStorage.getItem("x-auth-token");
 
     if (!token) {
       window.location = "/userlogin";
     }
+  }
+
+  //Clear interval
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   onChangeDate(date) {
@@ -102,6 +111,10 @@ export default class BurnCalories extends Component {
 
   async onSubmit(e) {
     e.preventDefault();
+
+    this.setState({
+      response: "Loading...",
+    });
 
     const exercise = {
       query: this.state.query + " " + this.state.time + "minutes",
@@ -164,9 +177,15 @@ export default class BurnCalories extends Component {
       )
       .then((response) => {
         console.log(response);
+        this.setState({
+          response: "Workout Added",
+        });
       })
       .catch((error) => {
         console.log(error);
+        this.setState({
+          response: "Unsuccessful",
+        });
       });
 
     //Update Current Weight and Height into the backend
@@ -216,6 +235,11 @@ export default class BurnCalories extends Component {
             }}
           >
             <CardContent>
+              <div class="col-sm-12">
+                <p style={{ color: "#E9A200", fontWeight: "bold" }}>
+                  {this.state.response}
+                </p>
+              </div>
               <FormControl className="form1">
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
