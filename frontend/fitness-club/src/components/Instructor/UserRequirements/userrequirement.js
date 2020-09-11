@@ -18,10 +18,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { Button } from "@material-ui/core";
-
-import Background from "./img/gym.jpg";
 
 //Hover Component For Delete Icon
 const HoverDeleteButton = styled.p`
@@ -185,36 +182,36 @@ export default function RequestedPlansTable() {
     setPage(0);
   };
 
-  async function deleteMeal(id) {
-    const config = {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    };
+  // async function deleteMeal(id) {
+  //   const config = {
+  //     headers: {
+  //       "x-auth-token": localStorage.getItem("x-auth-token"),
+  //     },
+  //   };
 
-    console.log("Delete meal id is " + id);
-    await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
-      .then((response) => {
-        console.log(response);
-      });
+  //   console.log("Delete meal id is " + id);
+  //   await axios
+  //     .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
+  //     .then((response) => {
+  //       console.log(response);
+  //     });
 
-    //rerender meal list(Get meallist Data from the backend)
+  //   //rerender meal list(Get meallist Data from the backend)
 
-    await axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+  //   await axios
+  //     .get("http://localhost:5000/api/profile/me", config)
+  //     .then(({ data }) => {
+  //       console.log(data.dailymeallist);
+  //       console.log(data.dailymeallist.length);
 
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //       if (data.dailymeallist.length > 0) {
+  //         setDailyMealList(data.dailymeallist);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   return (
     <>

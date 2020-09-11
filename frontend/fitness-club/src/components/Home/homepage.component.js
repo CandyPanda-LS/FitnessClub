@@ -1,9 +1,5 @@
 import React from "react";
 
-// import "./BasicFancyGallery.css";
-
-// import CustomerReviews from "./CustomerReviews/CustomerReviews.component";
-
 import Background from "./img/gymbannner.jpg";
 
 export default function HomeComponent() {
@@ -24,7 +20,7 @@ export default function HomeComponent() {
                   <a
                     class="btn btn-primary hero-button plat"
                     role="button"
-                    href="#"
+                    href="/"
                   >
                     Learn more
                   </a>
@@ -42,7 +38,7 @@ export default function HomeComponent() {
                   <a
                     class="btn btn-primary hero-button plat"
                     role="button"
-                    href="#"
+                    href="/"
                   >
                     Learn more
                   </a>
@@ -60,7 +56,7 @@ export default function HomeComponent() {
                   <a
                     class="btn btn-primary hero-button plat"
                     role="button"
-                    href="#"
+                    href="/"
                   >
                     Learn more
                   </a>
@@ -107,6 +103,7 @@ export default function HomeComponent() {
                   <img
                     src="assets/img/gym%20(1).png"
                     style={{ width: "150px" }}
+                    alt="imageHome"
                   />
                 </div>
                 <div class="separator-fitur"></div>
@@ -120,7 +117,11 @@ export default function HomeComponent() {
               </div>
               <div class="col-sm-4 col-md-4 waves-effect kolom-b">
                 <div class="fitur-a">
-                  <img src="assets/img/medal.png" style={{ width: "150px" }} />
+                  <img
+                    src="assets/img/medal.png"
+                    style={{ width: "150px" }}
+                    alt="imageHome"
+                  />
                 </div>
                 <div class="separator-fitur"></div>
                 <div>
@@ -133,7 +134,11 @@ export default function HomeComponent() {
               </div>
               <div class="col-sm-4 col-md-4 waves-effect kolom-c">
                 <div class="fitur-a">
-                  <img src="assets/img/shield.png" style={{ width: "150px" }} />
+                  <img
+                    src="assets/img/shield.png"
+                    style={{ width: "150px" }}
+                    alt="imageHome"
+                  />
                 </div>
                 <div class="separator-fitur"></div>
                 <div>
@@ -205,6 +210,7 @@ export default function HomeComponent() {
               <img
                 class="img-fluid"
                 src="assets/img/hero-background-nature.jpg"
+                alt="imageHome"
               />
             </a>
           </div>
@@ -218,6 +224,7 @@ export default function HomeComponent() {
               <img
                 class="img-fluid"
                 src="assets/img/hero-background-technology.jpg"
+                alt="imageHome"
               />
             </a>
           </div>
@@ -227,10 +234,12 @@ export default function HomeComponent() {
               rel="gallery1"
               title="Hero Image Travel"
               href="assets/img/hero-background-travel.jpg"
+              alt="imageHome"
             >
               <img
                 class="img-fluid"
                 src="assets/img/hero-background-travel.jpg"
+                alt="imageHome"
               />
             </a>
           </div>
@@ -244,6 +253,7 @@ export default function HomeComponent() {
               <img
                 class="img-fluid"
                 src="assets/img/hero-background-food.jpg"
+                alt="imageHome"
               />
             </a>
           </div>
@@ -257,6 +267,7 @@ export default function HomeComponent() {
               <img
                 class="img-fluid"
                 src="assets/img/hero-background-music.jpg"
+                alt="imageHome"
               />
             </a>
           </div>
@@ -270,6 +281,7 @@ export default function HomeComponent() {
               <img
                 class="img-fluid"
                 src="assets/img/hero-background-music.jpg"
+                alt="imageHome"
               />
             </a>
           </div>

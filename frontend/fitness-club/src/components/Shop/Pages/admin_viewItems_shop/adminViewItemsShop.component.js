@@ -20,7 +20,7 @@ function Item(props) {
                 class="card-img w-100 d-block"
                 style={{ width: "675px" }}
                 src="assets/img/2%20Nike%20infinity%20Run.png"
-                alt="image"
+                alt="imageAdz"
               />
             </div>
           </div>

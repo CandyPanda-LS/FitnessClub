@@ -50,6 +50,7 @@ export default function LineChart() {
             margin: "auto",
             justifyContent: "center",
             borderRadius: "20px",
+            boxShadow: "7px 10px 23px 0px rgba(110,109,109,1)",
           }}
         >
           {lineChart}

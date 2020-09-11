@@ -106,7 +106,7 @@ export default class Profile extends Component {
   }
 
   profileDelete(e) {
-    const token = localStorage.getItem("x-auth-token");
+    //const token = localStorage.getItem("x-auth-token");
 
     const config = {
       headers: {

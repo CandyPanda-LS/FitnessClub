@@ -15,24 +15,14 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import KeyboardVoiceIcon from "@material-ui/icons/KeyboardVoice";
-import Icon from "@material-ui/core/Icon";
-import SaveIcon from "@material-ui/icons/Save";
-
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    flexGrow: 1,
   },
   media: {
     height: 140,
-  },
-  root: {
-    flexGrow: 1,
   },
 });
 

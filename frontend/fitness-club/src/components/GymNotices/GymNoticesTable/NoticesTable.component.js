@@ -21,13 +21,8 @@ import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Add from "@material-ui/icons/Add";
-import {
-  BrowserRouter as Router,
-  Link
-} from "react-router-dom";
-import {
-  confirmAlert
-} from 'react-confirm-alert'; // Import
+import { BrowserRouter as Link } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert"; // Import
 import Background from "./img/gym4.png";
 
 //Hover Component For Delete Icon
@@ -49,22 +44,21 @@ const HoverEditButton = styled.p`
 `;
 
 //Hover Component For Add Icon
-const HoverAddButton = styled.p `
-color: #ffffff;
-border-radius: 5px;
-width: 40px;
-height: 40px;
-padding: 7px 0;
-text-align: center;
-background: rgb(8 87 130);
-:hover {
-  color: rgb(80 222 71);
-  cursor: pointer;
-}
+const HoverAddButton = styled.p`
+  color: #ffffff;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 7px 0;
+  text-align: center;
+  background: rgb(8 87 130);
+  :hover {
+    color: rgb(80 222 71);
+    cursor: pointer;
+  }
 `;
 
 const columns = [
-
   {
     id: "title",
     label: "Notice Title",
@@ -80,7 +74,7 @@ const columns = [
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
- 
+
   {
     id: "date",
     label: "Date",
@@ -100,22 +94,16 @@ const columns = [
     label: "Delete",
     minWidth: 30,
     align: "center",
-  }
+  },
 ];
 
-function createData(
-  title,
-  description,
-  date,
-  edit,
-  deleteNotice
-) {
+function createData(title, description, date, edit, deleteNotice) {
   return {
     title,
     description,
     date,
     edit,
-    deleteNotice
+    deleteNotice,
   };
 }
 
@@ -147,25 +135,21 @@ export default function NoticesTable() {
   useEffect(() => {
     const config = {
       headers: {
-          "x-auth-token": localStorage.getItem("x-auth-token"),
+        "x-auth-token": localStorage.getItem("x-auth-token"),
       },
-  };
+    };
 
-  axios
+    axios
       .get("http://localhost:5000/api/notices", config)
-      .then(({
-          data
-      }) => {
-
-          if (data.length > 0) {
-              setNoticeList(data);
-          }
+      .then(({ data }) => {
+        if (data.length > 0) {
+          setNoticeList(data);
+        }
       })
       .catch((error) => {
-          console.log(error);
+        console.log(error);
       });
-}, []);
-
+  }, []);
 
   //map table row data
   const rows = NoticeList.map((note) => {
@@ -188,53 +172,49 @@ export default function NoticesTable() {
   };
   function deleteButtonClick(id) {
     confirmAlert({
-        title: 'Confirm to Delete',
-        message: 'Are you sure to do this.',
-        buttons: [{
-                label: 'Yes',
-                onClick: () => {
-                  deleteNotice(id)
-                }
-            },
-            {
-                label: 'No',
-
-            }
-        ]
-    });
-
-}
-async function deleteNotice(id) {
-    const config = {
-        headers: {
-            "x-auth-token": localStorage.getItem("x-auth-token"),
+      title: "Confirm to Delete",
+      message: "Are you sure to do this.",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            deleteNotice(id);
+          },
         },
+        {
+          label: "No",
+        },
+      ],
+    });
+  }
+  async function deleteNotice(id) {
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
     };
 
     await axios
-        .delete("http://localhost:5000/api/notices/" + id, config)
-        .then((response) => {
-            console.log(response);
-        });
+      .delete("http://localhost:5000/api/notices/" + id, config)
+      .then((response) => {
+        console.log(response);
+      });
 
     //rerender notice list(Get packagelist Data from the backend)
 
     await axios
-        .get("http://localhost:5000/api/notices", config)
-        .then(({
-            data
-        }) => {
-
-            if (data.length > 0) {
-              setNoticeList(data);
-            } else {
-                window.location.reload();
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
+      .get("http://localhost:5000/api/notices", config)
+      .then(({ data }) => {
+        if (data.length > 0) {
+          setNoticeList(data);
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
     <>
@@ -246,12 +226,14 @@ async function deleteNotice(id) {
         }}
         boxShadow={3}
       >
-         <div class="input-group-append">
-          <Link to={{
-            pathname: "/ManageNotice",
-          }}>
+        <div class="input-group-append">
+          <Link
+            to={{
+              pathname: "/ManageNotice",
+            }}
+          >
             <HoverAddButton>
-              <Add/>
+              <Add />
             </HoverAddButton>
           </Link>
         </div>
@@ -289,34 +271,35 @@ async function deleteNotice(id) {
                         const value = row[column.id];
                         return (
                           <TableCell
-                          style={{ color: "white" }}
-                          key={column.id}
-                          align={column.align}
-                        >
-                          {column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : column.id === "deleteNotice" ? (
-                            <HoverDeleteButton>
-                              <DeleteOutlineIcon
-                                onClick={() => {
-                                  deleteButtonClick(value);
+                            style={{ color: "white" }}
+                            key={column.id}
+                            align={column.align}
+                          >
+                            {column.format && typeof value === "number" ? (
+                              column.format(value)
+                            ) : column.id === "deleteNotice" ? (
+                              <HoverDeleteButton>
+                                <DeleteOutlineIcon
+                                  onClick={() => {
+                                    deleteButtonClick(value);
+                                  }}
+                                />
+                              </HoverDeleteButton>
+                            ) : column.id === "edit" ? (
+                              <Link
+                                to={{
+                                  pathname: "/ManageNotice",
+                                  data: value,
                                 }}
-                              />
-                            </HoverDeleteButton>
-                          ) : column.id === "edit" ? (
-                            <Link to={{
-                              pathname: "/ManageNotice",
-                              data: value 
-                            }}>
-                            <HoverEditButton>
-                              <SettingsIcon
-                              />
-                            </HoverEditButton>
-                            </Link>
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
+                              >
+                                <HoverEditButton>
+                                  <SettingsIcon />
+                                </HoverEditButton>
+                              </Link>
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
                         );
                       })}
                     </TableRow>

@@ -120,7 +120,7 @@ export default class ProfileUpdate extends Component {
 
     console.log(personal);
 
-    const token = localStorage.getItem("x-auth-token");
+    //const token = localStorage.getItem("x-auth-token");
 
     const config = {
       headers: {
@@ -155,7 +155,7 @@ export default class ProfileUpdate extends Component {
 
     console.log(contact);
 
-    const token = localStorage.getItem("x-auth-token");
+    //const token = localStorage.getItem("x-auth-token");
 
     const config = {
       headers: {

@@ -233,6 +233,7 @@ export default function AdvertisementTable() {
                                 height: "50px",
                                 borderRadius: "50%",
                               }}
+                              alt="imageAdvertisementTable"
                             />
                           ) : column.id === "EditAdvertisement" ? (
                             <HoverEditButton>

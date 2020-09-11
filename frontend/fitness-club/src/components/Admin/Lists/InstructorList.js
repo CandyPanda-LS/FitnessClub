@@ -15,7 +15,7 @@ const Instructor = (props) => (
       <Link to={"/view/" + props.instructor._id}>Profile</Link> |{" "}
       <Link to={"/update/" + props.instructor._id}>Edit</Link> |{" "}
       <a
-        href="#"
+        href="/"
         onClick={() => {
           props.deleteInstructor(props.instructor._id);
         }}

@@ -11,7 +11,7 @@ export default class UpdateMealWorkoutPlan extends Component {
     return (
       <div>
         <div>
-          <div className="row" className="text-center">
+          <div className="row text-center">
             <h3 style={{ color: "#073370" }}>Update Meal & Workout Plan </h3>
           </div>
 

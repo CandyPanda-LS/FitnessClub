@@ -114,7 +114,6 @@ export default class UserRegistration extends Component {
                     backgroundRepeat: "no-repeat" /* Do not repeat the image*/,
                     backgroundSize: "cover",
                     boxShadow: "10px 7px 10px rgba(110, 107, 107, 0.548)",
-                    boxShadow: "10px 7px 10px rgba(110, 107, 107, 0.548)",
                   }}
                 ></div>{" "}
               </div>

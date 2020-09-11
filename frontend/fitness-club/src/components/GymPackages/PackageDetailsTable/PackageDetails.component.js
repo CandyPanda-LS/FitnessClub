@@ -22,7 +22,7 @@ import Add from "@material-ui/icons/Add";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Background from "./img/gym4.png";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 //Hover Component For Delete Icon
 const HoverDeleteButton = styled.p`
   color: #ffffff;

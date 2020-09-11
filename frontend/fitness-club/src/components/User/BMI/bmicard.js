@@ -83,6 +83,7 @@ export default function BMICard() {
             //fontWeight: "bold",
             fontFamily: "Kanit, sans-serif",
             fontSize: "18px",
+            boxShadow: "7px 10px 23px 0px rgba(110,109,109,1)",
           }}
         >
           {" "}

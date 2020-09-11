@@ -1,7 +1,6 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Chart from "../../Charts/YearlyIncome/YearlyIncomeChart";
 import BarChart from "../../Charts/BestSellingItems/BestSellingItemBarchart";
-
 
 export default class adminDashboardShop extends Component {
   render() {
@@ -23,6 +22,7 @@ export default class adminDashboardShop extends Component {
                             class="card-img w-100 d-block"
                             src="./assets/img/Shop/3 adidas Ultraboost.png "
                             style={{ width: "64px" }}
+                            alt="imageAdminEcommerce"
                           />
                         </div>
                       </div>
@@ -56,6 +56,7 @@ export default class adminDashboardShop extends Component {
                             class="card-img w-100 d-block"
                             src="./assets/img/Shop/gettyimages-1213796751-612x612.png"
                             style={{ width: "64px" }}
+                            alt="imageAdminEcommerce"
                           />
                         </div>
                       </div>
@@ -89,6 +90,7 @@ export default class adminDashboardShop extends Component {
                             class="card-img w-100 d-block"
                             src="assets/img/Shop/report-documents-research-vector-21162870.jpg"
                             style={{ width: "64px" }}
+                            alt="imageAdminEcommerce"
                           />
                         </div>
                       </div>
@@ -122,6 +124,7 @@ export default class adminDashboardShop extends Component {
                             class="card-img w-100 d-block"
                             src="assets/img/Shop/a.jpg"
                             style={{ width: "64px" }}
+                            alt="adminDashboardImage"
                           />
                         </div>
                       </div>
@@ -146,8 +149,8 @@ export default class adminDashboardShop extends Component {
                 borderRadius: "29px",
               }}
             >
-              <div class="card-body" style={{borderRadius: "49px"}}>
-                <Chart/>
+              <div class="card-body" style={{ borderRadius: "49px" }}>
+                <Chart />
               </div>
             </div>
           </div>
@@ -156,9 +159,14 @@ export default class adminDashboardShop extends Component {
           <div class="col" style={{ margin: "15px" }}>
             <div
               class="card shadow-lg"
-              style={{ borderRadius: "30px", backgroundColor: "rgb(255,255,255)" }}
+              style={{
+                borderRadius: "30px",
+                backgroundColor: "rgb(255,255,255)",
+              }}
             >
-              <div class="card-body"><BarChart/></div>
+              <div class="card-body">
+                <BarChart />
+              </div>
             </div>
           </div>
           <div class="col" style={{ margin: "15px" }}>

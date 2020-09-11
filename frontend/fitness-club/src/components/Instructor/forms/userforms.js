@@ -11,7 +11,7 @@ export default class userforms extends Component {
     return (
       <div>
         <div>
-          <div className="row" className="text-center">
+          <div className="row text-center">
             <h3 style={{ color: "#073370" }}>Add Meal & Workout Plan </h3>
           </div>
 

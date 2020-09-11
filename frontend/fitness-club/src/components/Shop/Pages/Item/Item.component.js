@@ -2,61 +2,61 @@ import React, { Component } from "react";
 import axios from "axios";
 
 // material ui packages for the text feild
-import { makeStyles } from "@material-ui/core/styles";
+// import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 //material ui packages for the +,- button
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 // atomize import for the side card
-import { Div, Button, SideDrawer, Icon, Text } from "atomize";
+// import { Div, Button, SideDrawer, Icon, Text } from "atomize";
 
 //end
 
 // text feild styling
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-    color: "#ffffff",
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     "& > *": {
+//       margin: theme.spacing(1),
+//       width: "25ch",
+//     },
+//     color: "#ffffff",
+//   },
+//   extendedIcon: {
+//     marginRight: theme.spacing(1),
+//   },
+// }));
 // text feild styling close
 
 // cart code
 
-const SizeSideDrawer = ({ isOpen, onClose }) => {
-  return (
-    <SideDrawer
-      isOpen={isOpen}
-      onClose={onClose}
-      w={{ xs: "100vw", sm: "24rem" }}
-    >
-      <Div d="flex" m={{ b: "4rem" }}>
-        <Icon name="AlertSolid" color="warning700" />
-        <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
-      </Div>
-      <Div d="flex" justify="flex-end">
-        <Button
-          onClick={onClose}
-          bg="gray200"
-          textColor="medium"
-          m={{ r: "1rem" }}
-        >
-          Cancel
-        </Button>
-        <Button onClick={onClose} bg="info700">
-          Submit
-        </Button>
-      </Div>
-    </SideDrawer>
-  );
-};
+// const SizeSideDrawer = ({ isOpen, onClose }) => {
+//   return (
+//     <SideDrawer
+//       isOpen={isOpen}
+//       onClose={onClose}
+//       w={{ xs: "100vw", sm: "24rem" }}
+//     >
+//       <Div d="flex" m={{ b: "4rem" }}>
+//         <Icon name="AlertSolid" color="warning700" />
+//         <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
+//       </Div>
+//       <Div d="flex" justify="flex-end">
+//         <Button
+//           onClick={onClose}
+//           bg="gray200"
+//           textColor="medium"
+//           m={{ r: "1rem" }}
+//         >
+//           Cancel
+//         </Button>
+//         <Button onClick={onClose} bg="info700">
+//           Submit
+//         </Button>
+//       </Div>
+//     </SideDrawer>
+//   );
+// };
 // cart code end
 
 export default class Item extends Component {
@@ -71,7 +71,7 @@ export default class Item extends Component {
       ItemsName: "",
       ItemPrice: 0,
       ItemDescription: "",
-      ItemImage:"",
+      ItemImage: "",
       ItemSize: 6,
       ItemQuantity: 0,
     };
@@ -79,17 +79,15 @@ export default class Item extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/shop/"+this.props.match.params.id)
+      .get("http://localhost:5000/api/shop/" + this.props.match.params.id)
       .then((response) => {
-
         this.setState({
           ItemsName: response.data.ItemName,
           ItemPrice: response.data.ItemPrice,
           ItemDescription: response.data.ItemDescriprion,
-          ItemImage: Buffer.from(
-            response.data.ItemImage.data,
-          ).toString("base64")
-
+          ItemImage: Buffer.from(response.data.ItemImage.data).toString(
+            "base64"
+          ),
         });
       })
       .catch((error) => {
@@ -161,7 +159,6 @@ export default class Item extends Component {
                 <img
                   data-bs-hover-animate="pulse"
                   src={`data:image/png;base64,${this.state.ItemImage}`}
-
                   style={{
                     width: "600px",
                     height: " 600px",
@@ -169,6 +166,7 @@ export default class Item extends Component {
                     marginTop: " -42px",
                     marginLeft: "-95px",
                   }}
+                  alt="itemImage"
                 />
               </div>
               <div class="col">
