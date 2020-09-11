@@ -126,7 +126,7 @@ export default function EcommerceInsertitem() {
                       onChange={onChangeFile}
                       variant="outlined"
                     />
-
+                    <br />
                     <Progress percentage={uploadPercentage} />
                     <br />
                     <Button
