@@ -1,160 +1,136 @@
-// import React, { Component } from 'react'
-// import { Paper, FormControl, TextField, Button } from "@material-ui/core";
-// import {makeStyles} from "@material-ui/core/styles";
+    import React, { useState } from "react";
+    import axios from "axios";
+    import { FormControl, TextField, Button } from "@material-ui/core";
+    import { makeStyles } from "@material-ui/core/styles";
 
-// const useStyles = makeStyles((theme) => ({
-//     formControl: {
-//       margin: theme.spacing(3),
-//       minWidth: 150,
-//     },
-//     inputControl: {
-//       margin: theme.spacing(1),
-//     },
-//     selectEmpty: {
-//       marginTop: theme.spacing(10),
-//     },
-// }));
+    const useStyles = makeStyles((theme) => ({
+    formControl: {
+        margin: theme.spacing(3),
+        minWidth: 150,
+    },
+    inputControl: {
+        margin: theme.spacing(1),
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+    }));
 
-//     const classes = useStyles();
+    export default function EcommerceInsertitem() {
+    const classes = useStyles();
 
-// export default class UpdateItem extends Component {
-//     constructor(props) {
-//         super(props);
+    const [ItemName, setItemName] = useState(null);
+    const [ItemPrice, setItemPrice] = useState(null);
+    const [ItemDescriprion, setItemDescriprion] = useState(null);
+    const [ItemImage, setItemImage] = useState(null);
 
-//         this.onChangeColor1 = this.onChangeColor1.bind(this);
-//         this.onChangeColor2 = this.onChangeColor2.bind(this);
-//         this.onChangeColor3 = this.onChangeColor3.bind(this);
-//         this.onChangeName = this.onChangeName.bind(this);
-//         this.onChangePrice = this.onChangePrice.bind(this);
-//         this.onChangeCDescription = this.onChangeCDescription.bind(this);
-//         this.onSubmit = this.onSubmit.bind(this);
+    function onSubmit(e) {
+        e.preventDefault();
 
-//         this.state = {
-//           username: "",
-//           description: "",
-//           duration: 0,
-//           date: new Date(),
-//           users: [],
-//         };
-//     }
-//     onChangeColor1(e) {
+        const formData = new FormData();
 
-//     }
-//     onChangeColor2(e) {
+        formData.append("ItemName", ItemName);
+        formData.append("ItemPrice", ItemPrice);
+        formData.append("ItemDescriprion", ItemDescriprion);
+        formData.append("ItemImage", ItemImage);
 
-//     }
-//     onChangeColor3(e) {
+        const config = {
+        headers: {
+            "content-type": "multipart/form-data",
+        },
+        };
 
-//     }
-//     onChangeName(e) {
+        axios
+        .post("http://localhost:5000/api/shop/additems", formData, config)
+        .then((res) => {
+            alert("Item Added");
+        })
+        .catch((error) => {
+            alert(error);
+        });
+    }
 
-//     }
-//     onChangePrice(e) {
+    return (
+        <>
+        <div
+            class="card"
+            style={{
+            margin: "100px",
+            borderRadius: "43px",
+            backgroundColor: "#73a8f0",
+            }}
+        >
+            <div
+            class="card-body"
+            style={{ backgroundColor: "rgba(115,168,240,0)", padding: "65px" }}
+            >
+            <div class="row">
+                <div class="col">
+                <div class="card" style={{ borderRadius: "78px" }}>
+                    <img
+                    class="card-img w-100 d-block"
+                    src="assets/img/shoes/1.png"
+                    alt="imageInsetitems"
+                    />
+                </div>
+                </div>
+                <div class="col">
+                <div class="card" style={{ borderRadius: "70px" }}>
+                    <div class="card-body">
+                    <FormControl className={classes.formControl}>
+                        <TextField
+                        className={classes.inputControl}
+                        label="Name"
+                        onChange={(e) => setItemName(e.target.value)}
+                        variant="outlined"
+                        style={{
+                            minWidth: "250px",
+                            maxWidth: "275px",
+                        }}
+                        />
 
-//     }
-//     onChangeCDescription(e) {
+                        <TextField
+                        className={classes.inputControl}
+                        label="Price"
+                        onChange={(e) => setItemPrice(e.target.value)}
+                        variant="outlined"
+                        />
 
-//     }
+                        <TextField
+                        id="filled-multiline-flexible"
+                        className={classes.inputControl}
+                        label="Description"
+                        multiline
+                        rowsMax={4}
+                        onChange={(e) => setItemDescriprion(e.target.value)}
+                        variant="outlined"
+                        />
 
-//     render() {
-//         return (
-//             <div class="card" style={{margin: "100px", borderRadius: "43px", backgroundColor: " #73a8f0"}}>
-//                 <div class="card-body" style={{backgroundColor: "rgba(115,168,240,0)", padding: "65px"}}>
-//                     <div class="row">
-//                         <div class="col">
-//                             <div class="card" style={{borderRadius: "78px"}}><img class="card-img w-100 d-block" src="./assets/img/shoes/1.png"/></div>
-//                         </div>
-//                         <div class="col">
-//                             <div class="card" style={{borderRadius: "70px;"}}>
-//                                 <div class="card-body">
-//                                 <FormControl className={classes.formControl}>
-//               <TextField
-//                 value={name}
-//                 className={classes.inputControl}
-//                 label="Name"
-//                 onChange={onChangeName}
-//                 variant="outlined"
-//               />
+                        <TextField
+                        type="file"
+                        onChange={(e) => setItemImage(e.target.files[0])}
+                        variant="outlined"
+                        />
 
-//               <TextField
-//                 value={price}
-//                 className={classes.inputControl}
-//                 label="Price"
-//                 onChange={onChangePrice}
-//                 variant="outlined"
-//               />
+                        <Button
+                        onClick={onSubmit}
+                        variant="contained"
+                        style={{
+                            backgroundColor: "#263238",
+                            color: "white",
+                        }}
+                        >
+                        Insert
+                        </Button>
+                    </FormControl>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
 
-//               <TextField
-//                 id="filled-multiline-flexible"
-//                 className={classes.inputControl}
-//                 label="Description"
-//                 multiline
-//                 rowsMax={4}
-//                 value={description}
-//                 onChange={onChangeCDescription}
-//                 variant="outlined"
-//               />
-
-//               <div className="row">
-//                 <TextField
-//                   type="color"
-//                   className={classes.inputControl}
-//                   style={{
-//                     minWidth: "45px",
-//                     maxWidth: "50px",
-//                   }}
-//                   value={color1}
-//                   onChange={onChangeColor1}
-//                   variant="outlined"
-//                 />
-//                 <TextField
-//                   type="color"
-//                   className={classes.inputControl}
-//                   style={{
-//                     minWidth: "45px",
-//                     maxWidth: "50px",
-//                   }}
-//                   value={color2}
-//                   onChange={onChangeColor2}
-//                   variant="outlined"
-//                 />
-//                 <TextField
-//                   type="color"
-//                   className={classes.inputControl}
-//                   style={{
-//                     minWidth: "45px",
-//                     maxWidth: "50px",
-//                   }}
-//                   value={color3}
-//                   onChange={onChangeColor3}
-//                   variant="outlined"
-//                 />
-//               </div>
-
-//               <TextField
-//                 type="file"
-//                 value={name}
-//                 className={classes.inputControl}
-//                 onChange={onChangeName}
-//                 variant="outlined"
-//               />
-
-//               <Button
-//                 variant="contained"
-//                 style={{
-//                   backgroundColor: "#263238",
-//                   color: "white",
-//                 }}
-//               >
-//                 Insert
-//               </Button>
-//             </FormControl>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         )
-//     }
-// }
+        <br />
+        </>
+    );
+    }

@@ -71,4 +71,21 @@ router.post("/additems", upload.single("ItemImage"), async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.post("/updateItems", upload.single("ItemImage"), async (req, res) => {
+  // image configuration
+  const ItemImage = await sharp(req.file.buffer)
+    .resize({ width: 250, height: 250 })
+    .png()
+    .toBuffer();
+
+  const ItemName = req.body.ItemName;
+  const ItemPrice = req.body.ItemPrice;
+  const ItemDescriprion = req.body.ItemDescriprion;
+
+  
+
+});
+
+
+
 module.exports = router;
