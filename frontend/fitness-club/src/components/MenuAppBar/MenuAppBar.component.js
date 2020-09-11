@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // @desc import Components
 // @author Dilmi
@@ -87,11 +88,23 @@ import PaymentDetails from "../Packages/PaymentDetails.component";
 // import { Link } from "@material-ui/core";
 
 export default function MenuAppBar() {
-  const [token, setToken] = useState(0);
+  const [token, setToken] = useState(null);
+  const [username, setUserName] = useState("Guest");
+  const [userImage, setUserImage] = useState("user.png");
 
   useEffect(() => {
     const userToken = localStorage.getItem("x-auth-token");
     setToken(userToken);
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    axios.get("http://localhost:5000/api/auth", config).then((res) => {
+      setUserName(res.data.firstName + " " + res.data.lastName);
+    });
   }, []);
 
   return (
@@ -242,188 +255,7 @@ export default function MenuAppBar() {
                       </form>
                     </div>
                   </li>
-                  <li
-                    className="nav-item dropdown no-arrow mx-1"
-                    role="presentation"
-                  >
-                    <div className="nav-item dropdown no-arrow">
-                      <Link
-                        className="dropdown-toggle nav-link"
-                        data-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <span className="badge badge-danger badge-counter">
-                          3+
-                        </span>
-                        <i className="fas fa-bell fa-fw"></i>
-                      </Link>
-                      <div
-                        className="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
-                        role="menu"
-                      >
-                        <h6 className="dropdown-header">alerts center</h6>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="mr-3">
-                            <div className="bg-primary icon-circle">
-                              <i className="fas fa-file-alt text-white"></i>
-                            </div>
-                          </div>
-                          <div>
-                            <span className="small text-gray-500">
-                              December 12, 2019
-                            </span>
-                            <p>A new monthly report is ready to download!</p>
-                          </div>
-                        </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="mr-3">
-                            <div className="bg-success icon-circle">
-                              <i className="fas fa-donate text-white"></i>
-                            </div>
-                          </div>
-                          <div>
-                            <span className="small text-gray-500">
-                              December 7, 2019
-                            </span>
-                            <p>$290.29 has been deposited into your account!</p>
-                          </div>
-                        </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="mr-3">
-                            <div className="bg-warning icon-circle">
-                              <i className="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                          </div>
-                          <div>
-                            <span className="small text-gray-500">
-                              December 2, 2019
-                            </span>
-                            <p>
-                              Spending Alert: We've noticed unusually high
-                              spending for your account.
-                            </p>
-                          </div>
-                        </Link>
-                        <Link className="text-center dropdown-item small text-gray-500">
-                          Show All Alerts
-                        </Link>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    className="nav-item dropdown no-arrow mx-1"
-                    role="presentation"
-                  >
-                    <div className="nav-item dropdown no-arrow">
-                      <Link
-                        className="dropdown-toggle nav-link"
-                        data-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-envelope fa-fw"></i>
-                        <span className="badge badge-danger badge-counter">
-                          7
-                        </span>
-                      </Link>
-                      <div
-                        className="dropdown-menu dropdown-menu-right dropdown-list dropdown-menu-right animated--grow-in"
-                        role="menu"
-                      >
-                        <h6 className="dropdown-header">alerts center</h6>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="dropdown-list-image mr-3">
-                            <img
-                              alt="logo"
-                              className="rounded-circle"
-                              src="assets/img/avatars/avatar4.jpeg"
-                            />
-                            <div className="bg-success status-indicator"></div>
-                          </div>
-                          <div className="font-weight-bold">
-                            <div className="text-truncate">
-                              <span>
-                                Hi there! I am wondering if you can help me with
-                                a problem I've been having.
-                              </span>
-                            </div>
-                            <p className="small text-gray-500 mb-0">
-                              Emily Fowler - 58m
-                            </p>
-                          </div>
-                        </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="dropdown-list-image mr-3">
-                            <img
-                              alt="logo"
-                              className="rounded-circle"
-                              src="assets/img/avatars/avatar2.jpeg"
-                            />
-                            <div className="status-indicator"></div>
-                          </div>
-                          <div className="font-weight-bold">
-                            <div className="text-truncate">
-                              <span>
-                                I have the photos that you ordered last month!
-                              </span>
-                            </div>
-                            <p className="small text-gray-500 mb-0">
-                              Jae Chun - 1d
-                            </p>
-                          </div>
-                        </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="dropdown-list-image mr-3">
-                            <img
-                              alt="logo"
-                              className="rounded-circle"
-                              src="assets/img/avatars/avatar3.jpeg"
-                            />
-                            <div className="bg-warning status-indicator"></div>
-                          </div>
-                          <div className="font-weight-bold">
-                            <div className="text-truncate">
-                              <span>
-                                Last month's report looks great, I am very happy
-                                with the progress so far, keep up the good work!
-                              </span>
-                            </div>
-                            <p className="small text-gray-500 mb-0">
-                              Morgan Alvarez - 2d
-                            </p>
-                          </div>
-                        </Link>
-                        <Link className="d-flex align-items-center dropdown-item">
-                          <div className="dropdown-list-image mr-3">
-                            <img
-                              alt="avatar"
-                              className="rounded-circle"
-                              src="assets/img/avatars/avatar5.jpeg"
-                            />
-                            <div className="bg-success status-indicator"></div>
-                          </div>
-                          <div className="font-weight-bold">
-                            <div className="text-truncate">
-                              <span>
-                                Am I a good boy? The reason I ask is because
-                                someone told me that people say this to all
-                                dogs, even if they aren't good...
-                              </span>
-                            </div>
-                            <p className="small text-gray-500 mb-0">
-                              Chicken the Dog · 2w
-                            </p>
-                          </div>
-                        </Link>
-                        <Link className="text-center dropdown-item small text-gray-500">
-                          Show All Alerts
-                        </Link>
-                      </div>
-                    </div>
-                    <div
-                      className="shadow dropdown-list dropdown-menu dropdown-menu-right"
-                      aria-labelledby="alertsDropdown"
-                    ></div>
-                  </li>
+
                   <div className="d-none d-sm-block topbar-divider"></div>
                   <li
                     className="nav-item dropdown no-arrow"
@@ -436,35 +268,62 @@ export default function MenuAppBar() {
                         aria-expanded="false"
                       >
                         <span className="d-none d-lg-inline mr-2 text-gray-600 small">
-                          {token === 0 ? "user" : "Valerie Luna"}
+                          {username}
                         </span>
                         <img
                           alt="profileimage"
                           className="border rounded-circle img-profile"
-                          src="assets/img/avatars/avatar1.jpeg"
+                          src={"uploads/users/" + userImage}
                         />
                       </Link>
                       <div
                         className="dropdown-menu shadow dropdown-menu-right animated--grow-in"
                         role="menu"
                       >
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Profile
-                        </Link>
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Settings
-                        </Link>
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Activity log
-                        </Link>
-                        <div className="dropdown-divider"></div>
-                        <Link className="dropdown-item" role="presentation">
-                          <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                          &nbsp;Logout
-                        </Link>
+                        {token === null ? (
+                          <>
+                            <Link
+                              to="registration"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Register
+                            </Link>
+                            <div className="dropdown-divider"></div>
+                            <Link
+                              to="/userlogin"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Login
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link className="dropdown-item" role="presentation">
+                              <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Profile
+                            </Link>
+                            <Link className="dropdown-item" role="presentation">
+                              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Settings
+                            </Link>
+                            <div className="dropdown-divider"></div>
+                            <Link
+                              onClick={() => {
+                                localStorage.removeItem("x-auth-token");
+                                window.location = "/";
+                              }}
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Logout
+                            </Link>
+                          </>
+                        )}
                       </div>
                     </div>
                   </li>
@@ -532,9 +391,9 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Dilumi */}
-              <Route path="/inventory" exact component={InventoryGrid} />
+              <Route path="/inventorytable" exact component={InventoryGrid} />
               <Route
-                path="/inventoryitems"
+                path="/addinventoryitems"
                 exact
                 component={InsertInventoryItems}
               />

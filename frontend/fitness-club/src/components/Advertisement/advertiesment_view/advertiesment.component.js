@@ -68,7 +68,10 @@ export default function AdvertisementComponent() {
                     <div class="card">
                       <img
                         class="img-thumbnail img-fluid card-img w-100 d-block d-xl-flex justify-content-xl-center align-items-xl-center"
-                        src={"uploads/" + advertisements.advertiesementImage}
+                        src={
+                          "uploads/advertisement/" +
+                          advertisements.advertiesementImage
+                        }
                         style={{
                           fontSize: "10px",
                           filter:

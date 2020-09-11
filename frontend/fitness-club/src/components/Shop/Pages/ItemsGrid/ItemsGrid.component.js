@@ -25,9 +25,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
             <img
               class="card-img w-100 d-block"
               data-bs-hover-animate="pulse"
-              src={`data:image/png;base64,${Buffer.from(
-                ItemImage.data
-              ).toString("base64")}`}
+              src={"uploads/shop/" + ItemImage}
               alt="itemImage"
             />
           </div>
@@ -35,7 +33,6 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
             class="card-title"
             style={{ fontFamily: "Nunito, sans-serif", color: "black" }}
           >
-            Nike
             {ItemName}
           </h4>
           <h6 class="text-muted card-subtitle mb-2">
@@ -113,7 +110,6 @@ export default class ItemsGrid extends Component {
                 ItemImage={currentItem.ItemImage}
               />
             ))}
-
           </div>
         </div>
       </div>

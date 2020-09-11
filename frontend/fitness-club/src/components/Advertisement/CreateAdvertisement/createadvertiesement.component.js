@@ -45,7 +45,7 @@ export default function Createadvertiesement() {
     axios
       .post("http://localhost:5000/api/advertisement", formData, config)
       .then((res) => {
-        window.location = "/";
+        window.location = "/advertisementtable";
       })
       .catch((error) => {
         console.log(error.message);

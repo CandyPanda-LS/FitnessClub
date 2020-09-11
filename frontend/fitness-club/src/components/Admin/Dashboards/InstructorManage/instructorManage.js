@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import Background1 from "../../Images/1.jpg";
 import Background2 from "../../Images/2.jpg";
 import Background3 from "../../Images/Reports.jpg";
+import Background4 from "../../Images/4.jpg";
+import Background5 from "../../Images/5.jpg";
+import Background6 from "../../Images/6.jpg";
+import Background7 from "../../Images/7.jpg";
+import Background8 from "../../Images/8.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -32,7 +37,11 @@ export default function InstructorManage() {
     <div style={{ marginBottom: "100px" }}>
       <div className="container">
         <div className="row">
-          <div className="col-sm">
+          {/* Instructor Manage */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -54,11 +63,15 @@ export default function InstructorManage() {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link to="/insert" style={{ textDecoration: "none" }}>
+                <Link
+                  to="/insert"
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   <Button
                     variant="contained"
                     color="primary"
                     href="#contained-buttons"
+                    style={{ color: "white" }}
                   >
                     Add
                   </Button>
@@ -68,6 +81,7 @@ export default function InstructorManage() {
                     variant="contained"
                     color="secondary"
                     href="#contained-buttons"
+                    style={{ color: "white" }}
                   >
                     List | Remove | Update
                   </Button>
@@ -75,7 +89,12 @@ export default function InstructorManage() {
               </CardActions>
             </Card>
           </div>
-          <div className="col-sm">
+
+          {/* Assign Instructor Manage */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -101,13 +120,19 @@ export default function InstructorManage() {
                   variant="contained"
                   color="primary"
                   href="#contained-buttons"
+                  style={{ color: "white" }}
                 >
                   Assign Instructor
                 </Button>
               </CardActions>
             </Card>
           </div>
-          <div className="col-sm">
+
+          {/*   Utils */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
             <Card className={classes.root}>
               <CardActionArea>
                 <CardMedia
@@ -133,9 +158,275 @@ export default function InstructorManage() {
                   variant="contained"
                   color="primary"
                   href="#contained-buttons"
+                  style={{ color: "white" }}
                 >
                   Report
                 </Button>
+              </CardActions>
+            </Card>
+          </div>
+
+          {/*   Notices */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background4}
+                  title="Gym Instructor"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Notices
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Manage Notices
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link to="/ManageNotice" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Add
+                  </Button>
+                </Link>
+                <Link to="/NoticesTable" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    List | Remove | Update
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </div>
+
+          {/*   Notices */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background5}
+                  title="Gym Instructor"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Advertisements
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Manage Advertisement
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link
+                  to="/createadvertiesement"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Add
+                  </Button>
+                </Link>
+                <Link
+                  to="/advertisementtable"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    List | Remove | Update
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </div>
+
+          {/*   Notices */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background6}
+                  title="Gym Instructor"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Gym Packages
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Manage Gym Packages
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link to="/ManageGymPackage" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Add
+                  </Button>
+                </Link>
+                <Link to="/ManageGymPackage" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    List | Remove | Update
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </div>
+
+          {/*   Notices */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background7}
+                  title="Gym Instructor"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Inventory
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Manage Inventory
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link
+                  to="/addinventoryitems"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Add
+                  </Button>
+                </Link>
+                <Link to="/inventorytable" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    List | Remove | Update
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </div>
+
+          {/*   Notices */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background8}
+                  title="Gym Instructor"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Fitness Updates
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Manage Fitness Updates
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link
+                  to="/insertFitnessUpdate"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Add
+                  </Button>
+                </Link>
+                <Link
+                  to="/FitnessUpdatesTable"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    List | Remove | Update
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </div>
