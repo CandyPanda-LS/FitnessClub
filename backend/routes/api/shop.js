@@ -75,20 +75,28 @@ router.post("/additems", async (req, res) => {
   });
 });
 
-router.post("/updateItems", upload.single("ItemImage"), async (req, res) => {
-  // image configuration
-  const ItemImage = await sharp(req.file.buffer)
-    .resize({ width: 250, height: 250 })
-    .png()
-    .toBuffer();
 
-  const ItemName = req.body.ItemName;
-  const ItemPrice = req.body.ItemPrice;
-  const ItemDescriprion = req.body.ItemDescriprion;
+//@route  DELETE api/shop/remove
+//@desc  Delete Item
+//@access Private
+//@author Lasal
 
-  
-
+router.delete("/removeItem/:id", async (req, res) => {
+  try {
+    //GET remove index
+    Item.findByIdAndDelete(req.params.id)
+      .then(() => {
+        res.json("Item Deleted");
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
 });
+
+
+
 
 
 

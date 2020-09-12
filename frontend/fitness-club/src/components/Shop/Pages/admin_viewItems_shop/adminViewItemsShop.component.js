@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 
+
+
 // Single item functional component start
 function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
   return (
@@ -21,9 +23,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
               <img
                 class="card-img w-100 d-block"
                 data-bs-hover-animate="pulse"
-                src={`data:image/png;base64,${Buffer.from(
-                  ItemImage.data
-                ).toString("base64")}`}
+                src={"uploads/shop/"+ItemImage}
                 alt="itemImage"
               />
             </div>
@@ -66,9 +66,11 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
                 >
                     EDIT
                 </button>
-                </Link > 
+                </Link >
               </div>
               <div class="col">
+
+
                 <button
                   class="btn btn-primary justify-content-center flex-wrap m-auto"
                   type="button"
@@ -80,9 +82,22 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
                     fontWeight: "bold",
                     fontSize: "26px",
                   }}
+
+                  onClick={() => {
+
+                    axios.delete("http://localhost:5000/api/shop/removeItem/"+id).then(alert("Item deleted"), window.location = "/adminItemShop").catch((error) => {
+                      console.log(error);
+                    });
+
+
+
+
+                  }}
                 >
                   DELETE
                 </button>
+
+
               </div>
             </div>
           </div>
