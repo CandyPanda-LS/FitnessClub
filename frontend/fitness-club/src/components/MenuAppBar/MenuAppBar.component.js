@@ -208,6 +208,12 @@ export default function MenuAppBar() {
                       <i className="fas fa-ad"></i>
                       <span>Advertisement</span>
                     </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/shop">
+                      <i className="fas fa-briefcase"></i>
+                      <span>Shop</span>
+                    </Link>
                   </li>{" "}
                 </>
               )}
