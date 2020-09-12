@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Progress from "./Progress";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ export default class Profile extends Component {
       mobileNo: "",
       file: null,
       filename: "",
+      profileImage: "user.png",
       uploadPercentage: "",
     };
   }
@@ -46,6 +48,7 @@ export default class Profile extends Component {
           gender: response.data.gender,
           password: response.data.password,
           password2: response.data.password2,
+          profileImage: response.data.profImage,
         });
       })
 
@@ -61,19 +64,10 @@ export default class Profile extends Component {
   };
 
   onFormSubmit(e) {
-    alert("hai");
     e.preventDefault();
 
     const formData = new FormData();
 
-    formData.append("firstName", this.state.firstName);
-    formData.append("lastName", this.state.lastName);
-    formData.append("email", this.state.email);
-    formData.append("address", this.state.address);
-    formData.append("mobileNo", this.state.mobileNo);
-    formData.append("gender", this.state.gender);
-    formData.append("password", this.state.password);
-    formData.append("password2", this.state.password2);
     formData.append("file", this.state.file);
 
     const config = {
@@ -136,12 +130,12 @@ export default class Profile extends Component {
           <div class="col-lg-4">
             <div class="card mb-3">
               <div class="card-body text-center shadow">
-                {/* <img
+                <img
                   class="rounded-circle mb-3 mt-4"
-                  src="./images/pic2.jpg"
+                  src={"uploads/users/" + this.state.profileImage}
                   width="160"
                   height="160"
-                /> */}
+                />
                 <form class="user" onSubmit={this.onFormSubmit}>
                   <div class="form-group row">
                     <div class="col-sm-6">
@@ -154,6 +148,9 @@ export default class Profile extends Component {
                       .
                     </div>
                   </div>
+                  <br />
+                  <Progress percentage={this.state.uploadPercentage} />
+                  <br />
 
                   <div class="mb-3">
                     <button
