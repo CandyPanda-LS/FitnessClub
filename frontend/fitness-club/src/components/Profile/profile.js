@@ -12,6 +12,7 @@ export default class Profile extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
 
     this.state = {
+      userid: "",
       username: "",
       fristName: "",
       lastName: "",
@@ -39,6 +40,7 @@ export default class Profile extends Component {
       .get("http://localhost:5000/api/userprofile/", config)
       .then((response) => {
         this.setState({
+          userid: response.data._id,
           username: response.data.firstName,
           email: response.data.email,
           firstName: response.data.firstName,
@@ -48,8 +50,13 @@ export default class Profile extends Component {
           gender: response.data.gender,
           password: response.data.password,
           password2: response.data.password2,
-          profileImage: response.data.profImage,
         });
+
+        if (response.data.profImage) {
+          this.setState({
+            profileImage: response.data.profImage,
+          });
+        }
       })
 
       .catch((error) => {
@@ -89,7 +96,8 @@ export default class Profile extends Component {
 
     axios
       .post(
-        "http://localhost:5000/api/userprofile/changeprofilepic",
+        "http://localhost:5000/api/userprofile/changeprofilepic/" +
+          this.state.userid,
         formData,
         config
       )

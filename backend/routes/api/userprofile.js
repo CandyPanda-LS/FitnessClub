@@ -166,7 +166,7 @@ router.delete("/", auth, async (req, res) => {
 //@desc   Add advertisement into the database
 //@access Private
 //to protect auth add as the second parameter
-router.post("/changeprofilepic", auth, async (req, res) => {
+router.post("/changeprofilepic/:userid", async (req, res) => {
   try {
     //if there is no image
     if (req.files == null) {
@@ -181,7 +181,7 @@ router.post("/changeprofilepic", auth, async (req, res) => {
           return res.status(500).send(err);
         }
 
-        User.findOneAndUpdate(req.user.id)
+        User.findOneAndUpdate(req.params.userid)
           .then((user) => {
             user.profImage = file.name;
 

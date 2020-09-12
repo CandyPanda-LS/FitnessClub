@@ -8,7 +8,7 @@ import axios from "axios";
 import UserLogin from "../Login/UserLogin/userlogin.component";
 import Profile from "../Profile/profile";
 import UserRegistration from "../Register/registration.component";
-import ForgotPassword from "../ForgotPassword/forgotpassword.component"
+import ForgotPassword from "../ForgotPassword/forgotpassword.component";
 import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
@@ -104,7 +104,9 @@ export default function MenuAppBar() {
 
     axios.get("http://localhost:5000/api/auth", config).then((res) => {
       setUserName(res.data.firstName + " " + res.data.lastName);
-      setUserImage(res.data.profImage);
+      if (res.data.profImage) {
+        setUserImage(res.data.profImage);
+      }
     });
   }, []);
 
