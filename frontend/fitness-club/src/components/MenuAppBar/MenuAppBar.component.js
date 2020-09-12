@@ -8,7 +8,7 @@ import axios from "axios";
 import UserLogin from "../Login/UserLogin/userlogin.component";
 import Profile from "../Profile/profile";
 import UserRegistration from "../Register/registration.component";
-// import ForgotPassword from "../Forgotpassword/forgotpassword.component";
+import ForgotPassword from "../ForgotPassword/forgotpassword.component"
 import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
@@ -380,6 +380,7 @@ export default function MenuAppBar() {
               <Route path="/profileUpdate" exact component={ProfileUpdate} />
               <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/profile" exact component={Profile} />
+              <Route path="/forgotpassword" exact component={ForgotPassword} />
 
               {/* Routes
               @author Senura */}
