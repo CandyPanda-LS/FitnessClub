@@ -75,7 +75,6 @@ router.post("/additems", async (req, res) => {
   });
 });
 
-
 //@route  DELETE api/shop/remove
 //@desc  Delete Item
 //@access Private
@@ -102,26 +101,23 @@ router.delete("/removeItem/:id", async (req, res) => {
 
 router.post("/updateItem/:id", async (req, res) => {
   try {
-
     //if there is no image
     if (req.files == null) {
+      Item.findOneAndUpdate(req.params.id)
+        .then((item) => {
+          item.ItemName = req.body.ItemName;
+          item.ItemPrice = req.body.ItemPrice;
+          item.ItemDescriprion = req.body.ItemDescriprion;
 
-    Item.findOneAndUpdate(req.params.id)
-    .then((item) => {
-      item.ItemName = req.body.ItemName;
-      item.ItemPrice = req.body.ItemPrice;
-      item.ItemDescriprion = req.body.ItemDescriprion;
-
-
-      item
-        .save()
-        .then(() => res.json("Item updated!"))
+          item
+            .save()
+            .then(() => res.json("Item updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
         .catch((err) => res.status(400).json("Error: " + err));
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
     }
-     //if there is a image
-    else{
+    //if there is a image
+    else {
       const file = req.files.file;
       file.mv(`${dirPath}/${file.name}`, (err) => {
         if (err) {
@@ -130,37 +126,24 @@ router.post("/updateItem/:id", async (req, res) => {
         }
 
         Item.findOneAndUpdate(req.params.id)
-        .then((item) => {
-          item.ItemName = req.body.ItemName;
-          item.ItemPrice = req.body.ItemPrice;
-          item.ItemDescriprion = req.body.ItemDescriprion;
-          item.ItemImage = file.name;
+          .then((item) => {
+            item.ItemName = req.body.ItemName;
+            item.ItemPrice = req.body.ItemPrice;
+            item.ItemDescriprion = req.body.ItemDescriprion;
+            item.ItemImage = file.name;
 
-          item
-            .save()
-            .then(() => res.json("Item updated!"))
-            .catch((err) => res.status(400).json("Error: " + err));
-        })
-        .catch((err) => res.status(400).json("Error: " + err));
-
+            item
+              .save()
+              .then(() => res.json("Item updated!"))
+              .catch((err) => res.status(400).json("Error: " + err));
+          })
+          .catch((err) => res.status(400).json("Error: " + err));
       });
-
     }
-
-
-
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
-    }
-  });
-
-
-
-
-
-
-
-
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
