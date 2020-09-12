@@ -104,8 +104,9 @@ export default class Profile extends Component {
     };
 
     axios
-      .post(
-        "http://localhost:5000/api/userprofile/updateimage" + this.state.userid,
+      .patch(
+        "http://localhost:5000/api/userprofile/updateimage/" +
+          this.state.userid,
         formData,
         config
       )

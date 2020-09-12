@@ -166,11 +166,12 @@ router.delete("/", auth, async (req, res) => {
 //@desc   Add profile pic into the database
 //@access Private
 //to protect auth add as the second parameter
-router.post("/updateimage/:id", async (req, res) => {
+router.patch("/updateimage/:id", async (req, res) => {
   try {
+    console.log(req.params.id);
     //if there is no image
     if (req.files == null) {
-      User.findOneAndUpdate(req.params.id)
+      User.findByIdAndUpdate(req.params.id)
         .then((profile) => {
           profile.firstName = req.body.firstName;
           profile.lastName = req.body.lastName;
@@ -197,7 +198,7 @@ router.post("/updateimage/:id", async (req, res) => {
           return res.status(500).send(err);
         }
 
-        User.findOneAndUpdate(req.params.id)
+        User.findByIdAndUpdate(req.params.id)
           .then((profile) => {
             profile.firstName = req.body.firstName;
             profile.lastName = req.body.lastName;
