@@ -30,7 +30,6 @@ import Item from "../Shop/Pages/Item/Item.component";
 import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
 import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 
-
 // @desc import Components
 // @author Rajindu
 import InstructorManage from "../Admin/Dashboards/InstructorManage/instructorManage";
@@ -105,6 +104,7 @@ export default function MenuAppBar() {
 
     axios.get("http://localhost:5000/api/auth", config).then((res) => {
       setUserName(res.data.firstName + " " + res.data.lastName);
+      setUserImage(res.data.profImage);
     });
   }, []);
 
