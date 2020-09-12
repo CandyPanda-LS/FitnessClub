@@ -173,13 +173,13 @@ router.patch("/updateimage/:id", async (req, res) => {
     if (req.files == null) {
       User.findByIdAndUpdate(req.params.id)
         .then((profile) => {
-          profile.firstName = req.body.firstName;
-          profile.lastName = req.body.lastName;
-          profile.address = req.body.address;
-          profile.mobileNo = req.body.mobileNo;
-          profile.gender = req.body.gender;
-          profile.password = req.body.password;
-          profile.password2 = req.body.password2;
+          // profile.firstName = req.body.firstName;
+          // profile.lastName = req.body.lastName;
+          // profile.address = req.body.address;
+          // profile.mobileNo = req.body.mobileNo;
+          // profile.gender = req.body.gender;
+          // profile.password = req.body.password;
+          // profile.password2 = req.body.password2;
           profile.profImage = "user.png";
 
           profile
@@ -200,13 +200,13 @@ router.patch("/updateimage/:id", async (req, res) => {
 
         User.findByIdAndUpdate(req.params.id)
           .then((profile) => {
-            profile.firstName = req.body.firstName;
-            profile.lastName = req.body.lastName;
-            profile.address = req.body.address;
-            profile.mobileNo = req.body.mobileNo;
-            profile.gender = req.body.gender;
-            profile.password = req.body.password;
-            profile.password2 = req.body.password2;
+            // profile.firstName = req.body.firstName;
+            // profile.lastName = req.body.lastName;
+            // profile.address = req.body.address;
+            // profile.mobileNo = req.body.mobileNo;
+            // profile.gender = req.body.gender;
+            // profile.password = req.body.password;
+            // profile.password2 = req.body.password2;
             profile.profImage = file.name;
 
             profile
