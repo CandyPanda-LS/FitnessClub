@@ -148,7 +148,7 @@ export default class Profile extends Component {
                       .
                     </div>
                   </div>
-                  <br />
+
                   <Progress percentage={this.state.uploadPercentage} />
                   <br />
 
