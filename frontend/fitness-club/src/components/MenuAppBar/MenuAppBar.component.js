@@ -383,7 +383,7 @@ export default function MenuAppBar() {
                 exact
                 component={EcommerceInsertitem}
               />
-              <Route path="/UpdateItemShop" component={EcommerceUpdateitem} />
+              <Route path="/UpdateItemShop/:id" component={EcommerceUpdateitem} />
               <Route path="/shop" exact component={ItemsGrid} />
 
               <Route

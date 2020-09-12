@@ -75,4 +75,21 @@ router.post("/additems", async (req, res) => {
   });
 });
 
+router.post("/updateItems", upload.single("ItemImage"), async (req, res) => {
+  // image configuration
+  const ItemImage = await sharp(req.file.buffer)
+    .resize({ width: 250, height: 250 })
+    .png()
+    .toBuffer();
+
+  const ItemName = req.body.ItemName;
+  const ItemPrice = req.body.ItemPrice;
+  const ItemDescriprion = req.body.ItemDescriprion;
+
+  
+
+});
+
+
+
 module.exports = router;
