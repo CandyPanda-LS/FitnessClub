@@ -302,13 +302,21 @@ export default function MenuAppBar() {
                           </>
                         ) : (
                           <>
-                            <Link className="dropdown-item" role="presentation">
+                            <Link
+                              to="/profile"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
                               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                               &nbsp;Profile
                             </Link>
-                            <Link className="dropdown-item" role="presentation">
+                            <Link
+                              to="/dashboard"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
                               <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                              &nbsp;Settings
+                              &nbsp;Dashboard
                             </Link>
                             <div className="dropdown-divider"></div>
                             <Link
