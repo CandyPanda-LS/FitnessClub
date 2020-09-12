@@ -147,43 +147,46 @@ export default class Profile extends Component {
         <h3 class="text-dark mb-4">My Profile</h3>
         <div class="row mb-3">
           <div class="col-lg-4">
-            <div class="card mb-3">
-              <div class="card-body text-center shadow">
-                <img
-                  class="rounded-circle mb-3 mt-4"
-                  src={"uploads/users/" + this.state.profileImage}
-                  width="160"
-                  height="160"
-                />
-                <form class="user" onSubmit={this.onFormSubmit}>
-                  <div class="form-group row">
-                    <div class="col-sm-6">
-                      <input
-                        type="file"
-                        id="profImage"
-                        name="profImage"
-                        onChange={this.onChangeFile}
-                      />
-                      .
+            <center>
+              <div class="card mb-3">
+                <div class="card-body text-center shadow">
+                  <img
+                    class="rounded-circle mb-3 mt-4"
+                    src={"uploads/users/" + this.state.profileImage}
+                    width="160"
+                    height="160"
+                  />
+
+                  <form class="user" onSubmit={this.onFormSubmit}>
+                    <div class="form-group row">
+                      <div class="col-sm-6">
+                        <input
+                          type="file"
+                          id="profImage"
+                          name="profImage"
+                          onChange={this.onChangeFile}
+                        />
+                        .
+                      </div>
                     </div>
-                  </div>
 
-                  <Progress percentage={this.state.uploadPercentage} />
-                  <br />
+                    <Progress percentage={this.state.uploadPercentage} />
+                    <br />
 
-                  <div class="mb-3">
-                    <button
-                      class="CreateBTN btn btn-primary btn-block text-white btn-user"
-                      id="signup"
-                      name="signup"
-                      type="submit"
-                    >
-                      Create
-                    </button>
-                  </div>
-                </form>
+                    <div class="mb-3">
+                      <button
+                        class="CreateBTN btn btn-primary btn-block text-white btn-user"
+                        id="signup"
+                        name="signup"
+                        type="submit"
+                      >
+                        Change
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </div>
+            </center>
             <div class="card shadow mb-4"></div>
           </div>
           <div class="col-lg-8">
