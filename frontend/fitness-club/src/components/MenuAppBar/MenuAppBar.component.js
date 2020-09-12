@@ -143,48 +143,80 @@ export default function MenuAppBar() {
             <hr className="sidebar-divider my-0" />
 
             <ul className="nav navbar-nav text-light" id="accordionSidebar">
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="/dashboard">
-                  <i className="fas fa-tachometer-alt"></i>
-                  <span>Dashboard</span>
-                </Link>
-              </li>
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="profile">
-                  <i className="fas fa-user"></i>
-                  <span>Profile</span>
-                </Link>
-              </li>
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="table.html">
-                  <i className="fas fa-table"></i>
-                  <span>Table</span>
-                </Link>
-              </li>
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="userlogin">
-                  <i className="far fa-user-circle"></i>
-                  <span>Login</span>
-                </Link>
-              </li>
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="/registration">
-                  <i className="fas fa-user-circle"></i>
-                  <span>Register</span>
-                </Link>
-              </li>
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="/Packages">
-                  <i className="fas fa-user-circle"></i>
-                  <span>Packages</span>
-                </Link>
-              </li>
-              <li className="nav-item" role="presentation">
-                <Link className="nav-link" to="/advertisements">
-                  <i className="fas fa-user-circle"></i>
-                  <span>Advertisement</span>
-                </Link>
-              </li>
+              {token === null ? (
+                <>
+                  {" "}
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/">
+                      <i className="fas fa-home"></i>
+                      <span>Home</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="userlogin">
+                      <i className="far fa-user-circle"></i>
+                      <span>Login</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/registration">
+                      <i className="fas fa-user-circle"></i>
+                      <span>Register</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/Packages">
+                      <i className="fas fa-box"></i>
+                      <span>Packages</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/advertisements">
+                      <i className="fas fa-ad"></i>
+                      <span>Advertisement</span>
+                    </Link>
+                  </li>{" "}
+                </>
+              ) : (
+                <>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/">
+                      <i className="fas fa-home"></i>
+                      <span>Home</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/dashboard">
+                      <i className="fas fa-chalkboard-teacher"></i>
+                      <span>Dashboard</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="profile">
+                      <i className="fas fa-user"></i>
+                      <span>Profile</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/Packages">
+                      <i className="fas fa-box"></i>
+                      <span>Packages</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/advertisements">
+                      <i className="fas fa-ad"></i>
+                      <span>Advertisement</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/shop">
+                      <i className="fas fa-briefcase"></i>
+                      <span>Shop</span>
+                    </Link>
+                  </li>{" "}
+                </>
+              )}
             </ul>
             <div className="text-center d-none d-md-inline">
               <button
@@ -302,13 +334,21 @@ export default function MenuAppBar() {
                           </>
                         ) : (
                           <>
-                            <Link className="dropdown-item" role="presentation">
+                            <Link
+                              to="/profile"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
                               <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                               &nbsp;Profile
                             </Link>
-                            <Link className="dropdown-item" role="presentation">
+                            <Link
+                              to="/dashboard"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
                               <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                              &nbsp;Settings
+                              &nbsp;Dashboard
                             </Link>
                             <div className="dropdown-divider"></div>
                             <Link
@@ -375,7 +415,10 @@ export default function MenuAppBar() {
                 exact
                 component={EcommerceInsertitem}
               />
-              <Route path="/UpdateItemShop/:id" component={EcommerceUpdateitem} />
+              <Route
+                path="/UpdateItemShop/:id"
+                component={EcommerceUpdateitem}
+              />
               <Route path="/shop" exact component={ItemsGrid} />
 
               <Route
