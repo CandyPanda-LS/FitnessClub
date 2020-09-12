@@ -50,7 +50,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
           <div class="col" style={{ padding: "30px" }}>
             <div class="row">
               <div class="col">
-                <Link to={"/shopItem/" + id}>
+                <Link to={"/UpdateItemShop/" + id}>
                 <button
                   class="btn btn-primary m-auto"
                   type="button"

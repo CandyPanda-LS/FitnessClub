@@ -18,7 +18,7 @@ const ShopItemSchema = new Schema({
 
   ItemImage: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 

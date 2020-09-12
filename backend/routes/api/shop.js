@@ -33,7 +33,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", (req, res) => {
   Item.findById(req.params.id)
-    .then((Item) => res.json(Item))
+    .then((item) => res.json(item))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -94,6 +94,69 @@ router.delete("/removeItem/:id", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//@route  Update api/shop/update
+//@desc  update Item
+//@access Private
+//@author Lasal
+
+router.post("/updateItem/:id", async (req, res) => {
+  try {
+
+    //if there is no image
+    if (req.files == null) {
+
+    Item.findOneAndUpdate(req.params.id)
+    .then((item) => {
+      item.ItemName = req.body.ItemName;
+      item.ItemPrice = req.body.ItemPrice;
+      item.ItemDescriprion = req.body.ItemDescriprion;
+
+
+      item
+        .save()
+        .then(() => res.json("Item updated!"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+    }
+     //if there is a image
+    else{
+      const file = req.files.file;
+      file.mv(`${dirPath}/${file.name}`, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send(err);
+        }
+
+        Item.findOneAndUpdate(req.params.id)
+        .then((item) => {
+          item.ItemName = req.body.ItemName;
+          item.ItemPrice = req.body.ItemPrice;
+          item.ItemDescriprion = req.body.ItemDescriprion;
+          item.ItemImage = file.name;
+
+          item
+            .save()
+            .then(() => res.json("Item updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+
+      });
+
+    }
+
+
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  });
+
+
+
 
 
 
