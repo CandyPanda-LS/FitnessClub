@@ -1,6 +1,6 @@
 /*
  *
- * @author nayana
+ * @author chamodi
  *
  */
 import React, { useState, useEffect } from "react";

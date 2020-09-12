@@ -1,13 +1,13 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const router = require("express").Router();
-let Item = require("../../models/ShopItem");
+let Inventory = require("../../models/Inventory");
 
 //For Image Uploading
 const path = require("path"); //for seting path
 const dirPath = path.join(
   __dirname,
-  "../../../frontend/fitness-club/public/uploads/shop"
+  "../../../frontend/fitness-club/public/uploads/inventory"
 ); //for seting path
 
 const app = express();
@@ -17,10 +17,10 @@ router.use(cors());
 app.use(fileUpload()); //for image uploading
 
 // @route         GET /shop
-// @description   get Shop Items
+// @description   get Inventory Items
 // @access        Private
 router.get("/", async (req, res) => {
-  Item.find()
+  Inventory.find()
     .then((items) => {
       res.json(items);
     })
@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//@route  POST api/shop/additems
+//@route  POST api/inventory/additems
 //@desc   Add Items into the database
 //@access Private
 //to protect auth add as the second parameter
