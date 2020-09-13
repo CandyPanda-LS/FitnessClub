@@ -20,6 +20,7 @@ import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
 import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/AddWorkoutMealToDatabase";
+import AdminLogin from "../Admin/Login/adminlogin.component";
 
 // @desc import Components
 // @author Lasal
@@ -91,6 +92,7 @@ export default function MenuAppBar() {
   const [token, setToken] = useState(null);
   const [username, setUserName] = useState("Guest");
   const [userImage, setUserImage] = useState("user.png");
+  const [role, setRole] = useState();
 
   useEffect(() => {
     const userToken = localStorage.getItem("x-auth-token");
@@ -102,12 +104,24 @@ export default function MenuAppBar() {
       },
     };
 
-    axios.get("http://localhost:5000/api/auth", config).then((res) => {
-      setUserName(res.data.firstName + " " + res.data.lastName);
-      if (res.data.profImage) {
-        setUserImage(res.data.profImage);
-      }
-    });
+    axios
+      .get("http://localhost:5000/api/auth", config)
+      .then((res) => {
+        setRole("user");
+        setUserName(res.data.firstName + " " + res.data.lastName);
+        if (res.data.profImage) {
+          setUserImage(res.data.profImage);
+        }
+      })
+      .catch(() => {
+        axios.get("http://localhost:5000/api/authadmin", config).then((res) => {
+          setUserName(res.data.firstName + " " + res.data.lastName);
+          setRole("admin");
+          if (res.data.profImage) {
+            setUserImage(res.data.profImage);
+          }
+        });
+      });
   }, []);
 
   return (
@@ -408,6 +422,7 @@ export default function MenuAppBar() {
                 exact
                 component={AddWorkoutMealToDatabase}
               />
+              <Route path="/adminlogin" exact component={AdminLogin} />
 
               {/* Routes
               @author Lasal */}
