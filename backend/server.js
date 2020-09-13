@@ -50,7 +50,6 @@ app.use("/packageImages", express.static("./packageImages"));
 //------------------Dilumi------------------------
 app.use("/api/inventory", require("./routes/api/inventory"));
 
-
 //------------------Jayani------------------------
 app.use("/api/fitnessUpdate", require("./routes/api/fitnessUpdate"));
 

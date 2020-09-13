@@ -9,43 +9,71 @@ const { json } = require("express");
 
 router.use(cors());
 
+router.post("/", auth, async (req, res) => {
+  const activated = "active";
 
-    router.post(
-        "/",auth,
-        async (req, res) => {
+  //build profile object
+  const profileFields = {};
+  profileFields.user = req.user.id;
+  if (activated) profileFields.activated = activated;
 
-        const activated = "active";
+  try {
+    let cart = await Cart.findOne({ user: req.user.id });
 
-        //build profile object
-        const profileFields = {
+    if (cart) {
+      //UPDATE
+      cart = await Cart.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: profileFields },
+        { new: true }
+      );
 
-        };
-        profileFields.user = req.user.id;
-        if (activated) profileFields.activated = activated;
+      return res.json(cart);
+    }
 
+    //Create
+    cart = new Cart(profileFields);
 
-        try {
-            let cart = await Cart.findOne({ user: req.user.id });
+    await cart.save();
+    res.json(cart); //return the profile
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
-            if (cart) {
-            //UPDATE
-            cart = await Cart.findOneAndUpdate(
-                { user: req.user.id },
-                { $set: profileFields },
-                { new: true }
-            );
+//@route  PUT  api/cart/addtocart
+//@desc  Add items to cart list
+//@access private
+//@author Lasal
 
-            return res.json(cart);
-            }
+router.put(
+  "/addtocart",
 
-            //Create
-            cart = new Cart(profileFields);
+  auth,
+  async (req, res) => {
+    const { ItemName, ItemPrice, ItemImage, quantity } = req.body;
 
-            await cart.save();
-            res.json(cart); //return the profile
-        } catch (err) {
-            console.error(err.message);
-            res.status(500).send("Server Error");
-        }
-        }
-    );
+    const newCartList = {
+      ItemName,
+      ItemPrice,
+      ItemImage,
+      quantity,
+    };
+
+    try {
+      const cart = await User.findOne({ user: req.user.id });
+
+      cart.cartList.unshift(newCartList);
+
+      await cart.save();
+
+      res.json(cart);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+module.exports = router;
