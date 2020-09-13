@@ -38,31 +38,15 @@ export default function InstructorManage() {
   /*Redirect to login page if there is no token*/
   useEffect(() => {
     const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
 
     if (!token) {
-      window.location = "/userlogin";
+      window.location = "/";
     }
 
-    const config = {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-    };
-
-    async function checkProfile() {
-      await axios
-        .get("http://localhost:5000/api/auth", config)
-        .then((response) => {
-          if (response.data.role === "admin") {
-            window.location = "/admin";
-          } else {
-            window.location = "/";
-          }
-        })
-        .catch(setProfile("false"));
+    if (userRole !== "admin") {
+      window.location = "/";
     }
-    // Execute the checkProfile function directly
-    checkProfile();
   }, []);
 
   const classes = useStyles();

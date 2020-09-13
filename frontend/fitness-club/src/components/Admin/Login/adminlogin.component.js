@@ -66,6 +66,7 @@ export default class AdminLogin extends Component {
       };
 
       localStorage.setItem("x-auth-token", setUserData.token);
+      localStorage.setItem("userRole", "admin");
       window.location = "/admin";
     } catch (err) {
       console.log(err);
