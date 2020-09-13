@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-  //@author Dilmi
+  //@author senura
 
   role: {
     type: String,
@@ -26,14 +26,5 @@ const UserSchema = new Schema({
   mobileNo: {
     type: String,
   },
-  address: {
-    type: String,
-  },
-  gender: {
-    type: String,
-  },
-  profImage: {
-    type: String,
-  },
 });
-module.exports = User = mongoose.model("user", UserSchema);
+module.exports = User = mongoose.model("Admin", UserSchema);

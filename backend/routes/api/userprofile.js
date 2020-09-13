@@ -9,7 +9,7 @@ const User = require("../../models/User");
 const path = require("path"); //for image seting path
 const dirPath = path.join(
   __dirname,
-  "../../../frontend/fitness-club/public/uploads"
+  "../../../frontend/fitness-club/public/uploads/users"
 ); //for image seting path
 
 const app = express();
@@ -50,7 +50,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 //@route POST api/userprofile
-//@desc Create or update user profile
+//@desc  update user profile
 //@access Private
 
 router.post(
@@ -162,74 +162,65 @@ router.delete("/", auth, async (req, res) => {
   } catch (err) {}
 });
 
-//@route  POST api/advertisement/
-//@desc   Add advertisement into the database
+//@route  POST api/changeprofilepic/
+//@desc   Add profile pic into the database
 //@access Private
 //to protect auth add as the second parameter
-router.post("/changeprofilepic", auth, async (req, res) => {
-  if (req.files == null) {
-    return res.status(400).json({ msg: "No file uploaded" });
+router.patch("/updateimage/:id", async (req, res) => {
+  try {
+    console.log(req.params.id);
+    //if there is no image
+    if (req.files == null) {
+      User.findByIdAndUpdate(req.params.id)
+        .then((profile) => {
+          // profile.firstName = req.body.firstName;
+          // profile.lastName = req.body.lastName;
+          // profile.address = req.body.address;
+          // profile.mobileNo = req.body.mobileNo;
+          // profile.gender = req.body.gender;
+          // profile.password = req.body.password;
+          // profile.password2 = req.body.password2;
+          profile.profImage = "user.png";
+
+          profile
+            .save()
+            .then(() => res.json("profile updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    }
+    //if there is a image
+    else {
+      const file = req.files.file;
+      file.mv(`${dirPath}/${file.name}`, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send(err);
+        }
+
+        User.findByIdAndUpdate(req.params.id)
+          .then((profile) => {
+            // profile.firstName = req.body.firstName;
+            // profile.lastName = req.body.lastName;
+            // profile.address = req.body.address;
+            // profile.mobileNo = req.body.mobileNo;
+            // profile.gender = req.body.gender;
+            // profile.password = req.body.password;
+            // profile.password2 = req.body.password2;
+            profile.profImage = file.name;
+
+            profile
+              .save()
+              .then(() => res.json("profImage updated!"))
+              .catch((err) => res.status(400).json("Error: " + err));
+          })
+          .catch((err) => res.status(400).json("Error: " + err));
+      });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
-
-  const file = req.files.file;
-  file.mv(`${dirPath}/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    const profImage = file.name;
-
-    const {
-      firstName,
-      lastName,
-      email,
-      mobileNo,
-      address,
-      gender,
-      password,
-      password2,
-    } = req.body;
-
-    const profileFields = {};
-    profileFields.user = req.user.id;
-
-    if (firstName) profileFields.firstName = firstName;
-    if (lastName) profileFields.lastName = lastName;
-    if (email) profileFields.email = email;
-    if (address) profileFields.address = address;
-    if (mobileNo) profileFields.mobileNo = mobileNo;
-    if (gender) profileFields.gender = gender;
-    if (password) profileFields.password = password;
-    if (password2) profileFields.password2 = password2;
-    if (profImage) profileFields.profImage = profImage;
-
-    try {
-      console.log("success");
-      let profile = User.findOne({ _id: req.user.id });
-
-      if (profile) {
-        //update
-
-        profile = User.findByIdAndUpdate(
-          { _id: req.user.id },
-          { $set: profileFields },
-          { new: true }
-        );
-
-        return res.json(profile);
-      }
-
-      //create
-
-      profile = new User(profileFields);
-      profile.save();
-      res.json(profile);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
-    }
-  });
 });
 
 module.exports = router;

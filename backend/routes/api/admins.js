@@ -7,7 +7,7 @@ const { check, validationResult } = require("express-validator");
 const Validator = require("validator");
 
 //Bring User Model
-const User = require("../../models/User");
+const Admin = require("../../models/Admin");
 
 //Load password validation
 //const validateRegisterInput = require("../../validation/register");
@@ -42,24 +42,22 @@ router.post(
       password,
       password2,
       mobileNo,
-      address,
-      gender,
     } = req.body;
 
     try {
       //See if user Exist
-      let user = await User.findOne({ email });
+      let user = await Admin.findOne({ email });
 
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "User already exist" }] });
+          .json({ errors: [{ msg: "Admin already exist" }] });
       }
 
-      const role = "user";
+      const role = "admin";
 
       //create a user instance
-      user = new User({
+      user = new Admin({
         role,
         firstName,
         lastName,
@@ -67,8 +65,6 @@ router.post(
         password,
         password2,
         mobileNo,
-        address,
-        gender,
       });
 
       //Encrypt Password

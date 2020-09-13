@@ -10,7 +10,7 @@ export default class UserRegistration extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      mobileNumber: "",
+      mobileNo: "",
       gender: "Male",
       address: "",
       password: "",
@@ -42,7 +42,7 @@ export default class UserRegistration extends Component {
   myChangeHandler = (event) => {
     let nam = event.target.name;
     let val = event.target.value;
-    if (nam === "mobileNumber") {
+    if (nam === "mobileNo") {
       if (!Number(val)) {
         alert("Your mobile number must include only digits");
       }
@@ -68,7 +68,7 @@ export default class UserRegistration extends Component {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         email: this.state.email,
-        mobileNumber: this.state.mobileNumber,
+        mobileNo: this.state.mobileNo,
         gender: this.state.gender,
         address: this.state.address,
         password: this.state.password,
@@ -88,7 +88,7 @@ export default class UserRegistration extends Component {
         firstName: "",
         lastName: "",
         email: "",
-        mobileNumber: "",
+        mobileNo: "",
         gender: "Male",
         address: "",
         password: "",
@@ -168,11 +168,11 @@ export default class UserRegistration extends Component {
                         <input
                           class="form-control form-control-user"
                           type="text"
-                          id="mobileNumber"
+                          id="mobileNo"
                           placeholder="Mobile Number"
-                          name="mobileNumber"
+                          name="mobileNo"
                           required
-                          value={this.state.mobileNumber}
+                          value={this.state.mobileNo}
                           onChange={this.myChangeHandler}
                           //onChange = {this.onChange}
                         />

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Progress from "./Progress";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class Profile extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
 
     this.state = {
+      userid: "",
       username: "",
       fristName: "",
       lastName: "",
@@ -19,6 +21,7 @@ export default class Profile extends Component {
       mobileNo: "",
       file: null,
       filename: "",
+      profileImage: "user.png",
       uploadPercentage: "",
     };
   }
@@ -37,6 +40,7 @@ export default class Profile extends Component {
       .get("http://localhost:5000/api/userprofile/", config)
       .then((response) => {
         this.setState({
+          userid: response.data._id,
           username: response.data.firstName,
           email: response.data.email,
           firstName: response.data.firstName,
@@ -47,6 +51,12 @@ export default class Profile extends Component {
           password: response.data.password,
           password2: response.data.password2,
         });
+
+        if (response.data.profImage) {
+          this.setState({
+            profileImage: response.data.profImage,
+          });
+        }
       })
 
       .catch((error) => {
@@ -61,19 +71,18 @@ export default class Profile extends Component {
   };
 
   onFormSubmit(e) {
-    alert("hai");
     e.preventDefault();
 
     const formData = new FormData();
 
-    formData.append("firstName", this.state.firstName);
-    formData.append("lastName", this.state.lastName);
-    formData.append("email", this.state.email);
-    formData.append("address", this.state.address);
-    formData.append("mobileNo", this.state.mobileNo);
-    formData.append("gender", this.state.gender);
-    formData.append("password", this.state.password);
-    formData.append("password2", this.state.password2);
+    // formData.append("username", this.state.username);
+    // formData.append("email", this.state.email);
+    // formData.append("firstName", this.state.firstName);
+    // formData.append("lastName", this.state.lastName);
+    // formData.append("address", this.state.address);
+    // formData.append("mobileNo", this.state.mobileNo);
+    // formData.append("gender", this.state.gender);
+    // formData.append("password2", this.state.password2);
     formData.append("file", this.state.file);
 
     const config = {
@@ -94,15 +103,18 @@ export default class Profile extends Component {
     };
 
     axios
-      .post(
-        "http://localhost:5000/api/userprofile/changeprofilepic",
+      .patch(
+        "http://localhost:5000/api/userprofile/updateimage/" +
+          this.state.userid,
         formData,
         config
       )
       .then((res) => {
         window.location = "/";
       })
-      .catch((error) => {});
+      .catch((error) => {
+        alert(error);
+      });
   }
 
   profileDelete(e) {
@@ -134,40 +146,46 @@ export default class Profile extends Component {
         <h3 class="text-dark mb-4">My Profile</h3>
         <div class="row mb-3">
           <div class="col-lg-4">
-            <div class="card mb-3">
-              <div class="card-body text-center shadow">
-                {/* <img
-                  class="rounded-circle mb-3 mt-4"
-                  src="./images/pic2.jpg"
-                  width="160"
-                  height="160"
-                /> */}
-                <form class="user" onSubmit={this.onFormSubmit}>
-                  <div class="form-group row">
-                    <div class="col-sm-6">
-                      <input
-                        type="file"
-                        id="profImage"
-                        name="profImage"
-                        onChange={this.onChangeFile}
-                      />
-                      .
-                    </div>
-                  </div>
+            <center>
+              <div class="card mb-3">
+                <div class="card-body text-center shadow">
+                  <img
+                    class="rounded-circle mb-3 mt-4"
+                    src={"uploads/users/" + this.state.profileImage}
+                    width="160"
+                    height="160"
+                  />
 
-                  <div class="mb-3">
-                    <button
-                      class="CreateBTN btn btn-primary btn-block text-white btn-user"
-                      id="signup"
-                      name="signup"
-                      type="submit"
-                    >
-                      Create
-                    </button>
-                  </div>
-                </form>
+                  <form class="user" onSubmit={this.onFormSubmit}>
+                    <div class="form-group row">
+                      <div class="col-sm-6">
+                        <input
+                          type="file"
+                          id="profImage"
+                          name="profImage"
+                          onChange={this.onChangeFile}
+                        />
+                        .
+                      </div>
+                    </div>
+
+                    <Progress percentage={this.state.uploadPercentage} />
+                    <br />
+
+                    <div class="mb-3">
+                      <button
+                        class="CreateBTN btn btn-primary btn-block text-white btn-user"
+                        id="signup"
+                        name="signup"
+                        type="submit"
+                      >
+                        Change
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </div>
+            </center>
             <div class="card shadow mb-4"></div>
           </div>
           <div class="col-lg-8">

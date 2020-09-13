@@ -8,7 +8,7 @@ import axios from "axios";
 import UserLogin from "../Login/UserLogin/userlogin.component";
 import Profile from "../Profile/profile";
 import UserRegistration from "../Register/registration.component";
-// import ForgotPassword from "../Forgotpassword/forgotpassword.component";
+import ForgotPassword from "../ForgotPassword/forgotpassword.component";
 import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
 
 // @desc import Components
@@ -20,6 +20,7 @@ import BurnCalories from "../User/Forms/BurnCalories/burncalories";
 import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMealPlanByUser.component";
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
 import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/AddWorkoutMealToDatabase";
+import AdminLogin from "../Admin/Login/adminlogin.component";
 
 // @desc import Components
 // @author Lasal
@@ -29,7 +30,6 @@ import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
 import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
 import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
-
 
 // @desc import Components
 // @author Rajindu
@@ -92,6 +92,7 @@ export default function MenuAppBar() {
   const [token, setToken] = useState(null);
   const [username, setUserName] = useState("Guest");
   const [userImage, setUserImage] = useState("user.png");
+  const [role, setRole] = useState();
 
   useEffect(() => {
     const userToken = localStorage.getItem("x-auth-token");
@@ -103,9 +104,24 @@ export default function MenuAppBar() {
       },
     };
 
-    axios.get("http://localhost:5000/api/auth", config).then((res) => {
-      setUserName(res.data.firstName + " " + res.data.lastName);
-    });
+    axios
+      .get("http://localhost:5000/api/auth", config)
+      .then((res) => {
+        setRole("user");
+        setUserName(res.data.firstName + " " + res.data.lastName);
+        if (res.data.profImage) {
+          setUserImage(res.data.profImage);
+        }
+      })
+      .catch(() => {
+        axios.get("http://localhost:5000/api/authadmin", config).then((res) => {
+          setUserName(res.data.firstName + " " + res.data.lastName);
+          setRole("admin");
+          if (res.data.profImage) {
+            setUserImage(res.data.profImage);
+          }
+        });
+      });
   }, []);
 
   return (
@@ -306,7 +322,7 @@ export default function MenuAppBar() {
                         <img
                           alt="profileimage"
                           className="border rounded-circle img-profile"
-                          src={"uploads/users/" + userImage}
+                          src={"/uploads/users/" + userImage}
                         />
                       </Link>
                       <div
@@ -380,6 +396,7 @@ export default function MenuAppBar() {
               <Route path="/profileUpdate" exact component={ProfileUpdate} />
               <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/profile" exact component={Profile} />
+              <Route path="/forgotpassword" exact component={ForgotPassword} />
 
               {/* Routes
               @author Senura */}
@@ -405,6 +422,7 @@ export default function MenuAppBar() {
                 exact
                 component={AddWorkoutMealToDatabase}
               />
+              <Route path="/adminlogin" exact component={AdminLogin} />
 
               {/* Routes
               @author Lasal */}
@@ -442,7 +460,7 @@ export default function MenuAppBar() {
                 component={InsertInventoryItems}
               />
               <Route
-                path="/UpdateInventoryitems"
+                path="/UpdateInventoryitems/:id"
                 exact
                 component={UpdateInventoryItems}
               />

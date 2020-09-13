@@ -1,13 +1,13 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const router = require("express").Router();
-let Item = require("../../models/ShopItem");
+let Inventory = require("../../models/Inventory");
 
 //For Image Uploading
 const path = require("path"); //for seting path
 const dirPath = path.join(
   __dirname,
-  "../../../frontend/fitness-club/public/uploads/shop"
+  "../../../frontend/fitness-club/public/uploads/inventory"
 ); //for seting path
 
 const app = express();
@@ -17,10 +17,10 @@ router.use(cors());
 app.use(fileUpload()); //for image uploading
 
 // @route         GET /shop
-// @description   get Shop Items
+// @description   get Inventory Items
 // @access        Private
 router.get("/", async (req, res) => {
-  Item.find()
+  Inventory.find()
     .then((items) => {
       res.json(items);
     })
@@ -32,12 +32,12 @@ router.get("/", async (req, res) => {
 //@access Private
 
 router.get("/:id", (req, res) => {
-  Item.findById(req.params.id)
+  Inventory.findById(req.params.id)
     .then((item) => res.json(item))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//@route  POST api/shop/additems
+//@route  POST api/inventory/additems
 //@desc   Add Items into the database
 //@access Private
 //to protect auth add as the second parameter
@@ -54,15 +54,21 @@ router.post("/additems", async (req, res) => {
       return res.status(500).send(err);
     }
 
-    const ItemName = req.body.ItemName;
-    const ItemPrice = req.body.ItemPrice;
-    const ItemDescriprion = req.body.ItemDescriprion;
+    const ItemType = req.body.ItemType;
+    const ItemBrand = req.body.ItemBrand;
+    const ManufacturelDate = req.body.ManufacturelDate;
+    const ServiceDate = req.body.ServiceDate;
+    const Warranty = req.body.Warranty;
+    const PurchasedDate = req.body.PurchasedDate;
     const ItemImage = file.name;
 
-    const newItem = new Item({
-      ItemName,
-      ItemPrice,
-      ItemDescriprion,
+    const newItem = new Inventory({
+      ItemType,
+      ItemBrand,
+      ManufacturelDate,
+      ServiceDate,
+      Warranty,
+      PurchasedDate,
       ItemImage,
     });
 
@@ -75,15 +81,15 @@ router.post("/additems", async (req, res) => {
   });
 });
 
-//@route  DELETE api/shop/remove
+//@route  DELETE api/inventory/remove
 //@desc  Delete Item
 //@access Private
-//@author Lasal
+//@author Dilumi
 
 router.delete("/removeItem/:id", async (req, res) => {
   try {
     //GET remove index
-    Item.findByIdAndDelete(req.params.id)
+    Inventory.findByIdAndDelete(req.params.id)
       .then(() => {
         res.json("Item Deleted");
       })
@@ -97,17 +103,20 @@ router.delete("/removeItem/:id", async (req, res) => {
 //@route  Update api/shop/update
 //@desc  update Item
 //@access Private
-//@author Lasal
+//@author Dilumi
 
 router.post("/updateItem/:id", async (req, res) => {
   try {
     //if there is no image
     if (req.files == null) {
-      Item.findOneAndUpdate(req.params.id)
+      Inventory.findOneAndUpdate(req.params.id)
         .then((item) => {
-          item.ItemName = req.body.ItemName;
-          item.ItemPrice = req.body.ItemPrice;
-          item.ItemDescriprion = req.body.ItemDescriprion;
+          item.ItemType = req.body.ItemType;
+          item.ItemBrand = req.body.ItemBrand;
+          item.ManufacturelDate = req.body.ManufacturelDate;
+          item.ServiceDate = req.body.ServiceDate;
+          item.Warranty = req.body.Warranty;
+          item.PurchasedDate = req.body.PurchasedDate;
 
           item
             .save()
@@ -125,11 +134,14 @@ router.post("/updateItem/:id", async (req, res) => {
           return res.status(500).send(err);
         }
 
-        Item.findOneAndUpdate(req.params.id)
+        Inventory.findOneAndUpdate(req.params.id)
           .then((item) => {
-            item.ItemName = req.body.ItemName;
-            item.ItemPrice = req.body.ItemPrice;
-            item.ItemDescriprion = req.body.ItemDescriprion;
+            item.ItemType = req.body.ItemType;
+            item.ItemBrand = req.body.ItemBrand;
+            item.ManufacturelDate = req.body.ManufacturelDate;
+            item.ServiceDate = req.body.ServiceDate;
+            item.Warranty = req.body.Warranty;
+            item.PurchasedDate = req.body.PurchasedDate;
             item.ItemImage = file.name;
 
             item
