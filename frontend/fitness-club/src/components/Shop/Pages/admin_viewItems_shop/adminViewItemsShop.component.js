@@ -45,7 +45,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
           <div class="col" style={{ padding: "30px" }}>
             <div class="row">
               <div class="col">
-                <Link to={"/UpdateItemShop/" + id}>
+                <a href={"/UpdateItemShop/" + id}>
                   <button
                     class="btn btn-primary m-auto"
                     type="button"
@@ -61,7 +61,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
                   >
                     EDIT
                   </button>
-                </Link>
+                </a>
               </div>
               <div class="col">
                 <button
