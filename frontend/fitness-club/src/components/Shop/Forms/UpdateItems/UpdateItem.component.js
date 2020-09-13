@@ -113,7 +113,7 @@
                 <div class="card" style={{ borderRadius: "78px" }}>
                     <img
                     class="card-img w-100 d-block"
-                    src="assets/img/shoes/1.png"
+                    src="/assets/img/shoes/1.png"
                     alt="imageInsetitems"
                     />
                 </div>
