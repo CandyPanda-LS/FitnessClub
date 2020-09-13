@@ -389,7 +389,7 @@ export default function MenuAppBar() {
                               &nbsp;Logout
                             </Link>
                           </>
-                        ) : (
+                        ) : role === "admin" ? (
                           <>
                             <Link
                               to="/admin"
@@ -398,6 +398,28 @@ export default function MenuAppBar() {
                             >
                               <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                               &nbsp;Dashboard
+                            </Link>
+                            <Link
+                              onClick={() => {
+                                localStorage.removeItem("x-auth-token");
+                                window.location = "/";
+                              }}
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Logout
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link
+                              to="/admin"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Instructor
                             </Link>
                             <Link
                               onClick={() => {
