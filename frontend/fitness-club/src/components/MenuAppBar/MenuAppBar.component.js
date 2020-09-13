@@ -96,7 +96,9 @@ export default function MenuAppBar() {
 
   useEffect(() => {
     const userToken = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
     setToken(userToken);
+    setRole(userRole);
 
     const config = {
       headers: {
@@ -194,7 +196,7 @@ export default function MenuAppBar() {
                     </Link>
                   </li>{" "}
                 </>
-              ) : (
+              ) : role === "user" ? (
                 <>
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/">
@@ -233,6 +235,13 @@ export default function MenuAppBar() {
                     </Link>
                   </li>{" "}
                 </>
+              ) : (
+                <li className="nav-item" role="presentation">
+                  <Link className="nav-link" to="/">
+                    <i className="fas fa-home"></i>
+                    <span>Home</span>
+                  </Link>
+                </li>
               )}
             </ul>
             <div className="text-center d-none d-md-inline">
@@ -349,7 +358,7 @@ export default function MenuAppBar() {
                               &nbsp;Login
                             </Link>
                           </>
-                        ) : (
+                        ) : role === "user" ? (
                           <>
                             <Link
                               to="/profile"
@@ -368,6 +377,28 @@ export default function MenuAppBar() {
                               &nbsp;Dashboard
                             </Link>
                             <div className="dropdown-divider"></div>
+                            <Link
+                              onClick={() => {
+                                localStorage.removeItem("x-auth-token");
+                                window.location = "/";
+                              }}
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Logout
+                            </Link>
+                          </>
+                        ) : (
+                          <>
+                            <Link
+                              to="/admin"
+                              className="dropdown-item"
+                              role="presentation"
+                            >
+                              <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                              &nbsp;Dashboard
+                            </Link>
                             <Link
                               onClick={() => {
                                 localStorage.removeItem("x-auth-token");
