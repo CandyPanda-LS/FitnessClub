@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const InventorySchema = new Schema({
-  //@author Lasal
+  //@author Dilumi
   ItemType: {
     type: String,
   },
@@ -27,5 +27,5 @@ const InventorySchema = new Schema({
   },
 });
 
-const Inventory = mongoose.model("Inventory", InventorySchema);
+const Inventory = mongoose.model('Inventory', InventorySchema);
 module.exports = Inventory;
