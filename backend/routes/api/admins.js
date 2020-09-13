@@ -6,7 +6,7 @@ const config = require("config");
 const { check, validationResult } = require("express-validator");
 const Validator = require("validator");
 
-//Bring User Model
+//Bring User Models
 const Admin = require("../../models/Admin");
 
 //Load password validation
