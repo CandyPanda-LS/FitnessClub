@@ -49,6 +49,10 @@ app.use("/packageImages", express.static("./packageImages"));
 //------------------Dilumi------------------------
 app.use("/api/inventory", require("./routes/api/inventory"));
 
+
+//------------------Jayani------------------------
+app.use("/api/fitnessUpdate", require("./routes/api/fitnessUpdate"));
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

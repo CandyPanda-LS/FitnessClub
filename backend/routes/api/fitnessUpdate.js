@@ -55,7 +55,7 @@ router.post('/', async (req, res) => {
     }
 
     const topic = req.body.topic;
-    const decription = req.body.decription;
+    const description = req.body.decription;
     const link = req.body.link;
     const image = file.name;
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const FitnessupdateSchema = new Schema({
+const FitnessUpdateSchema = new Schema({
   //@author Jayani
   topic: {
     type: String,
@@ -19,4 +19,4 @@ const FitnessupdateSchema = new Schema({
 });
 
 const FitnessUpdate = mongoose.model('FitnessUpdate', FitnessUpdateSchema);
-module.exports = Fitnessupdate;
+module.exports = FitnessUpdate;

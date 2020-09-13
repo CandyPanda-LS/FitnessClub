@@ -41,11 +41,12 @@ export default function InsertFitnessUpdate() {
     axios
       .post('http://localhost:5000/api/fitnessUpdate', formData, config)
       .then((res) => {
-        //window.location = '/FitnessUpdatesTable';
+        window.location = '/FitnessUpdatesTable';
         console.log(formData);
       })
       .catch((error) => {
         console.log(error.message);
+        alert(error.message)
         console.log(formData);
       });
   }
@@ -82,7 +83,7 @@ export default function InsertFitnessUpdate() {
                     <div class='text-center'>
                       <h4 class='text-dark mb-4'>Add Fitness Update</h4>
                     </div>
-                    <form class='user'>
+                    <form class='user' onSubmit={onFormSubmit}>
                       <div class='form-group'>
                         <input
                           class='form-control form-control-user'
