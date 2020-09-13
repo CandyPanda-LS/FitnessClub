@@ -10,21 +10,23 @@ const cartSchema = new Schema({
   activated: {
     type: String,
   },
-  cartList: {
-    ItemName: {
-      type: String,
-    },
-    ItemPrice: {
-      type: String,
-    },
+  cartList: [
+    {
+      ItemName: {
+        type: String,
+      },
+      ItemPrice: {
+        type: String,
+      },
 
-    ItemImage: {
-      type: String,
+      ItemImage: {
+        type: String,
+      },
+      quantity: {
+        type: String,
+      },
     },
-    quantity: {
-      type: String,
-    },
-  },
+  ],
 });
 
 const Cart = mongoose.model("Cart", cartSchema);

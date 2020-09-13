@@ -47,33 +47,28 @@ router.post("/", auth, async (req, res) => {
 //@access private
 //@author Lasal
 
-router.put(
-  "/addtocart",
+router.put("/addtocart", auth, async (req, res) => {
+  const { ItemName, ItemPrice, ItemImage, quantity } = req.body;
 
-  auth,
-  async (req, res) => {
-    const { ItemName, ItemPrice, ItemImage, quantity } = req.body;
+  const newCartList = {
+    ItemName,
+    ItemPrice,
+    ItemImage,
+    quantity,
+  };
 
-    const newCartList = {
-      ItemName,
-      ItemPrice,
-      ItemImage,
-      quantity,
-    };
+  try {
+    const cart = await Cart.findOne({ user: req.user.id });
 
-    try {
-      const cart = await User.findOne({ user: req.user.id });
+    cart.cartList.unshift(newCartList);
 
-      cart.cartList.unshift(newCartList);
+    await cart.save();
 
-      await cart.save();
-
-      res.json(cart);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
-    }
+    res.json(cart);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
-);
+});
 
 module.exports = router;
