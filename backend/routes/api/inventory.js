@@ -81,10 +81,10 @@ router.post("/additems", async (req, res) => {
   });
 });
 
-//@route  DELETE api/shop/remove
+//@route  DELETE api/inventory/remove
 //@desc  Delete Item
 //@access Private
-//@author Lasal
+//@author Dilumi
 
 router.delete("/removeItem/:id", async (req, res) => {
   try {
@@ -103,7 +103,7 @@ router.delete("/removeItem/:id", async (req, res) => {
 //@route  Update api/shop/update
 //@desc  update Item
 //@access Private
-//@author Lasal
+//@author Dilumi
 
 router.post("/updateItem/:id", async (req, res) => {
   try {

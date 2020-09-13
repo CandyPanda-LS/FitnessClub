@@ -10,7 +10,7 @@ const InventorySchema = new Schema({
     type: String,
   },
   ManufacturelDate: {
-    type: String,
+    type: Date,
   },
   ServiceDate: {
     type: Date,

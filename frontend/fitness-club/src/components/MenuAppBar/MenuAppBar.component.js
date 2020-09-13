@@ -308,7 +308,7 @@ export default function MenuAppBar() {
                         <img
                           alt="profileimage"
                           className="border rounded-circle img-profile"
-                          src={"uploads/users/" + userImage}
+                          src={"/uploads/users/" + userImage}
                         />
                       </Link>
                       <div
@@ -445,7 +445,7 @@ export default function MenuAppBar() {
                 component={InsertInventoryItems}
               />
               <Route
-                path="/UpdateInventoryitems"
+                path="/UpdateInventoryitems/:id"
                 exact
                 component={UpdateInventoryItems}
               />
