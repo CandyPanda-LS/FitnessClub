@@ -117,7 +117,7 @@ router.post(
 //@route  DELETE api/profile
 //@desc  Delete profile,user & posts
 //@access Private
-//@author Chamodi
+//@author Senura
 
 router.delete("/", auth, async (req, res) => {
   try {

@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Imageslider from "../../Slider/imageslider.component";
-import Cart from "../cart/cart.component";
-
-
-
-
 
 //end
 import "./ItemsGrid.css";
@@ -64,7 +59,6 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
 }
 // Single item functional component end
 
-
 export default class ItemsGrid extends Component {
   constructor(props) {
     super(props);
@@ -88,7 +82,6 @@ export default class ItemsGrid extends Component {
   render() {
     return (
       <div>
-        <Cart/>
         {/* Image Slider */}
         <Imageslider />
         {/* Ecommerce grid */}
