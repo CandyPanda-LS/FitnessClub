@@ -111,7 +111,7 @@ export default class Item extends Component {
     await axios
       .post("http://localhost:5000/api/cart", newCart, config)
       .then(() => {
-        alert("Cart Created");
+        console.log("Cart Created");
       })
       .catch((err) => {
         alert(err);
@@ -132,6 +132,8 @@ export default class Item extends Component {
       .catch((err) => {
         alert(err);
       });
+
+    window.location = "/shop";
   }
 
   // quantity changing functions
