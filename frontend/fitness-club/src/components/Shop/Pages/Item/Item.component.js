@@ -133,7 +133,7 @@ export default class Item extends Component {
         alert(err);
       });
 
-    window.location = "/shop";
+    window.location = "/cart";
   }
 
   // quantity changing functions

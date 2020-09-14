@@ -94,4 +94,30 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
+//@route  DELETE  api/profile/dailyexerciselist/:dailyexercise_id
+//@desc  Add profile completed Workout
+//@access private
+//@author Senura
+
+router.delete("/cartlist/:itemid", auth, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({ user: req.user.id });
+
+    //GET remove index
+
+    const removeIndex = cart.cartList
+      .map((item) => item.id)
+      .indexOf(req.params.itemid);
+
+    cart.cartList.splice(removeIndex, 1);
+
+    await cart.save();
+
+    res.json(cart);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

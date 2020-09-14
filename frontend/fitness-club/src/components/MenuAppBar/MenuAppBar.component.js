@@ -30,6 +30,8 @@ import ItemsGrid from "../Shop/Pages/ItemsGrid/ItemsGrid.component";
 import Item from "../Shop/Pages/Item/Item.component";
 import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
 import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
+import MainCart from "../Shop/Pages/cart/maincart.component";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 // @desc import Components
 // @author Rajindu
@@ -232,6 +234,12 @@ export default function MenuAppBar() {
                     <Link className="nav-link" to="/shop">
                       <i className="fas fa-briefcase"></i>
                       <span>Shop</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/cart">
+                      <i className="fas fa-shopping-cart"></i>
+                      <span>Cart</span>
                     </Link>
                   </li>{" "}
                 </>
@@ -482,6 +490,8 @@ export default function MenuAppBar() {
               <Switch>
                 <Route exact path="/shopItem/:id" component={Item} />
               </Switch>
+
+              <Route path="/cart" exact component={MainCart} />
               <Route
                 path="/insertItemShop"
                 exact
