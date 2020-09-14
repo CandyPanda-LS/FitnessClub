@@ -9,8 +9,10 @@ const { json } = require("express");
 
 router.use(cors());
 
+//active cart for user
+
 router.post("/", auth, async (req, res) => {
-  const activated = "active";
+  const { activated } = req.body;
 
   //build profile object
   const profileFields = {};
@@ -63,6 +65,27 @@ router.put("/addtocart", auth, async (req, res) => {
     cart.cartList.unshift(newCartList);
 
     await cart.save();
+
+    res.json(cart);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route  GET api/cart/me
+//@desc   Get current users cart
+//@access Private
+//to protect auth add as the second parameter
+router.get("/me", auth, async (req, res) => {
+  try {
+    const cart = await Cart.findOne({
+      user: req.user.id,
+    }).populate("user", ["firstName", "lastName"]);
+
+    if (!cart) {
+      return res.status(400).json({ msg: "There is no profile for this user" });
+    }
 
     res.json(cart);
   } catch (err) {
