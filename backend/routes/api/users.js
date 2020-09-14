@@ -56,8 +56,11 @@ router.post(
           .json({ errors: [{ msg: "User already exist" }] });
       }
 
+      const role = "user";
+
       //create a user instance
       user = new User({
+        role,
         firstName,
         lastName,
         email,

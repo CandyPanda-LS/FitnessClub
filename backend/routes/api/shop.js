@@ -103,7 +103,7 @@ router.post("/updateItem/:id", async (req, res) => {
   try {
     //if there is no image
     if (req.files == null) {
-      Item.findOneAndUpdate(req.params.id)
+      Item.findById(req.params.id)
         .then((item) => {
           item.ItemName = req.body.ItemName;
           item.ItemPrice = req.body.ItemPrice;

@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   //@author Dilmi
 
+  role: {
+    type: String,
+  },
   firstName: {
     type: String,
   },

@@ -16,6 +16,7 @@ export default class UserRegistration extends Component {
       password: "",
       password2: "",
       status: "",
+      token: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -79,7 +80,11 @@ export default class UserRegistration extends Component {
 
       axios
         .post("http://localhost:5000/api/users/", user)
-        .then((res) => console.log(res.data))
+        .then(async (res) => {
+          console.log("token is " + res.data.token);
+
+          console.log(res.data);
+        })
         .catch((error) => {
           console.log(error);
         });

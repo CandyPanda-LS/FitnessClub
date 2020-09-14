@@ -75,15 +75,14 @@ export default class Profile extends Component {
 
     const formData = new FormData();
 
-    formData.append("username", this.state.username);
-    formData.append("email", this.state.email);
-    formData.append("firstName", this.state.firstName);
-    formData.append("lastName", this.state.lastName);
-    formData.append("address", this.state.address);
-    formData.append("mobileNo", this.state.mobileNo);
-    formData.append("gender", this.state.gender);
-    formData.append("password", this.state.password2);
-    formData.append("password2", this.state.password2);
+    // formData.append("username", this.state.username);
+    // formData.append("email", this.state.email);
+    // formData.append("firstName", this.state.firstName);
+    // formData.append("lastName", this.state.lastName);
+    // formData.append("address", this.state.address);
+    // formData.append("mobileNo", this.state.mobileNo);
+    // formData.append("gender", this.state.gender);
+    // formData.append("password2", this.state.password2);
     formData.append("file", this.state.file);
 
     const config = {

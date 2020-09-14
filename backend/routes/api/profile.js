@@ -33,7 +33,7 @@ router.get("/me", auth, async (req, res) => {
 //@route  POST api/profile
 //@desc   Create or Update a User Profile (Select a gym package package)
 //@access Private
-//@author Chamodi
+//@author chamodi
 
 router.post(
   "/",
@@ -117,7 +117,7 @@ router.post(
 //@route  DELETE api/profile
 //@desc  Delete profile,user & posts
 //@access Private
-//@author Chamodi
+//@author Senura
 
 router.delete("/", auth, async (req, res) => {
   try {

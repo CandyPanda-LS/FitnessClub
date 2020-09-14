@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 //import PropTypes from "prop-types";
 //import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -33,6 +34,21 @@ const useStyles = makeStyles({
 });
 
 export default function InstructorManage() {
+  const [profile, setProfile] = useState("true");
+  /*Redirect to login page if there is no token*/
+  useEffect(() => {
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/";
+    }
+  }, []);
+
   const classes = useStyles();
   return (
     <div style={{ marginBottom: "100px" }}>
