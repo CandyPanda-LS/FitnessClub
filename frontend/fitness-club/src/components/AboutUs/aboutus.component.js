@@ -1,7 +1,5 @@
 import React from 'react';
 
-import '';
-
 export default function AboutUs() {
   return (
     <>
@@ -59,7 +57,7 @@ export default function AboutUs() {
             <div>
               <div
                 class='row'
-                style='padding: 0px;padding-top: 27px;margin: 0px;'
+                style={{ padding: '0px', paddingTop: '27px', margin: '0px' }}
               >
                 <div class='col'>
                   <img src='assets/img/ggym.jpg' width='100%' />
@@ -101,7 +99,7 @@ export default function AboutUs() {
                 </div>
                 <div
                   class='row'
-                  style='padding: 0px;padding-top: 27px;margin: 0px;'
+                  style={{ padding: '0px', paddingTop: '27px', margin: '0px' }}
                 >
                   <div class='col'>
                     <input
