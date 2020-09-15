@@ -116,6 +116,49 @@ export default class BurnCalories extends Component {
       response: "Loading...",
     });
 
+    //set validations
+    // date: new Date(),
+    // query: "",
+    // gender: "male",
+    // weight_kg: "",
+    // height_cm: "",
+    // age: "",
+    // nf_calories: 0,
+    // duration_min: 0,
+    // time: "",
+    if (this.state.date == "") {
+      alert("Date is required");
+      return false;
+    }
+    if (this.state.weight_kg == "") {
+      alert("Weight is required");
+      return false;
+    }
+    if (this.state.height_cm == "") {
+      alert("Height is required");
+      return false;
+    }
+    if (this.state.gender == "") {
+      alert("Gender is required");
+      return false;
+    }
+    if (this.state.age == "") {
+      alert("Age is required");
+      return false;
+    }
+    if (this.state.query == "") {
+      alert("Exercise is required");
+      return false;
+    }
+    // if (this.state.duration_min == "") {
+    //   alert("Duration is required");
+    //   return false;
+    // }
+    if (this.state.time == "") {
+      alert("Time is required");
+      return false;
+    }
+
     const exercise = {
       query: this.state.query + " " + this.state.time + "minutes",
       gender: this.state.gender,
