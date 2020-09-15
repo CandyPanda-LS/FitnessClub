@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./ManageNotice.css";
-
+import $ from 'jquery';
 import Background from "./img/gymbanner2.jpg";
 
 export default class UpdateNotice extends Component {
@@ -46,22 +46,26 @@ componentDidMount() {
 }
 
 onNoticeTitleChange(e) {
+  $("#noticeTitle").css("background-color", "#fff");
     this.setState({
       noticeTitle: e
     })
 }
 onNoticeDesChange(e) {
+  $("#noticeDescription").css("background-color", "#fff");
     this.setState({
       noticeDescription: e
     })
 }
 onNoticeDateChange(e) {
+  $("#noticeDate").css("background-color", "#fff");
     this.setState({
       date: e
     })
 }
 
 submitNotice(e) {
+  if(this.formValidate()){
   const noticeId = this.props.location.data;
   const noticeDetails = {
     NoticeTitle: this.state.noticeTitle,
@@ -105,9 +109,25 @@ submitNotice(e) {
         console.log(err);
     }
   }
-    
 }
+}
+formValidate(){
+  var validate=true;
 
+  if(this.state.noticeTitle===""){
+    validate=false;
+    $("#noticeTitle").css("background-color", "#ffc0c0");
+  }
+  if(this.state.noticeDescription===""){
+    validate=false;
+    $("#noticeDescription").css("background-color", "#ffc0c0");
+  }
+  if(this.state.date===""){
+    validate=false;
+    $("#noticeDate").css("background-color", "#ffc0c0");
+  }
+  return validate;
+}
   render() {
     return (
       <div class="container">
@@ -143,7 +163,7 @@ submitNotice(e) {
                           <input
                             class="form-control form-control-user"
                             type="text"
-                            id="exampleInputEmail"
+                            id="noticeTitle"
                             placeholder="Enter Notice Title..."
                             name="title"
                             value={this.state.noticeTitle}
@@ -154,7 +174,7 @@ submitNotice(e) {
                           <textarea
                             class="form-control form-control-user"
                             type="text"
-                            id="exampleInputEmail"
+                            id="noticeDescription"
                             placeholder="Enter Notice Description..."
                             name="description"
                             value={this.state.noticeDescription}
@@ -169,13 +189,14 @@ submitNotice(e) {
                             Date
                           </label>
                           <input
+                            id="noticeDate"
                             class="form-control form-control-user"
                             type="date"
                             style={{ borderRadius: "20px" }}
                             placeholder="Enter Date..."
                             name="date"
                             value={this.state.date}
-                            onChange={e => this.onNoticeDateChange(e.target.value)}
+                            onChange={e => this.onNoticeDateChange(e.target.value)} min={new Date().toISOString().split('T')[0]}
                           />
                         </div>
 

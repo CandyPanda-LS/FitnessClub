@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import "./ManageGymPackage.css";
 import axios from "axios";
-
+import $ from 'jquery';
 export default class UpdateGymPackage extends Component {
   constructor(props) {
       super(props);
@@ -55,22 +55,26 @@ export default class UpdateGymPackage extends Component {
   }
 
   onPackageNameChange(e) {
+    $("#packageName").css("background-color", "#fff");
       this.setState({
           packageName: e
       })
   }
   onPackageDesChange(e) {
+    $("#packageDes").css("background-color", "#fff");
       this.setState({
           packageDescription: e
       })
   }
   onPackagePriceChange(e) {
+    $("#packagePrice").css("background-color", "#fff");
       this.setState({
           packagePrice: e
       })
   }
   fileChange = event => {
-      let file = event.target.files[0]
+      let file = event.target.files[0];
+      this.fileValidate(file);
       var reader = new FileReader();
       var url = reader.readAsDataURL(file);
 
@@ -85,12 +89,50 @@ export default class UpdateGymPackage extends Component {
       })
 
   }
+  fileValidate(file){
+    var sFileName = file.name;
+    console.log(file);
+
+      var blnValid = false;
+      var _validFileExtensions = [".jpg", ".jpeg", ".png"]; 
+      for (var j = 0; j < _validFileExtensions.length; j++) {
+        var sCurExtension = _validFileExtensions[j];
+        if (sFileName.substr(sFileName.length - sCurExtension.length, sCurExtension.length).toLowerCase() == sCurExtension.toLowerCase()) {
+            blnValid = true;
+        }
+    }
+      if (!blnValid) {
+          alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
+          $('#imageFile').val('');
+      }
+      return blnValid;
+
+    
+  }
   searchChange = event => {
       this.setState({
           searchVal: event.target.value
       })
   }
+  formValidate(){
+    var validate=true;
+
+    if(this.state.packageName===""){
+      validate=false;
+      $("#packageName").css("background-color", "#ffc0c0");
+    }
+    if(this.state.packageDescription===""){
+      validate=false;
+      $("#packageDes").css("background-color", "#ffc0c0");
+    }
+    if(this.state.packagePrice===""){
+      validate=false;
+      $("#packagePrice").css("background-color", "#ffc0c0");
+    }
+    return validate;
+  }
   submitPackage(e) {
+    if(this.formValidate()){
     if(this.state.updateMode=="Update"){
       const packageId = this.props.location.data;
       try {
@@ -152,7 +194,7 @@ export default class UpdateGymPackage extends Component {
           console.log(err);
       }
     }
-      
+  }
   }
   render() {
     
@@ -225,7 +267,7 @@ export default class UpdateGymPackage extends Component {
                           <input
                             class="form-control form-control-user"
                             type="file"
-                            id="exampleInputEmail"
+                            id="imageFile"
                             name="Image"
                             style={{ padding: "2px" }}
                             onChange={(e)=>this.fileChange(e)}
