@@ -23,12 +23,28 @@ export default function EcommerceInsertitem() {
   const [ItemName, setItemName] = useState(null);
   const [ItemPrice, setItemPrice] = useState(null);
   const [ItemDescriprion, setItemDescriprion] = useState(null);
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onSubmit(e) {
-
     e.preventDefault();
+
+    if (ItemName == null) {
+      alert("Item Name Required");
+      return false;
+    }
+    if (ItemPrice == null) {
+      alert("Item Price Required");
+      return false;
+    }
+    if (ItemDescriprion == null) {
+      alert("Item Description Required");
+      return false;
+    }
+    if (file == null) {
+      alert("Item Image Required");
+      return false;
+    }
 
     const formData = new FormData();
 
