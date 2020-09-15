@@ -258,12 +258,20 @@ export default function MenuAppBar() {
                   </li>{" "}
                 </>
               ) : (
-                <li className="nav-item" role="presentation">
-                  <Link className="nav-link" to="/">
-                    <i className="fas fa-home"></i>
-                    <span>Home</span>
-                  </Link>
-                </li>
+                <>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/">
+                      <i className="fas fa-home"></i>
+                      <span>Home</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/admin">
+                      <i className="fas fa-chalkboard-teacher"></i>
+                      <span>Dashboard</span>
+                    </Link>
+                  </li>
+                </>
               )}
             </ul>
             <div className="text-center d-none d-md-inline">
