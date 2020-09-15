@@ -20,6 +20,11 @@ export default function Createadvertiesement() {
   function onFormSubmit(e) {
     e.preventDefault();
 
+    if (Title == "") {
+      alert("Title is required");
+      return false;
+    }
+
     const formData = new FormData();
 
     formData.append("title", Title);

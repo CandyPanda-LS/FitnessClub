@@ -51,6 +51,10 @@ export default function ArticleList() {
                       >
                         <img
                           class="img-fluid card-img w-100 d-block"
+                          style={{
+                            width: "200px",
+                            height: "200px",
+                          }}
                           src={"uploads/fitnessUpdates/" + articlepost.image}
                           alt="ImageArticle"
                         />

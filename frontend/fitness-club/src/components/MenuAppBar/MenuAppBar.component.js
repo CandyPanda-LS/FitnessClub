@@ -201,7 +201,7 @@ export default function MenuAppBar() {
                   </li>
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/articlelist">
-                      <i className="fas fa-ad"></i>
+                      <i className="fas fa-newspaper"></i>
                       <span>Fitness Updates</span>
                     </Link>
                   </li>{" "}
