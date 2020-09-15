@@ -196,7 +196,7 @@ export default class Item extends Component {
             }}
           >
             <div class="row" style={{ marginTop: "0px" }}>
-              <div class="col">
+              <div class="col" style={{ margin: "0px" }}>
                 <img
                   data-bs-hover-animate="pulse"
                   src={"/uploads/shop/" + this.state.ItemImage}
@@ -210,7 +210,7 @@ export default class Item extends Component {
                   alt="itemImage"
                 />
               </div>
-              <div class="col">
+              <div class="col" style={{ margin: "0px" }}>
                 <div
                   class="card"
                   style={{

@@ -1,10 +1,44 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import "./updatefitnessupdate.css";
 
 import Background from "./img/fitnessupdate.jpg";
 
 export default class updateFitnessUpdate extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      id: "",
+      topic: "",
+      description: "",
+      link: "",
+      image: "",
+    };
+  }
+
+  componentDidMount() {
+    axios
+      .get(
+        "http://localhost:5000/api/fitnessUpdate/" + this.props.match.params.id
+      )
+      .then((res) => {
+        console.log(res.data);
+        this.setState({
+          id: res.data._id,
+          topic: res.data.topic,
+          description: res.data.description,
+          link: res.data.link,
+          image: res.data.image,
+          file: null,
+        });
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
   render() {
     return (
       <div class="container">
@@ -44,7 +78,12 @@ export default class updateFitnessUpdate extends Component {
                             class="form-control form-control-user"
                             type="text"
                             id="exampleInputEmail"
-                            placeholder="Enter Topic..."
+                            value={this.state.topic}
+                            onChange={(e) => {
+                              this.setState({
+                                topic: e.target.value,
+                              });
+                            }}
                             name="Topic"
                           />
                         </div>
@@ -54,7 +93,12 @@ export default class updateFitnessUpdate extends Component {
                             class="form-control form-control-user"
                             type="text"
                             style={{ borderRadius: "20px" }}
-                            placeholder="Enter  Description..."
+                            value={this.state.description}
+                            onChange={(e) => {
+                              this.setState({
+                                description: e.target.description,
+                              });
+                            }}
                             name="Description"
                           />
                         </div>
@@ -64,7 +108,12 @@ export default class updateFitnessUpdate extends Component {
                             class="form-control form-control-user"
                             type="text"
                             id="exampleInputEmail"
-                            placeholder="Enter Link..."
+                            value={this.state.link}
+                            onChange={(e) => {
+                              this.setState({
+                                link: e.target.link,
+                              });
+                            }}
                             name="Link"
                           />
                         </div>
@@ -75,7 +124,11 @@ export default class updateFitnessUpdate extends Component {
                             class="form-control form-control-user"
                             type="file"
                             id="exampleInputEmail"
-                            placeholder="Enter Link..."
+                            onChange={(e) => {
+                              this.setState({
+                                file: e.target.files[0],
+                              });
+                            }}
                             name="image"
                           />
                         </div>
