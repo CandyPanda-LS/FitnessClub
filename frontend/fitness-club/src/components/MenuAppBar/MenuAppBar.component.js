@@ -31,7 +31,6 @@ import Item from "../Shop/Pages/Item/Item.component";
 import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
 import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 import MainCart from "../Shop/Pages/cart/maincart.component";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 // @desc import Components
 // @author Rajindu

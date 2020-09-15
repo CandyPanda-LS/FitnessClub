@@ -32,31 +32,49 @@ export default class InsertInstructor extends Component {
   submitHandler(e) {
     e.preventDefault();
 
-    const instructor = {
-      instructorID: this.state.instructorId,
-      name: this.state.name,
-      dob: this.state.dob,
-      gender: this.state.gender,
-      address: this.state.address,
-      phone: this.state.phone,
-      email: this.state.email,
-      password: this.state.password,
-    };
+    let tempName = this.state.name;
+    let tempPhone = this.state.phone;
+    let tempPassword = [this.state.tempPassword];
+    let errors = [];
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    if (!tempName.match(/^[a-zA-Z]+$/)) {
+      errors.push("Name : Letters Only");
+    }
 
-    axios
-      .post("http://localhost:5000/api/instructors/add", instructor, config)
-      .then((res) => alert(res.data))
-      .catch((error) => {
-        alert(error);
-      });
+    if (tempPhone.length != 10) {
+      errors.push("Phone : 10 Digits Only");
+    }
 
-    window.location = "/list";
+    if (errors.length == 0) {
+      const instructor = {
+        instructorID: this.state.instructorId,
+        name: this.state.name,
+        dob: this.state.dob,
+        gender: this.state.gender,
+        address: this.state.address,
+        phone: this.state.phone,
+        email: this.state.email,
+        password: this.state.password,
+      };
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios
+        .post("http://localhost:5000/api/instructors/add", instructor, config)
+        .then((res) => {
+          alert(res.data);
+          window.location = "/list";
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    } else {
+      alert(errors.pop());
+    }
   }
 
   onChangeInstructorId = (e) => {
