@@ -485,7 +485,7 @@ export default function InstructorManage() {
                   </Button>
                 </Link>
                 <Link
-                  to="/FitnessUpdatesTable"
+                  to="/adminDashboardShop"
                   style={{ textDecoration: "none" }}
                 >
                   <Button
@@ -494,7 +494,7 @@ export default function InstructorManage() {
                     href="#contained-buttons"
                     style={{ color: "white" }}
                   >
-                    List | Remove | Update
+                    Go to dashboard
                   </Button>
                 </Link>
               </CardActions>
