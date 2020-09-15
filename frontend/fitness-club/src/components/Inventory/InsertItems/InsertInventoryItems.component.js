@@ -9,17 +9,42 @@ import Progress from "./Progress";
 import Background from "./img/gymbanner.jpg";
 
 export default function InsertInventoryItems() {
-  const [ItemType, setItemType] = useState();
-  const [ItemBrand, setItemBrand] = useState();
-  const [ManufacturelDate, setManufacturelDate] = useState();
-  const [ServiceDate, setServiceDate] = useState();
-  const [Warranty, setWarranty] = useState();
-  const [PurchasedDate, setPurchasedDate] = useState();
+  const [ItemType, setItemType] = useState(null);
+  const [ItemBrand, setItemBrand] = useState(null);
+  const [ManufacturelDate, setManufacturelDate] = useState(null);
+  const [ServiceDate, setServiceDate] = useState(null);
+  const [Warranty, setWarranty] = useState(null);
+  const [PurchasedDate, setPurchasedDate] = useState(null);
   const [file, setItemImage] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onFormSubmit(e) {
     e.preventDefault();
+
+    if (ItemType == null) {
+      alert("Item Type is required");
+      return false;
+    }
+    if (ItemBrand == null) {
+      alert("Item Brand is required");
+      return false;
+    }
+    if (ManufacturelDate == null) {
+      alert("Manufacturel Date  is required");
+      return false;
+    }
+    if (ServiceDate == null) {
+      alert("Service Date is required");
+      return false;
+    }
+    if (Warranty == null) {
+      alert("Warranty is required");
+      return false;
+    }
+    if (PurchasedDate == null) {
+      alert("Purchased Date  is required");
+      return false;
+    }
 
     const formData = new FormData();
 
