@@ -8,9 +8,9 @@ import Background from "./image/gymbanner.jpg";
 import Progress from "./Progress";
 
 export default function Createadvertiesement() {
-  const [Title, setTitle] = useState();
-  const [Description, setDescription] = useState();
-  const [file, setFile] = useState();
+  const [Title, setTitle] = useState(null);
+  const [Description, setDescription] = useState(null);
+  const [file, setFile] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onChangeFile(e) {
@@ -19,6 +19,19 @@ export default function Createadvertiesement() {
 
   function onFormSubmit(e) {
     e.preventDefault();
+
+    if (Title == null) {
+      alert("Title is required");
+      return false;
+    }
+    if (Description == null) {
+      alert("Description is required");
+      return false;
+    }
+    if (file == null) {
+      alert("Image is required");
+      return false;
+    }
 
     const formData = new FormData();
 
@@ -86,7 +99,6 @@ export default function Createadvertiesement() {
                           placeholder="Title"
                           name="title"
                           onChange={(e) => setTitle(e.target.value)}
-                          required
                         />
                       </div>
                     </div>
@@ -101,7 +113,6 @@ export default function Createadvertiesement() {
                           placeholder="Description"
                           name="description"
                           onChange={(e) => setDescription(e.target.value)}
-                          required
                         ></textarea>
                       </div>
                     </div>
@@ -116,7 +127,6 @@ export default function Createadvertiesement() {
                           placeholder="{filename}"
                           name="image"
                           onChange={onChangeFile}
-                          required
                         />
                       </div>
                     </div>

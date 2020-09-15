@@ -1,6 +1,5 @@
 import React from "react";
 
-import Background from "./img/gymbannner.jpg";
 
 export default function HomeComponent() {
   return (
@@ -11,16 +10,15 @@ export default function HomeComponent() {
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item">
               <div class="jumbotron pulse animated hero-nature carousel-hero">
-                <h1 class="hero-title">Hero Nature</h1>
+                <h1 class="hero-title">Online Store</h1>
                 <p class="hero-subtitle">
-                  Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                  justo odio, dapibus ac facilisis in, egestas eget quam.
+                  For each of those gym lovers out there, are you tired of visiting stores for sports wear?Then here is the solution...
                 </p>
                 <p>
                   <a
                     class="btn btn-primary hero-button plat"
                     role="button"
-                    href="/"
+                    href="/shop"
                   >
                     Learn more
                   </a>
@@ -29,16 +27,15 @@ export default function HomeComponent() {
             </div>
             <div class="carousel-item">
               <div class="jumbotron pulse animated hero-photography carousel-hero">
-                <h1 class="hero-title">Hero Photography</h1>
+                <h1 class="hero-title">Packages</h1>
                 <p class="hero-subtitle">
-                  Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                  justo odio, dapibus ac facilisis in, egestas eget quam.
+                Packages are the best bet if you’re still experimenting or if life is a bit too complicated right now for you to commit. 
                 </p>
                 <p>
                   <a
                     class="btn btn-primary hero-button plat"
                     role="button"
-                    href="/"
+                    href="/Packages"
                   >
                     Learn more
                   </a>
@@ -47,10 +44,10 @@ export default function HomeComponent() {
             </div>
             <div class="carousel-item active">
               <div class="jumbotron pulse animated hero-technology carousel-hero">
-                <h1 class="hero-title">Hero Technology</h1>
+                <h1 class="hero-title">About Us</h1>
                 <p class="hero-subtitle">
-                  Nullam id dolor id nibh ultricies vehicula ut id elit. Cras
-                  justo odio, dapibus ac facilisis in, egestas eget quam.
+                Providing a quality healthcare service and giving our members control 
+                over their health is paramount at Fitness Club.
                 </p>
                 <p>
                   <a
@@ -108,44 +105,45 @@ export default function HomeComponent() {
                 </div>
                 <div class="separator-fitur"></div>
                 <div>
-                  <h4 class="heading-fitur">Secure </h4>
+                  <h4 class="heading-fitur">New Equipment </h4>
                   <p class="paragraf-fitur">
-                    Our 2-of-3 multi-signature wallet removes all single points
-                    of failure by using 3 keys
+                  New Equipment Digest delivers the latest industrial product information, market trends and
+                   manufacturing news to print and digital readers in tens-of-thousands of facilities
                   </p>
                 </div>
               </div>
               <div class="col-sm-4 col-md-4 waves-effect kolom-b">
                 <div class="fitur-a">
                   <img
-                    src="assets/img/medal.png"
+                    src="assets/img/dumbell.png"
                     style={{ width: "150px" }}
                     alt="imageHome"
                   />
                 </div>
                 <div class="separator-fitur"></div>
                 <div>
-                  <h4 class="heading-fitur">Simple </h4>
+                  <h4 class="heading-fitur">Personalized Free Workouts </h4>
                   <p class="paragraf-fitur">
-                    BitGo provides a simple and robust REST-ful API as well as
-                    an easy to use client SDK to&nbsp;
+                  Trainers also measure their client’s strengths and weaknesses with fitness assessments. 
+                  These fitness assessments may also be performed before and after an exercise program. 
+                  Each member will get personalized workouts
                   </p>
                 </div>
               </div>
               <div class="col-sm-4 col-md-4 waves-effect kolom-c">
                 <div class="fitur-a">
                   <img
-                    src="assets/img/shield.png"
+                    src="assets/img/heart.png"
                     style={{ width: "150px" }}
                     alt="imageHome"
                   />
                 </div>
                 <div class="separator-fitur"></div>
                 <div>
-                  <h4 class="heading-fitur">Powerfull </h4>
+                  <h4 class="heading-fitur">Fully Passion </h4>
                   <p class="paragraf-fitur">
-                    Our powerful, client-side SDK implements all the security
-                    details needed for today's&nbsp;
+                  Instructors at Fitness Club are qualified and trained.
+                   Our #1 goal as a team is to help you reach your fitness goals while providing you with the most effective.
                   </p>
                 </div>
               </div>
@@ -156,7 +154,7 @@ export default function HomeComponent() {
       {/* End of Services Section */}
 
       {/* Jumptron Section */}
-      <div
+      {/* <div
         class="row clearmargin clearpadding row-image-txt"
         style={{ backgroundColor: "rgb(20,102,227)" }}
       >
@@ -193,11 +191,15 @@ export default function HomeComponent() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* End of Jumptron Section */}
 
       {/* Image Grid */}
+      <center>
+        <h3>Meet Your Tribe</h3>
+        <h1>#TougherTogether</h1>
+      </center>
       <div className="container" style={{ marginTop: "30px" }}>
         <div class="row flex-box flex-wrap-wrap">
           <div class="col-sm-4 flex-box flex-justify-center flex-align-center">
@@ -205,11 +207,11 @@ export default function HomeComponent() {
               class="fancybox"
               rel="gallery1"
               title="Hero Image Nature"
-              href="assets/img/hero-background-nature.jpg"
+              href="assets/img/people1.jpeg"
             >
               <img
                 class="img-fluid"
-                src="assets/img/hero-background-nature.jpg"
+                src="assets/img/people1.jpeg"
                 alt="imageHome"
               />
             </a>
@@ -219,11 +221,11 @@ export default function HomeComponent() {
               class="fancybox"
               rel="gallery1"
               title="Hero Image Technology"
-              href="assets/img/hero-background-technology.jpg"
+              href="assets/img/people2.jpeg"
             >
               <img
                 class="img-fluid"
-                src="assets/img/hero-background-technology.jpg"
+                src="assets/img/people2.jpeg"
                 alt="imageHome"
               />
             </a>
@@ -233,12 +235,12 @@ export default function HomeComponent() {
               class="fancybox"
               rel="gallery1"
               title="Hero Image Travel"
-              href="assets/img/hero-background-travel.jpg"
+              href="assets/img/people3.jpeg"
               alt="imageHome"
             >
               <img
                 class="img-fluid"
-                src="assets/img/hero-background-travel.jpg"
+                src="assets/img/people3.jpeg"
                 alt="imageHome"
               />
             </a>
@@ -248,11 +250,11 @@ export default function HomeComponent() {
               class="fancybox"
               rel="gallery1"
               title="Hero Image Food"
-              href="assets/img/hero-background-food.jpg"
+              href="assets/img/people4.jpeg"
             >
               <img
                 class="img-fluid"
-                src="assets/img/hero-background-food.jpg"
+                src="assets/img/people4.jpeg"
                 alt="imageHome"
               />
             </a>
@@ -262,11 +264,11 @@ export default function HomeComponent() {
               class="fancybox"
               rel="gallery1"
               title="Hero Image Music"
-              href="assets/img/hero-background-music.jpg"
+              href="assets/img/people5.jpeg"
             >
               <img
                 class="img-fluid"
-                src="assets/img/hero-background-music.jpg"
+                src="assets/img/people5.jpeg"
                 alt="imageHome"
               />
             </a>
@@ -276,11 +278,11 @@ export default function HomeComponent() {
               class="fancybox"
               rel="gallery1"
               title="Hero Image Music"
-              href="assets/img/hero-background-music.jpg"
+              href="assets/img/people6.jpeg"
             >
               <img
                 class="img-fluid"
-                src="assets/img/hero-background-music.jpg"
+                src="assets/img/people6.jpeg"
                 alt="imageHome"
               />
             </a>

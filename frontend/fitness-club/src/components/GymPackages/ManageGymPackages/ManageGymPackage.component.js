@@ -1,6 +1,6 @@
 /*
  *
- * @author nayana
+ * @author chamodi
  *
  */
 import React, { Component } from "react";

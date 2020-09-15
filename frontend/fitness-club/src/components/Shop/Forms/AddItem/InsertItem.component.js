@@ -27,6 +27,7 @@ export default function EcommerceInsertitem() {
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onSubmit(e) {
+
     e.preventDefault();
 
     const formData = new FormData();

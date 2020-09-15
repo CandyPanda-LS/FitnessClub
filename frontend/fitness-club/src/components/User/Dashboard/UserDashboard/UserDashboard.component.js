@@ -19,8 +19,13 @@ const UserDashboard = () => {
   /*Redirect to login page if there is no token*/
   useEffect(() => {
     const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
 
     if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "user") {
       window.location = "/userlogin";
     }
 

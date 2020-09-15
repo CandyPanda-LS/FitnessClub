@@ -41,10 +41,9 @@ router.post(
       email,
       password,
       password2,
-      mobileNumber,
+      mobileNo,
       address,
       gender,
-      
     } = req.body;
 
     try {
@@ -57,17 +56,19 @@ router.post(
           .json({ errors: [{ msg: "User already exist" }] });
       }
 
+      const role = "user";
+
       //create a user instance
       user = new User({
+        role,
         firstName,
         lastName,
         email,
         password,
         password2,
-        mobileNumber,
+        mobileNo,
         address,
         gender,
-       
       });
 
       //Encrypt Password

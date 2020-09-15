@@ -54,7 +54,12 @@ const columns = [
     label: "Link",
     minWidth: 50,
     align: "center",
-    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "Image",
+    label: "Image",
+    minWidth: 50,
+    align: "center",
   },
 
   {
@@ -62,7 +67,6 @@ const columns = [
     label: "",
     minWidth: 50,
     align: "center",
-    format: (value) => value.toFixed(2),
   },
   {
     id: "DeleteID",
@@ -72,8 +76,8 @@ const columns = [
   },
 ];
 
-function createData(Topic, Description, Link, EditID, DeleteID) {
-  return { Topic, Description, Link, EditID, DeleteID };
+function createData(Topic, Description, Link, Image, EditID, DeleteID) {
+  return { Topic, Description, Link, Image, EditID, DeleteID };
 }
 
 const useStyles = makeStyles({
@@ -96,40 +100,39 @@ export default function FitnessUpdatesTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [DailyMealList, setDailyMealList] = useState([]);
 
-  //fetching meallist data from the backend
+  const [articlePost, setArticlePost] = useState([]);
+
   useEffect(() => {
-    const config = {
-      headers: {
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
+    const sendData = async () => {
+      try {
+        await axios
+          .get("http://localhost:5000/api/fitnessUpdate")
+          .then((res) => {
+            console.log(res.data);
+            setArticlePost(res.data);
+            // setLoading(false);
+          })
+          .catch((error) => {
+            console.log("No data");
+          });
+      } catch (error) {
+        console.log("No Data CATCH");
+      }
     };
 
-    axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
-
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    sendData();
   }, []);
 
   //map table row data
-  const rows = DailyMealList.map((currentMeal) => {
+  const rows = articlePost.map((currentPost) => {
     return createData(
-      currentMeal.date.substring(0, 10),
-      currentMeal.mealName,
-      currentMeal.calories,
-
-      currentMeal.fat,
-      currentMeal._id
+      currentPost.topic,
+      currentPost.description,
+      currentPost.link,
+      currentPost.image,
+      currentPost._id,
+      currentPost._id
     );
   });
 
@@ -142,35 +145,25 @@ export default function FitnessUpdatesTable() {
     setPage(0);
   };
 
-  async function deleteMeal(id) {
+  async function deletePost(id) {
     const config = {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
       },
     };
 
-    console.log("Delete meal id is " + id);
     await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
+      .delete(
+        "http://localhost:5000/api/fitnessUpdate/removepost/" + id,
+        config
+      )
       .then((response) => {
         console.log(response);
       });
 
     //rerender meal list(Get meallist Data from the backend)
 
-    await axios
-      .get("http://localhost:5000/api/profile/me", config)
-      .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
-
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    window.location = "/FitnessUpdatesTable";
   }
 
   return (
@@ -217,21 +210,27 @@ export default function FitnessUpdatesTable() {
                         >
                           {column.format && typeof value === "number" ? (
                             column.format(value)
+                          ) : column.id === "Image" ? (
+                            <img
+                              src={"uploads/fitnessUpdates/" + value}
+                              width="50px"
+                              heigth="50px"
+                              style={{ borderRadius: "50%" }}
+                            />
                           ) : column.id === "DeleteID" ? (
                             <HoverDeleteButton>
                               <DeleteOutlineIcon
                                 onClick={() => {
-                                  deleteMeal(value);
+                                  deletePost(value);
                                 }}
                               />
                             </HoverDeleteButton>
                           ) : column.id === "EditID" ? (
                             <HoverEditButton>
-                              <SettingsIcon
-                                onClick={() => {
-                                  deleteMeal(value);
-                                }}
-                              />
+                              <a href={"/updateFitnessUpdate/" + value}>
+                                {" "}
+                                <SettingsIcon></SettingsIcon>
+                              </a>
                             </HoverEditButton>
                           ) : (
                             value

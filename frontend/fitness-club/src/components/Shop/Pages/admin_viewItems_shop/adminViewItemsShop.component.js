@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-
-
-
+import { BrowserRouter as Link } from "react-router-dom";
 
 // Single item functional component start
 function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
@@ -23,7 +20,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
               <img
                 class="card-img w-100 d-block"
                 data-bs-hover-animate="pulse"
-                src={"uploads/shop/"+ItemImage}
+                src={"uploads/shop/" + ItemImage}
                 alt="itemImage"
               />
             </div>
@@ -31,9 +28,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
           <div class="col">
             <div class="row">
               <div class="col">
-                <h1 style={{ color: "rgb(255,255,255)" }}>
-                  {ItemName}
-                </h1>
+                <h1 style={{ color: "rgb(255,255,255)" }}>{ItemName}</h1>
                 <h1
                   class="align-content-end align-self-baseline"
                   style={{
@@ -50,27 +45,25 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
           <div class="col" style={{ padding: "30px" }}>
             <div class="row">
               <div class="col">
-                <Link to={"/UpdateItemShop/" + id}>
-                <button
-                  class="btn btn-primary m-auto"
-                  type="button"
-                  style={{
-                    color: "rgb(0,0,0)",
-                    backgroundColor: "rgb(146,174,196)",
-                    width: "150px",
-                    marginLeft: " 19px",
-                    height: "53px",
-                    fontSize: "25px",
-                    fontWeight: "bold",
-                  }}
-                >
+                <a href={"/UpdateItemShop/" + id}>
+                  <button
+                    class="btn btn-primary m-auto"
+                    type="button"
+                    style={{
+                      color: "rgb(0,0,0)",
+                      backgroundColor: "rgb(146,174,196)",
+                      width: "150px",
+                      marginLeft: " 19px",
+                      height: "53px",
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                    }}
+                  >
                     EDIT
-                </button>
-                </Link >
+                  </button>
+                </a>
               </div>
               <div class="col">
-
-
                 <button
                   class="btn btn-primary justify-content-center flex-wrap m-auto"
                   type="button"
@@ -82,22 +75,20 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
                     fontWeight: "bold",
                     fontSize: "26px",
                   }}
-
                   onClick={() => {
-
-                    axios.delete("http://localhost:5000/api/shop/removeItem/"+id).then(alert("Item deleted"), window.location = "/adminItemShop").catch((error) => {
-                      console.log(error);
-                    });
-
-
-
-
+                    axios
+                      .delete("http://localhost:5000/api/shop/removeItem/" + id)
+                      .then(
+                        alert("Item deleted"),
+                        (window.location = "/adminItemShop")
+                      )
+                      .catch((error) => {
+                        console.log(error);
+                      });
                   }}
                 >
                   DELETE
                 </button>
-
-
               </div>
             </div>
           </div>
@@ -132,13 +123,13 @@ export default class adminViewItemsShop extends Component {
         <div class="card-body">
           {this.state.Items.map((currentItem) => (
             <Item
-                id={currentItem._id}
-                key={currentItem._id}
-                ItemName={currentItem.ItemName}
-                ItemPrice={currentItem.ItemPrice}
-                ItemDescriprion={currentItem.ItemDescriprion}
-                ItemImage={currentItem.ItemImage}
-              />
+              id={currentItem._id}
+              key={currentItem._id}
+              ItemName={currentItem.ItemName}
+              ItemPrice={currentItem.ItemPrice}
+              ItemDescriprion={currentItem.ItemDescriprion}
+              ItemImage={currentItem.ItemImage}
+            />
           ))}
         </div>
       </div>

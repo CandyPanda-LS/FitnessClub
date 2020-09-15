@@ -66,9 +66,10 @@ export default class Item extends Component {
     this.substractItem = this.substractItem.bind(this);
     this.addSize = this.addSize.bind(this);
     this.substractSize = this.substractSize.bind(this);
+    this.addItemFunction = this.addItemFunction.bind(this);
 
     this.state = {
-      ItemsName: "",
+      ItemName: "",
       ItemPrice: 0,
       ItemDescription: "",
       ItemImage: "",
@@ -82,17 +83,57 @@ export default class Item extends Component {
       .get("http://localhost:5000/api/shop/" + this.props.match.params.id)
       .then((response) => {
         this.setState({
-          ItemsName: response.data.ItemName,
+          ItemName: response.data.ItemName,
           ItemPrice: response.data.ItemPrice,
           ItemDescription: response.data.ItemDescriprion,
-          ItemImage: Buffer.from(response.data.ItemImage.data).toString(
-            "base64"
-          ),
+          ItemImage: response.data.ItemImage,
         });
       })
       .catch((error) => {
         console.log("No Item");
       });
+  }
+
+  async addItemFunction(e) {
+    e.preventDefault();
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+        "Content-Type": "application/json",
+      },
+    };
+
+    const newCart = {
+      activated: "activated",
+    };
+    //when click a button create a cart
+    await axios
+      .post("http://localhost:5000/api/cart", newCart, config)
+      .then(() => {
+        console.log("Cart Created");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    const newItemToCart = {
+      ItemName: this.state.ItemName,
+      ItemPrice: this.state.ItemPrice,
+      ItemImage: this.state.ItemImage,
+      quantity: this.state.ItemQuantity,
+    };
+
+    await axios
+      .put("http://localhost:5000/api/cart/addtocart", newItemToCart, config)
+      .then(() => {
+        alert("Added to Cart");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    window.location = "/cart";
   }
 
   // quantity changing functions
@@ -155,10 +196,10 @@ export default class Item extends Component {
             }}
           >
             <div class="row" style={{ marginTop: "0px" }}>
-              <div class="col">
+              <div class="col" style={{ margin: "0px" }}>
                 <img
                   data-bs-hover-animate="pulse"
-                  src={`data:image/png;base64,${this.state.ItemImage}`}
+                  src={"/uploads/shop/" + this.state.ItemImage}
                   style={{
                     width: "600px",
                     height: " 600px",
@@ -169,7 +210,7 @@ export default class Item extends Component {
                   alt="itemImage"
                 />
               </div>
-              <div class="col">
+              <div class="col" style={{ margin: "0px" }}>
                 <div
                   class="card"
                   style={{
@@ -193,7 +234,7 @@ export default class Item extends Component {
                         fontSize: "40px",
                       }}
                     >
-                      {this.state.ItemsName}
+                      {this.state.ItemName}
                     </h1>
                     <br />
                     <br />
@@ -269,6 +310,7 @@ export default class Item extends Component {
                   </div>
                 </div>
                 <button
+                  onClick={this.addItemFunction}
                   class="btn btn-primary"
                   type="button"
                   style={{

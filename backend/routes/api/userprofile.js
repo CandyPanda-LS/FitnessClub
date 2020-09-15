@@ -50,7 +50,7 @@ router.get("/", auth, async (req, res) => {
 });
 
 //@route POST api/userprofile
-//@desc Create or update user profile
+//@desc  update user profile
 //@access Private
 
 router.post(
@@ -162,15 +162,32 @@ router.delete("/", auth, async (req, res) => {
   } catch (err) {}
 });
 
-//@route  POST api/advertisement/
-//@desc   Add advertisement into the database
+//@route  POST api/changeprofilepic/
+//@desc   Add profile pic into the database
 //@access Private
 //to protect auth add as the second parameter
-router.post("/changeprofilepic/:userid", async (req, res) => {
+router.patch("/updateimage/:id", async (req, res) => {
   try {
+    console.log(req.params.id);
     //if there is no image
     if (req.files == null) {
-      console.log("No Image Updated");
+      User.findByIdAndUpdate(req.params.id)
+        .then((profile) => {
+          // profile.firstName = req.body.firstName;
+          // profile.lastName = req.body.lastName;
+          // profile.address = req.body.address;
+          // profile.mobileNo = req.body.mobileNo;
+          // profile.gender = req.body.gender;
+          // profile.password = req.body.password;
+          // profile.password2 = req.body.password2;
+          profile.profImage = "user.png";
+
+          profile
+            .save()
+            .then(() => res.json("profile updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     }
     //if there is a image
     else {
@@ -181,13 +198,20 @@ router.post("/changeprofilepic/:userid", async (req, res) => {
           return res.status(500).send(err);
         }
 
-        User.findOneAndUpdate(req.params.userid)
-          .then((user) => {
-            user.profImage = file.name;
+        User.findByIdAndUpdate(req.params.id)
+          .then((profile) => {
+            // profile.firstName = req.body.firstName;
+            // profile.lastName = req.body.lastName;
+            // profile.address = req.body.address;
+            // profile.mobileNo = req.body.mobileNo;
+            // profile.gender = req.body.gender;
+            // profile.password = req.body.password;
+            // profile.password2 = req.body.password2;
+            profile.profImage = file.name;
 
-            user
+            profile
               .save()
-              .then(() => res.json("Profile Image updated!"))
+              .then(() => res.json("profImage updated!"))
               .catch((err) => res.status(400).json("Error: " + err));
           })
           .catch((err) => res.status(400).json("Error: " + err));

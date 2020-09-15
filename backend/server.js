@@ -24,9 +24,12 @@ app.get("/", (req, res) => res.send("Api Running"));
 app.use("/api/instructor/meal", require("./routes/api/meal"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/instructor/workout", require("./routes/api/Workout"));
+app.use("/api/admins", require("./routes/api/admins"));
+app.use("/api/authadmin", require("./routes/api/authadmin"));
 
 //-------------------Lasal---------------------
 app.use("/api/shop", require("./routes/api/shop"));
+app.use("/api/cart", require("./routes/api/addtocart"));
 
 //-------------------Dilmi---------------------
 app.use("/api/userprofile", require("./routes/api/userprofile"));
@@ -43,6 +46,12 @@ app.use("/api/instructors", require("./routes/api/instructors"));
 app.use("/api/packages", require("./routes/api/packages"));
 app.use("/api/notices", require("./routes/api/notices"));
 app.use("/packageImages", express.static("./packageImages"));
+
+//------------------Dilumi------------------------
+app.use("/api/inventory", require("./routes/api/inventory"));
+
+//------------------Jayani------------------------
+app.use("/api/fitnessUpdate", require("./routes/api/fitnessUpdate"));
 
 const PORT = process.env.PORT || 5000;
 

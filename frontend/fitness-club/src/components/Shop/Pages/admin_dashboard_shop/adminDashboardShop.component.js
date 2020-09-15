@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Chart from "../../Charts/YearlyIncome/YearlyIncomeChart";
 import BarChart from "../../Charts/BestSellingItems/BestSellingItemBarchart";
+import { Link } from "react-router-dom";
 
 export default class adminDashboardShop extends Component {
   render() {
@@ -17,23 +18,18 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "80px" }}>
-                          <img
-                            class="card-img w-100 d-block"
-                            src="./assets/img/Shop/3 adidas Ultraboost.png "
-                            style={{ width: "64px" }}
-                            alt="imageAdminEcommerce"
-                          />
-                        </div>
-                      </div>
-                      <div class="col" style={{ marginTop: "36px" }}>
-                        <button
-                          class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
-                          type="button"
-                          style={{ marginTop: "0px", fontSize: "12px" }}
+                        <Link
+                          to="/adminItemShop"
+                          style={{ textDecoration: "none" }}
                         >
-                          View Item
-                        </button>
+                          <button
+                            class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
+                            type="button"
+                            style={{ marginTop: "0px", fontSize: "12px" }}
+                          >
+                            View Item
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -51,23 +47,18 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "80px" }}>
-                          <img
-                            class="card-img w-100 d-block"
-                            src="./assets/img/Shop/gettyimages-1213796751-612x612.png"
-                            style={{ width: "64px" }}
-                            alt="imageAdminEcommerce"
-                          />
-                        </div>
-                      </div>
-                      <div class="col" style={{ marginTop: "36px" }}>
+                      <Link
+                          to="/insertItemShop"
+                          style={{ textDecoration: "none" }}
+                        >
                         <button
                           class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
                           type="button"
                           style={{ marginTop: "0px", fontSize: "12px" }}
                         >
-                          Add item
+                            Add item
                         </button>
+                          </Link>
                       </div>
                     </div>
                   </div>
@@ -85,53 +76,14 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
-                        <div class="card" style={{ width: "85px" }}>
-                          <img
-                            class="card-img w-100 d-block"
-                            src="assets/img/Shop/report-documents-research-vector-21162870.jpg"
-                            style={{ width: "64px" }}
-                            alt="imageAdminEcommerce"
-                          />
-                        </div>
-                      </div>
-                      <div class="col" style={{ marginTop: "36px" }}>
                         <button
                           class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
                           type="button"
                           style={{ marginTop: "0px", fontSize: "12px" }}
                         >
-                          &nbsp;report
+                          &nbsp;Genetrate report
                         </button>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col" style={{ margin: "15px" }}>
-            <div
-              class="card shadow-lg"
-              style={{ backgroundColor: "#92ade8", borderRadius: "10px" }}
-            >
-              <div class="card-body">
-                <div class="card" style={{ backgroundColor: "#074666" }}>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <div class="card" style={{ width: "80px" }}>
-                          <img
-                            class="card-img w-100 d-block"
-                            src="assets/img/Shop/a.jpg"
-                            style={{ width: "64px" }}
-                            alt="adminDashboardImage"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="col"
-                        style={{ marginTop: " 36px", marginLeft: "15px" }}
-                      ></div>
                     </div>
                   </div>
                 </div>
