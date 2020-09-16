@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./InsertFitnessUpdate.css";
 
@@ -11,6 +11,20 @@ export default function InsertFitnessUpdate() {
   const [link, setlink] = useState(null);
   const [file, setFile] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
+
+  useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+  }, []);
 
   function onFormSubmit(e) {
     e.preventDefault();

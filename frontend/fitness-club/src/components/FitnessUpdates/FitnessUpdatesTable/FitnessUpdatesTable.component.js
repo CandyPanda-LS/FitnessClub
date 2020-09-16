@@ -104,6 +104,18 @@ export default function FitnessUpdatesTable() {
   const [articlePost, setArticlePost] = useState([]);
 
   useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+
     const sendData = async () => {
       try {
         await axios

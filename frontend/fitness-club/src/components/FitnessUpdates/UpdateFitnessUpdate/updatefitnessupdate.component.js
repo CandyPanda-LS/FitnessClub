@@ -11,6 +11,18 @@ export default class updateFitnessUpdate extends Component {
   constructor(props) {
     super(props);
 
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+
     this.onFormSubmit = this.onFormSubmit.bind(this);
 
     this.state = {

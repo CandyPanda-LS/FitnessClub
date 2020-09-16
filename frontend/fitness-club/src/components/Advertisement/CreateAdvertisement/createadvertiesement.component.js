@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./createadvertisement.css";
@@ -12,6 +12,20 @@ export default function Createadvertiesement() {
   const [Description, setDescription] = useState(null);
   const [file, setFile] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
+
+  useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+  }, []);
 
   function onChangeFile(e) {
     setFile(e.target.files[0]);

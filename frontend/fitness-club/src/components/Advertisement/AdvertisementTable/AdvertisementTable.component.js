@@ -103,6 +103,18 @@ export default function AdvertisementTable() {
 
   //fetching meallist data from the backend
   useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+
     axios
       .get("http://localhost:5000/api/advertisement")
       .then(({ data }) => {

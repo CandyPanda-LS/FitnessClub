@@ -20,6 +20,18 @@ export default function UpdateInventoryItems(props) {
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+
     axios
       .get("http://localhost:5000/api/inventory/" + props.match.params.id)
       .then((res) => {
