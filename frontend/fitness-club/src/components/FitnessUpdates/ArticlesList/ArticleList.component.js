@@ -66,7 +66,9 @@ export default function ArticleList() {
                         <br />
                       </h4>
                       <p>{articlepost.description}</p>
-                      <a href={articlepost.link}>Read more</a>
+                      <a href={articlepost.link} target="_blank">
+                        Read more
+                      </a>
                     </div>
                   </div>
                 </div>

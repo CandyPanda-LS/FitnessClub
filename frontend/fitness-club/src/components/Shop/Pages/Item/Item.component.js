@@ -62,6 +62,19 @@ import RemoveIcon from "@material-ui/icons/Remove";
 export default class Item extends Component {
   constructor(props) {
     super(props);
+
+    //if there is no user navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "user") {
+      window.location = "/userlogin";
+    }
+
     this.addItem = this.addItem.bind(this);
     this.substractItem = this.substractItem.bind(this);
     this.addSize = this.addSize.bind(this);
