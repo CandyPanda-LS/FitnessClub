@@ -150,12 +150,29 @@ export default class BurnCalories extends Component {
       alert("Exercise is required");
       return false;
     }
+
     // if (this.state.duration_min == "") {
     //   alert("Duration is required");
     //   return false;
     // }
     if (this.state.time == "") {
       alert("Time is required");
+      return false;
+    }
+    if (!Number(this.state.weight_kg)) {
+      alert("Weight must be a number");
+      return false;
+    }
+    if (!Number(this.state.height_cm)) {
+      alert("Height must be a number");
+      return false;
+    }
+    if (!Number(this.state.age)) {
+      alert("Age must be a number");
+      return false;
+    }
+    if (!Number(this.state.time)) {
+      alert("Duration must be a number");
       return false;
     }
 

@@ -80,6 +80,11 @@ export default class InsertDailyMealPlanByUser extends Component {
       return false;
     }
 
+    if (Number(this.state.FoodName)) {
+      alert("Food Name should be a String");
+      return false;
+    }
+
     await axios
       .get(
         `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${this.state.FoodName}&app_id=a2edaaed&app_key=57145938b514b65e64ce9ca1ce8d7da8`
