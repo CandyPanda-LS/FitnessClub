@@ -109,7 +109,7 @@ router.post("/updateItem/:id", async (req, res) => {
   try {
     //if there is no image
     if (req.files == null) {
-      Inventory.findOneAndUpdate(req.params.id)
+      Inventory.findByIdAndUpdate(req.params.id)
         .then((item) => {
           item.ItemType = req.body.ItemType;
           item.ItemBrand = req.body.ItemBrand;
@@ -134,7 +134,7 @@ router.post("/updateItem/:id", async (req, res) => {
           return res.status(500).send(err);
         }
 
-        Inventory.findOneAndUpdate(req.params.id)
+        Inventory.findByIdAndUpdate(req.params.id)
           .then((item) => {
             item.ItemType = req.body.ItemType;
             item.ItemBrand = req.body.ItemBrand;
