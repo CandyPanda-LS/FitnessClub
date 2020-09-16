@@ -103,6 +103,18 @@ export default function AdvertisementTable() {
 
   //fetching meallist data from the backend
   useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+
     axios
       .get("http://localhost:5000/api/advertisement")
       .then(({ data }) => {
@@ -182,96 +194,108 @@ export default function AdvertisementTable() {
   }
 
   return (
-    <Paper
-      className={classes.root}
-      style={{
-        borderRadius: "20px",
-        boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
-      }}
-      boxShadow={3}
-    >
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    color: "white",
-                    backgroundColor: "#1f5587",
-                  }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody className={classes.TableBody}>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell
-                          style={{ color: "white" }}
-                          key={column.id}
-                          align={column.align}
-                        >
-                          {column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : column.id === "Image" ? (
-                            <img
-                              src={"uploads/advertisement/" + value}
-                              style={{
-                                width: "50px",
-                                height: "50px",
-                                borderRadius: "50%",
-                              }}
-                              alt="imageAdvertisementTable"
-                            />
-                          ) : column.id === "EditAdvertisement" ? (
-                            <HoverEditButton>
-                              <SettingsIcon
-                                onClick={() => {
-                                  deleteAdvertisement(value);
+    <>
+      <a href="/createadvertiesement">
+        <button class="btn btn-info">Add</button>
+        <br />
+        <br />
+      </a>
+      <Paper
+        className={classes.root}
+        style={{
+          borderRadius: "20px",
+          boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
+        }}
+        boxShadow={3}
+      >
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      color: "white",
+                      backgroundColor: "#1f5587",
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody className={classes.TableBody}>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell
+                            style={{ color: "white" }}
+                            key={column.id}
+                            align={column.align}
+                          >
+                            {column.format && typeof value === "number" ? (
+                              column.format(value)
+                            ) : column.id === "Image" ? (
+                              <img
+                                src={"uploads/advertisement/" + value}
+                                style={{
+                                  width: "50px",
+                                  height: "50px",
+                                  borderRadius: "50%",
                                 }}
+                                alt="imageAdvertisementTable"
                               />
-                            </HoverEditButton>
-                          ) : column.id === "DeleteAdvertisement" ? (
-                            <HoverDeleteButton>
-                              <DeleteOutlineIcon
-                                onClick={() => {
-                                  deleteAdvertisement(value);
-                                }}
-                              />
-                            </HoverDeleteButton>
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </Paper>
+                            ) : column.id === "EditAdvertisement" ? (
+                              <HoverEditButton>
+                                <SettingsIcon
+                                  onClick={() => {
+                                    deleteAdvertisement(value);
+                                  }}
+                                />
+                              </HoverEditButton>
+                            ) : column.id === "DeleteAdvertisement" ? (
+                              <HoverDeleteButton>
+                                <DeleteOutlineIcon
+                                  onClick={() => {
+                                    deleteAdvertisement(value);
+                                  }}
+                                />
+                              </HoverDeleteButton>
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </>
   );
 }

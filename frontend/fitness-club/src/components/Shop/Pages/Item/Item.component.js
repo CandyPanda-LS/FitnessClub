@@ -62,6 +62,19 @@ import RemoveIcon from "@material-ui/icons/Remove";
 export default class Item extends Component {
   constructor(props) {
     super(props);
+
+    //if there is no user navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "user") {
+      window.location = "/userlogin";
+    }
+
     this.addItem = this.addItem.bind(this);
     this.substractItem = this.substractItem.bind(this);
     this.addSize = this.addSize.bind(this);
@@ -240,7 +253,7 @@ export default class Item extends Component {
                     <br />
                     <br />
                     {/* size picker start                 */}
-                    <div class="row" style={{ marginTop: "0px" }}>
+                    {/* <div class="row" style={{ marginTop: "0px" }}>
                       <div class="col">
                         <Fab
                           color="primary"
@@ -265,7 +278,7 @@ export default class Item extends Component {
                           <AddIcon />
                         </Fab>
                       </div>
-                    </div>
+                    </div> */}
                     {/* size picker end                 */}
                     {/* quantity picker start           */}
                     <div class="row" style={{ marginTop: "0px" }}>
@@ -278,12 +291,21 @@ export default class Item extends Component {
                         >
                           <RemoveIcon />
                         </Fab>
-                        <TextField
-                          id="outlined-basic"
-                          variant="outlined"
+                        &nbsp;&nbsp; &nbsp;
+                        <input
+                          // id="outlined-basic"
+                          // variant="outlined"
+                          style={{
+                            border: "none",
+                            outline: "none",
+                            background: "none",
+                            maxWidth: "30px",
+                            color: "white",
+                          }}
                           value={this.state.ItemQuantity}
                           onChange={this.onChangeQuantity}
                         />
+                        &nbsp; &nbsp; &nbsp;
                         <Fab
                           color="primary"
                           size="small"
@@ -295,6 +317,7 @@ export default class Item extends Component {
                       </div>
                     </div>
                     {/* quantity picker end                 */}
+                    <br />
                     <h1
                       style={{
                         marginTop: "6px",
@@ -305,7 +328,7 @@ export default class Item extends Component {
                         fontWeight: "bold",
                       }}
                     >
-                      {this.state.ItemPrice}
+                      {this.state.ItemPrice * this.state.ItemQuantity} LKR
                     </h1>
                   </div>
                 </div>
@@ -322,7 +345,7 @@ export default class Item extends Component {
                     backgroundColor: "#0e4d6f",
                   }}
                 >
-                  Button
+                  Add to Cart
                 </button>
               </div>
             </div>

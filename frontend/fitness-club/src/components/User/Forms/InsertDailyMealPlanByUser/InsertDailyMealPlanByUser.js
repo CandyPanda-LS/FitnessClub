@@ -80,6 +80,11 @@ export default class InsertDailyMealPlanByUser extends Component {
       return false;
     }
 
+    if (Number(this.state.FoodName)) {
+      alert("Food Name should be a String");
+      return false;
+    }
+
     await axios
       .get(
         `https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=${this.state.FoodName}&app_id=a2edaaed&app_key=57145938b514b65e64ce9ca1ce8d7da8`
@@ -107,9 +112,9 @@ export default class InsertDailyMealPlanByUser extends Component {
 
     const newMeal = {
       mealName: this.state.FoodName,
-      calories: this.state.ENERC_KCAL,
-      proteins: this.state.PROCNT,
-      fat: this.state.FAT,
+      calories: this.state.ENERC_KCAL.toFixed(2),
+      proteins: this.state.PROCNT.toFixed(2),
+      fat: this.state.FAT.toFixed(2),
       date: this.state.date,
     };
 

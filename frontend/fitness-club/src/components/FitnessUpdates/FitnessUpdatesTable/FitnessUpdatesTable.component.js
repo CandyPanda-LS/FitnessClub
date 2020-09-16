@@ -104,6 +104,18 @@ export default function FitnessUpdatesTable() {
   const [articlePost, setArticlePost] = useState([]);
 
   useEffect(() => {
+    //if there is no admin navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "admin") {
+      window.location = "/userlogin";
+    }
+
     const sendData = async () => {
       try {
         await axios
@@ -167,92 +179,105 @@ export default function FitnessUpdatesTable() {
   }
 
   return (
-    <Paper
-      className={classes.root}
-      style={{
-        borderRadius: "20px",
-        boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
-      }}
-      boxShadow={3}
-    >
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    color: "white",
-                    backgroundColor: "#db8465",
-                  }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody className={classes.TableBody}>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell
-                          style={{ color: "white" }}
-                          key={column.id}
-                          align={column.align}
-                        >
-                          {column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : column.id === "Image" ? (
-                            <img
-                              src={"uploads/fitnessUpdates/" + value}
-                              width="50px"
-                              heigth="50px"
-                              style={{ borderRadius: "50%" }}
-                            />
-                          ) : column.id === "DeleteID" ? (
-                            <HoverDeleteButton>
-                              <DeleteOutlineIcon
-                                onClick={() => {
-                                  deletePost(value);
-                                }}
+    <>
+      <a href="/insertFitnessUpdate">
+        <button class="btn btn-info">Add</button>
+        <br />
+        <br />
+      </a>
+
+      <Paper
+        className={classes.root}
+        style={{
+          borderRadius: "20px",
+          boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
+        }}
+        boxShadow={3}
+      >
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{
+                      minWidth: column.minWidth,
+                      color: "white",
+                      backgroundColor: "#db8465",
+                    }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody className={classes.TableBody}>
+              {rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => {
+                  return (
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={row.code}
+                    >
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell
+                            style={{ color: "white" }}
+                            key={column.id}
+                            align={column.align}
+                          >
+                            {column.format && typeof value === "number" ? (
+                              column.format(value)
+                            ) : column.id === "Image" ? (
+                              <img
+                                src={"uploads/fitnessUpdates/" + value}
+                                width="50px"
+                                heigth="50px"
+                                style={{ borderRadius: "50%" }}
                               />
-                            </HoverDeleteButton>
-                          ) : column.id === "EditID" ? (
-                            <HoverEditButton>
-                              <a href={"/updateFitnessUpdate/" + value}>
-                                {" "}
-                                <SettingsIcon></SettingsIcon>
-                              </a>
-                            </HoverEditButton>
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </Paper>
+                            ) : column.id === "DeleteID" ? (
+                              <HoverDeleteButton>
+                                <DeleteOutlineIcon
+                                  onClick={() => {
+                                    deletePost(value);
+                                  }}
+                                />
+                              </HoverDeleteButton>
+                            ) : column.id === "EditID" ? (
+                              <HoverEditButton>
+                                <a href={"/updateFitnessUpdate/" + value}>
+                                  {" "}
+                                  <SettingsIcon></SettingsIcon>
+                                </a>
+                              </HoverEditButton>
+                            ) : (
+                              value
+                            )}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+    </>
   );
 }

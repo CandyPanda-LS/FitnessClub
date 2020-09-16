@@ -11,6 +11,18 @@ export default class PaymentDetails extends Component {
   constructor(props) {
     super(props);
 
+    //if there is no user navigate to the login page
+    const token = localStorage.getItem("x-auth-token");
+    const userRole = localStorage.getItem("userRole");
+
+    if (!token) {
+      window.location = "/userlogin";
+    }
+
+    if (userRole !== "user") {
+      window.location = "/userlogin";
+    }
+
     this.selectPackage = this.selectPackage.bind(this);
     this.state = {
       packageName: "",

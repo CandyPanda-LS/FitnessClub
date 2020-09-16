@@ -103,7 +103,7 @@ router.post("/updatearticle/:id", async (req, res) => {
   try {
     //if there is no image
     if (req.files == null) {
-      Fitnessupdate.findOneAndUpdate(req.params.id)
+      Fitnessupdate.findByIdAndUpdate(req.params.id)
         .then((article) => {
           article.topic = req.body.topic;
           article.description = req.body.description;
@@ -125,7 +125,7 @@ router.post("/updatearticle/:id", async (req, res) => {
           return res.status(500).send(err);
         }
 
-        Fitnessupdate.findOneAndUpdate(req.params.id)
+        Fitnessupdate.findByIdAndUpdate(req.params.id)
           .then((article) => {
             article.topic = req.body.topic;
             article.description = req.body.description;

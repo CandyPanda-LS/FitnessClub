@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./ManageNotice.css";
-
+import $ from "jquery";
 import Background from "./img/gymbanner2.jpg";
 
 export default class UpdateNotice extends Component {
@@ -43,64 +43,85 @@ export default class UpdateNotice extends Component {
   }
 
   onNoticeTitleChange(e) {
+    $("#noticeTitle").css("background-color", "#fff");
     this.setState({
       noticeTitle: e,
     });
   }
   onNoticeDesChange(e) {
+    $("#noticeDescription").css("background-color", "#fff");
     this.setState({
       noticeDescription: e,
     });
   }
   onNoticeDateChange(e) {
+    $("#noticeDate").css("background-color", "#fff");
     this.setState({
       date: e,
     });
   }
 
   submitNotice(e) {
-    const noticeId = this.props.location.data;
-    const noticeDetails = {
-      NoticeTitle: this.state.noticeTitle,
-      NoticeDescriprion: this.state.noticeDescription,
-      Date: this.state.date,
-    };
+    if (this.formValidate()) {
+      const noticeId = this.props.location.data;
+      const noticeDetails = {
+        NoticeTitle: this.state.noticeTitle,
+        NoticeDescriprion: this.state.noticeDescription,
+        Date: this.state.date,
+      };
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    if (this.state.updateMode === "Update") {
-      try {
-        axios
-          .put(
-            "http://localhost:5000/api/notices/" + noticeId,
-            noticeDetails,
-            config
-          )
-          .then((res) => {
-            alert("successed");
-            console.log(this.state);
-            window.location = "/NoticesTable";
-          });
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      try {
-        axios
-          .post("http://localhost:5000/api/notices/", noticeDetails, config)
-          .then((res) => {
-            alert("successed");
-            window.location = "/NoticesTable";
-          });
-      } catch (err) {
-        console.log(err);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      if (this.state.updateMode == "Update") {
+        try {
+          axios
+            .put(
+              "http://localhost:5000/api/notices/" + noticeId,
+              noticeDetails,
+              config
+            )
+            .then((res) => {
+              alert("successed");
+              console.log(this.state);
+              window.location = "/NoticesTable";
+            });
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        try {
+          axios
+            .post("http://localhost:5000/api/notices/", noticeDetails, config)
+            .then((res) => {
+              alert("successed");
+              window.location = "/NoticesTable";
+            });
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
   }
+  formValidate() {
+    var validate = true;
 
+    if (this.state.noticeTitle === "") {
+      validate = false;
+      $("#noticeTitle").css("background-color", "#ffc0c0");
+    }
+    if (this.state.noticeDescription === "") {
+      validate = false;
+      $("#noticeDescription").css("background-color", "#ffc0c0");
+    }
+    if (this.state.date === "") {
+      validate = false;
+      $("#noticeDate").css("background-color", "#ffc0c0");
+    }
+    return validate;
+  }
   render() {
     return (
       <div class="container">
@@ -138,7 +159,7 @@ export default class UpdateNotice extends Component {
                           <input
                             class="form-control form-control-user"
                             type="text"
-                            id="exampleInputEmail"
+                            id="noticeTitle"
                             placeholder="Enter Notice Title..."
                             name="title"
                             value={this.state.noticeTitle}
@@ -151,7 +172,7 @@ export default class UpdateNotice extends Component {
                           <textarea
                             class="form-control form-control-user"
                             type="text"
-                            id="exampleInputEmail"
+                            id="noticeDescription"
                             placeholder="Enter Notice Description..."
                             name="description"
                             value={this.state.noticeDescription}
@@ -168,6 +189,7 @@ export default class UpdateNotice extends Component {
                             Date
                           </label>
                           <input
+                            id="noticeDate"
                             class="form-control form-control-user"
                             type="date"
                             style={{ borderRadius: "20px" }}
