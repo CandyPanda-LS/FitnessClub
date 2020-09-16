@@ -112,9 +112,9 @@ export default class InsertDailyMealPlanByUser extends Component {
 
     const newMeal = {
       mealName: this.state.FoodName,
-      calories: this.state.ENERC_KCAL,
-      proteins: this.state.PROCNT,
-      fat: this.state.FAT,
+      calories: this.state.ENERC_KCAL.toFixed(2),
+      proteins: this.state.PROCNT.toFixed(2),
+      fat: this.state.FAT.toFixed(2),
       date: this.state.date,
     };
 

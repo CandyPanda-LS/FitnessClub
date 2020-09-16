@@ -81,17 +81,21 @@ export default function MainCart() {
 
         if (data.cartList.length > 0) {
           setItemsInCartList(data.cartList);
+
+          data.cartList.map(
+            (currentItem) =>
+              (currentCartPrice =
+                currentCartPrice +
+                parseInt(currentItem.ItemPrice, 10) *
+                  parseInt(currentItem.quantity, 10))
+          );
+
+          setTotal(currentCartPrice);
         }
       })
       .catch((error) => {
         console.log(error);
       });
-
-    const total = 0;
-
-    ItemsInCartList.map(
-      (currentItem) => (total = currentItem.ItemPrice + total)
-    );
   }, []);
 
   return (
@@ -139,7 +143,6 @@ export default function MainCart() {
 
       <div class="row py-5 p-4 bg-white rounded shadow-sm">
         <div class="col-lg-6">
-
           <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
             Instructions for seller
           </div>
@@ -168,25 +171,17 @@ export default function MainCart() {
             <ul class="list-unstyled mb-4">
               <li class="d-flex justify-content-between py-3 border-bottom">
                 <strong class="text-muted">Order Subtotal </strong>
-                <strong>$390.00</strong>
+                <strong>{totalPrice} LKR</strong>
               </li>
-              <li class="d-flex justify-content-between py-3 border-bottom">
-                <strong class="text-muted">Shipping and handling</strong>
-                <strong>$10.00</strong>
-              </li>
+
               <li class="d-flex justify-content-between py-3 border-bottom">
                 <strong class="text-muted">Tax</strong>
-                <strong>$0.00</strong>
+                <strong>{(totalPrice / 100.0) * 2.0} LKR</strong>
               </li>
               <li class="d-flex justify-content-between py-3 border-bottom">
                 <strong class="text-muted">Total</strong>
                 <h5 class="font-weight-bold">
-                  {ItemsInCartList.map(
-                    (currentItem) =>
-                      (currentCartPrice =
-                        currentCartPrice + parseInt(currentItem.ItemPrice, 10))
-                  )}
-                  {currentCartPrice}
+                  {totalPrice + (totalPrice / 100.0) * 2.0} LKR
                 </h5>
               </li>
             </ul>
