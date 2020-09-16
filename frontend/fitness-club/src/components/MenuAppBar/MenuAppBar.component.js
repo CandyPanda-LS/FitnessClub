@@ -71,7 +71,7 @@ import FitnessUpdatesTable from "../FitnessUpdates/FitnessUpdatesTable/FitnessUp
 // import UpdateGymPackage from "../GymPackages/UpdateGymPackages/UpdateGymPackage.component";
 // import DeleteGymPackage from "../GymPackages/DeletePackage/DeleteGymPackage.component";
 // import InsertNotice from "../GymNotices/InsertNotice/InsertNotice.component";
-// import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
+import UpdateNotice from "../GymNotices/UpdateNotice/UpdateNotice.component";
 // import DeleteNotice from "../GymNotices/DeleteNotice/DeleteNotice.component";
 // import PackageDetails from "../GymPackages/PackageDetailsTable/PackageDetails.component";
 // import NoticesTable from "../GymNotices/GymNoticesTable/NoticesTable.component";
@@ -645,6 +645,7 @@ export default function MenuAppBar() {
                 component={ManageGymPackage}
               />
               <Route path="/ManageNotice" exact component={ManageNotice} />
+              <Route path="/UpdateNotice" exact component={UpdateNotice} />
               <Route path="/PackageDetails" exact component={PackageDetails} />
               <Route path="/NoticesTable" exact component={NoticesTable} />
               <Route path="/Packages" exact component={Packages} />

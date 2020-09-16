@@ -325,7 +325,7 @@ export default function InstructorManage() {
                     Add
                   </Button>
                 </Link>
-                <Link to="/ManageGymPackage" style={{ textDecoration: "none" }}>
+                <Link to="/PackageDetails" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     color="secondary"

@@ -1,9 +1,9 @@
 /*
  *
- * @author chamodi
+ * @author nayana
  *
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -22,7 +22,7 @@ import Add from "@material-ui/icons/Add";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Background from "./img/gym4.png";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 //Hover Component For Delete Icon
 const HoverDeleteButton = styled.p`
   color: #ffffff;

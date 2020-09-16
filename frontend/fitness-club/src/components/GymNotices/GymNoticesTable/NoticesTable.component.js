@@ -21,7 +21,7 @@ import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import SettingsIcon from "@material-ui/icons/Settings";
 import Add from "@material-ui/icons/Add";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import Background from "./img/gym4.png";
 
