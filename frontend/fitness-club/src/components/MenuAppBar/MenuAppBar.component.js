@@ -123,13 +123,23 @@ export default function MenuAppBar() {
         }
       })
       .catch(() => {
-        axios.get("http://localhost:5000/api/authadmin", config).then((res) => {
-          setUserName(res.data.firstName + " " + res.data.lastName);
-          setRole("admin");
-          if (res.data.profImage) {
-            setUserImage(res.data.profImage);
-          }
-        });
+        axios
+          .get("http://localhost:5000/api/authadmin", config)
+          .then((res) => {
+            setUserName(res.data.firstName + " " + res.data.lastName);
+            setRole("admin");
+            if (res.data.profImage) {
+              setUserImage(res.data.profImage);
+            }
+          })
+          .catch(() => {
+            axios
+              .get("http://localhost:5000/api/authinstructor", config)
+              .then((res) => {
+                setUserName(res.data.name);
+                setRole("instructor");
+              });
+          });
       });
   }, []);
 
@@ -260,7 +270,7 @@ export default function MenuAppBar() {
                     </Link>
                   </li>{" "}
                 </>
-              ) : (
+              ) : role === "admin" ? (
                 <>
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/">
@@ -272,6 +282,21 @@ export default function MenuAppBar() {
                     <Link className="nav-link" to="/admin">
                       <i className="fas fa-chalkboard-teacher"></i>
                       <span>Dashboard</span>
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/">
+                      <i className="fas fa-home"></i>
+                      <span>Home</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/instructor">
+                      <i className="fas fa-chalkboard-teacher"></i>
+                      <span>Instructor Dashboard</span>
                     </Link>
                   </li>
                 </>
