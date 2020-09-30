@@ -83,36 +83,39 @@ router.post(
 // //@desc  GET All Profile
 // //@access Public
 
-// router.get("/", async (req, res) => {
-//   try {
-//     const profiles = await Profile.find().populate("user", ["name", "avatar"]);
-//     res.json(profiles);
-//   } catch (err) {
-//     console.log(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
+router.get("/", async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate("user", [
+      "firstName",
+      "lastName",
+    ]);
+    res.json(profiles);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 // //@route  GET  api/profile/user/:user_id
 // //@desc  GET  Profile by user id
 // //@access Public
 
-// router.get("/user/:user_id", async (req, res) => {
-//   try {
-//     const profile = await Profile.findOne({
-//       user: req.params.user_id,
-//     }).populate("user", ["name", "avatar"]);
+router.get("/user/:user_id", async (req, res) => {
+  try {
+    const profile = await Profile.findOne({
+      user: req.params.user_id,
+    }).populate("user", ["firstName", "lastName"]);
 
-//     if (!profile) return res.status(400).json({ msg: "Profile Not Found" });
-//     res.json(profile);
-//   } catch (err) {
-//     if (err.kind == "ObjectId") {
-//       return res.status(400).json({ msg: "Profile Not Found" });
-//     }
-//     console.log(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
+    if (!profile) return res.status(400).json({ msg: "Profile Not Found" });
+    res.json(profile);
+  } catch (err) {
+    if (err.kind == "ObjectId") {
+      return res.status(400).json({ msg: "Profile Not Found" });
+    }
+    console.log(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 //@route  DELETE api/profile
 //@desc  Delete profile,user & posts
@@ -247,6 +250,29 @@ router.post(
     }
   }
 );
+
+//@route  POST  api/profile/assigninstructor
+//@desc  Assign instructor
+//@access private
+//@author Senura
+
+router.post("/assigninstructor", async (req, res) => {
+  try {
+    console.log(req.body.userid);
+    const profile = await Profile.findById(req.body.userid).then(
+      (assigninstructor) => {
+        (assigninstructor.instructor = req.body.instructorid),
+          assigninstructor
+            .save()
+            .then(() => res.json(profile), console.log("Success"))
+            .catch((error) => res.status(400).json("Error :" + error));
+      }
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 //@route  PUT  api/profile/addmeallist
 //@desc  Add daily meallist

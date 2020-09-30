@@ -1,6 +1,9 @@
 const router = require("express").Router();
 let Instructor = require("../../models/Instructor");
 const { Router } = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 //Handle incoming HTTP GET requests under /instructor url
 router.route("/").get((req, res) => {

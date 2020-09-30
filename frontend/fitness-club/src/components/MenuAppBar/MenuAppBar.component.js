@@ -21,6 +21,10 @@ import DailyMealPlanByUser from "../User/Dashboard/DailyMealPlanByUser/DailyMeal
 import AddRequirementsToTheInstructor from "../User/Forms/AddRequirementsToTheInstructor/AddRequirementsToTheInstructor.component";
 import AddWorkoutMealToDatabase from "../Instructor/AddWorkoutMealToDatabase/AddWorkoutMealToDatabase";
 import AdminLogin from "../Admin/Login/adminlogin.component";
+import AssignInstructor from "../Admin/AssignmentInstructor/assignInstructor.component";
+import Assigninstructorform from "../Admin/AssignmentInstructor/form/assigninstructorform.component";
+import InstructorLogin from "../Instructor/Login/instructorlogin.component";
+import Instructor from "../Instructor/dashboard/instructor.component";
 
 // @desc import Components
 // @author Lasal
@@ -505,6 +509,22 @@ export default function MenuAppBar() {
                 component={AddWorkoutMealToDatabase}
               />
               <Route path="/adminlogin" exact component={AdminLogin} />
+              <Route
+                path="/AssignInstructor"
+                exact
+                component={AssignInstructor}
+              />
+              <Route
+                path="/assigninstructorform/:id"
+                exact
+                component={Assigninstructorform}
+              />
+              <Route
+                path="/instructorlogin"
+                exact
+                component={InstructorLogin}
+              />
+              <Route path="/instructor" exact component={Instructor} />
 
               {/* Routes
               @author Lasal */}

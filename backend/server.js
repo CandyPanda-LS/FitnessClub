@@ -26,6 +26,7 @@ app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/instructor/workout", require("./routes/api/Workout"));
 app.use("/api/admins", require("./routes/api/admins"));
 app.use("/api/authadmin", require("./routes/api/authadmin"));
+app.use("/api/authinstructor", require("./routes/api/authinstructor"));
 
 //-------------------Lasal---------------------
 app.use("/api/shop", require("./routes/api/shop"));
