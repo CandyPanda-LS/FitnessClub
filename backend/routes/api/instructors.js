@@ -76,4 +76,40 @@ router.route("/update/:id").put((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+//@route  PUT  api/instructors/adduserrequests
+//@desc  add user requests
+//@access private
+//@author Senura
+router.route("/adduserrequests").post(async (req, res) => {
+  const {
+    instructorID,
+    userProfile,
+    weight,
+    height,
+    gender,
+    requirement,
+  } = req.body;
+
+  const newUserRequirement = {
+    userProfile,
+    weight,
+    height,
+    gender,
+    requirement,
+  };
+
+  try {
+    const profile = await Instructor.findById(instructorID);
+
+    profile.userRequests.unshift(newUserRequirement);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

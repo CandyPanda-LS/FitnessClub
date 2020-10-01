@@ -25,6 +25,16 @@ const instructorSchema = new Schema(
     email: { type: String, required: true },
 
     password: { type: String, required: true },
+
+    userRequests: [
+      {
+        userProfile: { type: String },
+        weight: { type: String },
+        height: { type: String },
+        gender: { type: String },
+        requirement: { type: String },
+      },
+    ],
   },
   {
     timestamps: true, //it will automatically create fields when it is created or modified
