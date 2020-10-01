@@ -21,6 +21,14 @@ const ProfileSchema = new mongoose.Schema({
   },
   //@desc assigned instructor
   instructor: { type: String },
+  //@desc workout plan
+  workoutplan: {
+    exercise: { type: String },
+  },
+  //@desc meal plan
+  mealplan: {
+    meal: { type: String },
+  },
   //@desc daily meal list
   //@author Senura
   dailymeallist: [
