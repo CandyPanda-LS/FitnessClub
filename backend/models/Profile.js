@@ -22,9 +22,11 @@ const ProfileSchema = new mongoose.Schema({
   //@desc assigned instructor
   instructor: { type: String },
   //@desc workout plan
-  workoutplan: {
-    exercise: { type: String },
-  },
+  workoutplan: [
+    {
+      exercise: { type: String },
+    },
+  ],
   //@desc meal plan
   mealplan: {
     meal: { type: String },

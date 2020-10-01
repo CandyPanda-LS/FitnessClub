@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let Instructor = require("../../models/Instructor");
+const Profile = require("../../models/Profile");
 const { Router } = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -39,6 +40,14 @@ router.route("/add").post((req, res) => {
   newInstructor
     .save()
     .then(() => res.json("Instructor added!"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//get details of a single userRequest
+router.route("/userrequest/:id").get((req, res) => {
+  Instructor.userRequests
+    .findById(req.params.id)
+    .then((instructor) => res.json(instructor))
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
@@ -102,6 +111,33 @@ router.route("/adduserrequests").post(async (req, res) => {
     const profile = await Instructor.findById(instructorID);
 
     profile.userRequests.unshift(newUserRequirement);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route  PUT  api/instructors/addworkouttouser
+//@desc  add user requests
+//@access private
+//@author Senura
+router.route("/addworkouttouser").post(async (req, res) => {
+  const { profileID, exercise } = req.body;
+
+  const newWorkout = {
+    exercise,
+  };
+
+  try {
+    console.log(profileID);
+    console.log(exercise);
+    const profile = await Profile.findById(profileID);
+
+    profile.workoutplan.unshift(newWorkout);
 
     await profile.save();
 

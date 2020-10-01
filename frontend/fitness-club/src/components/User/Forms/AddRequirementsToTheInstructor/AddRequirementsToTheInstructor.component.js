@@ -7,7 +7,7 @@ import Background from "./img/gymbannner.jpg";
 
 const AddRequirementsToTheInstructor = () => {
   const [instructorID, setInstructorID] = useState();
-  const [profileID, setProfileID] = useState();
+  const [userProfile, setProfileID] = useState();
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
   const [gender, setGender] = useState();
@@ -21,7 +21,7 @@ const AddRequirementsToTheInstructor = () => {
     };
 
     axios.get("http://localhost:5000/api/profile/me", config).then((res) => {
-      console.log(res.data._id);
+      console.log("ProfileId IS" + res.data._id);
       console.log(res.data.instructor);
       setProfileID(res.data._id);
       setInstructorID(res.data.instructor);
@@ -33,7 +33,7 @@ const AddRequirementsToTheInstructor = () => {
 
     const newUserRequest = {
       instructorID,
-      profileID,
+      userProfile,
       weight,
       height,
       gender,

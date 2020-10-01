@@ -6,6 +6,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -29,18 +30,10 @@ const HoverDeleteButton = styled.p`
 
 const columns = [
   {
-    id: "Date",
-    label: "Date",
-    align: "center",
-    minWidth: 80,
-  },
-
-  {
     id: "User",
     label: "User",
     minWidth: 50,
     align: "center",
-    format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "Weight",
@@ -71,46 +64,21 @@ const columns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "ViewPlan",
-    label: "",
-    minWidth: 30,
-    align: "center",
-  },
-  {
     id: "AddPlan",
-    label: "",
-    minWidth: 30,
-    align: "center",
-  },
-  {
-    id: "EditPlan",
     label: "",
     minWidth: 30,
     align: "center",
   },
 ];
 
-function createData(
-  Date,
-  User,
-  Weight,
-  Heigth,
-  Gender,
-  Requirement,
-  ViewPlan,
-  AddPlan,
-  EditPlan
-) {
+function createData(User, Weight, Heigth, Gender, Requirement, AddPlan) {
   return {
-    Date,
     User,
     Weight,
     Heigth,
     Gender,
     Requirement,
-    ViewPlan,
     AddPlan,
-    EditPlan,
   };
 }
 
@@ -136,7 +104,7 @@ export default function RequestedPlansTable() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const [DailyMealList, setDailyMealList] = useState([]);
+  const [userRequestList, setUserRequestList] = useState([]);
 
   //fetching meallist data from the backend
   useEffect(() => {
@@ -147,13 +115,13 @@ export default function RequestedPlansTable() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get("http://localhost:5000/api/authinstructor", config)
       .then(({ data }) => {
-        console.log(data.dailymeallist);
-        console.log(data.dailymeallist.length);
+        console.log(data.userRequests);
 
-        if (data.dailymeallist.length > 0) {
-          setDailyMealList(data.dailymeallist);
+        console.log(data.userRequests.length);
+        if (data.userRequests.length > 0) {
+          setUserRequestList(data.userRequests);
         }
       })
       .catch((error) => {
@@ -162,14 +130,14 @@ export default function RequestedPlansTable() {
   }, []);
 
   //map table row data
-  const rows = DailyMealList.map((currentMeal) => {
+  const rows = userRequestList.map((currentRequest) => {
     return createData(
-      currentMeal.date.substring(0, 10),
-      currentMeal.mealName,
-      currentMeal.calories,
-      currentMeal.proteins,
-      currentMeal.fat,
-      currentMeal._id
+      currentRequest.userProfile,
+      currentRequest.weight,
+      currentRequest.height,
+      currentRequest.gender,
+      currentRequest.requirement,
+      currentRequest.userProfile
     );
   });
 
@@ -269,9 +237,16 @@ export default function RequestedPlansTable() {
                               </HoverDeleteButton>
                             ) : column.id === "AddPlan" ? (
                               <HoverDeleteButton>
-                                <Button variant="contained" color="primary">
-                                  Add Plan
-                                </Button>
+                                <Link
+                                  to={{
+                                    pathname: "/userforms",
+                                    data: value,
+                                  }}
+                                >
+                                  <Button variant="contained" color="primary">
+                                    Add Plan
+                                  </Button>
+                                </Link>
                               </HoverDeleteButton>
                             ) : column.id === "EditPlan" ? (
                               <HoverDeleteButton>

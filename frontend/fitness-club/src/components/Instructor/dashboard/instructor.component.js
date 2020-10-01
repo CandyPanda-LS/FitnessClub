@@ -118,23 +118,7 @@ export default function Instructor() {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link
-                  to="/insertFitnessUpdate"
-                  style={{ textDecoration: "none" }}
-                >
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href="#contained-buttons"
-                    style={{ color: "white" }}
-                  >
-                    Add
-                  </Button>
-                </Link>
-                <Link
-                  to="/FitnessUpdatesTable"
-                  style={{ textDecoration: "none" }}
-                >
+                <Link to="/userrequirement" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     color="secondary"
