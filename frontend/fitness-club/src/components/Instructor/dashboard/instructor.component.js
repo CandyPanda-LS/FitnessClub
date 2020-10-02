@@ -131,6 +131,56 @@ export default function Instructor() {
               </CardActions>
             </Card>
           </div>
+
+          {/*    Add Workout and Meal  */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background8}
+                  title="Gym Instructor"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Workout and Meal Plans
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Add Workout and Meal
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link to="/addworkoutmeal" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Add
+                  </Button>
+                </Link>
+                <Link to="/addworkoutmeal" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    List | Remove | Update
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

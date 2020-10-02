@@ -13,6 +13,8 @@ export default function Userforms(props) {
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
   const [meal, setMeal] = useState();
+  const [mealList, setMealList] = useState([]);
+  const [exerciseList, setExerciseList] = useState([]);
 
   useEffect(() => {
     //get data value from the Link
@@ -21,6 +23,16 @@ export default function Userforms(props) {
     console.log("Profile ID is " + userprofileID);
 
     setProfileID(userprofileID);
+
+    axios.get("http://localhost:5000/api/instructor/meal").then((res) => {
+      console.log("meal list " + res);
+      setMealList(res.data);
+    });
+
+    axios.get("http://localhost:5000/api/instructor/workout").then((res) => {
+      console.log("exercises list " + res);
+      setExerciseList(res.data);
+    });
   }, []);
 
   function onSubmitExercise(e) {
@@ -134,18 +146,16 @@ export default function Userforms(props) {
                           setExercise(e.target.value);
                         }}
                       >
-                        <option value="Workout 1" selected="">
-                          Workout 1
-                        </option>
-                        <option value="Exercise 2" selected="">
-                          Exercise 2
-                        </option>
-                        <option value="Exercise 3" selected="">
-                          Exercise 3
-                        </option>
-                        <option value="Exercise 4" selected="">
-                          Exercise 4
-                        </option>
+                        {exerciseList.map((currentExercise) => {
+                          return (
+                            <option
+                              value={currentExercise.WorkoutName}
+                              selected=""
+                            >
+                              {currentExercise.WorkoutName}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
                     <div class="col">
@@ -248,15 +258,13 @@ export default function Userforms(props) {
                           setMeal(e.target.value);
                         }}
                       >
-                        <option value="Pizza" selected="">
-                          Pizza
-                        </option>
-                        <option value="Rice" selected="">
-                          Rice
-                        </option>
-                        <option value="Hamburger" selected="">
-                          Hamburger
-                        </option>
+                        {mealList.map((currentMeal) => {
+                          return (
+                            <option value={currentMeal.MealName} selected="">
+                              {currentMeal.MealName}
+                            </option>
+                          );
+                        })}
                       </select>
                     </div>
                   </div>
