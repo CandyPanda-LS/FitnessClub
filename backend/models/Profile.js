@@ -28,9 +28,11 @@ const ProfileSchema = new mongoose.Schema({
     },
   ],
   //@desc meal plan
-  mealplan: {
-    meal: { type: String },
-  },
+  mealplan: [
+    {
+      meal: { type: String },
+    },
+  ],
   //@desc daily meal list
   //@author Senura
   dailymeallist: [

@@ -148,4 +148,31 @@ router.route("/addworkouttouser").post(async (req, res) => {
   }
 });
 
+//@route  PUT  api/instructors/addmealtouser
+//@desc  add meal to user
+//@access private
+//@author Senura
+router.route("/addmealtouser").post(async (req, res) => {
+  const { profileID, meal } = req.body;
+
+  const newMeal = {
+    meal,
+  };
+
+  try {
+    console.log(profileID);
+    console.log(meal);
+    const profile = await Profile.findById(profileID);
+
+    profile.mealplan.unshift(newMeal);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

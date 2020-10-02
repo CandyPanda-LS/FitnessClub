@@ -9,9 +9,10 @@ import "./userforms.css";
 
 export default function Userforms(props) {
   const [profileID, setProfileID] = useState();
-  const [exercise, setExercise] = useState();
+  const [workout, setExercise] = useState();
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
+  const [meal, setMeal] = useState();
 
   useEffect(() => {
     //get data value from the Link
@@ -25,6 +26,7 @@ export default function Userforms(props) {
   function onSubmitExercise(e) {
     e.preventDefault();
 
+    const exercise = workout + " - " + sets + " sets of " + reps + " reps";
     const newExercise = {
       profileID,
       exercise,
@@ -34,6 +36,23 @@ export default function Userforms(props) {
         "http://localhost:5000/api/instructors/addworkouttouser",
         newExercise
       )
+      .then(() => {
+        alert("Success");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  function onSubmitMeal(e) {
+    e.preventDefault();
+
+    const newMeal = {
+      profileID,
+      meal,
+    };
+    axios
+      .post("http://localhost:5000/api/instructors/addmealtouser", newMeal)
       .then(() => {
         alert("Success");
       })
@@ -118,13 +137,13 @@ export default function Userforms(props) {
                         <option value="Workout 1" selected="">
                           Workout 1
                         </option>
-                        <option value="Workout 1" selected="">
+                        <option value="Exercise 2" selected="">
                           Exercise 2
                         </option>
-                        <option value="Workout 1" selected="">
+                        <option value="Exercise 3" selected="">
                           Exercise 3
                         </option>
-                        <option value="Workout 1" selected="">
+                        <option value="Exercise 4" selected="">
                           Exercise 4
                         </option>
                       </select>
@@ -138,6 +157,9 @@ export default function Userforms(props) {
                           color: "rgb(255,255,255)",
                           borderWidth: "1.5px",
                           borderColor: "rgb(252,252,252)",
+                        }}
+                        onChange={(e) => {
+                          setSets(e.target.value);
                         }}
                       >
                         <option value="sets" selected="">
@@ -166,6 +188,9 @@ export default function Userforms(props) {
                           color: "rgb(255,255,255)",
                           borderWidth: "1.5px",
                           borderColor: "rgb(252,252,252)",
+                        }}
+                        onChange={(e) => {
+                          setReps(e.target.value);
                         }}
                       >
                         <option value="reps" selected="">
@@ -206,7 +231,7 @@ export default function Userforms(props) {
                   backgroundOpacity: 0.5,
                 }}
               >
-                <form>
+                <form onSubmit={onSubmitMeal}>
                   {/* Meal 1 */}
                   <div class="form-row" style={{ margin: "10px 0px" }}>
                     <div class="col">
@@ -219,15 +244,18 @@ export default function Userforms(props) {
                           borderWidth: "1.5px",
                           borderColor: "rgb(252,252,252)",
                         }}
+                        onChange={(e) => {
+                          setMeal(e.target.value);
+                        }}
                       >
-                        <option value="Workout 1" selected="">
-                          Meal 1
+                        <option value="Pizza" selected="">
+                          Pizza
                         </option>
-                        <option value="Workout 1" selected="">
-                          Meal 2
+                        <option value="Rice" selected="">
+                          Rice
                         </option>
-                        <option value="Workout 1" selected="">
-                          Meal 3
+                        <option value="Hamburger" selected="">
+                          Hamburger
                         </option>
                       </select>
                     </div>
@@ -236,7 +264,7 @@ export default function Userforms(props) {
 
                   <div class="form-row" style={{ margin: "10px 0px" }}>
                     <div class="col text-center">
-                      <button class="btn btn-primary" type="button">
+                      <button class="btn btn-primary" type="submit">
                         Add Meal Plan
                       </button>
                     </div>

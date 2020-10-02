@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -26,6 +27,30 @@ const useStyles = makeStyles((theme) => ({
 export default function MealPlanList() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [mealplan, setMealPlan] = useState([]);
+
+  //fetching completed Exercise List data from the backend
+  useEffect(() => {
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    axios
+      .get("http://localhost:5000/api/profile/me", config)
+      .then(({ data }) => {
+        console.log("meal paln is " + data.mealplan);
+        console.log(data.mealplan.length);
+
+        if (data.mealplan.length > 0) {
+          setMealPlan(data.mealplan);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleClick = () => {
     setOpen(!open);
@@ -59,30 +84,16 @@ export default function MealPlanList() {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Chest – Barbell Bench Press – 4 sets of 8 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Back – Lat-pulldowns – 4 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Shoulders – Seated Dumbbell Press – 4 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Legs – Leg Extensions – 4 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Biceps – Barbell Bbicep Curls – 3 sets of 10 reps" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon></ListItemIcon>
-            <ListItemText primary="Triceps – Triceps Rope Pushdowns – 3 sets of 15 reps" />
-          </ListItem>
+          <List component="div" disablePadding>
+            {mealplan.map((currentMeal) => {
+              return (
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon></ListItemIcon>
+                  <ListItemText primary={currentMeal.meal} />
+                </ListItem>
+              );
+            })}
+          </List>
         </List>
       </Collapse>
     </List>
