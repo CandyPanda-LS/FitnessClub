@@ -93,6 +93,7 @@ router.route("/adduserrequests").post(async (req, res) => {
   const {
     instructorID,
     userProfile,
+    userName,
     weight,
     height,
     gender,
@@ -101,6 +102,7 @@ router.route("/adduserrequests").post(async (req, res) => {
 
   const newUserRequirement = {
     userProfile,
+    userName,
     weight,
     height,
     gender,

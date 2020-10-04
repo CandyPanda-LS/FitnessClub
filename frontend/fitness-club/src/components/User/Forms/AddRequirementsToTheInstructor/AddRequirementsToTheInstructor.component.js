@@ -8,9 +8,10 @@ import Background from "./img/gymbannner.jpg";
 const AddRequirementsToTheInstructor = () => {
   const [instructorID, setInstructorID] = useState();
   const [userProfile, setProfileID] = useState();
+  const [userName, setUserName] = useState();
   const [weight, setWeight] = useState();
   const [height, setHeight] = useState();
-  const [gender, setGender] = useState();
+  const [gender, setGender] = useState("Male");
   const [requirement, setRequirement] = useState();
 
   useEffect(() => {
@@ -22,8 +23,10 @@ const AddRequirementsToTheInstructor = () => {
 
     axios.get("http://localhost:5000/api/profile/me", config).then((res) => {
       console.log("ProfileId IS" + res.data._id);
+      console.log("Profile Name is " + res.data.user.firstName);
       console.log(res.data.instructor);
       setProfileID(res.data._id);
+      setUserName(res.data.user.firstName + " " + res.data.user.lastName);
       setInstructorID(res.data.instructor);
     });
   }, []);
@@ -34,6 +37,7 @@ const AddRequirementsToTheInstructor = () => {
     const newUserRequest = {
       instructorID,
       userProfile,
+      userName,
       weight,
       height,
       gender,
@@ -113,16 +117,10 @@ const AddRequirementsToTheInstructor = () => {
                             setGender(e.target.value);
                           }}
                         >
-                          <option
-                            value="Male"
-                            class="form-control form-control-user"
-                          >
+                          <option value="Male" class="form-control">
                             Male
                           </option>
-                          <option
-                            value="Female"
-                            class="form-control form-control-user"
-                          >
+                          <option value="Female" class="form-control">
                             Female
                           </option>
                         </select>

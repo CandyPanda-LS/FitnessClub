@@ -132,7 +132,7 @@ export default function RequestedPlansTable() {
   //map table row data
   const rows = userRequestList.map((currentRequest) => {
     return createData(
-      currentRequest.userProfile,
+      currentRequest.userName,
       currentRequest.weight,
       currentRequest.height,
       currentRequest.gender,

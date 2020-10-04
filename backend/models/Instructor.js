@@ -29,6 +29,7 @@ const instructorSchema = new Schema(
     userRequests: [
       {
         userProfile: { type: String },
+        userName: { type: String },
         weight: { type: String },
         height: { type: String },
         gender: { type: String },
