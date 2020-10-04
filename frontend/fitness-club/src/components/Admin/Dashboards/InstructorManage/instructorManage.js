@@ -136,7 +136,7 @@ export default function InstructorManage() {
                 <Button
                   variant="contained"
                   color="primary"
-                  href="#contained-buttons"
+                  href="/AssignInstructor"
                   style={{ color: "white" }}
                 >
                   Assign Instructor

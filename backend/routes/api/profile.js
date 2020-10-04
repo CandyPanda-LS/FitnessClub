@@ -383,4 +383,30 @@ router.delete("/workoutplan/:userid/:workoutid", async (req, res) => {
   }
 });
 
+//@route  DELETE  api/profile/dailymeallist/:dailymeal_id
+//@desc  delete profile daily meal item
+//@access private
+//@author senura
+
+router.delete("/mealplan/:userid/:mealid", async (req, res) => {
+  try {
+    const profile = await Profile.findById(req.params.userid);
+
+    //GET remove index
+
+    const removeIndex = profile.mealplan
+      .map((item) => item.id)
+      .indexOf(req.params.mealid);
+
+    profile.mealplan.splice(removeIndex, 1);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

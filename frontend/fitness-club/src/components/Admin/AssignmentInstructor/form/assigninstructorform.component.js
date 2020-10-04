@@ -6,15 +6,28 @@ export default function Assigninstructorform(props) {
   const [profileID, setProfileID] = useState();
   const [userName, setUserName] = useState();
   const [instructor, setInstructor] = useState();
+  const [instructorList, setInstructorList] = useState([]);
 
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/profile/user/" + props.match.params.id)
       .then((res) => {
-        console.log(res.data);
+        console.log("user Details" + res.data);
         setProfileID(res.data._id);
         setUserId(res.data.user._id);
         setUserName(res.data.user.firstName + " " + res.data.user.lastName);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+    axios
+      .get("http://localhost:5000/api/instructors")
+      .then((res) => {
+        setInstructorList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -33,6 +46,7 @@ export default function Assigninstructorform(props) {
       )
       .then(() => {
         alert("Successfuly Assigned");
+        window.location = "/admin";
       })
       .catch((err) => {
         alert(err);
@@ -74,15 +88,21 @@ export default function Assigninstructorform(props) {
 
         <div class="form-group">
           <label for="InstructorID">Instructor ID</label>
-          <input
-            type="text"
+
+          <select
             class="form-control"
-            id="InstructorID"
-            placeholder="Instructor ID"
             onChange={(e) => {
               setInstructor(e.target.value);
             }}
-          />
+          >
+            {instructorList.map((currentInstructor) => {
+              return (
+                <option value={currentInstructor._id}>
+                  {currentInstructor.name}
+                </option>
+              );
+            })}
+          </select>
         </div>
 
         <button type="submit" class="btn btn-primary">

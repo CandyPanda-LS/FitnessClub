@@ -8,6 +8,7 @@ import "./userforms.css";
 
 export default function Userforms(props) {
   const [profileID, setProfileID] = useState();
+  const [userName, setUserName] = useState();
   const [workout, setExercise] = useState();
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
@@ -16,6 +17,7 @@ export default function Userforms(props) {
   const [mealList, setMealList] = useState([]);
   const [exerciseList, setExerciseList] = useState([]);
   const [workoutPlan, setWorkoutPlan] = useState([]);
+  const [mealPlan, setMealPlan] = useState([]);
 
   useEffect(() => {
     //get data value from the Link
@@ -24,7 +26,7 @@ export default function Userforms(props) {
     console.log("Profile ID is " + userprofileID);
 
     setProfileID(userprofileID);
-
+    //Getting current workout plan for the given user
     axios
       .get("http://localhost:5000/api/profile/user/" + userprofileID)
       .then((res) => {
@@ -32,6 +34,8 @@ export default function Userforms(props) {
         console.log(
           "Profile workoutplan length " + res.data.workoutplan.length
         );
+
+        setUserName(res.data.user.firstName + " " + res.data.user.lastName);
         if (res.data.workoutplan.length > 0) {
           setWorkoutPlan(res.data.workoutplan);
         }
@@ -40,11 +44,27 @@ export default function Userforms(props) {
         console.log(err);
       });
 
+    //Getting current meal plan for the given user
+    axios
+      .get("http://localhost:5000/api/profile/user/" + userprofileID)
+      .then((res) => {
+        console.log("Profile Details " + res.data.mealplan);
+        console.log("Profile workoutplan length " + res.data.mealplan.length);
+        if (res.data.mealplan.length > 0) {
+          setMealPlan(res.data.mealplan);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //get meal list from the database
     axios.get("http://localhost:5000/api/instructor/meal").then((res) => {
       console.log("meal list " + res);
       setMealList(res.data);
     });
 
+    //get exercise list from the database
     axios.get("http://localhost:5000/api/instructor/workout").then((res) => {
       console.log("exercises list " + res);
       setExerciseList(res.data);
@@ -74,6 +94,7 @@ export default function Userforms(props) {
             console.log(
               "Profile workoutplan length " + res.data.workoutplan.length
             );
+
             if (res.data.workoutplan.length > 0) {
               setWorkoutPlan(res.data.workoutplan);
             }
@@ -100,6 +121,19 @@ export default function Userforms(props) {
       .post("http://localhost:5000/api/instructors/addmealtouser", newMeal)
       .then(() => {
         alert("Success");
+        //refresh Data After Deletion
+        axios
+          .get("http://localhost:5000/api/profile/user/" + profileID)
+          .then((res) => {
+            console.log("Profile Details " + res.data.mealplan);
+            console.log("Profile mealplan length " + res.data.mealplan.length);
+            if (res.data.mealplan.length > 0) {
+              setMealPlan(res.data.mealplan);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         alert(err);
@@ -111,7 +145,7 @@ export default function Userforms(props) {
       <div>
         <div className="row text-center">
           <h3 style={{ color: "#073370", padding: "20px" }}>
-            Add Meal & Workout Plan{" "}
+            Add Meal & Workout Plan For {userName}
           </h3>
         </div>
 
@@ -310,70 +344,147 @@ export default function Userforms(props) {
         </div>
       </div>
 
-      <div className="col-md-6">
-        <ul class="list-group">
-          <li class="list-group-item active">Workout Plan </li>
-          {workoutPlan.map((currentWorkout) => {
-            return (
-              <li class="list-group-item">
-                {currentWorkout.exercise} &nbsp;&nbsp;
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  class="bi bi-trash-fill"
-                  fill="red"
-                  style={{ cursor: "pointer" }}
-                  xmlns="http://www.w3.org/2000/svg"
-                  onClick={() => {
-                    axios
-                      .delete(
-                        "http://localhost:5000/api/profile/workoutplan/" +
-                          profileID +
-                          "/" +
-                          currentWorkout._id
-                      )
-                      .then((response) => {
-                        console.log(response);
-                        alert("Exercise Deleted");
+      <div className="row">
+        <div className="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item active">Workout Plan </li>
+            {workoutPlan.map((currentWorkout) => {
+              return (
+                <li class="list-group-item">
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-file-minus"
+                    fill="red"
+                    style={{ cursor: "pointer" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={() => {
+                      axios
+                        .delete(
+                          "http://localhost:5000/api/profile/workoutplan/" +
+                            profileID +
+                            "/" +
+                            currentWorkout._id
+                        )
+                        .then((response) => {
+                          console.log(response);
+                          alert("Exercise Deleted");
 
-                        //refresh Data After Deletion
+                          //refresh Data After Deletion
 
-                        axios
-                          .get(
-                            "http://localhost:5000/api/profile/user/" +
-                              profileID
-                          )
-                          .then((res) => {
-                            console.log(
-                              "Profile Details " + res.data.workoutplan
-                            );
-                            console.log(
-                              "Profile workoutplan length " +
-                                res.data.workoutplan.length
-                            );
-                            if (res.data.workoutplan.length > 0) {
-                              setWorkoutPlan(res.data.workoutplan);
-                            }
-                          })
-                          .catch((err) => {
-                            console.log(err);
-                          });
-                      })
-                      .catch((err) => {
-                        alert(err);
-                      });
-                  }}
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
-                  />
-                </svg>
-              </li>
-            );
-          })}
-        </ul>
+                          axios
+                            .get(
+                              "http://localhost:5000/api/profile/user/" +
+                                profileID
+                            )
+                            .then((res) => {
+                              console.log(
+                                "Profile Details " + res.data.workoutplan
+                              );
+                              console.log(
+                                "Profile workoutplan length " +
+                                  res.data.workoutplan.length
+                              );
+                              if (res.data.workoutplan.length > 0) {
+                                setWorkoutPlan(res.data.workoutplan);
+                              }
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
+                        })
+                        .catch((err) => {
+                          alert(err);
+                        });
+                    }}
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"
+                    />
+                  </svg>
+                  &nbsp;&nbsp;
+                  {currentWorkout.exercise}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item active">Meal Plan </li>
+            {mealPlan.map((currentMeal) => {
+              return (
+                <li class="list-group-item">
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-file-minus"
+                    fill="red"
+                    style={{ cursor: "pointer" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={() => {
+                      axios
+                        .delete(
+                          "http://localhost:5000/api/profile/mealplan/" +
+                            profileID +
+                            "/" +
+                            currentMeal._id
+                        )
+                        .then((response) => {
+                          console.log(response);
+                          alert("Meal Deleted");
+
+                          //refresh Data After Deletion
+
+                          axios
+                            .get(
+                              "http://localhost:5000/api/profile/user/" +
+                                profileID
+                            )
+                            .then((res) => {
+                              console.log(
+                                "Profile Details " + res.data.mealplan
+                              );
+                              console.log(
+                                "Profile mealplan length " +
+                                  res.data.mealplan.length
+                              );
+                              if (res.data.mealplan.length > 0) {
+                                setMealPlan(res.data.mealplan);
+                              }
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
+                        })
+                        .catch((err) => {
+                          alert(err);
+                        });
+                    }}
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H4z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"
+                    />
+                  </svg>{" "}
+                  &nbsp;&nbsp;
+                  {currentMeal.meal}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </div>
   );
