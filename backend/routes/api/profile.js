@@ -102,9 +102,10 @@ router.get("/", async (req, res) => {
 
 router.get("/user/:user_id", async (req, res) => {
   try {
-    const profile = await Profile.findOne({
-      user: req.params.user_id,
-    }).populate("user", ["firstName", "lastName"]);
+    const profile = await Profile.findById(req.params.user_id).populate(
+      "user",
+      ["firstName", "lastName"]
+    );
 
     if (!profile) return res.status(400).json({ msg: "Profile Not Found" });
     res.json(profile);
@@ -355,5 +356,31 @@ router.delete(
     }
   }
 );
+
+//@route  DELETE  api/profile/dailymeallist/:dailymeal_id
+//@desc  delete profile daily meal item
+//@access private
+//@author senura
+
+router.delete("/workoutplan/:userid/:workoutid", async (req, res) => {
+  try {
+    const profile = await Profile.findById(req.params.userid);
+
+    //GET remove index
+
+    const removeIndex = profile.workoutplan
+      .map((item) => item.id)
+      .indexOf(req.params.workoutid);
+
+    profile.workoutplan.splice(removeIndex, 1);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;

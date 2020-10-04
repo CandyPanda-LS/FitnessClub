@@ -47,6 +47,7 @@ const AddRequirementsToTheInstructor = () => {
       )
       .then((res) => {
         alert("Request Success");
+        window.location = "/dashboard";
       })
       .catch((err) => {
         alert(err);
@@ -112,10 +113,16 @@ const AddRequirementsToTheInstructor = () => {
                             setGender(e.target.value);
                           }}
                         >
-                          <option class="form-control form-control-user">
+                          <option
+                            value="Male"
+                            class="form-control form-control-user"
+                          >
                             Male
                           </option>
-                          <option class="form-control form-control-user">
+                          <option
+                            value="Female"
+                            class="form-control form-control-user"
+                          >
                             Female
                           </option>
                         </select>

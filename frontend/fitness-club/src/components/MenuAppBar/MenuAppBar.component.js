@@ -596,7 +596,7 @@ export default function MenuAppBar() {
 
               {/* Routes
               @author Jayani */}
-              <Route path="/userforms" exact component={UserPlan} />
+              <Route path="/userforms/:id" exact component={UserPlan} />
               <Route
                 path="/userrequirement"
                 exact

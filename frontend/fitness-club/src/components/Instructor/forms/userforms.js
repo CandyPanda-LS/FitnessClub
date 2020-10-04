@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Paper, Card } from "@material-ui/core";
 
 import Background from "./img/gym.jpg";
 import BackgroundMeal from "./img/meal.jpg";
@@ -12,17 +11,34 @@ export default function Userforms(props) {
   const [workout, setExercise] = useState();
   const [sets, setSets] = useState();
   const [reps, setReps] = useState();
-  const [meal, setMeal] = useState();
+  const [mealName, setMealName] = useState();
+  const [mealTime, setMealTime] = useState();
   const [mealList, setMealList] = useState([]);
   const [exerciseList, setExerciseList] = useState([]);
+  const [workoutPlan, setWorkoutPlan] = useState([]);
 
   useEffect(() => {
     //get data value from the Link
-    const userprofileID = props.location.data;
+    const userprofileID = props.match.params.id;
 
     console.log("Profile ID is " + userprofileID);
 
     setProfileID(userprofileID);
+
+    axios
+      .get("http://localhost:5000/api/profile/user/" + userprofileID)
+      .then((res) => {
+        console.log("Profile Details " + res.data.workoutplan);
+        console.log(
+          "Profile workoutplan length " + res.data.workoutplan.length
+        );
+        if (res.data.workoutplan.length > 0) {
+          setWorkoutPlan(res.data.workoutplan);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     axios.get("http://localhost:5000/api/instructor/meal").then((res) => {
       console.log("meal list " + res);
@@ -50,6 +66,21 @@ export default function Userforms(props) {
       )
       .then(() => {
         alert("Success");
+        //refresh Data After Deletion
+        axios
+          .get("http://localhost:5000/api/profile/user/" + profileID)
+          .then((res) => {
+            console.log("Profile Details " + res.data.workoutplan);
+            console.log(
+              "Profile workoutplan length " + res.data.workoutplan.length
+            );
+            if (res.data.workoutplan.length > 0) {
+              setWorkoutPlan(res.data.workoutplan);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         alert(err);
@@ -58,6 +89,8 @@ export default function Userforms(props) {
 
   function onSubmitMeal(e) {
     e.preventDefault();
+
+    const meal = mealName + " for " + mealTime;
 
     const newMeal = {
       profileID,
@@ -77,43 +110,10 @@ export default function Userforms(props) {
     <div>
       <div>
         <div className="row text-center">
-          <h3 style={{ color: "#073370" }}>Add Meal & Workout Plan </h3>
+          <h3 style={{ color: "#073370", padding: "20px" }}>
+            Add Meal & Workout Plan{" "}
+          </h3>
         </div>
-
-        <Paper
-          elevation={3}
-          style={{
-            margin: "20px 0px",
-
-            borderRadius: "15px",
-          }}
-        >
-          <Card
-            style={{
-              margin: "20px 0px",
-              padding: "30px",
-            }}
-          >
-            <div className="row">
-              <div className="col-md-3">
-                <p>Senura Jaydeva</p>
-              </div>
-
-              <div className="col-md-3">
-                <p>Weight 60 kg</p>
-              </div>
-              <div className="col-md-3">
-                <p>Height 180 cm</p>
-              </div>
-              <div className="col-md-3">
-                <p>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical Latin literature
-                </p>
-              </div>
-            </div>
-          </Card>
-        </Paper>
 
         <div class="row" style={{ margin: "10px" }}>
           <div class="col-md-6">
@@ -255,7 +255,7 @@ export default function Userforms(props) {
                           borderColor: "rgb(252,252,252)",
                         }}
                         onChange={(e) => {
-                          setMeal(e.target.value);
+                          setMealName(e.target.value);
                         }}
                       >
                         {mealList.map((currentMeal) => {
@@ -265,6 +265,32 @@ export default function Userforms(props) {
                             </option>
                           );
                         })}
+                      </select>
+                    </div>
+
+                    <div class="col">
+                      <select
+                        class="form-control"
+                        style={{
+                          borderRadius: "10px",
+                          backgroundColor: "rgba(243,243,243,0)",
+                          color: "rgb(255,255,255)",
+                          borderWidth: "1.5px",
+                          borderColor: "rgb(252,252,252)",
+                        }}
+                        onChange={(e) => {
+                          setMealTime(e.target.value);
+                        }}
+                      >
+                        <option value="Breakfast" selected="">
+                          Breakfast
+                        </option>
+                        <option value="Lunch" selected="">
+                          Lunch
+                        </option>
+                        <option value="Dinner" selected="">
+                          Dinner
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -282,6 +308,72 @@ export default function Userforms(props) {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="col-md-6">
+        <ul class="list-group">
+          <li class="list-group-item active">Workout Plan </li>
+          {workoutPlan.map((currentWorkout) => {
+            return (
+              <li class="list-group-item">
+                {currentWorkout.exercise} &nbsp;&nbsp;
+                <svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-trash-fill"
+                  fill="red"
+                  style={{ cursor: "pointer" }}
+                  xmlns="http://www.w3.org/2000/svg"
+                  onClick={() => {
+                    axios
+                      .delete(
+                        "http://localhost:5000/api/profile/workoutplan/" +
+                          profileID +
+                          "/" +
+                          currentWorkout._id
+                      )
+                      .then((response) => {
+                        console.log(response);
+                        alert("Exercise Deleted");
+
+                        //refresh Data After Deletion
+
+                        axios
+                          .get(
+                            "http://localhost:5000/api/profile/user/" +
+                              profileID
+                          )
+                          .then((res) => {
+                            console.log(
+                              "Profile Details " + res.data.workoutplan
+                            );
+                            console.log(
+                              "Profile workoutplan length " +
+                                res.data.workoutplan.length
+                            );
+                            if (res.data.workoutplan.length > 0) {
+                              setWorkoutPlan(res.data.workoutplan);
+                            }
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      })
+                      .catch((err) => {
+                        alert(err);
+                      });
+                  }}
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"
+                  />
+                </svg>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );

@@ -237,12 +237,7 @@ export default function RequestedPlansTable() {
                               </HoverDeleteButton>
                             ) : column.id === "AddPlan" ? (
                               <HoverDeleteButton>
-                                <Link
-                                  to={{
-                                    pathname: "/userforms",
-                                    data: value,
-                                  }}
-                                >
+                                <Link to={"/userforms/" + value}>
                                   <Button variant="contained" color="primary">
                                     Add Plan
                                   </Button>
