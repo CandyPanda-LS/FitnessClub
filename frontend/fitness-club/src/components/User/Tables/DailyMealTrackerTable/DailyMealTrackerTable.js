@@ -117,6 +117,22 @@ export default function DailyMealTrackerTable() {
       });
   }, []);
 
+  function generatePDF() {
+    const pdfText = {
+      DailyMealList: DailyMealList,
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/api/pdfgenerate/generatemealschedule",
+        pdfText
+      )
+      .then(() => {
+        alert("Pdf Generated");
+      })
+      .catch((err) => alert(err.message));
+  }
+
   //map table row data
   const rows = DailyMealList.map((currentMeal) => {
     return createData(
@@ -170,78 +186,97 @@ export default function DailyMealTrackerTable() {
   }
 
   return (
-    <Paper
-      className={classes.root}
-      style={{
-        borderRadius: "20px",
-        boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
-      }}
-      boxShadow={3}
-    >
-      <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{
-                    minWidth: column.minWidth,
-                    color: "white",
-                    backgroundColor: "#db8465",
-                  }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody className={classes.TableBody}>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell
-                          style={{ color: "white" }}
-                          key={column.id}
-                          align={column.align}
-                        >
-                          {column.format && typeof value === "number" ? (
-                            column.format(value)
-                          ) : column.id === "MealID" ? (
-                            <HoverDeleteButton>
-                              <DeleteOutlineIcon
-                                onClick={() => {
-                                  deleteMeal(value);
-                                }}
-                              />
-                            </HoverDeleteButton>
-                          ) : (
-                            value
-                          )}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </Paper>
+    <div className="row">
+      <div className="col-md-12" style={{ textAlign: "center" }}>
+        <button
+          className="btn btn-primary"
+          onClick={generatePDF}
+          style={{ margin: "20px" }}
+        >
+          Generate Meal Report
+        </button>
+      </div>
+
+      <div className="col-md-12">
+        <Paper
+          className={classes.root}
+          style={{
+            borderRadius: "20px",
+            boxShadow: "10px 5px 10px rgba(110, 107, 107, 0.548)",
+          }}
+          boxShadow={3}
+        >
+          <TableContainer className={classes.container}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{
+                        minWidth: column.minWidth,
+                        color: "white",
+                        backgroundColor: "#db8465",
+                      }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody className={classes.TableBody}>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.code}
+                      >
+                        {columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <TableCell
+                              style={{ color: "white" }}
+                              key={column.id}
+                              align={column.align}
+                            >
+                              {column.format && typeof value === "number" ? (
+                                column.format(value)
+                              ) : column.id === "MealID" ? (
+                                <HoverDeleteButton>
+                                  <DeleteOutlineIcon
+                                    onClick={() => {
+                                      deleteMeal(value);
+                                    }}
+                                  />
+                                </HoverDeleteButton>
+                              ) : (
+                                value
+                              )}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </div>
+    </div>
   );
 }
