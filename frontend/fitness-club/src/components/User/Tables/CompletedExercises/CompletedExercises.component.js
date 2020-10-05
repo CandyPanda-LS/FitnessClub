@@ -120,7 +120,7 @@ export default function CompletedExercises() {
         pdfText
       )
       .then(() => {
-        alert("PDF Generated");
+        alert("PDF Generated Successful");
       })
       .catch((err) => alert(err.message));
   }
