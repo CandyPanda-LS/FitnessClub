@@ -185,7 +185,10 @@ export default function MainCart() {
                 </h5>
               </li>
             </ul>
-            <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">
+            <a
+              href="/PaymentCart"
+              class="btn btn-dark rounded-pill py-2 btn-block"
+            >
               Procceed to checkout
             </a>
           </div>

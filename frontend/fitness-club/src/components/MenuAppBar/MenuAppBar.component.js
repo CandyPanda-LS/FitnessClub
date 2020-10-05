@@ -26,6 +26,8 @@ import Assigninstructorform from "../Admin/AssignmentInstructor/form/assigninstr
 import InstructorLogin from "../Instructor/Login/instructorlogin.component";
 import Instructor from "../Instructor/dashboard/instructor.component";
 
+import Payment from "../Shop/Pages/cart/payment.component";
+
 // @desc import Components
 // @author Lasal
 import EcommerceInsertitem from "../Shop/Forms/AddItem/InsertItem.component";
@@ -508,7 +510,6 @@ export default function MenuAppBar() {
               <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/profile" exact component={Profile} />
               <Route path="/forgotpassword" exact component={ForgotPassword} />
-
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={HomeComponent} />
@@ -551,12 +552,12 @@ export default function MenuAppBar() {
               />
               <Route path="/instructor" exact component={Instructor} />
 
+              <Route path="/PaymentCart" exact component={Payment} />
               {/* Routes
               @author Lasal */}
               <Switch>
                 <Route exact path="/shopItem/:id" component={Item} />
               </Switch>
-
               <Route path="/cart" exact component={MainCart} />
               <Route
                 path="/insertItemShop"
@@ -568,7 +569,6 @@ export default function MenuAppBar() {
                 component={EcommerceUpdateitem}
               />
               <Route path="/shop" exact component={ItemsGrid} />
-
               <Route
                 path="/adminItemShop"
                 exact
@@ -579,7 +579,6 @@ export default function MenuAppBar() {
                 exact
                 component={AdminDashboardShop}
               />
-
               {/* Routes
               @author Dilumi */}
               <Route path="/inventorytable" exact component={InventoryGrid} />
@@ -593,7 +592,6 @@ export default function MenuAppBar() {
                 exact
                 component={UpdateInventoryItems}
               />
-
               {/* Routes
               @author Jayani */}
               <Route path="/userforms/:id" exact component={UserPlan} />
@@ -628,7 +626,6 @@ export default function MenuAppBar() {
                 exact
                 component={FitnessUpdatesTable}
               />
-
               {/* Routes
               @author Rajindu */}
               <Route path="/admin" exact component={InstructorManage} />
@@ -636,7 +633,6 @@ export default function MenuAppBar() {
               <Route path="/update/:id" exact component={UpdateInstructor} />
               <Route path="/list" exact component={InstructorList} />
               <Route path="/view/:id" exact component={InstructorProfile} />
-
               {/* Routes
               @author Ayodya */}
               <Route path="/InsertFeedback" exact component={InsertFeedback} />
@@ -656,7 +652,6 @@ export default function MenuAppBar() {
                 exact
                 component={AdvertisementTable}
               />
-
               {/* Routes
               @author Chamodi */}
               {/* <Route path="/gympackages" exact component={GymPackageGrid} />
@@ -680,10 +675,8 @@ export default function MenuAppBar() {
               <Route path="/DeleteNotice" exact component={DeleteNotice} />
               <Route path="/PackageDetails" exact component={PackageDetails} />
               <Route path="/NoticesTable" exact component={NoticesTable} /> */}
-
               {/* Routes
               @author Chamodi */}
-
               <Route
                 path="/ManageGymPackage"
                 exact
@@ -695,7 +688,6 @@ export default function MenuAppBar() {
               <Route path="/NoticesTable" exact component={NoticesTable} />
               <Route path="/Packages" exact component={Packages} />
               <Route path="/Payment" exact component={PaymentDetails} />
-
               {/* Routes
               @author public */}
               <Route path="/aboutUs" exact component={AboutUs} />
