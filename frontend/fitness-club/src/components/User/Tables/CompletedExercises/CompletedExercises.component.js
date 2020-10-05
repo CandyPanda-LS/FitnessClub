@@ -14,6 +14,7 @@ import TableRow from "@material-ui/core/TableRow";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
 import Background from "./img/2.jpg";
+import { Button } from "@material-ui/core";
 
 //Hover Component For Delete Icon
 const HoverDeleteButton = styled.p`
@@ -96,7 +97,7 @@ export default function CompletedExercises() {
     axios
       .get("http://localhost:5000/api/profile/me", config)
       .then(({ data }) => {
-        console.log(data.completedWorkoutList);
+        console.log("completedWorkoutList : " + data.completedWorkoutList);
         console.log(data.completedWorkoutList.length);
 
         if (data.completedWorkoutList.length > 0) {
@@ -107,6 +108,22 @@ export default function CompletedExercises() {
         console.log(error);
       });
   }, []);
+
+  function generatePDF() {
+    const pdfText = {
+      completedExerciseList: completedExerciseList,
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/api/pdfgenerate/generateworkoutplan",
+        pdfText
+      )
+      .then(() => {
+        alert("Pdf Generated");
+      })
+      .catch((err) => alert(err.message));
+  }
 
   async function deleteExercise(id) {
     const config = {
@@ -173,6 +190,7 @@ export default function CompletedExercises() {
     >
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
+          <Button onClick={generatePDF}>Generate</Button>
           <TableHead>
             <TableRow>
               {columns.map((column) => (

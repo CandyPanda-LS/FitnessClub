@@ -34,6 +34,7 @@ const instructorSchema = new Schema(
         height: { type: String },
         gender: { type: String },
         requirement: { type: String },
+        assigned: { type: String },
       },
     ],
   },

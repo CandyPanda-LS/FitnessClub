@@ -100,6 +100,8 @@ router.route("/adduserrequests").post(async (req, res) => {
     requirement,
   } = req.body;
 
+  const assigned = "Not Assigned";
+
   const newUserRequirement = {
     userProfile,
     userName,
@@ -107,6 +109,7 @@ router.route("/adduserrequests").post(async (req, res) => {
     height,
     gender,
     requirement,
+    assigned,
   };
 
   try {
@@ -176,5 +179,43 @@ router.route("/addmealtouser").post(async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//@route  POST  api/instructors/userRequests/:userid/:request_id
+//@desc  update assigned property
+//@access private
+//@author senura
+
+// router.post("/userRequests/:userid/:request_id", async (req, res) => {
+//   //build profile object
+//   const profileFields = {};
+
+//   const assigned = "Assigned";
+//   if (assigned) profileFields.assigned = assigned;
+
+//   try {
+//     let profile = await Instructor.findOne(req.params.userid);
+
+//     if (profile) {
+//       //UPDATE
+//       profile = await Instructor.findOneAndUpdate(
+//         { _id: req.user.id },
+//         { userProfile: req.params.userid },
+//         { $set: { "userRequests.$.assigned": "assigned" } },
+//         { new: true }
+//       );
+
+//       return res.json(profile);
+//     }
+
+//     //Create
+//     profile = new Profile(profileFields);
+
+//     await profile.save();
+//     res.json(profile); //return the profile
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Server Error");
+//   }
+// });
 
 module.exports = router;

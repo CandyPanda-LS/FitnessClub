@@ -27,6 +27,7 @@ app.use("/api/instructor/workout", require("./routes/api/Workout"));
 app.use("/api/admins", require("./routes/api/admins"));
 app.use("/api/authadmin", require("./routes/api/authadmin"));
 app.use("/api/authinstructor", require("./routes/api/authinstructor"));
+app.use("/api/pdfgenerate", require("./routes/api/pdfgenerating/pdfgenerate"));
 
 //-------------------Lasal---------------------
 app.use("/api/shop", require("./routes/api/shop"));

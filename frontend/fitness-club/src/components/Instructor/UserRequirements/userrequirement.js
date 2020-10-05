@@ -249,6 +249,12 @@ export default function RequestedPlansTable() {
                                   Update Plan
                                 </Button>
                               </HoverDeleteButton>
+                            ) : column.id === "Assigned" ? (
+                              <HoverDeleteButton>
+                                <Button variant="contained" color="secondary">
+                                  {value}
+                                </Button>
+                              </HoverDeleteButton>
                             ) : (
                               value
                             )}
