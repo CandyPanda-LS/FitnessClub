@@ -66,7 +66,7 @@ export default class updateFitnessUpdate extends Component {
 
     if (this.state.file !== null) {
       const uploadTask = storage
-        .ref(`advertisements/${this.state.file.name}`)
+        .ref(`fitnessupdates/${this.state.file.name}`)
         .put(this.state.file);
       uploadTask.on(
         "state_changed",
@@ -84,7 +84,7 @@ export default class updateFitnessUpdate extends Component {
         () => {
           //complete function
           storage
-            .ref("advertisements")
+            .ref("fitnessupdates")
             .child(this.state.file.name)
             .getDownloadURL()
             .then((url) => {

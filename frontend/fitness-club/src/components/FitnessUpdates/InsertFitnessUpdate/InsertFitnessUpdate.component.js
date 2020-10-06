@@ -75,7 +75,7 @@ export default function InsertFitnessUpdate() {
     e.preventDefault();
 
     if (file !== null) {
-      const uploadTask = storage.ref(`advertisements/${file.name}`).put(file);
+      const uploadTask = storage.ref(`fitnessupdates/${file.name}`).put(file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -92,7 +92,7 @@ export default function InsertFitnessUpdate() {
         () => {
           //complete function
           storage
-            .ref("advertisements")
+            .ref("fitnessupdates")
             .child(file.name)
             .getDownloadURL()
             .then((url) => {

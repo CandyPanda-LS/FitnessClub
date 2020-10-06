@@ -55,7 +55,7 @@ export default function EcommerceUpdateitem(props) {
     e.preventDefault();
 
     if (file !== null) {
-      const uploadTask = storage.ref(`advertisements/${file.name}`).put(file);
+      const uploadTask = storage.ref(`shoping/${file.name}`).put(file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -72,7 +72,7 @@ export default function EcommerceUpdateitem(props) {
         () => {
           //complete function
           storage
-            .ref("advertisements")
+            .ref("shoping")
             .child(file.name)
             .getDownloadURL()
             .then((url) => {
