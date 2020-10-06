@@ -27,34 +27,22 @@ router.get("/path", (req, res) => {
 //@access Private
 //to protect auth add as the second parameter
 router.post("/", async (req, res) => {
-  if (req.files == null) {
-    return res.status(400).json({ msg: "No file uploaded" });
-  }
+  const advertiesementImage = req.body.advertiesementImage;
+  const title = req.body.title;
+  const description = req.body.description;
 
-  const file = req.files.file;
-  file.mv(`${dirPath}/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    const advertiesementImage = file.name;
-    const title = req.body.title;
-    const description = req.body.description;
-
-    const newAdvertisement = new Advertisement({
-      title,
-      description,
-      advertiesementImage,
-    });
-
-    //Save Data into the mongo database
-
-    newAdvertisement
-      .save()
-      .then(() => res.json("Advertisement Added"))
-      .catch((err) => res.status(400).json("Error: " + err));
+  const newAdvertisement = new Advertisement({
+    title,
+    description,
+    advertiesementImage,
   });
+
+  //Save Data into the mongo database
+
+  newAdvertisement
+    .save()
+    .then(() => res.json("Advertisement Added"))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 // @route         GET /advertiesement
@@ -105,7 +93,7 @@ router.get("/:id", (req, res) => {
 router.post("/updateadvertisement/:id", async (req, res) => {
   try {
     //if there is no image
-    if (req.files == null) {
+    if (req.body.advertiesementImage == null) {
       Advertisement.findByIdAndUpdate(req.params.id)
         .then((advertisement) => {
           advertisement.title = req.body.title;
@@ -120,26 +108,18 @@ router.post("/updateadvertisement/:id", async (req, res) => {
     }
     //if there is a image
     else {
-      const file = req.files.file;
-      file.mv(`${dirPath}/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
+      Advertisement.findByIdAndUpdate(req.params.id)
+        .then((advertisement) => {
+          advertisement.title = req.body.title;
+          advertisement.description = req.body.description;
+          advertisement.advertiesementImage = req.body.advertiesementImage;
 
-        Advertisement.findByIdAndUpdate(req.params.id)
-          .then((advertisement) => {
-            advertisement.title = req.body.title;
-            advertisement.description = req.body.description;
-            advertisement.advertiesementImage = file.name;
-
-            advertisement
-              .save()
-              .then(() => res.json("Advertisement updated!"))
-              .catch((err) => res.status(400).json("Error: " + err));
-          })
-          .catch((err) => res.status(400).json("Error: " + err));
-      });
+          advertisement
+            .save()
+            .then(() => res.json("Advertisement updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     }
   } catch (err) {
     console.error(err.message);

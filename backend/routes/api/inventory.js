@@ -43,42 +43,30 @@ router.get("/:id", (req, res) => {
 //to protect auth add as the second parameter
 
 router.post("/additems", async (req, res) => {
-  if (req.files == null) {
-    return res.status(400).json({ msg: "No file uploaded" });
-  }
+  const ItemType = req.body.ItemType;
+  const ItemBrand = req.body.ItemBrand;
+  const ManufacturelDate = req.body.ManufacturelDate;
+  const ServiceDate = req.body.ServiceDate;
+  const Warranty = req.body.Warranty;
+  const PurchasedDate = req.body.PurchasedDate;
+  const ItemImage = req.body.imageURL;
 
-  const file = req.files.file;
-  file.mv(`${dirPath}/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    const ItemType = req.body.ItemType;
-    const ItemBrand = req.body.ItemBrand;
-    const ManufacturelDate = req.body.ManufacturelDate;
-    const ServiceDate = req.body.ServiceDate;
-    const Warranty = req.body.Warranty;
-    const PurchasedDate = req.body.PurchasedDate;
-    const ItemImage = file.name;
-
-    const newItem = new Inventory({
-      ItemType,
-      ItemBrand,
-      ManufacturelDate,
-      ServiceDate,
-      Warranty,
-      PurchasedDate,
-      ItemImage,
-    });
-
-    //Save Data into the mongo database
-
-    newItem
-      .save()
-      .then(() => res.json("Item Added"))
-      .catch((err) => res.status(400).json("Error: " + err));
+  const newItem = new Inventory({
+    ItemType,
+    ItemBrand,
+    ManufacturelDate,
+    ServiceDate,
+    Warranty,
+    PurchasedDate,
+    ItemImage,
   });
+
+  //Save Data into the mongo database
+
+  newItem
+    .save()
+    .then(() => res.json("Item Added"))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 //@route  DELETE api/inventory/remove
@@ -108,7 +96,7 @@ router.delete("/removeItem/:id", async (req, res) => {
 router.post("/updateItem/:id", async (req, res) => {
   try {
     //if there is no image
-    if (req.files == null) {
+    if (req.body.imageURL == null) {
       Inventory.findByIdAndUpdate(req.params.id)
         .then((item) => {
           item.ItemType = req.body.ItemType;
@@ -127,30 +115,22 @@ router.post("/updateItem/:id", async (req, res) => {
     }
     //if there is a image
     else {
-      const file = req.files.file;
-      file.mv(`${dirPath}/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
+      Inventory.findByIdAndUpdate(req.params.id)
+        .then((item) => {
+          item.ItemType = req.body.ItemType;
+          item.ItemBrand = req.body.ItemBrand;
+          item.ManufacturelDate = req.body.ManufacturelDate;
+          item.ServiceDate = req.body.ServiceDate;
+          item.Warranty = req.body.Warranty;
+          item.PurchasedDate = req.body.PurchasedDate;
+          item.ItemImage = req.body.imageURL;
 
-        Inventory.findByIdAndUpdate(req.params.id)
-          .then((item) => {
-            item.ItemType = req.body.ItemType;
-            item.ItemBrand = req.body.ItemBrand;
-            item.ManufacturelDate = req.body.ManufacturelDate;
-            item.ServiceDate = req.body.ServiceDate;
-            item.Warranty = req.body.Warranty;
-            item.PurchasedDate = req.body.PurchasedDate;
-            item.ItemImage = file.name;
-
-            item
-              .save()
-              .then(() => res.json("Item updated!"))
-              .catch((err) => res.status(400).json("Error: " + err));
-          })
-          .catch((err) => res.status(400).json("Error: " + err));
-      });
+          item
+            .save()
+            .then(() => res.json("Item updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     }
   } catch (err) {
     console.error(err.message);

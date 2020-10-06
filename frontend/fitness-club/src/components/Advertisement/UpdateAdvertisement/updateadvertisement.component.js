@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-
+import { storage } from "../../../firebase";
 import Background from "./image/gymbanner.jpg";
 
 import Progress from "./Progress";
@@ -10,6 +10,7 @@ export default function Updateadvertisement(props) {
   const [Title, setTitle] = useState(null);
   const [Description, setDescription] = useState(null);
   const [file, setFile] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function Updateadvertisement(props) {
         console.log(res);
         setTitle(res.data.title);
         setDescription(res.data.description);
+        setImageURL(res.data.advertiesementImage);
         setID(res.data._id);
       })
       .catch((err) => {
@@ -47,40 +49,67 @@ export default function Updateadvertisement(props) {
       });
   }, []);
 
-  function onChangeFile(e) {
-    setFile(e.target.files[0]);
+  function uploadImage(e) {
+    e.preventDefault();
+
+    if (file !== null) {
+      const uploadTask = storage.ref(`advertisements/${file.name}`).put(file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setuploadPercentage(progress);
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("advertisements")
+            .child(file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              setImageURL(url);
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
   }
 
   function onFormSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData();
+    if (Title == null) {
+      alert("Title is required");
+      return false;
+    }
+    if (Description == null) {
+      alert("Description is required");
+      return false;
+    }
+    if (imageURL == null) {
+      alert("Image is required");
+      return false;
+    }
 
-    formData.append("title", Title);
-    formData.append("description", Description);
-    formData.append("file", file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        //'x-auth-token': localStorage.getItem('x-auth-token'),
-      },
-      onUploadProgress: (progressEvent) => {
-        setuploadPercentage(
-          parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          )
-        );
-        //Clear percentage
-        setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      title: Title,
+      description: Description,
+      advertiesementImage: imageURL,
     };
 
     axios
       .post(
         "http://localhost:5000/api/advertisement/updateadvertisement/" + ID,
-        formData,
-        config
+        formData
       )
       .then((res) => {
         window.location = "/advertisementtable";
@@ -143,16 +172,39 @@ export default function Updateadvertisement(props) {
                     </div>
 
                     <div class="form-group row">
-                      <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input
-                          style={{ padding: "3px", borderRadius: "10px" }}
-                          class="choosebtn form-control form-control-user"
-                          type="file"
-                          id="ItemImage"
-                          placeholder="{filename}"
-                          name="image"
-                          onChange={onChangeFile}
-                        />
+                      <div className="row">
+                        <div className="col-md-12">
+                          <label
+                            style={{ fontSize: "12px", marginLeft: "15px" }}
+                          >
+                            Image
+                          </label>
+                        </div>
+                        <div className="col-md-12">
+                          {imageURL ? <img src={imageURL} width="300px" /> : ""}
+                        </div>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-md-9">
+                          <input
+                            class="form-control "
+                            type="file"
+                            id="exampleInputEmail"
+                            name="Image"
+                            style={{ padding: "2px" }}
+                            onChange={(e) => {
+                              setFile(e.target.files[0]);
+                            }}
+                          />
+                        </div>
+                        <div className="col-md-3">
+                          <i
+                            style={{ fontSize: "43px" }}
+                            class="fas fa-cloud-upload-alt ImageUploadButton"
+                            onClick={uploadImage}
+                          ></i>
+                        </div>
                       </div>
                     </div>
                     <Progress percentage={uploadPercentage} />

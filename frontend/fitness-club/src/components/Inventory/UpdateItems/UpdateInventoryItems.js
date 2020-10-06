@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "./UpdateInventoryItems.css";
-
+import { storage } from "../../../firebase";
 import axios from "axios";
 
 import Progress from "./Progress";
@@ -17,6 +17,7 @@ export default function UpdateInventoryItems(props) {
   const [Warranty, setWarranty] = useState();
   const [PurchasedDate, setPurchasedDate] = useState();
   const [file, setItemImage] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function UpdateInventoryItems(props) {
         setServiceDate(res.data.ServiceDate.substring(0, 10));
         setWarranty(res.data.Warranty);
         setPurchasedDate(res.data.PurchasedDate.substring(0, 10));
+        setImageURL(res.data.ItemImage);
 
         console.log(res.data.ItemBrand);
         console.log(res.data.ItemImage);
@@ -60,37 +62,49 @@ export default function UpdateInventoryItems(props) {
   function onFormSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData();
+    if (ItemType == null) {
+      alert("Item Type is required");
+      return false;
+    }
+    if (ItemBrand == null) {
+      alert("Item Brand is required");
+      return false;
+    }
+    if (ManufacturelDate == null) {
+      alert("Manufacturel Date  is required");
+      return false;
+    }
+    if (ServiceDate == null) {
+      alert("Service Date is required");
+      return false;
+    }
+    if (Warranty == null) {
+      alert("Warranty is required");
+      return false;
+    }
+    if (PurchasedDate == null) {
+      alert("Purchased Date  is required");
+      return false;
+    }
+    if (imageURL == null) {
+      alert("Image  is required");
+      return false;
+    }
 
-    formData.append("ItemType", ItemType);
-    formData.append("ItemBrand", ItemBrand);
-    formData.append("ManufacturelDate", ManufacturelDate);
-    formData.append("ServiceDate", ServiceDate);
-    formData.append("Warranty", Warranty);
-    formData.append("PurchasedDate", PurchasedDate);
-    formData.append("file", file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        //'x-auth-token': localStorage.getItem('x-auth-token'),
-      },
-      onUploadProgress: (progressEvent) => {
-        setuploadPercentage(
-          parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          )
-        );
-        //Clear percentage
-        setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      ItemType: ItemType,
+      ItemBrand: ItemBrand,
+      ManufacturelDate: ManufacturelDate,
+      ServiceDate: ServiceDate,
+      Warranty: Warranty,
+      PurchasedDate: PurchasedDate,
+      imageURL: imageURL,
     };
 
     axios
       .post(
         "http://localhost:5000/api/inventory/updateItem/" + ItemID,
-        formData,
-        config
+        formData
       )
       .then((res) => {
         window.location = "/inventorytable";
@@ -98,6 +112,41 @@ export default function UpdateInventoryItems(props) {
       .catch((error) => {
         console.log(error.message);
       });
+  }
+
+  function uploadImage(e) {
+    e.preventDefault();
+
+    if (file !== null) {
+      const uploadTask = storage.ref(`inventory/${file.name}`).put(file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setuploadPercentage(progress);
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("inventory")
+            .child(file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              setImageURL(url);
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
   }
 
   return (
@@ -220,16 +269,31 @@ export default function UpdateInventoryItems(props) {
                       </div>
 
                       <div class="form-group">
-                        <input
-                          class="form-control form-control-user"
-                          type="file"
-                          id="exampleInputEmail"
-                          name="Image"
-                          style={{ padding: "2px" }}
-                          onChange={(e) => {
-                            setItemImage(e.target.files[0]);
-                          }}
-                        />
+                        <label style={{ fontSize: "12px", marginLeft: "15px" }}>
+                          Image
+                        </label>
+                        <img src={imageURL} width="300px" />
+                        <div className="row">
+                          <div className="col-md-9">
+                            <input
+                              class="form-control "
+                              type="file"
+                              id="exampleInputEmail"
+                              name="Image"
+                              style={{ padding: "2px" }}
+                              onChange={(e) => {
+                                setItemImage(e.target.files[0]);
+                              }}
+                            />
+                          </div>
+                          <div className="col-md-3">
+                            <i
+                              style={{ fontSize: "43px" }}
+                              class="fas fa-cloud-upload-alt ImageUploadButton"
+                              onClick={uploadImage}
+                            ></i>
+                          </div>
+                        </div>
                       </div>
 
                       <Progress percentage={uploadPercentage} />
@@ -240,7 +304,7 @@ export default function UpdateInventoryItems(props) {
                           class="btn btn-primary btn-block text-white btn-user additemBtn"
                           type="submit"
                         >
-                          Add Item
+                          Update Item
                         </button>
                       </div>
                     </form>

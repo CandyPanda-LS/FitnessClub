@@ -28,7 +28,7 @@ function InventoryList({
               style={{ height: "250px" }}
               class="card-img w-100 d-block"
               data-bs-hover-animate="pulse"
-              src={"uploads/inventory/" + ItemImage}
+              src={ItemImage}
               alt="itemImage"
             />
           </div>

@@ -4,6 +4,8 @@ import "./InsertInventoryItems.css";
 
 import axios from "axios";
 
+import { storage } from "../../../firebase";
+
 import Progress from "./Progress";
 
 import Background from "./img/gymbanner.jpg";
@@ -16,6 +18,7 @@ export default function InsertInventoryItems() {
   const [Warranty, setWarranty] = useState(null);
   const [PurchasedDate, setPurchasedDate] = useState(null);
   const [file, setItemImage] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
@@ -58,41 +61,64 @@ export default function InsertInventoryItems() {
       alert("Purchased Date  is required");
       return false;
     }
+    if (imageURL == null) {
+      alert("Image  is required");
+      return false;
+    }
 
-    const formData = new FormData();
-
-    formData.append("ItemType", ItemType);
-    formData.append("ItemBrand", ItemBrand);
-    formData.append("ManufacturelDate", ManufacturelDate);
-    formData.append("ServiceDate", ServiceDate);
-    formData.append("Warranty", Warranty);
-    formData.append("PurchasedDate", PurchasedDate);
-    formData.append("file", file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        //'x-auth-token': localStorage.getItem('x-auth-token'),
-      },
-      onUploadProgress: (progressEvent) => {
-        setuploadPercentage(
-          parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          )
-        );
-        //Clear percentage
-        setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      ItemType: ItemType,
+      ItemBrand: ItemBrand,
+      ManufacturelDate: ManufacturelDate,
+      ServiceDate: ServiceDate,
+      Warranty: Warranty,
+      PurchasedDate: PurchasedDate,
+      imageURL: imageURL,
     };
 
     axios
-      .post("http://localhost:5000/api/inventory/additems", formData, config)
+      .post("http://localhost:5000/api/inventory/additems", formData)
       .then((res) => {
         window.location = "/inventorytable";
       })
       .catch((error) => {
         console.log(error.message);
       });
+  }
+
+  function uploadImage(e) {
+    e.preventDefault();
+
+    if (file !== null) {
+      const uploadTask = storage.ref(`inventory/${file.name}`).put(file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setuploadPercentage(progress);
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("inventory")
+            .child(file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              setImageURL(url);
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
   }
 
   return (
@@ -124,7 +150,8 @@ export default function InsertInventoryItems() {
                     <div class="text-center">
                       <h4 class="text-dark mb-4">Inventory | Add Items</h4>
                     </div>
-                    <form class="user" onSubmit={onFormSubmit}>
+
+                    <form class="user">
                       <div class="form-group">
                         <input
                           class="form-control form-control-user"
@@ -212,16 +239,31 @@ export default function InsertInventoryItems() {
                       </div>
 
                       <div class="form-group">
-                        <input
-                          class="form-control form-control-user"
-                          type="file"
-                          id="exampleInputEmail"
-                          name="Image"
-                          style={{ padding: "2px" }}
-                          onChange={(e) => {
-                            setItemImage(e.target.files[0]);
-                          }}
-                        />
+                        <label style={{ fontSize: "12px", marginLeft: "15px" }}>
+                          Image
+                        </label>
+                        <img src={imageURL} width="300px" />
+                        <div className="row">
+                          <div className="col-md-9">
+                            <input
+                              class="form-control "
+                              type="file"
+                              id="exampleInputEmail"
+                              name="Image"
+                              style={{ padding: "2px" }}
+                              onChange={(e) => {
+                                setItemImage(e.target.files[0]);
+                              }}
+                            />
+                          </div>
+                          <div className="col-md-3">
+                            <i
+                              style={{ fontSize: "43px" }}
+                              class="fas fa-cloud-upload-alt ImageUploadButton"
+                              onClick={uploadImage}
+                            ></i>
+                          </div>
+                        </div>
                       </div>
 
                       <Progress percentage={uploadPercentage} />
@@ -230,7 +272,7 @@ export default function InsertInventoryItems() {
                       <div class="form-group">
                         <button
                           class="btn btn-primary btn-block text-white btn-user additemBtn"
-                          type="submit"
+                          onClick={onFormSubmit}
                         >
                           Add Item
                         </button>

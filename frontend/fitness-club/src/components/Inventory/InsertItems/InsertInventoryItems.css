@@ -7,3 +7,12 @@
   transform: scale(1.1);
   transition: 0.7s;
 }
+
+.ImageUploadButton {
+  color: rgb(13, 124, 100);
+}
+
+.ImageUploadButton:hover {
+  color: rgb(8, 92, 131);
+  cursor: pointer;
+}
