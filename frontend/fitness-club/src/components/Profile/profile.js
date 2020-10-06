@@ -23,7 +23,8 @@ export default class Profile extends Component {
       mobileNo: "",
       file: null,
       imageURL: "",
-      profileImage: "user.png",
+      profileImage:
+        "https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg",
       uploadPercentage: "",
     };
   }

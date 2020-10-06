@@ -102,7 +102,9 @@ import AboutUs from "../AboutUs/aboutus.component";
 export default function MenuAppBar() {
   const [token, setToken] = useState(null);
   const [username, setUserName] = useState("Guest");
-  const [userImage, setUserImage] = useState("user.png");
+  const [userImage, setUserImage] = useState(
+    "https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg"
+  );
   const [role, setRole] = useState();
 
   useEffect(() => {
