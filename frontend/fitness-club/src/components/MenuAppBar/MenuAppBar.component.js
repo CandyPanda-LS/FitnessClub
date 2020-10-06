@@ -621,7 +621,7 @@ export default function MenuAppBar() {
                 component={InsertFitnessUpdate}
               />
               <Route
-                path="/updateFitnessUpdate/:id"
+                path="/updateFitnessUpdate"
                 exact
                 component={updateFitnessUpdate}
               />

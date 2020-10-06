@@ -36,9 +36,13 @@ export default class updateFitnessUpdate extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.location.data) {
+      window.location = "/FitnessUpdatesTable";
+    }
+
     axios
       .get(
-        "http://localhost:5000/api/fitnessUpdate/" + this.props.match.params.id
+        "http://localhost:5000/api/fitnessUpdate/" + this.props.location.data
       )
       .then((res) => {
         console.log(res.data);
@@ -50,7 +54,7 @@ export default class updateFitnessUpdate extends Component {
         });
       })
       .catch((err) => {
-        alert(err);
+        console.log(err);
       });
   }
 
