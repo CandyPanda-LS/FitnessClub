@@ -409,4 +409,23 @@ router.delete("/mealplan/:userid/:mealid", async (req, res) => {
   }
 });
 
+//@route  POST  api/profile/updateweightheight
+//@desc  update profile current weight and height
+//@access private
+//@author senura
+
+router.post("/updateweightheight", auth, async (req, res) => {
+  Profile.findOneAndUpdate({ user: req.user.id })
+    .then((profile) => {
+      profile.currentHeight = req.body.currentHeight;
+      profile.currentWeight = req.body.currentWeight;
+
+      profile
+        .save()
+        .then(() => res.json("Profile Updated"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;

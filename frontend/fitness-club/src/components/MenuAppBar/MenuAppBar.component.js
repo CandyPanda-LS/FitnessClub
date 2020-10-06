@@ -25,6 +25,7 @@ import AssignInstructor from "../Admin/AssignmentInstructor/assignInstructor.com
 import Assigninstructorform from "../Admin/AssignmentInstructor/form/assigninstructorform.component";
 import InstructorLogin from "../Instructor/Login/instructorlogin.component";
 import Instructor from "../Instructor/dashboard/instructor.component";
+import Email from "../User/Email/email.component";
 
 import Payment from "../Shop/Pages/cart/payment.component";
 
@@ -551,6 +552,8 @@ export default function MenuAppBar() {
                 component={InstructorLogin}
               />
               <Route path="/instructor" exact component={Instructor} />
+
+              <Route path="/email" exact component={Email} />
 
               <Route path="/PaymentCart" exact component={Payment} />
               {/* Routes

@@ -61,8 +61,97 @@ export default function BMICard() {
       });
   }, []);
 
+  function updateWeightHeight(e) {
+    e.preventDefault();
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    const newHeightWeight = {
+      currentWeight: BMIWeight,
+      currentHeight: BMIHeight,
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/api/profile/updateweightheight",
+        newHeightWeight,
+        config
+      )
+      .then(() => {
+        alert("Update Success");
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
   return (
     <div>
+      {/* <!-- Modal --> */}
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                UPDATE | WEIGHT AND HEIGTH
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form onSubmit={updateWeightHeight}>
+                <div class="form-group">
+                  <label for="weight">Weigth</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="weight"
+                    placeholder="Enter New Weight"
+                    onChange={(e) => {
+                      setWeight(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="weight">Height</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="weight"
+                    placeholder="Enter New Height"
+                    onChange={(e) => {
+                      setHeight(e.target.value);
+                    }}
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  EDIT
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div
         className="weightLineChart"
         style={{
@@ -86,7 +175,20 @@ export default function BMICard() {
             boxShadow: "7px 10px 23px 0px rgba(110,109,109,1)",
           }}
         >
-          {" "}
+          {/* <!-- Button trigger modal --> */}
+          {/* <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal"
+          > */}{" "}
+          <i
+            className="fas fa-cog fa-sm fa-fw mr-2"
+            style={{ color: "grey" }}
+            data-toggle="modal"
+            data-target="#exampleModal"
+          ></i>
+          {/* </button> */}
           <p style={{ color: "#0c76f7" }}>
             <span>
               <i class="fas fa-weight" style={{ color: "#0c76f7" }}></i>&nbsp;
