@@ -20,7 +20,7 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
             <img
               class="card-img w-100 d-block"
               data-bs-hover-animate="pulse"
-              src={"uploads/shop/" + ItemImage}
+              src={ItemImage}
               alt="itemImage"
             />
           </div>

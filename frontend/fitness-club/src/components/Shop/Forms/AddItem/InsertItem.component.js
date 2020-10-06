@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { storage } from "../../../../firebase";
 import { FormControl, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Progress from "./Progress";
@@ -24,6 +25,7 @@ export default function EcommerceInsertitem() {
   const [ItemPrice, setItemPrice] = useState(null);
   const [ItemDescriprion, setItemDescriprion] = useState(null);
   const [file, setFile] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onSubmit(e) {
@@ -41,35 +43,20 @@ export default function EcommerceInsertitem() {
       alert("Item Description Required");
       return false;
     }
-    if (file == null) {
+    if (imageURL == null) {
       alert("Item Image Required");
       return false;
     }
 
-    const formData = new FormData();
-
-    formData.append("ItemName", ItemName);
-    formData.append("ItemPrice", ItemPrice);
-    formData.append("ItemDescriprion", ItemDescriprion);
-    formData.append("file", file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-      onUploadProgress: (progressEvent) => {
-        setuploadPercentage(
-          parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          )
-        );
-        //Clear percentage
-        setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      ItemName: ItemName,
+      ItemPrice: ItemPrice,
+      ItemDescriprion: ItemDescriprion,
+      ItemImage: imageURL,
     };
 
     axios
-      .post("http://localhost:5000/api/shop/additems", formData, config)
+      .post("http://localhost:5000/api/shop/additems", formData)
       .then((res) => {
         alert("Item Added");
       })
@@ -78,8 +65,39 @@ export default function EcommerceInsertitem() {
       });
   }
 
-  function onChangeFile(e) {
-    setFile(e.target.files[0]);
+  function uploadImage(e) {
+    e.preventDefault();
+
+    if (file !== null) {
+      const uploadTask = storage.ref(`advertisements/${file.name}`).put(file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setuploadPercentage(progress);
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("advertisements")
+            .child(file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              setImageURL(url);
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
   }
 
   return (
@@ -138,11 +156,26 @@ export default function EcommerceInsertitem() {
                       variant="outlined"
                     />
 
-                    <TextField
-                      type="file"
-                      onChange={onChangeFile}
-                      variant="outlined"
-                    />
+                    {imageURL ? <img src={imageURL} width="300px" /> : ""}
+                    <div className="row">
+                      <div className="col-md-9">
+                        <TextField
+                          type="file"
+                          onChange={(e) => {
+                            setFile(e.target.files[0]);
+                          }}
+                          variant="outlined"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <i
+                          style={{ fontSize: "43px" }}
+                          class="fas fa-cloud-upload-alt ImageUploadButton"
+                          onClick={uploadImage}
+                        ></i>
+                      </div>
+                    </div>
+
                     <br />
                     <Progress percentage={uploadPercentage} />
                     <br />

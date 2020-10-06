@@ -43,36 +43,24 @@ router.get("/:id", (req, res) => {
 //to protect auth add as the second parameter
 
 router.post("/additems", async (req, res) => {
-  if (req.files == null) {
-    return res.status(400).json({ msg: "No file uploaded" });
-  }
+  const ItemName = req.body.ItemName;
+  const ItemPrice = req.body.ItemPrice;
+  const ItemDescriprion = req.body.ItemDescriprion;
+  const ItemImage = req.body.ItemImage;
 
-  const file = req.files.file;
-  file.mv(`${dirPath}/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    const ItemName = req.body.ItemName;
-    const ItemPrice = req.body.ItemPrice;
-    const ItemDescriprion = req.body.ItemDescriprion;
-    const ItemImage = file.name;
-
-    const newItem = new Item({
-      ItemName,
-      ItemPrice,
-      ItemDescriprion,
-      ItemImage,
-    });
-
-    //Save Data into the mongo database
-
-    newItem
-      .save()
-      .then(() => res.json("Item Added"))
-      .catch((err) => res.status(400).json("Error: " + err));
+  const newItem = new Item({
+    ItemName,
+    ItemPrice,
+    ItemDescriprion,
+    ItemImage,
   });
+
+  //Save Data into the mongo database
+
+  newItem
+    .save()
+    .then(() => res.json("Item Added"))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 //@route  DELETE api/shop/remove
@@ -102,7 +90,7 @@ router.delete("/removeItem/:id", async (req, res) => {
 router.post("/updateItem/:id", async (req, res) => {
   try {
     //if there is no image
-    if (req.files == null) {
+    if (req.body.ItemImage == null) {
       Item.findById(req.params.id)
         .then((item) => {
           item.ItemName = req.body.ItemName;
@@ -118,27 +106,19 @@ router.post("/updateItem/:id", async (req, res) => {
     }
     //if there is a image
     else {
-      const file = req.files.file;
-      file.mv(`${dirPath}/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
+      Item.findOneAndUpdate(req.params.id)
+        .then((item) => {
+          item.ItemName = req.body.ItemName;
+          item.ItemPrice = req.body.ItemPrice;
+          item.ItemDescriprion = req.body.ItemDescriprion;
+          item.ItemImage = req.body.ItemImage;
 
-        Item.findOneAndUpdate(req.params.id)
-          .then((item) => {
-            item.ItemName = req.body.ItemName;
-            item.ItemPrice = req.body.ItemPrice;
-            item.ItemDescriprion = req.body.ItemDescriprion;
-            item.ItemImage = file.name;
-
-            item
-              .save()
-              .then(() => res.json("Item updated!"))
-              .catch((err) => res.status(400).json("Error: " + err));
-          })
-          .catch((err) => res.status(400).json("Error: " + err));
-      });
+          item
+            .save()
+            .then(() => res.json("Item updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     }
   } catch (err) {
     console.error(err.message);

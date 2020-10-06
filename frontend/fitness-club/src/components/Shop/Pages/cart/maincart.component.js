@@ -7,7 +7,7 @@ function ItemsInCart({ id, ItemName, ItemPrice, ItemQuantity, ItemImage }) {
       <th scope="row" class="border-0">
         <div class="p-2">
           <img
-            src={"/uploads/shop/" + ItemImage}
+            src={ItemImage}
             alt="IMAGEcART"
             width="70"
             class="img-fluid rounded shadow-sm"

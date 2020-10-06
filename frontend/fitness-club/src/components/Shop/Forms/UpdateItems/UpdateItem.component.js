@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { storage } from "../../../../firebase";
 import { FormControl, TextField, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Progress from "./Progress";
@@ -25,6 +26,7 @@ export default function EcommerceUpdateitem(props) {
   const [ItemDescriprion, setItemDescriprion] = useState(null);
   const [ItemImage, setItemImage] = useState(null);
   const [file, setFile] = useState();
+  const [imageURL, setImageURL] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
@@ -42,42 +44,79 @@ export default function EcommerceUpdateitem(props) {
         setItemPrice(response.data.ItemPrice);
         setItemDescriprion(response.data.ItemDescriprion);
         setItemImage(response.data.ItemImage);
+        setImageURL(response.data.ItemImage);
       })
       .catch((error) => {
         console.log("No Item");
       });
   }, []);
 
+  function uploadImage(e) {
+    e.preventDefault();
+
+    if (file !== null) {
+      const uploadTask = storage.ref(`advertisements/${file.name}`).put(file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setuploadPercentage(progress);
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("advertisements")
+            .child(file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              setImageURL(url);
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
+  }
+
   function onSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData();
+    if (ItemName == null) {
+      alert("Item Name Required");
+      return false;
+    }
+    if (ItemPrice == null) {
+      alert("Item Price Required");
+      return false;
+    }
+    if (ItemDescriprion == null) {
+      alert("Item Description Required");
+      return false;
+    }
+    if (imageURL == null) {
+      alert("Item Image Required");
+      return false;
+    }
 
-    formData.append("ItemName", ItemName);
-    formData.append("ItemPrice", ItemPrice);
-    formData.append("ItemDescriprion", ItemDescriprion);
-    formData.append("file", file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-      onUploadProgress: (progressEvent) => {
-        setuploadPercentage(
-          parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          )
-        );
-        //Clear percentage
-        setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      ItemName: ItemName,
+      ItemPrice: ItemPrice,
+      ItemDescriprion: ItemDescriprion,
+      ItemImage: imageURL,
     };
 
     axios
       .post(
         "http://localhost:5000/api/shop/updateItem/" + props.match.params.id,
-        formData,
-        config
+        formData
       )
       .then((res) => {
         alert("Item Updated");
@@ -85,10 +124,6 @@ export default function EcommerceUpdateitem(props) {
       .catch((error) => {
         alert(error);
       });
-  }
-
-  function onChangeFile(e) {
-    setFile(e.target.files[0]);
   }
 
   return (
@@ -109,8 +144,9 @@ export default function EcommerceUpdateitem(props) {
             <div class="col">
               <div class="card" style={{ borderRadius: "78px" }}>
                 <img
-                  class="card-img w-100 d-block"
-                  src="/assets/img/shoes/1.png"
+                  class="card-img  d-block"
+                  src={imageURL}
+                  width="300px"
                   alt="imageInsetitems"
                 />
               </div>
@@ -147,11 +183,24 @@ export default function EcommerceUpdateitem(props) {
                       value={ItemDescriprion}
                     />
 
-                    <TextField
-                      type="file"
-                      onChange={onChangeFile}
-                      variant="outlined"
-                    />
+                    <div className="row">
+                      <div className="col-md-9">
+                        <TextField
+                          type="file"
+                          onChange={(e) => {
+                            setFile(e.target.files[0]);
+                          }}
+                          variant="outlined"
+                        />
+                      </div>
+                      <div className="col-md-3">
+                        <i
+                          style={{ fontSize: "43px" }}
+                          class="fas fa-cloud-upload-alt ImageUploadButton"
+                          onClick={uploadImage}
+                        ></i>
+                      </div>
+                    </div>
                     <br />
                     <Progress percentage={uploadPercentage} />
                     <br />

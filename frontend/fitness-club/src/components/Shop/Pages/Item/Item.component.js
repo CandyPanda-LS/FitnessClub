@@ -212,7 +212,7 @@ export default class Item extends Component {
               <div class="col" style={{ margin: "0px" }}>
                 <img
                   data-bs-hover-animate="pulse"
-                  src={"/uploads/shop/" + this.state.ItemImage}
+                  src={this.state.ItemImage}
                   style={{
                     width: "600px",
                     height: " 600px",
