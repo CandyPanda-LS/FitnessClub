@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-
+import { storage } from "../../../firebase";
 import Progress from "./Progress";
 
 import "./updatefitnessupdate.css";
@@ -24,6 +24,7 @@ export default class updateFitnessUpdate extends Component {
     }
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
 
     this.state = {
       id: "",
@@ -31,6 +32,7 @@ export default class updateFitnessUpdate extends Component {
       description: "",
       link: "",
       file: null,
+      imageURL: "",
       uploadPercentage: 0,
     };
   }
@@ -51,6 +53,7 @@ export default class updateFitnessUpdate extends Component {
           topic: res.data.topic,
           description: res.data.description,
           link: res.data.link,
+          imageURL: res.data.image,
         });
       })
       .catch((err) => {
@@ -58,45 +61,58 @@ export default class updateFitnessUpdate extends Component {
       });
   }
 
+  uploadImage(e) {
+    e.preventDefault();
+
+    if (this.state.file !== null) {
+      const uploadTask = storage
+        .ref(`advertisements/${this.state.file.name}`)
+        .put(this.state.file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          this.setState({ uploadPercentage: progress });
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("advertisements")
+            .child(this.state.file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              this.setState({ imageURL: url });
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
+  }
+
   onFormSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    formData.append("topic", this.state.topic);
-    formData.append("description", this.state.description);
-    formData.append("link", this.state.link);
-    formData.append("file", this.state.file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        //'x-auth-token': localStorage.getItem('x-auth-token'),
-      },
-      onUploadProgress: (progressEvent) => {
-        this.setState({
-          uploadPercentage: parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          ),
-        });
-
-        //Clear percentage
-        setTimeout(
-          () =>
-            this.setState({
-              uploadPercentage: 0,
-            }),
-          10000
-        );
-      },
+    const formData = {
+      topic: this.state.topic,
+      description: this.state.description,
+      link: this.state.link,
+      image: this.state.imageURL,
     };
 
     axios
       .post(
         "http://localhost:5000/api/fitnessUpdate/updatearticle/" +
           this.state.id,
-        formData,
-        config
+        formData
       )
       .then((res) => {
         window.location = "/FitnessUpdatesTable";
@@ -186,18 +202,40 @@ export default class updateFitnessUpdate extends Component {
                         </div>
 
                         <div class="form-group">
-                          <input
-                            style={{ padding: "2px" }}
-                            class="form-control form-control-user"
-                            type="file"
-                            id="exampleInputEmail"
-                            onChange={(e) => {
-                              this.setState({
-                                file: e.target.files[0],
-                              });
-                            }}
-                            name="image"
-                          />
+                          <label
+                            style={{ fontSize: "12px", marginLeft: "15px" }}
+                          >
+                            Image
+                          </label>
+
+                          {this.state.imageURL ? (
+                            <img src={this.state.imageURL} width="300px" />
+                          ) : (
+                            ""
+                          )}
+                          <div className="row">
+                            <div className="col-md-9">
+                              <input
+                                class="form-control "
+                                type="file"
+                                id="exampleInputEmail"
+                                name="Image"
+                                style={{ padding: "2px" }}
+                                onChange={(e) => {
+                                  this.setState({
+                                    file: e.target.files[0],
+                                  });
+                                }}
+                              />
+                            </div>
+                            <div className="col-md-3">
+                              <i
+                                style={{ fontSize: "43px" }}
+                                class="fas fa-cloud-upload-alt ImageUploadButton"
+                                onClick={this.uploadImage}
+                              ></i>
+                            </div>
+                          </div>
                         </div>
 
                         <Progress percentage={this.uploadPercentage} />

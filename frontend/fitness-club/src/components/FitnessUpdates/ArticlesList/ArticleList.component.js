@@ -55,7 +55,7 @@ export default function ArticleList() {
                             width: "200px",
                             height: "200px",
                           }}
-                          src={"uploads/fitnessUpdates/" + articlepost.image}
+                          src={articlepost.image}
                           alt="ImageArticle"
                         />
                       </div>

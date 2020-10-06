@@ -237,7 +237,7 @@ export default function FitnessUpdatesTable() {
                               column.format(value)
                             ) : column.id === "Image" ? (
                               <img
-                                src={"uploads/fitnessUpdates/" + value}
+                                src={value}
                                 width="50px"
                                 heigth="50px"
                                 style={{ borderRadius: "50%" }}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./InsertFitnessUpdate.css";
+import { storage } from "../../../firebase";
 
 import Background from "./img/fitnessupdate.jpg";
 import Progress from "./Progress";
@@ -10,6 +11,7 @@ export default function InsertFitnessUpdate() {
   const [description, setdescription] = useState(null);
   const [link, setlink] = useState(null);
   const [file, setFile] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
@@ -41,36 +43,20 @@ export default function InsertFitnessUpdate() {
       alert("Link is Required");
       return false;
     }
-    if (file == null) {
+    if (imageURL == null) {
       alert("Image is Required");
       return false;
     }
 
-    const formData = new FormData();
-
-    formData.append("topic", topic);
-    formData.append("description", description);
-    formData.append("link", link);
-    formData.append("file", file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        //'x-auth-token': localStorage.getItem('x-auth-token'),
-      },
-      onUploadProgress: (progressEvent) => {
-        setuploadPercentage(
-          parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          )
-        );
-        //Clear percentage
-        setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      topic: topic,
+      description: description,
+      link: link,
+      image: imageURL,
     };
 
     axios
-      .post("http://localhost:5000/api/fitnessUpdate", formData, config)
+      .post("http://localhost:5000/api/fitnessUpdate", formData)
       .then((res) => {
         alert("Post Added");
 
@@ -83,6 +69,41 @@ export default function InsertFitnessUpdate() {
       });
 
     window.location = "/FitnessUpdatesTable";
+  }
+
+  function uploadImage(e) {
+    e.preventDefault();
+
+    if (file !== null) {
+      const uploadTask = storage.ref(`advertisements/${file.name}`).put(file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setuploadPercentage(progress);
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("advertisements")
+            .child(file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              setImageURL(url);
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
   }
 
   return (
@@ -159,17 +180,32 @@ export default function InsertFitnessUpdate() {
                       </div>
 
                       <div class="form-group">
-                        <input
-                          style={{ padding: "2px" }}
-                          class="form-control form-control-user"
-                          type="file"
-                          id="image"
-                          placeholder="Enter Link..."
-                          name="image"
-                          onChange={(e) => {
-                            setFile(e.target.files[0]);
-                          }}
-                        />
+                        <label style={{ fontSize: "12px", marginLeft: "15px" }}>
+                          Image
+                        </label>
+
+                        {imageURL ? <img src={imageURL} width="300px" /> : ""}
+                        <div className="row">
+                          <div className="col-md-9">
+                            <input
+                              class="form-control "
+                              type="file"
+                              id="exampleInputEmail"
+                              name="Image"
+                              style={{ padding: "2px" }}
+                              onChange={(e) => {
+                                setFile(e.target.files[0]);
+                              }}
+                            />
+                          </div>
+                          <div className="col-md-3">
+                            <i
+                              style={{ fontSize: "43px" }}
+                              class="fas fa-cloud-upload-alt ImageUploadButton"
+                              onClick={uploadImage}
+                            ></i>
+                          </div>
+                        </div>
                       </div>
                       <Progress percentage={uploadPercentage} />
                       <br />

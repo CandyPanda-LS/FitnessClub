@@ -43,36 +43,24 @@ router.get("/:id", (req, res) => {
 //to protect auth add as the second parameter
 
 router.post("/", async (req, res) => {
-  if (req.files == null) {
-    return res.status(400).json({ msg: "No file uploaded" });
-  }
+  const topic = req.body.topic;
+  const description = req.body.description;
+  const link = req.body.link;
+  const image = req.body.image;
 
-  const file = req.files.file;
-  file.mv(`${dirPath}/${file.name}`, (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-
-    const topic = req.body.topic;
-    const description = req.body.description;
-    const link = req.body.link;
-    const image = file.name;
-
-    const newItem = new Fitnessupdate({
-      topic,
-      description,
-      link,
-      image,
-    });
-
-    //Save Data into the mongo database
-
-    newItem
-      .save()
-      .then(() => res.json("Added"))
-      .catch((err) => res.status(400).json("Error: " + err));
+  const newItem = new Fitnessupdate({
+    topic,
+    description,
+    link,
+    image,
   });
+
+  //Save Data into the mongo database
+
+  newItem
+    .save()
+    .then(() => res.json("Added"))
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 //@route  DELETE api/Fitnessupdate/remove
@@ -102,7 +90,7 @@ router.delete("/removepost/:id", async (req, res) => {
 router.post("/updatearticle/:id", async (req, res) => {
   try {
     //if there is no image
-    if (req.files == null) {
+    if (req.body.image == null) {
       Fitnessupdate.findByIdAndUpdate(req.params.id)
         .then((article) => {
           article.topic = req.body.topic;
@@ -118,27 +106,19 @@ router.post("/updatearticle/:id", async (req, res) => {
     }
     //if there is a image
     else {
-      const file = req.files.file;
-      file.mv(`${dirPath}/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
+      Fitnessupdate.findByIdAndUpdate(req.params.id)
+        .then((article) => {
+          article.topic = req.body.topic;
+          article.description = req.body.description;
+          article.link = req.body.link;
+          article.image = req.body.image;
 
-        Fitnessupdate.findByIdAndUpdate(req.params.id)
-          .then((article) => {
-            article.topic = req.body.topic;
-            article.description = req.body.description;
-            article.link = req.body.link;
-            article.image = file.name;
-
-            article
-              .save()
-              .then(() => res.json("Article updated!"))
-              .catch((err) => res.status(400).json("Error: " + err));
-          })
-          .catch((err) => res.status(400).json("Error: " + err));
-      });
+          article
+            .save()
+            .then(() => res.json("Article updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     }
   } catch (err) {
     console.error(err.message);
