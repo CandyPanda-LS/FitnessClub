@@ -25,7 +25,9 @@ export default function EcommerceInsertitem() {
   const [ItemPrice, setItemPrice] = useState(null);
   const [ItemDescriprion, setItemDescriprion] = useState(null);
   const [file, setFile] = useState(null);
-  const [imageURL, setImageURL] = useState(null);
+  const [imageURL, setImageURL] = useState(
+    "https://fgl.scene7.com/is/image/FGLSportsLtd/FGL_332979914_01_a?bgColor=0,0,0,0&fmt=png-alpha&hei=528&resMode=sharp&qlt=85,1&op_sharpen=1"
+  );
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   function onSubmit(e) {
@@ -119,7 +121,7 @@ export default function EcommerceInsertitem() {
               <div class="card" style={{ borderRadius: "78px" }}>
                 <img
                   class="card-img w-100 d-block"
-                  src="assets/img/shoes/1.png"
+                  src={imageURL}
                   alt="imageInsetitems"
                 />
               </div>
@@ -156,7 +158,6 @@ export default function EcommerceInsertitem() {
                       variant="outlined"
                     />
 
-                    {imageURL ? <img src={imageURL} width="300px" /> : ""}
                     <div className="row">
                       <div className="col-md-9">
                         <TextField
