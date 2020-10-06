@@ -54,6 +54,7 @@ import FeedbackTable from "../Feedback/FeedbackTable/FeedbackTable.component";
 import Createadvertiesement from "../Advertisement/CreateAdvertisement/createadvertiesement.component";
 import AdvertisementComponent from "../Advertisement/advertiesment_view/advertiesment.component";
 import AdvertisementTable from "../Advertisement/AdvertisementTable/AdvertisementTable.component";
+import Updateadvertisement from "../Advertisement/UpdateAdvertisement/updateadvertisement.component";
 
 // @desc import Components
 // @author Dilumi
@@ -654,6 +655,11 @@ export default function MenuAppBar() {
                 path="/advertisementtable"
                 exact
                 component={AdvertisementTable}
+              />
+              <Route
+                path="/updateadvertisement"
+                exact
+                component={Updateadvertisement}
               />
               {/* Routes
               @author Chamodi */}

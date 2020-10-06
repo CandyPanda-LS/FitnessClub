@@ -286,7 +286,7 @@ export default function PackageDetails() {
                             ) : column.id === "edit" ? (
                               <Link
                                 to={{
-                                  pathname: "/ManageGymPackage",
+                                  pathname: "/updateadvertisement",
                                   data: value,
                                 }}
                               >

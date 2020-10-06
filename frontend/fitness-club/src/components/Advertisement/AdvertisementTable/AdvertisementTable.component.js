@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -259,13 +260,16 @@ export default function AdvertisementTable() {
                                 alt="imageAdvertisementTable"
                               />
                             ) : column.id === "EditAdvertisement" ? (
-                              <HoverEditButton>
-                                <SettingsIcon
-                                  onClick={() => {
-                                    deleteAdvertisement(value);
-                                  }}
-                                />
-                              </HoverEditButton>
+                              <Link
+                                to={{
+                                  pathname: "/updateadvertisement",
+                                  data: value,
+                                }}
+                              >
+                                <HoverEditButton>
+                                  <SettingsIcon />
+                                </HoverEditButton>
+                              </Link>
                             ) : column.id === "DeleteAdvertisement" ? (
                               <HoverDeleteButton>
                                 <DeleteOutlineIcon

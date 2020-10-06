@@ -68,18 +68,6 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-// // //@route  DELETE api/advertiesement
-// // //@desc  Delete Item
-// // //@access Private
-// // //@author Ayodya
-// router.delete('/:id', async (req, res) => {
-//   Advertisement.findByIdAndDelete(req.params.id)
-//     .then(() => {
-//       res.json('Advertisement Deleted');
-//     })
-//     .catch((err) => res.status(400).json('Error: ' + err));
-// });
-
 //@route  DELETE api/instructor/meal
 //@desc  Delete Meal
 //@access Private
@@ -99,15 +87,64 @@ router.delete("/adremove/:deleteadvertisement_id", async (req, res) => {
   }
 });
 
-// router.delete("/", async (req, res) => {
-//   try {
-//     //Remove Advertisement
-//     await Advertisement.findOneAndRemove({ _id: req.body.id });
+//@route  GET api/advertisement/:id
+//@desc   Get one Item from the database
+//@access Public
 
-//     res.json({ msg: "Advertisement Deleted" });
-//   } catch (err) {
-//     console.log(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
+router.get("/:id", (req, res) => {
+  Advertisement.findById(req.params.id)
+    .then((advertiesement) => res.json(advertiesement))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+//@route  Update api/shop/advertisement/:id
+//@desc  update advertisement
+//@access Private
+//@author Ayodya
+
+router.post("/updateadvertisement/:id", async (req, res) => {
+  try {
+    //if there is no image
+    if (req.files == null) {
+      Advertisement.findByIdAndUpdate(req.params.id)
+        .then((advertisement) => {
+          advertisement.title = req.body.title;
+          advertisement.description = req.body.description;
+
+          advertisement
+            .save()
+            .then(() => res.json("Advertisement updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    }
+    //if there is a image
+    else {
+      const file = req.files.file;
+      file.mv(`${dirPath}/${file.name}`, (err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).send(err);
+        }
+
+        Advertisement.findByIdAndUpdate(req.params.id)
+          .then((advertisement) => {
+            advertisement.title = req.body.title;
+            advertisement.description = req.body.description;
+            advertisement.advertiesementImage = file.name;
+
+            advertisement
+              .save()
+              .then(() => res.json("Advertisement updated!"))
+              .catch((err) => res.status(400).json("Error: " + err));
+          })
+          .catch((err) => res.status(400).json("Error: " + err));
+      });
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
