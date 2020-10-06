@@ -116,7 +116,7 @@ export default function BMICard() {
               </button>
             </div>
             <div class="modal-body">
-              <form onSubmit={updateWeightHeight}>
+              <form>
                 <div class="form-group">
                   <label for="weight">Weigth</label>
                   <input
@@ -143,7 +143,12 @@ export default function BMICard() {
                   />
                 </div>
 
-                <button type="submit" class="btn btn-primary">
+                <button
+                  type="submit"
+                  onClick={updateWeightHeight}
+                  class="btn btn-primary"
+                  data-dismiss="modal"
+                >
                   EDIT
                 </button>
               </form>
