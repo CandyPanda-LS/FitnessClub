@@ -61,6 +61,12 @@ export default function EcommerceInsertitem() {
       .post("http://localhost:5000/api/shop/additems", formData)
       .then((res) => {
         alert("Item Added");
+        setItemName("");
+        setItemPrice("");
+        setItemDescriprion("");
+        setImageURL(
+          "https://fgl.scene7.com/is/image/FGLSportsLtd/FGL_332979914_01_a?bgColor=0,0,0,0&fmt=png-alpha&hei=528&resMode=sharp&qlt=85,1&op_sharpen=1"
+        );
       })
       .catch((error) => {
         alert(error);
@@ -135,6 +141,7 @@ export default function EcommerceInsertitem() {
                       label="Name"
                       onChange={(e) => setItemName(e.target.value)}
                       variant="outlined"
+                      placeholder={ItemName}
                       style={{
                         minWidth: "250px",
                         maxWidth: "275px",
@@ -144,6 +151,7 @@ export default function EcommerceInsertitem() {
                     <TextField
                       className={classes.inputControl}
                       label="Price"
+                      placeholder={ItemPrice}
                       onChange={(e) => setItemPrice(e.target.value)}
                       variant="outlined"
                     />
@@ -152,6 +160,7 @@ export default function EcommerceInsertitem() {
                       id="filled-multiline-flexible"
                       className={classes.inputControl}
                       label="Description"
+                      placeholder={ItemDescriprion}
                       multiline
                       rowsMax={4}
                       onChange={(e) => setItemDescriprion(e.target.value)}
