@@ -393,7 +393,7 @@ export default function MenuAppBar() {
                         <img
                           alt="profileimage"
                           className="border rounded-circle img-profile"
-                          src={"/uploads/users/" + userImage}
+                          src={userImage}
                         />
                       </Link>
                       <div

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Progress from "./Progress";
+import { storage } from "../../firebase";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ export default class Profile extends Component {
     this.editInfo = this.editInfo.bind(this);
     this.onChangeFile = this.onChangeFile.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
 
     this.state = {
       userid: "",
@@ -20,7 +22,7 @@ export default class Profile extends Component {
       address: "",
       mobileNo: "",
       file: null,
-      filename: "",
+      imageURL: "",
       profileImage: "user.png",
       uploadPercentage: "",
     };
@@ -70,44 +72,55 @@ export default class Profile extends Component {
     this.setState({ file: event.target.files[0] });
   };
 
+  uploadImage(e) {
+    e.preventDefault();
+
+    if (this.state.file !== null) {
+      const uploadTask = storage
+        .ref(`users/${this.state.file.name}`)
+        .put(this.state.file);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          //progress function
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          this.setState({ uploadPercentage: progress });
+        },
+        (error) => {
+          //error function
+          console.log(error);
+        },
+        () => {
+          //complete function
+          storage
+            .ref("users")
+            .child(this.state.file.name)
+            .getDownloadURL()
+            .then((url) => {
+              console.log(url);
+              this.setState({ imageURL: url });
+            });
+        }
+      );
+    } else {
+      alert("First You Must Select An Image");
+    }
+  }
+
   onFormSubmit(e) {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    // formData.append("username", this.state.username);
-    // formData.append("email", this.state.email);
-    // formData.append("firstName", this.state.firstName);
-    // formData.append("lastName", this.state.lastName);
-    // formData.append("address", this.state.address);
-    // formData.append("mobileNo", this.state.mobileNo);
-    // formData.append("gender", this.state.gender);
-    // formData.append("password2", this.state.password2);
-    formData.append("file", this.state.file);
-
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data",
-        "x-auth-token": localStorage.getItem("x-auth-token"),
-      },
-      onUploadProgress: (progressEvent) => {
-        this.setState({
-          uploadPercentage: parseInt(
-            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-          ),
-        });
-
-        //Clear percentage
-        //setTimeout(() => setuploadPercentage(0), 10000);
-      },
+    const formData = {
+      imageURL: this.state.imageURL,
     };
 
     axios
       .patch(
         "http://localhost:5000/api/userprofile/updateimage/" +
           this.state.userid,
-        formData,
-        config
+        formData
       )
       .then((res) => {
         window.location = "/";
@@ -151,14 +164,14 @@ export default class Profile extends Component {
                 <div class="card-body text-center shadow">
                   <img
                     class="rounded-circle mb-3 mt-4"
-                    src={"uploads/users/" + this.state.profileImage}
+                    src={this.state.profileImage}
                     width="160"
                     height="160"
                   />
 
                   <form class="user" onSubmit={this.onFormSubmit}>
                     <div class="form-group row">
-                      <div class="col-sm-6">
+                      <div class="col-sm-9">
                         <input
                           type="file"
                           id="profImage"
@@ -166,6 +179,14 @@ export default class Profile extends Component {
                           onChange={this.onChangeFile}
                         />
                         .
+                      </div>
+                      <div class="col-sm-3">
+                        {" "}
+                        <i
+                          style={{ fontSize: "43px" }}
+                          class="fas fa-cloud-upload-alt ImageUploadButton"
+                          onClick={this.uploadImage}
+                        ></i>
                       </div>
                     </div>
 

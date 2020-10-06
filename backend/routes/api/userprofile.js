@@ -170,17 +170,11 @@ router.patch("/updateimage/:id", async (req, res) => {
   try {
     console.log(req.params.id);
     //if there is no image
-    if (req.files == null) {
+    if (req.body.imageURL == null) {
       User.findByIdAndUpdate(req.params.id)
         .then((profile) => {
-          // profile.firstName = req.body.firstName;
-          // profile.lastName = req.body.lastName;
-          // profile.address = req.body.address;
-          // profile.mobileNo = req.body.mobileNo;
-          // profile.gender = req.body.gender;
-          // profile.password = req.body.password;
-          // profile.password2 = req.body.password2;
-          profile.profImage = "user.png";
+          profile.profImage =
+            "https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg";
 
           profile
             .save()
@@ -191,31 +185,16 @@ router.patch("/updateimage/:id", async (req, res) => {
     }
     //if there is a image
     else {
-      const file = req.files.file;
-      file.mv(`${dirPath}/${file.name}`, (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send(err);
-        }
+      User.findByIdAndUpdate(req.params.id)
+        .then((profile) => {
+          profile.profImage = req.body.imageURL;
 
-        User.findByIdAndUpdate(req.params.id)
-          .then((profile) => {
-            // profile.firstName = req.body.firstName;
-            // profile.lastName = req.body.lastName;
-            // profile.address = req.body.address;
-            // profile.mobileNo = req.body.mobileNo;
-            // profile.gender = req.body.gender;
-            // profile.password = req.body.password;
-            // profile.password2 = req.body.password2;
-            profile.profImage = file.name;
-
-            profile
-              .save()
-              .then(() => res.json("profImage updated!"))
-              .catch((err) => res.status(400).json("Error: " + err));
-          })
-          .catch((err) => res.status(400).json("Error: " + err));
-      });
+          profile
+            .save()
+            .then(() => res.json("profImage updated!"))
+            .catch((err) => res.status(400).json("Error: " + err));
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
     }
   } catch (err) {
     console.error(err.message);
