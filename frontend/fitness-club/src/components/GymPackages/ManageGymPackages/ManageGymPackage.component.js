@@ -3,180 +3,169 @@
  * @author nayana
  *
  */
-import React, {
-  Component
-} from "react";
+import React, { Component } from "react";
 import "./ManageGymPackage.css";
 import axios from "axios";
-import $ from 'jquery';
+import $ from "jquery";
 export default class UpdateGymPackage extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-          packageName: "",
-          packageDescription: "",
-          packagePrice: "",
-          imgPath: "",
-          Img: "",
-          editChanger: '',
-          updateMode:"Insert"
-      };
+    super(props);
+    this.state = {
+      packageName: "",
+      packageDescription: "",
+      packagePrice: "",
+      imgPath: "",
+      Img: "",
+      editChanger: "",
+      updateMode: "Insert",
+    };
   }
   componentDidMount() {
-      const packageId = this.props.location.data;
-      if(packageId!== undefined){
-        this.setState({
-          updateMode:"Update"
+    const packageId = this.props.location.data;
+    if (packageId !== undefined) {
+      this.setState({
+        updateMode: "Update",
       });
-        const config = {
-          headers: {
-              "x-auth-token": localStorage.getItem("x-auth-token"),
-          },
+      const config = {
+        headers: {
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
       };
 
       axios
-          .get("http://localhost:5000/api/packages/" + packageId, config)
-          .then(({
-              data
-          }) => {
-              let newImgPath = "http://localhost:5000/packageImages/" + data.ImgPath;
-              this.setState({
-                  packageName: data.PackageName,
-                  packageDescription: data.PackageDescriprion,
-                  packagePrice: data.PackagePrice,
-                  imgPath: newImgPath
-              });
-          })
-          .catch((error) => {
-              console.log(error);
+        .get("http://localhost:5000/api/packages/" + packageId, config)
+        .then(({ data }) => {
+          let newImgPath =
+            "http://localhost:5000/packageImages/" + data.ImgPath;
+          this.setState({
+            packageName: data.PackageName,
+            packageDescription: data.PackageDescriprion,
+            packagePrice: data.PackagePrice,
+            imgPath: newImgPath,
           });
-      }
-      
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
 
   onPackageNameChange(e) {
     $("#packageName").css("background-color", "#fff");
-      this.setState({
-          packageName: e
-      })
+    this.setState({
+      packageName: e,
+    });
   }
   onPackageDesChange(e) {
     $("#packageDes").css("background-color", "#fff");
-      this.setState({
-          packageDescription: e
-      })
+    this.setState({
+      packageDescription: e,
+    });
   }
   onPackagePriceChange(e) {
     $("#packagePrice").css("background-color", "#fff");
-      this.setState({
-          packagePrice: e
-      })
+    this.setState({
+      packagePrice: e,
+    });
   }
-  fileChange = event => {
-      let file = event.target.files[0]
-      var reader = new FileReader();
-      var url = reader.readAsDataURL(file);
+  fileChange = (event) => {
+    let file = event.target.files[0];
+    var reader = new FileReader();
+    var url = reader.readAsDataURL(file);
 
-      reader.onloadend = function(e) {
-          this.setState({
-              imgPath: [reader.result]
-          })
-      }.bind(this);
+    reader.onloadend = function (e) {
       this.setState({
-          Img: file,
-          editChanger: 'imgUpdate'
-      })
+        imgPath: [reader.result],
+      });
+    }.bind(this);
+    this.setState({
+      Img: file,
+      editChanger: "imgUpdate",
+    });
+  };
+  searchChange = (event) => {
+    this.setState({
+      searchVal: event.target.value,
+    });
+  };
+  formValidate() {
+    var validate = true;
 
-  }
-  searchChange = event => {
-      this.setState({
-          searchVal: event.target.value
-      })
-  }
-  formValidate(){
-    var validate=true;
-
-    if(this.state.packageName===""){
-      validate=false;
+    if (this.state.packageName === "") {
+      validate = false;
       $("#packageName").css("background-color", "#ffc0c0");
     }
-    if(this.state.packageDescription===""){
-      validate=false;
+    if (this.state.packageDescription === "") {
+      validate = false;
       $("#packageDes").css("background-color", "#ffc0c0");
     }
-    if(this.state.packagePrice===""){
-      validate=false;
+    if (this.state.packagePrice === "") {
+      validate = false;
       $("#packagePrice").css("background-color", "#ffc0c0");
     }
     return validate;
   }
   submitPackage(e) {
-    if(this.formValidate()){
-    if(this.state.updateMode=="Update"){
-      const packageId = this.props.location.data;
-      try {
-
+    if (this.formValidate()) {
+      if (this.state.updateMode == "Update") {
+        const packageId = this.props.location.data;
+        try {
           let formData = new FormData();
-          let file = this.state.Img
+          let file = this.state.Img;
 
-          formData.append('ImgPath', file);
-          formData.append('PackageName', this.state.packageName);
-          formData.append('PackageDescriprion', this.state.packageDescription);
-          formData.append('PackagePrice', this.state.packagePrice);
+          formData.append("ImgPath", file);
+          formData.append("PackageName", this.state.packageName);
+          formData.append("PackageDescriprion", this.state.packageDescription);
+          formData.append("PackagePrice", this.state.packagePrice);
 
           const config = {
-              headers: {
-                  "Content-Type": "application/json",
-              },
+            headers: {
+              "Content-Type": "application/json",
+            },
           };
 
-          axios.put(
-                  "http://localhost:5000/api/packages/" + packageId,
-                  formData,
-                  config)
-              .then((res) => {
-                  alert("successed");
-                  window.location = "/PackageDetails";
-              })
-
-      } catch (err) {
-          console.log(err);
-      }
-    }
-    else{
-      try {
-
-        let formData = new FormData();
-        let file = this.state.Img
-
-        formData.append('ImgPath', file);
-        formData.append('PackageName', this.state.packageName);
-        formData.append('PackageDescriprion', this.state.packageDescription);
-        formData.append('PackagePrice', this.state.packagePrice);
-
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-            },
-        };
-
-        axios.post(
-                "http://localhost:5000/api/packages/",
-                formData,
-                config)
+          axios
+            .put(
+              "http://localhost:5000/api/packages/" + packageId,
+              formData,
+              config
+            )
             .then((res) => {
-                alert("successed");
-                window.location = "/PackageDetails";
-            })
-
-      } catch (err) {
+              alert("successed");
+              window.location = "/PackageDetails";
+            });
+        } catch (err) {
           console.log(err);
+        }
+      } else {
+        try {
+          let formData = new FormData();
+          let file = this.state.Img;
+
+          formData.append("ImgPath", file);
+          formData.append("PackageName", this.state.packageName);
+          formData.append("PackageDescriprion", this.state.packageDescription);
+          formData.append("PackagePrice", this.state.packagePrice);
+
+          const config = {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          };
+
+          axios
+            .post("http://localhost:5000/api/packages/", formData, config)
+            .then((res) => {
+              alert("successed");
+              window.location = "/PackageDetails";
+            });
+        } catch (err) {
+          console.log(err);
+        }
       }
     }
-  }
   }
   render() {
-    
     return (
       <div class="container">
         <div class="row justify-content-center">
@@ -204,7 +193,9 @@ export default class UpdateGymPackage extends Component {
                   <div class="col-lg-6">
                     <div class="p-5">
                       <div class="text-center">
-                    <h4 class="text-dark mb-4">{this.state.updateMode}| Gym Package</h4>
+                        <h4 class="text-dark mb-4">
+                          {this.state.updateMode}| Gym Package
+                        </h4>
                       </div>
                       <form class="user">
                         <div class="form-group">
@@ -215,7 +206,9 @@ export default class UpdateGymPackage extends Component {
                             placeholder="Enter Package Name..."
                             name="name"
                             value={this.state.packageName}
-                            onChange={e => this.onPackageNameChange(e.target.value)}
+                            onChange={(e) =>
+                              this.onPackageNameChange(e.target.value)
+                            }
                           />
                         </div>
                         <div class="form-group">
@@ -226,7 +219,9 @@ export default class UpdateGymPackage extends Component {
                             placeholder="Enter Package Description..."
                             name="description"
                             value={this.state.packageDescription}
-                            onChange={e => this.onPackageDesChange(e.target.value)}
+                            onChange={(e) =>
+                              this.onPackageDesChange(e.target.value)
+                            }
                           ></textarea>
                         </div>
 
@@ -238,7 +233,9 @@ export default class UpdateGymPackage extends Component {
                             placeholder="Enter Package Price..."
                             name="price"
                             value={this.state.packagePrice}
-                            onChange={e => this.onPackagePriceChange(e.target.value)}
+                            onChange={(e) =>
+                              this.onPackagePriceChange(e.target.value)
+                            }
                           />
                         </div>
 
@@ -249,7 +246,7 @@ export default class UpdateGymPackage extends Component {
                             id="exampleInputEmail"
                             name="Image"
                             style={{ padding: "2px" }}
-                            onChange={(e)=>this.fileChange(e)}
+                            onChange={(e) => this.fileChange(e)}
                           />
                         </div>
 
@@ -257,7 +254,7 @@ export default class UpdateGymPackage extends Component {
                           <button
                             class="btn btn-primary btn-block text-white btn-user additemBtn"
                             type="button"
-                            onClick={e=>this.submitPackage(e.target.value)}
+                            onClick={(e) => this.submitPackage(e.target.value)}
                           >
                             {this.state.updateMode} Package
                           </button>
