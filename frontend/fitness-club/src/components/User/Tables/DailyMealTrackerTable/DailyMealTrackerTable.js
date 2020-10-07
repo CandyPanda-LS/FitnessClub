@@ -130,7 +130,7 @@ export default function DailyMealTrackerTable() {
       .then(() => {
         alert("Pdf Generated");
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => console.log(err.message));
   }
 
   //map table row data

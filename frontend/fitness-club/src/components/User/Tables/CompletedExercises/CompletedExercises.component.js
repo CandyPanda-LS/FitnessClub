@@ -122,7 +122,7 @@ export default function CompletedExercises() {
       .then(() => {
         alert("PDF Generated Successful");
       })
-      .catch((err) => alert(err.message));
+      .catch((err) => console.log(err.message));
   }
 
   async function deleteExercise(id) {

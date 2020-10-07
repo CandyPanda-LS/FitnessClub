@@ -33,19 +33,29 @@ router.post("/generatemealschedule", async (req, res) => {
     "-" +
     seconds;
 
-  // Load the exericise
+  // // Load the exericise
 
   const mealList = req.body.DailyMealList;
-  // Create The PDF document
-  const doc = new PDFDocument();
+  // // Create The PDF document
 
-  // Pipe the PDF into a patient's file
-  var number = Math.floor(Math.random() * 1000 + 1);
+  var myDoc = new PDFDocument({ bufferPages: true });
 
-  doc.pipe(fs.createWriteStream(`mealschedule_${timestamp}.pdf`));
+  let buffers = [];
+  myDoc.on("data", buffers.push.bind(buffers));
+  myDoc.on("end", () => {
+    let pdfData = Buffer.concat(buffers);
+    res
+      .writeHead(200, {
+        "Content-Length": Buffer.byteLength(pdfData),
+        "Content-Type": "application/pdf",
+        "Content-disposition": `attachment;filename=mealschedule_${timestamp}.pdf`,
+      })
+      .end(pdfData);
+  });
 
+  //myDoc.font("Times-Roman").fontSize(12).text(`this is a test text`);
   // Add the header - https://pspdfkit.com/blog/2019/generate-invoices-pdfkit-node/
-  doc
+  myDoc
     .fillColor("#444444")
     .fontSize(20)
     .text("Meal Schedule Information.", 110, 57)
@@ -73,12 +83,8 @@ router.post("/generatemealschedule", async (req, res) => {
   }
 
   // Draw the table
-  doc.moveDown().table(table, 10, 125, { width: 590 });
-
-  // Finalize the PDF and end the stream
-  doc.end();
-
-  res.json("success");
+  myDoc.moveDown().table(table, 10, 125, { width: 590 });
+  myDoc.end();
 });
 
 //path localhost:5000/api/pdfgenerate/generateworkoutplan
@@ -110,19 +116,56 @@ router.post("/generateworkoutplan", async (req, res) => {
   // Load the exericise
 
   const ExerciseList = req.body.completedExerciseList;
-  // Create The PDF document
-  const doc = new PDFDocument();
+  //  Create The PDF document
 
-  // Pipe the PDF into a patient's file
-  var number = Math.floor(Math.random() * 1000 + 1);
+  //load cuurent time
+  var currentDate = new Date();
 
-  doc.pipe(fs.createWriteStream(`workout_${timestamp}.pdf`));
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var seconds = currentDate.getSeconds();
+  var date = currentDate.getDate();
+  var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+  var year = currentDate.getFullYear();
+  var timestamp =
+    year +
+    "-" +
+    (month + 1) +
+    "-" +
+    date +
+    "-" +
+    hours +
+    "-" +
+    minutes +
+    "-" +
+    seconds;
 
+  // // Load the exericise
+
+  const mealList = req.body.DailyMealList;
+  // // Create The PDF document
+
+  var myDoc = new PDFDocument({ bufferPages: true });
+
+  let buffers = [];
+  myDoc.on("data", buffers.push.bind(buffers));
+  myDoc.on("end", () => {
+    let pdfData = Buffer.concat(buffers);
+    res
+      .writeHead(200, {
+        "Content-Length": Buffer.byteLength(pdfData),
+        "Content-Type": "application/pdf",
+        "Content-disposition": `attachment;filename=workoutschedule_${timestamp}.pdf`,
+      })
+      .end(pdfData);
+  });
+
+  //myDoc.font("Times-Roman").fontSize(12).text(`this is a test text`);
   // Add the header - https://pspdfkit.com/blog/2019/generate-invoices-pdfkit-node/
-  doc
+  myDoc
     .fillColor("#444444")
     .fontSize(20)
-    .text("Workout Information.", 110, 57)
+    .text("Workout Schedule Information.", 110, 57)
     .fontSize(10)
     .text("Fitness Club", 200, 50, { align: "right" })
     .text("291/B,Galle Road", 200, 65, { align: "right" })
@@ -155,12 +198,8 @@ router.post("/generateworkoutplan", async (req, res) => {
   }
 
   // Draw the table
-  doc.moveDown().table(table, 10, 125, { width: 590 });
-
-  // Finalize the PDF and end the stream
-  doc.end();
-
-  res.json("success");
+  myDoc.moveDown().table(table, 10, 125, { width: 590 });
+  myDoc.end();
 });
 
 module.exports = router;
