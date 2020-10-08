@@ -101,7 +101,7 @@ export default class Profile extends Component {
             .getDownloadURL()
             .then((url) => {
               console.log(url);
-              this.setState({ imageURL: url });
+              this.setState({ imageURL: url, profileImage: url });
             });
         }
       );
