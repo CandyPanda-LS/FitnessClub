@@ -48,7 +48,7 @@ router.post("/generateuserrequests", async (req, res) => {
       .writeHead(200, {
         "Content-Length": Buffer.byteLength(pdfData),
         "Content-Type": "application/pdf",
-        "Content-disposition": `attachment;filename=mealschedule_${timestamp}.pdf`,
+        "Content-disposition": `attachment;filename=instructoruserreq_${timestamp}.pdf`,
       })
       .end(pdfData);
   });
