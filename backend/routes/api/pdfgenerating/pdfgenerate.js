@@ -86,7 +86,7 @@ router.post("/generatemealschedule", async (req, res) => {
   myDoc.moveDown().table(table, 10, 125, { width: 590 });
   myDoc.end();
 
-  res.json("Generated Success");
+  //res.json("Generated Success");
 });
 
 //path localhost:5000/api/pdfgenerate/generateworkoutplan
@@ -203,7 +203,7 @@ router.post("/generateworkoutplan", async (req, res) => {
   myDoc.moveDown().table(table, 10, 125, { width: 590 });
   myDoc.end();
 
-  res.json("Generated Success");
+  //res.json("Generated Success");
 });
 
 module.exports = router;
