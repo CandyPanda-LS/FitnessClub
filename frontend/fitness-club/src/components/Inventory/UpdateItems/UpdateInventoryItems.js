@@ -21,6 +21,9 @@ export default function UpdateInventoryItems(props) {
   const [uploadPercentage, setuploadPercentage] = useState(0);
 
   useEffect(() => {
+    if (!props.location.data) {
+      window.location = "/inventorytable";
+    }
     //if there is no admin navigate to the login page
     const token = localStorage.getItem("x-auth-token");
     const userRole = localStorage.getItem("userRole");
@@ -34,7 +37,7 @@ export default function UpdateInventoryItems(props) {
     }
 
     axios
-      .get("http://localhost:5000/api/inventory/" + props.match.params.id)
+      .get("http://localhost:5000/api/inventory/" + props.location.data)
       .then((res) => {
         setItemID(res.data._id);
         setItemType(res.data.ItemType);

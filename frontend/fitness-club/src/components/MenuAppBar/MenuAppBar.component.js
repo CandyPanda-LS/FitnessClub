@@ -594,7 +594,7 @@ export default function MenuAppBar() {
                 component={InsertInventoryItems}
               />
               <Route
-                path="/UpdateInventoryitems/:id"
+                path="/UpdateInventoryitems"
                 exact
                 component={UpdateInventoryItems}
               />

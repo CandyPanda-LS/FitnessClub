@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./InventoryGrid.css";
@@ -76,11 +76,14 @@ function InventoryList({
           <br />
           <div class="row">
             <div class="col">
-              <a href={"/UpdateInventoryitems/" + id}>
-                <button class="btn btn-info" type="button">
-                  Edit
-                </button>
-              </a>
+              <Link
+                to={{
+                  pathname: "/UpdateInventoryitems",
+                  data: id,
+                }}
+              >
+                <button class="btn btn-info">Edit</button>
+              </Link>
             </div>
             <div class="col">
               <button
