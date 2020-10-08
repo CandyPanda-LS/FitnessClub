@@ -38,7 +38,7 @@ export default class BurnCalories extends Component {
 
     this.state = {
       date: new Date(),
-      query: "",
+      query: "Exercise",
       gender: "male",
       weight_kg: "",
       height_cm: "",
@@ -47,6 +47,7 @@ export default class BurnCalories extends Component {
       duration_min: 0,
       time: "",
       response: "",
+      exerciseList: [],
     };
   }
 
@@ -60,6 +61,26 @@ export default class BurnCalories extends Component {
     if (!token) {
       window.location = "/userlogin";
     }
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
+      .then(({ data }) => {
+        console.log("workout paln is " + data.workoutplan);
+        console.log(data.workoutplan.length);
+
+        if (data.workoutplan.length > 0) {
+          this.setState({ exerciseList: data.workoutplan });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   //Clear interval
@@ -146,7 +167,7 @@ export default class BurnCalories extends Component {
       alert("Age is required");
       return false;
     }
-    if (this.state.query == "") {
+    if (this.state.query == "" || this.state.query == "Exercise") {
       alert("Exercise is required");
       return false;
     }
@@ -351,19 +372,28 @@ export default class BurnCalories extends Component {
                   value={this.state.age}
                   onChange={this.onChangeAge}
                 />
-                <TextField
-                  id="filled-basic"
+
+                <Select
+                  labelId="demo-simple-select-filled-label"
                   className="formInputs"
-                  label="Exercise"
-                  variant="outlined"
+                  id="demo-simple-select-filled"
                   value={this.state.query}
                   onChange={this.onChangeExercise}
-                />
+                >
+                  <MenuItem value="Exercise">Exercise</MenuItem>
+                  {this.state.exerciseList.map((currentexercise) => {
+                    return (
+                      <MenuItem value={currentexercise.exercise}>
+                        {currentexercise.exercise}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
 
                 <TextField
                   id="filled-basic"
                   className="formInputs"
-                  label="Time"
+                  label="Time (Minutes)"
                   variant="outlined"
                   value={this.state.time}
                   onChange={this.onChangeTime}
