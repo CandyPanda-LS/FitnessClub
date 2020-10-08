@@ -4,10 +4,13 @@ import axios from "axios";
 import Pic1 from "../Images/no_pic.jpg";
 import "../assets/css/styles.css";
 import Moment from "moment";
+import { Button } from "@material-ui/core";
 
 export default class InstructorProfile extends Component {
   constructor(props) {
     super(props);
+
+    this.generatePDF = this.generatePDF.bind(this);
 
     this.state = {
       instructorId: "",
@@ -19,6 +22,7 @@ export default class InstructorProfile extends Component {
       email: "",
       password: "",
       instructors: [],
+      userRequests: [],
     };
   }
 
@@ -38,10 +42,33 @@ export default class InstructorProfile extends Component {
           email: response.data.email,
           password: response.data.password,
         });
+
+        console.log("userRequests : " + response.data.userRequests);
+        console.log(response.data.userRequests.length);
+
+        if (response.data.userRequests.length > 0) {
+          this.setState({ userRequests: response.data.userRequests });
+        }
       })
       .catch(function (error) {
         console.log(error);
       });
+  }
+
+  generatePDF() {
+    const pdfText = {
+      userRequests: this.state.userRequests,
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/api/pdfgenerate/generateuserrequests",
+        pdfText
+      )
+      .then(() => {
+        alert("PDF Generated Successful");
+      })
+      .catch((err) => console.log(err.message));
   }
 
   render() {
@@ -97,12 +124,9 @@ export default class InstructorProfile extends Component {
                 </div>
               </div>
               <div class="col-md-2">
-                <Link
-                  to={"/update/" + this.props.match.params.id}
-                  className="btn btn-primary"
-                >
-                  Edit
-                </Link>
+                <button className="btn btn-primary" onClick={this.generatePDF}>
+                  Generate PDF
+                </button>
               </div>
             </div>
             <div class="row">
