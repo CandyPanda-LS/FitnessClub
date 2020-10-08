@@ -51,7 +51,7 @@ export default class UserRegistration extends Component {
     this.setState({ [nam]: val });
   };
 
-  onSubmit(e) {
+  async onSubmit(e) {
     e.preventDefault();
 
     if (this.state.password !== this.state.password2) {
@@ -78,29 +78,30 @@ export default class UserRegistration extends Component {
 
       console.log(user);
 
-      axios
+      await axios
         .post("http://localhost:5000/api/users/", user)
         .then(async (res) => {
           console.log("token is " + res.data.token);
 
           console.log(res.data);
+
+          this.setState({
+            firstName: "",
+            lastName: "",
+            email: "",
+            mobileNo: "",
+            gender: "Male",
+            address: "",
+            password: "",
+            password2: "",
+          });
+
+          window.location = "/userLogin";
         })
         .catch((error) => {
           console.log(error);
+          alert(error);
         });
-
-      this.setState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        mobileNo: "",
-        gender: "Male",
-        address: "",
-        password: "",
-        password2: "",
-      });
-
-      window.location = "/userLogin";
     }
   }
 

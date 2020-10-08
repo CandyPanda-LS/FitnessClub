@@ -102,9 +102,13 @@ export default class UpdateInstructor extends Component {
           this.props.match.params.id,
         instructor
       )
-      .then((res) => console.log(res.data));
-
-    window.location = "/list";
+      .then((res) => {
+        console.log(res.data);
+        window.location = "/list";
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   render() {
