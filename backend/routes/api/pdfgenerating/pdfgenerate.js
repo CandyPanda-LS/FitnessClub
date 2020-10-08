@@ -10,7 +10,7 @@ const PDFDocument = require("./pdfkit-tables");
 //path localhost:5000/api/pdfgenerate/generateuserrequests
 // @desc generate pdf
 
-router.post("/generateuserrequests", async (req, res) => {
+router.post("/generateinstructorlist", async (req, res) => {
   //load cuurent time
   var currentDate = new Date();
 
@@ -35,7 +35,7 @@ router.post("/generateuserrequests", async (req, res) => {
 
   // // Load the exericise
 
-  const UserRequestsList = req.body.userRequests;
+  const InstructorList = req.body.instructorList;
   // // Create The PDF document
 
   var myDoc = new PDFDocument({ bufferPages: true });
@@ -48,7 +48,7 @@ router.post("/generateuserrequests", async (req, res) => {
       .writeHead(200, {
         "Content-Length": Buffer.byteLength(pdfData),
         "Content-Type": "application/pdf",
-        "Content-disposition": `attachment;filename=instructoruserreq_${timestamp}.pdf`,
+        "Content-disposition": `attachment;filename=instructorlist_${timestamp}.pdf`,
       })
       .end(pdfData);
   });
@@ -67,18 +67,18 @@ router.post("/generateuserrequests", async (req, res) => {
 
   // Create the table - https://www.andronio.me/2017/09/02/pdfkit-tables/
   const table = {
-    headers: ["userName", "weight", "height", "gender", "requirement"],
+    headers: ["Name", "Date Of Birth", "Gender", "Phone", "Email"],
     rows: [],
   };
 
   // Add the patients to the table
-  for (const requestList of UserRequestsList) {
+  for (const insList of InstructorList) {
     table.rows.push([
-      requestList.userName,
-      requestList.weight,
-      requestList.height,
-      requestList.gender,
-      requestList.requirement,
+      insList.name,
+      insList.dob,
+      insList.gender,
+      insList.phone,
+      insList.email,
     ]);
   }
 
@@ -130,7 +130,7 @@ router.post("/generatemealschedule", async (req, res) => {
       .writeHead(200, {
         "Content-Length": Buffer.byteLength(pdfData),
         "Content-Type": "application/pdf",
-        "Content-disposition": `attachment;filename=mealschedule_${timestamp}.pdf`,
+        "Content-disposition": `attachment;filename=mealschedule.pdf`,
       })
       .end(pdfData);
   });

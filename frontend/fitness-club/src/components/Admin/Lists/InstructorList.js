@@ -12,8 +12,15 @@ const Instructor = (props) => (
     <td>{props.instructor.phone}</td>
     <td>{props.instructor.email}</td>
     <td>
-      <Link to={"/view/" + props.instructor._id}>Profile</Link> |{" "}
-      <Link to={"/update/" + props.instructor._id}>Edit</Link> |{" "}
+      <Link
+        to={{
+          pathname: "/view",
+          data: props.instructor._id,
+        }}
+      >
+        Profile
+      </Link>{" "}
+      | <Link to={"/update/" + props.instructor._id}>Edit</Link> |{" "}
       <a
         href="/list"
         onClick={() => {
@@ -29,7 +36,7 @@ const Instructor = (props) => (
 export default class InstructorList extends Component {
   constructor(props) {
     super(props);
-
+    this.generatePDF = this.generatePDF.bind(this);
     this.deleteInstructor = this.deleteInstructor.bind(this);
 
     this.state = { instructors: [] };
@@ -44,6 +51,22 @@ export default class InstructorList extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  generatePDF() {
+    const pdfText = {
+      instructorList: this.state.instructors,
+    };
+
+    axios
+      .post(
+        "http://localhost:5000/api/pdfgenerate/generateinstructorlist",
+        pdfText
+      )
+      .then(() => {
+        alert("PDF Generated Successful");
+      })
+      .catch((err) => console.log(err.message));
   }
 
   deleteInstructor(id) {
@@ -74,6 +97,10 @@ export default class InstructorList extends Component {
   render() {
     return (
       <div>
+        <button className="btn btn-primary" onClick={this.generatePDF}>
+          Generate PDF
+        </button>
+        <br /> <br />
         <h3>Instructor List</h3>
         <table className="table">
           <thead className="thead-light">

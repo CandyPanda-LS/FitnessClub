@@ -638,7 +638,7 @@ export default function MenuAppBar() {
               <Route path="/insert" exact component={InsertInstructor} />
               <Route path="/update/:id" exact component={UpdateInstructor} />
               <Route path="/list" exact component={InstructorList} />
-              <Route path="/view/:id" exact component={InstructorProfile} />
+              <Route path="/view" exact component={InstructorProfile} />
               {/* Routes
               @author Ayodya */}
               <Route path="/InsertFeedback" exact component={InsertFeedback} />

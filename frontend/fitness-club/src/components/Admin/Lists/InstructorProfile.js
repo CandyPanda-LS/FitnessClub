@@ -27,10 +27,12 @@ export default class InstructorProfile extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.location.data) {
+      window.location = "/list";
+    }
+
     axios
-      .get(
-        "http://localhost:5000/api/instructors/" + this.props.match.params.id
-      )
+      .get("http://localhost:5000/api/instructors/" + this.props.location.data)
       .then((response) => {
         this.setState({
           instructorId: response.data.instructorID,
