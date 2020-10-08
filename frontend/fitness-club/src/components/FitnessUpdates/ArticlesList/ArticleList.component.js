@@ -44,23 +44,23 @@ export default function ArticleList() {
                   }}
                 >
                   <div class="row">
-                    <div class="col-md-3" style={{ padding: "30px" }}>
+                    <div class="col-md-4" style={{ padding: "30px" }}>
                       <div
                         class="card"
                         style={{ borderColor: "rgb(244,244,244)" }}
                       >
                         <img
-                          class="img-fluid card-img w-100 d-block"
-                          style={{
-                            width: "200px",
-                            height: "200px",
-                          }}
+                          class="img-fluid card-img  d-block"
+                          // style={{
+                          //   width: "200px",
+                          //   height: "200px",
+                          // }}
                           src={articlepost.image}
                           alt="ImageArticle"
                         />
                       </div>
                     </div>
-                    <div class="col-md-9" style={{ padding: "20px 10px" }}>
+                    <div class="col-md-8" style={{ padding: "20px 10px" }}>
                       <h4>
                         {articlepost.topic}
                         <br />

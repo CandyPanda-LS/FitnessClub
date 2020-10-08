@@ -3,13 +3,14 @@ import "firebase/storage";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-  apiKey: "AIzaSyB5MBJno0C7hqaf7n7T7wteQHY0A6_s8-8",
-  authDomain: "fitnessclub-9d3f8.firebaseapp.com",
-  databaseURL: "https://fitnessclub-9d3f8.firebaseio.com",
-  projectId: "fitnessclub-9d3f8",
-  storageBucket: "fitnessclub-9d3f8.appspot.com",
-  messagingSenderId: "235991326817",
-  appId: "1:235991326817:web:cca015126bbb0fe2b54a20",
+  apiKey: "AIzaSyCZnPrEXb0u0EIYXkJNcEapqub0T4il9sQ",
+  authDomain: "fitnessclub-1324e.firebaseapp.com",
+  databaseURL: "https://fitnessclub-1324e.firebaseio.com",
+  projectId: "fitnessclub-1324e",
+  storageBucket: "fitnessclub-1324e.appspot.com",
+  messagingSenderId: "624098864422",
+  appId: "1:624098864422:web:3876b4b3eab552792825e7",
+  measurementId: "G-B8YM9RJBJH",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
