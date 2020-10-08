@@ -260,7 +260,7 @@ export default class Profile extends Component {
                   <div class="card-body">
                     <form class="profileUpdate1">
                       <div class="form-row">
-                        <div class="col">
+                        <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                             <label for="username">
                               <strong>Username</strong>
@@ -274,7 +274,7 @@ export default class Profile extends Component {
                             />
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                             <label for="email">
                               <strong>Email Address</strong>
@@ -290,7 +290,7 @@ export default class Profile extends Component {
                         </div>
                       </div>
                       <div class="form-row">
-                        <div class="col">
+                        <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                             <label for="firstName">
                               <strong>First Name</strong>
@@ -304,7 +304,7 @@ export default class Profile extends Component {
                             />
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                             <label for="lastName">
                               <strong>Last Name</strong>
@@ -338,7 +338,7 @@ export default class Profile extends Component {
                         />
                       </div>
                       <div class="form-row">
-                        <div class="col">
+                        <div class="col-md-6 col-sm-12">
                           <div class="form-group">
                             <label for="mobileNo">
                               <strong>Mobile Number</strong>

@@ -61,6 +61,7 @@ export default function ArticleList() {
                       </div>
                     </div>
                     <div class="col-md-8" style={{ padding: "20px 10px" }}>
+                      <br />
                       <h4>
                         {articlepost.topic}
                         <br />
