@@ -34,7 +34,7 @@ export default class ProfileUpdate extends Component {
     };
 
     axios
-      .get("http://localhost:5000/api/userprofile/", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/userprofile/", config)
       .then((response) => {
         this.setState({
           username: response.data.firstName,
@@ -54,7 +54,7 @@ export default class ProfileUpdate extends Component {
       });
 
     // axios
-    //   .get("http://localhost:5000/api/users/")
+    //   .get(process.env.REACT_APP_BACKEND_URL + "/api/users/")
     //   .then((response) => {
     //     if(response.data.length > 0){
     //       this.setState({
@@ -129,7 +129,11 @@ export default class ProfileUpdate extends Component {
     };
 
     axios
-      .post("http://localhost:5000/api/userprofile/", personal, config)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/userprofile/",
+        personal,
+        config
+      )
       .then((response) => console.log(response.data), alert("Success"))
       .catch((error) => {
         alert(error);
@@ -164,7 +168,11 @@ export default class ProfileUpdate extends Component {
     };
 
     axios
-      .post("http://localhost:5000/api/userprofile/", contact, config)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/userprofile/",
+        contact,
+        config
+      )
       .then((response) => console.log(response.data));
 
     window.location = "/profile";

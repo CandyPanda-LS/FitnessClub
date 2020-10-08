@@ -26,7 +26,7 @@ export default function MealBarChart() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log(data.dailymeallist);
         console.log(data.dailymeallist.length);

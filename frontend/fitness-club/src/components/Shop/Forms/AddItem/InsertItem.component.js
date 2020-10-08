@@ -58,7 +58,7 @@ export default function EcommerceInsertitem() {
     };
 
     axios
-      .post("http://localhost:5000/api/shop/additems", formData)
+      .post(process.env.REACT_APP_BACKEND_URL + "/api/shop/additems", formData)
       .then((res) => {
         alert("Item Added");
         setItemName("");

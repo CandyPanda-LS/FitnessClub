@@ -33,7 +33,10 @@ export default class UpdateGymPackage extends Component {
       };
 
       axios
-        .get("http://localhost:5000/api/packages/" + packageId, config)
+        .get(
+          process.env.REACT_APP_BACKEND_URL + "/api/packages/" + packageId,
+          config
+        )
         .then(({ data }) => {
           let newImgPath =
             "http://localhost:5000/packageImages/" + data.ImgPath;
@@ -126,7 +129,7 @@ export default class UpdateGymPackage extends Component {
 
           axios
             .put(
-              "http://localhost:5000/api/packages/" + packageId,
+              process.env.REACT_APP_BACKEND_URL + "/api/packages/" + packageId,
               formData,
               config
             )
@@ -154,7 +157,11 @@ export default class UpdateGymPackage extends Component {
           };
 
           axios
-            .post("http://localhost:5000/api/packages/", formData, config)
+            .post(
+              process.env.REACT_APP_BACKEND_URL + "/api/packages/",
+              formData,
+              config
+            )
             .then((res) => {
               alert("successed");
               window.location = "/PackageDetails";

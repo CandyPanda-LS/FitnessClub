@@ -28,7 +28,9 @@ export default function Userforms(props) {
     setProfileID(userprofileID);
     //Getting current workout plan for the given user
     axios
-      .get("http://localhost:5000/api/profile/user/" + userprofileID)
+      .get(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/user/" + userprofileID
+      )
       .then((res) => {
         console.log("Profile Details " + res.data.workoutplan);
         console.log(
@@ -46,7 +48,9 @@ export default function Userforms(props) {
 
     //Getting current meal plan for the given user
     axios
-      .get("http://localhost:5000/api/profile/user/" + userprofileID)
+      .get(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/user/" + userprofileID
+      )
       .then((res) => {
         console.log("Profile Details " + res.data.mealplan);
         console.log("Profile workoutplan length " + res.data.mealplan.length);
@@ -59,16 +63,20 @@ export default function Userforms(props) {
       });
 
     //get meal list from the database
-    axios.get("http://localhost:5000/api/instructor/meal").then((res) => {
-      console.log("meal list " + res);
-      setMealList(res.data);
-    });
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/instructor/meal")
+      .then((res) => {
+        console.log("meal list " + res);
+        setMealList(res.data);
+      });
 
     //get exercise list from the database
-    axios.get("http://localhost:5000/api/instructor/workout").then((res) => {
-      console.log("exercises list " + res);
-      setExerciseList(res.data);
-    });
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/instructor/workout")
+      .then((res) => {
+        console.log("exercises list " + res);
+        setExerciseList(res.data);
+      });
   }, []);
 
   function onSubmitExercise(e) {
@@ -81,14 +89,16 @@ export default function Userforms(props) {
     };
     axios
       .post(
-        "http://localhost:5000/api/instructors/addworkouttouser",
+        process.env.REACT_APP_BACKEND_URL + "/api/instructors/addworkouttouser",
         newExercise
       )
       .then(() => {
         alert("Success");
         //refresh Data After Deletion
         axios
-          .get("http://localhost:5000/api/profile/user/" + profileID)
+          .get(
+            process.env.REACT_APP_BACKEND_URL + "/api/profile/user/" + profileID
+          )
           .then((res) => {
             console.log("Profile Details " + res.data.workoutplan);
             console.log(
@@ -118,12 +128,17 @@ export default function Userforms(props) {
       meal,
     };
     axios
-      .post("http://localhost:5000/api/instructors/addmealtouser", newMeal)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/instructors/addmealtouser",
+        newMeal
+      )
       .then(() => {
         alert("Success");
         //refresh Data After Deletion
         axios
-          .get("http://localhost:5000/api/profile/user/" + profileID)
+          .get(
+            process.env.REACT_APP_BACKEND_URL + "/api/profile/user/" + profileID
+          )
           .then((res) => {
             console.log("Profile Details " + res.data.mealplan);
             console.log("Profile mealplan length " + res.data.mealplan.length);
@@ -362,7 +377,8 @@ export default function Userforms(props) {
                     onClick={() => {
                       axios
                         .delete(
-                          "http://localhost:5000/api/profile/workoutplan/" +
+                          process.env.REACT_APP_BACKEND_URL +
+                            "/api/profile/workoutplan/" +
                             profileID +
                             "/" +
                             currentWorkout._id
@@ -375,7 +391,8 @@ export default function Userforms(props) {
 
                           axios
                             .get(
-                              "http://localhost:5000/api/profile/user/" +
+                              process.env.REACT_APP_BACKEND_URL +
+                                "/api/profile/user/" +
                                 profileID
                             )
                             .then((res) => {
@@ -432,7 +449,8 @@ export default function Userforms(props) {
                     onClick={() => {
                       axios
                         .delete(
-                          "http://localhost:5000/api/profile/mealplan/" +
+                          process.env.REACT_APP_BACKEND_URL +
+                            "/api/profile/mealplan/" +
                             profileID +
                             "/" +
                             currentMeal._id
@@ -445,7 +463,8 @@ export default function Userforms(props) {
 
                           axios
                             .get(
-                              "http://localhost:5000/api/profile/user/" +
+                              process.env.REACT_APP_BACKEND_URL +
+                                "/api/profile/user/" +
                                 profileID
                             )
                             .then((res) => {

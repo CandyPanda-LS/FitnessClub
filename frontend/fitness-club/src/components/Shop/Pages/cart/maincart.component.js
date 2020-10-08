@@ -40,7 +40,10 @@ function ItemsInCart({ id, ItemName, ItemPrice, ItemQuantity, ItemImage }) {
               },
             };
             axios
-              .delete("http://localhost:5000/api/cart/cartlist/" + id, config)
+              .delete(
+                process.env.REACT_APP_BACKEND_URL + "/api/cart/cartlist/" + id,
+                config
+              )
               .then(() => {
                 alert("Item Deleted");
                 window.location = "/cart";
@@ -74,7 +77,7 @@ export default function MainCart() {
     };
 
     axios
-      .get("http://localhost:5000/api/cart/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/cart/me", config)
       .then(({ data }) => {
         console.log(data.cartList);
         console.log(data.cartList.length);

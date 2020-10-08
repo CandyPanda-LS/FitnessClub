@@ -82,7 +82,7 @@ export default function FeedbackTable() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log(data.dailymeallist);
         console.log(data.dailymeallist.length);
@@ -126,7 +126,10 @@ export default function FeedbackTable() {
 
     console.log("Delete meal id is " + id);
     await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
+      .delete(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/dailymeallist/" + id,
+        config
+      )
       .then((response) => {
         console.log(response);
       });
@@ -134,7 +137,7 @@ export default function FeedbackTable() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log(data.dailymeallist);
         console.log(data.dailymeallist.length);

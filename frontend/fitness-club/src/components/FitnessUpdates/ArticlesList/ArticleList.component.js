@@ -11,7 +11,7 @@ export default function ArticleList() {
     const sendData = async () => {
       try {
         await axios
-          .get("http://localhost:5000/api/fitnessUpdate")
+          .get(process.env.REACT_APP_BACKEND_URL + "/api/fitnessUpdate")
           .then((res) => {
             console.log(res.data);
             setArticlePost(res.data);

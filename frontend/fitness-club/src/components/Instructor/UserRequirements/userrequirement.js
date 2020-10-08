@@ -115,7 +115,7 @@ export default function RequestedPlansTable() {
     };
 
     axios
-      .get("http://localhost:5000/api/authinstructor", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/authinstructor", config)
       .then(({ data }) => {
         console.log(data.userRequests);
 

@@ -56,7 +56,7 @@ export default function InsertFitnessUpdate() {
     };
 
     axios
-      .post("http://localhost:5000/api/fitnessUpdate", formData)
+      .post(process.env.REACT_APP_BACKEND_URL + "/api/fitnessUpdate", formData)
       .then((res) => {
         alert("Post Added");
 

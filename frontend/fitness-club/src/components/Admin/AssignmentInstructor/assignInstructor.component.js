@@ -27,10 +27,12 @@ export default function AssignInstructor() {
   const [remainingUserList, setRemainingUserList] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/profile").then((res) => {
-      console.log(res.data);
-      setRemainingUserList(res.data);
-    });
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile")
+      .then((res) => {
+        console.log(res.data);
+        setRemainingUserList(res.data);
+      });
   }, []);
 
   //   function deleteInstructor(id) {

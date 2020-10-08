@@ -68,7 +68,7 @@ export default class ItemsGrid extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/shop/")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/shop/")
       .then((response) => {
         console.log(response);
         this.setState({ Items: response.data });

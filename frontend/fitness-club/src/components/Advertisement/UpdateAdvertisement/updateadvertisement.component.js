@@ -36,7 +36,11 @@ export default function Updateadvertisement(props) {
 
     //get advertisement details using advertisement id
     axios
-      .get("http://localhost:5000/api/advertisement/" + AdvertisementID)
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/advertisement/" +
+          AdvertisementID
+      )
       .then((res) => {
         console.log(res);
         setTitle(res.data.title);
@@ -108,7 +112,9 @@ export default function Updateadvertisement(props) {
 
     axios
       .post(
-        "http://localhost:5000/api/advertisement/updateadvertisement/" + ID,
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/advertisement/updateadvertisement/" +
+          ID,
         formData
       )
       .then((res) => {

@@ -32,7 +32,11 @@ export default class InstructorProfile extends Component {
     }
 
     axios
-      .get("http://localhost:5000/api/instructors/" + this.props.location.data)
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/instructors/" +
+          this.props.location.data
+      )
       .then((response) => {
         this.setState({
           instructorId: response.data.instructorID,
@@ -64,7 +68,8 @@ export default class InstructorProfile extends Component {
 
     axios
       .post(
-        "http://localhost:5000/api/pdfgenerate/generateuserrequests",
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generateuserrequests",
         pdfText
       )
       .then(() => {

@@ -27,7 +27,10 @@ export default class UpdateNotice extends Component {
       };
 
       axios
-        .get("http://localhost:5000/api/notices/" + noticeId, config)
+        .get(
+          process.env.REACT_APP_BACKEND_URL + "/api/notices/" + noticeId,
+          config
+        )
         .then(({ data }) => {
           this.setState({
             noticeTitle: data.NoticeTitle,
@@ -79,7 +82,7 @@ export default class UpdateNotice extends Component {
         try {
           axios
             .put(
-              "http://localhost:5000/api/notices/" + noticeId,
+              process.env.REACT_APP_BACKEND_URL + "/api/notices/" + noticeId,
               noticeDetails,
               config
             )
@@ -94,7 +97,11 @@ export default class UpdateNotice extends Component {
       } else {
         try {
           axios
-            .post("http://localhost:5000/api/notices/", noticeDetails, config)
+            .post(
+              process.env.REACT_APP_BACKEND_URL + "/api/notices/",
+              noticeDetails,
+              config
+            )
             .then((res) => {
               alert("successed");
               window.location = "/NoticesTable";

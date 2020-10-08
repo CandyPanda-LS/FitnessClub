@@ -13,7 +13,10 @@ export default function AddWorkoutMealToDatabase() {
     };
 
     axios
-      .post("http://localhost:5000/api/instructor/workout", newExercise)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/instructor/workout",
+        newExercise
+      )
       .then((res) => {
         alert("Exercise Added");
         setExercise("Enter Exercise");
@@ -31,7 +34,7 @@ export default function AddWorkoutMealToDatabase() {
     };
 
     axios
-      .post("http://localhost:5000/api/instructor/meal", newMeal)
+      .post(process.env.REACT_APP_BACKEND_URL + "/api/instructor/meal", newMeal)
       .then((res) => {
         alert("Meal Added");
         setMealName("Enter Meal");

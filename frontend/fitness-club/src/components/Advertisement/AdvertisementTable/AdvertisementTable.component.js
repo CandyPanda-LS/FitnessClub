@@ -117,7 +117,7 @@ export default function AdvertisementTable() {
     }
 
     axios
-      .get("http://localhost:5000/api/advertisement")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/advertisement")
       .then(({ data }) => {
         console.log(data);
         // console.log(data.dailymeallist);
@@ -166,7 +166,10 @@ export default function AdvertisementTable() {
     console.log("Delete Advertisement id is " + id);
 
     await axios
-      .delete("http://localhost:5000/api/advertisement/adremove/" + id, config)
+      .delete(
+        process.env.REACT_APP_BACKEND_URL + "/api/advertisement/adremove/" + id,
+        config
+      )
       .then((response) => {
         console.log(response);
         alert("Delete Success");
@@ -179,7 +182,7 @@ export default function AdvertisementTable() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/advertisement")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/advertisement")
       .then(({ data }) => {
         console.log(data);
         // console.log(data.dailymeallist);

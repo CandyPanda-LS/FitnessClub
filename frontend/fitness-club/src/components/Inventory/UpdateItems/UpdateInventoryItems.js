@@ -37,7 +37,11 @@ export default function UpdateInventoryItems(props) {
     }
 
     axios
-      .get("http://localhost:5000/api/inventory/" + props.location.data)
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/inventory/" +
+          props.location.data
+      )
       .then((res) => {
         setItemID(res.data._id);
         setItemType(res.data.ItemType);
@@ -106,7 +110,9 @@ export default function UpdateInventoryItems(props) {
 
     axios
       .post(
-        "http://localhost:5000/api/inventory/updateItem/" + ItemID,
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/inventory/updateItem/" +
+          ItemID,
         formData
       )
       .then((res) => {

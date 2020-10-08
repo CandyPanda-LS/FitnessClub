@@ -120,7 +120,7 @@ export default function MenuAppBar() {
     };
 
     axios
-      .get("http://localhost:5000/api/auth", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/auth", config)
       .then((res) => {
         setRole("user");
         setUserName(res.data.firstName + " " + res.data.lastName);
@@ -130,7 +130,7 @@ export default function MenuAppBar() {
       })
       .catch(() => {
         axios
-          .get("http://localhost:5000/api/authadmin", config)
+          .get(process.env.REACT_APP_BACKEND_URL + "/api/authadmin", config)
           .then((res) => {
             setUserName(res.data.firstName + " " + res.data.lastName);
             setRole("admin");
@@ -140,7 +140,10 @@ export default function MenuAppBar() {
           })
           .catch(() => {
             axios
-              .get("http://localhost:5000/api/authinstructor", config)
+              .get(
+                process.env.REACT_APP_BACKEND_URL + "/api/authinstructor",
+                config
+              )
               .then((res) => {
                 setUserName(res.data.name);
                 setRole("instructor");

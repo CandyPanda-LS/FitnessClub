@@ -38,7 +38,7 @@ export default function WorkoutList() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log("workout paln is " + data.workoutplan);
         console.log(data.workoutplan.length);

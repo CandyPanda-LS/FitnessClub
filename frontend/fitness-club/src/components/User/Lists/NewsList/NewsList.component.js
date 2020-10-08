@@ -41,7 +41,7 @@ export default function NewsList() {
     };
 
     axios
-      .get("http://localhost:5000/api/notices", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/notices", config)
       .then(({ data }) => {
         if (data.length > 0) {
           console.log(data);

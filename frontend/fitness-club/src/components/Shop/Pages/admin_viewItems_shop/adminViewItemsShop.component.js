@@ -77,7 +77,11 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
                   }}
                   onClick={() => {
                     axios
-                      .delete("http://localhost:5000/api/shop/removeItem/" + id)
+                      .delete(
+                        process.env.REACT_APP_BACKEND_URL +
+                          "/api/shop/removeItem/" +
+                          id
+                      )
                       .then(
                         alert("Item deleted"),
                         (window.location = "/adminItemShop")
@@ -120,7 +124,7 @@ export default class adminViewItemsShop extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/shop/")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/shop/")
       .then((response) => {
         this.setState({ Items: response.data });
         console.log(response);

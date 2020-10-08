@@ -79,7 +79,7 @@ export default class UserRegistration extends Component {
       console.log(user);
 
       await axios
-        .post("http://localhost:5000/api/users/", user)
+        .post(process.env.REACT_APP_BACKEND_URL + "/api/users/", user)
         .then(async (res) => {
           console.log("token is " + res.data.token);
 

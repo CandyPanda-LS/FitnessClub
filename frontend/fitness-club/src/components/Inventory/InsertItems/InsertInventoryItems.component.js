@@ -77,7 +77,10 @@ export default function InsertInventoryItems() {
     };
 
     axios
-      .post("http://localhost:5000/api/inventory/additems", formData)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/inventory/additems",
+        formData
+      )
       .then((res) => {
         window.location = "/inventorytable";
       })

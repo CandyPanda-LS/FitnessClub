@@ -40,7 +40,7 @@ export default class Profile extends Component {
     };
 
     axios
-      .get("http://localhost:5000/api/userprofile/", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/userprofile/", config)
       .then((response) => {
         this.setState({
           userid: response.data._id,
@@ -119,7 +119,8 @@ export default class Profile extends Component {
 
     axios
       .patch(
-        "http://localhost:5000/api/userprofile/updateimage/" +
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/userprofile/updateimage/" +
           this.state.userid,
         formData
       )
@@ -141,7 +142,7 @@ export default class Profile extends Component {
     };
 
     axios
-      .delete("http://localhost:5000/api/userprofile/", config)
+      .delete(process.env.REACT_APP_BACKEND_URL + "/api/userprofile/", config)
       .then((response) => console.log("Profile Deleted"))
       .catch((error) => {
         console.log(error);

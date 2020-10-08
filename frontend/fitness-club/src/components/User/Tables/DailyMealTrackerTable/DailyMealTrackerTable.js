@@ -103,7 +103,7 @@ export default function DailyMealTrackerTable() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log(data.dailymeallist);
         console.log(data.dailymeallist.length);
@@ -124,7 +124,8 @@ export default function DailyMealTrackerTable() {
 
     axios
       .post(
-        "http://localhost:5000/api/pdfgenerate/generatemealschedule",
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generatemealschedule",
         pdfText
       )
       .then(() => {
@@ -163,7 +164,10 @@ export default function DailyMealTrackerTable() {
 
     console.log("Delete meal id is " + id);
     await axios
-      .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
+      .delete(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/dailymeallist/" + id,
+        config
+      )
       .then((response) => {
         console.log(response);
       });
@@ -171,7 +175,7 @@ export default function DailyMealTrackerTable() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log(data.dailymeallist);
         console.log(data.dailymeallist.length);

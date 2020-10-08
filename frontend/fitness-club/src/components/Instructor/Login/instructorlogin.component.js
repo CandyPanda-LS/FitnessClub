@@ -55,7 +55,7 @@ export default class InstructorLogin extends Component {
       };
 
       const loginResponse = await axios.post(
-        "http://localhost:5000/api/authinstructor",
+        process.env.REACT_APP_BACKEND_URL + "/api/authinstructor",
         loginDetails,
         config
       );

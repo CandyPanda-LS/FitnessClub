@@ -64,7 +64,11 @@ export default class InsertInstructor extends Component {
       };
 
       axios
-        .post("http://localhost:5000/api/instructors/add", instructor, config)
+        .post(
+          process.env.REACT_APP_BACKEND_URL + "/api/instructors/add",
+          instructor,
+          config
+        )
         .then((res) => {
           alert(res.data);
           window.location = "/list";

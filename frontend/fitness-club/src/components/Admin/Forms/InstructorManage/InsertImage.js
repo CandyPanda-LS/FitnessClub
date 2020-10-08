@@ -35,7 +35,11 @@ export default function InsertImage() {
     };
 
     axios
-      .post("http://localhost:5000/api/images/additems", formData, config)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/images/additems",
+        formData,
+        config
+      )
       .then((res) => {
         alert("Item Added");
       })

@@ -137,7 +137,7 @@ export default function PackageDetails() {
     };
 
     axios
-      .get("http://localhost:5000/api/packages", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/packages", config)
       .then(({ data }) => {
         if (data.length > 0) {
           setPackageList(data);
@@ -193,7 +193,7 @@ export default function PackageDetails() {
     };
 
     await axios
-      .delete("http://localhost:5000/api/packages/" + id, config)
+      .delete(process.env.REACT_APP_BACKEND_URL + "/api/packages/" + id, config)
       .then((response) => {
         console.log(response);
       });
@@ -201,7 +201,7 @@ export default function PackageDetails() {
     //rerender package list(Get packagelist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/packages", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/packages", config)
       .then(({ data }) => {
         if (data.length > 0) {
           setPackageList(data);

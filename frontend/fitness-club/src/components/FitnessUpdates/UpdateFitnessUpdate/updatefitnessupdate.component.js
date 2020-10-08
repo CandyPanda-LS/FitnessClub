@@ -44,7 +44,9 @@ export default class updateFitnessUpdate extends Component {
 
     axios
       .get(
-        "http://localhost:5000/api/fitnessUpdate/" + this.props.location.data
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/fitnessUpdate/" +
+          this.props.location.data
       )
       .then((res) => {
         console.log(res.data);
@@ -110,7 +112,8 @@ export default class updateFitnessUpdate extends Component {
 
     axios
       .post(
-        "http://localhost:5000/api/fitnessUpdate/updatearticle/" +
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/fitnessUpdate/updatearticle/" +
           this.state.id,
         formData
       )

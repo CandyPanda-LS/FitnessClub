@@ -92,7 +92,9 @@ function InventoryList({
                 onClick={(e) => {
                   axios
                     .delete(
-                      "http://localhost:5000/api/inventory/removeItem/" + id
+                      process.env.REACT_APP_BACKEND_URL +
+                        "/api/inventory/removeItem/" +
+                        id
                     )
                     .then((res) => {
                       alert("Item Removed");
@@ -132,7 +134,7 @@ export default function InventoryGrid() {
     const sendData = async () => {
       try {
         await axios
-          .get("http://localhost:5000/api/inventory")
+          .get(process.env.REACT_APP_BACKEND_URL + "/api/inventory")
           .then((res) => {
             console.log(res);
             setInventory(res.data);

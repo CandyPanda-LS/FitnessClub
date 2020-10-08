@@ -95,7 +95,7 @@ export default function CompletedExercises() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log("completedWorkoutList : " + data.completedWorkoutList);
         console.log(data.completedWorkoutList.length);
@@ -116,7 +116,8 @@ export default function CompletedExercises() {
 
     axios
       .post(
-        "http://localhost:5000/api/pdfgenerate/generateworkoutplan",
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generateworkoutplan",
         pdfText
       )
       .then(() => {
@@ -135,7 +136,9 @@ export default function CompletedExercises() {
     console.log("Delete Exercise id is " + id);
     await axios
       .delete(
-        "http://localhost:5000/api/profile/dailyexerciselist/" + id,
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/profile/dailyexerciselist/" +
+          id,
         config
       )
       .then((response) => {
@@ -145,7 +148,7 @@ export default function CompletedExercises() {
     //rerender meal list(Get meallist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log(data.completedWorkoutList);
         console.log(data.completedWorkoutList.length);

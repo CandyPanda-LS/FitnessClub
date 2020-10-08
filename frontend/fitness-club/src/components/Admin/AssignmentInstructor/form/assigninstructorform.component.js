@@ -10,7 +10,11 @@ export default function Assigninstructorform(props) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/profile/user/" + props.match.params.id)
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/profile/user/" +
+          props.match.params.id
+      )
       .then((res) => {
         console.log("user Details" + res.data);
         setProfileID(res.data._id);
@@ -22,7 +26,7 @@ export default function Assigninstructorform(props) {
       });
 
     axios
-      .get("http://localhost:5000/api/instructors")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/instructors")
       .then((res) => {
         setInstructorList(res.data);
       })
@@ -41,7 +45,7 @@ export default function Assigninstructorform(props) {
 
     axios
       .post(
-        "http://localhost:5000/api/profile/assigninstructor",
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/assigninstructor",
         AssignInstructor
       )
       .then(() => {

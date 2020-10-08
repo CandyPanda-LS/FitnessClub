@@ -55,7 +55,7 @@ export default class UserLogin extends Component {
       };
 
       const loginResponse = await axios.post(
-        "http://localhost:5000/api/auth",
+        process.env.REACT_APP_BACKEND_URL + "/api/auth",
         loginDetails,
         config
       );

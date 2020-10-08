@@ -23,7 +23,7 @@ export default class Packages extends Component {
     };
 
     axios
-      .get("http://localhost:5000/api/packages", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/packages", config)
       .then((response) => {
         this.setState({
           packs: response.data,

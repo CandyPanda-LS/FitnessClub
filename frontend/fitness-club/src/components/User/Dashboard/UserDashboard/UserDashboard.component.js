@@ -37,7 +37,7 @@ const UserDashboard = () => {
 
     async function checkProfile() {
       await axios
-        .get("http://localhost:5000/api/profile/me", config)
+        .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
         .then((response) => {
           if (response.data.package) {
             setProfile("true");

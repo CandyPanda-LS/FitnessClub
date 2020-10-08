@@ -119,7 +119,11 @@ export default class InsertDailyMealPlanByUser extends Component {
     };
 
     await axios
-      .put("http://localhost:5000/api/profile/addmeallist", newMeal, config)
+      .put(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/addmeallist",
+        newMeal,
+        config
+      )
       .then((response) => {
         console.log(response);
         this.setState({

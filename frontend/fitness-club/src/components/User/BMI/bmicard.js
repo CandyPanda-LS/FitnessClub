@@ -26,7 +26,7 @@ export default function BMICard() {
     };
 
     axios
-      .get("http://localhost:5000/api/profile/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
       .then(({ data }) => {
         console.log("Current Weight is " + data.currentWeight);
         setWeight(data.currentWeight);
@@ -77,7 +77,7 @@ export default function BMICard() {
 
     axios
       .post(
-        "http://localhost:5000/api/profile/updateweightheight",
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/updateweightheight",
         newHeightWeight,
         config
       )

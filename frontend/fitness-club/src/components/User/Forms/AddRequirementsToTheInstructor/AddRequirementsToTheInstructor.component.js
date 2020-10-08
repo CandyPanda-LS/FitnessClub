@@ -21,14 +21,16 @@ const AddRequirementsToTheInstructor = () => {
       },
     };
 
-    axios.get("http://localhost:5000/api/profile/me", config).then((res) => {
-      console.log("ProfileId IS" + res.data._id);
-      console.log("Profile Name is " + res.data.user.firstName);
-      console.log(res.data.instructor);
-      setProfileID(res.data._id);
-      setUserName(res.data.user.firstName + " " + res.data.user.lastName);
-      setInstructorID(res.data.instructor);
-    });
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
+      .then((res) => {
+        console.log("ProfileId IS" + res.data._id);
+        console.log("Profile Name is " + res.data.user.firstName);
+        console.log(res.data.instructor);
+        setProfileID(res.data._id);
+        setUserName(res.data.user.firstName + " " + res.data.user.lastName);
+        setInstructorID(res.data.instructor);
+      });
   }, []);
 
   function submitHandler(e) {
@@ -46,7 +48,7 @@ const AddRequirementsToTheInstructor = () => {
 
     axios
       .post(
-        "http://localhost:5000/api/instructors/adduserrequests",
+        process.env.REACT_APP_BACKEND_URL + "/api/instructors/adduserrequests",
         newUserRequest
       )
       .then((res) => {

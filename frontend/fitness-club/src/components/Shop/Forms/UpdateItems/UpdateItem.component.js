@@ -32,7 +32,9 @@ export default function EcommerceUpdateitem(props) {
   useEffect(() => {
     console.log("item id is : " + props.match.params.id);
     axios
-      .get("http://localhost:5000/api/shop/" + props.match.params.id)
+      .get(
+        process.env.REACT_APP_BACKEND_URL + "/api/shop/" + props.match.params.id
+      )
       .then((response) => {
         console.log("item id" + response.data._id);
         console.log("item name" + response.data.ItemName);
@@ -115,7 +117,9 @@ export default function EcommerceUpdateitem(props) {
 
     axios
       .post(
-        "http://localhost:5000/api/shop/updateItem/" + props.match.params.id,
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/shop/updateItem/" +
+          props.match.params.id,
         formData
       )
       .then((res) => {

@@ -51,7 +51,7 @@ export default function Createadvertiesement() {
     };
 
     axios
-      .post("http://localhost:5000/api/advertisement", formData)
+      .post(process.env.REACT_APP_BACKEND_URL + "/api/advertisement", formData)
       .then((res) => {
         window.location = "/advertisementtable";
       })

@@ -93,7 +93,11 @@ export default class Item extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/shop/" + this.props.match.params.id)
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/shop/" +
+          this.props.match.params.id
+      )
       .then((response) => {
         this.setState({
           ItemName: response.data.ItemName,
@@ -122,7 +126,7 @@ export default class Item extends Component {
     };
     //when click a button create a cart
     await axios
-      .post("http://localhost:5000/api/cart", newCart, config)
+      .post(process.env.REACT_APP_BACKEND_URL + "/api/cart", newCart, config)
       .then(() => {
         console.log("Cart Created");
       })
@@ -138,7 +142,11 @@ export default class Item extends Component {
     };
 
     await axios
-      .put("http://localhost:5000/api/cart/addtocart", newItemToCart, config)
+      .put(
+        process.env.REACT_APP_BACKEND_URL + "/api/cart/addtocart",
+        newItemToCart,
+        config
+      )
       .then(() => {
         alert("Added to Cart");
       })

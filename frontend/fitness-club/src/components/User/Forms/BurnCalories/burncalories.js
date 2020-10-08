@@ -231,7 +231,8 @@ export default class BurnCalories extends Component {
 
     await axios
       .put(
-        "http://localhost:5000/api/profile/addcompletedexerciselist",
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/profile/addcompletedexerciselist",
         newCompletedExercise,
         config
       )
@@ -256,7 +257,8 @@ export default class BurnCalories extends Component {
 
     await axios
       .post(
-        "http://localhost:5000/api/profile/addcurrentweightheight",
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/profile/addcurrentweightheight",
         newWeightHeight,
         config
       )

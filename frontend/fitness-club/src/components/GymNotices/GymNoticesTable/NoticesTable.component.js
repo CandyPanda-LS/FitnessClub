@@ -140,7 +140,7 @@ export default function NoticesTable() {
     };
 
     axios
-      .get("http://localhost:5000/api/notices", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/notices", config)
       .then(({ data }) => {
         if (data.length > 0) {
           setNoticeList(data);
@@ -195,7 +195,7 @@ export default function NoticesTable() {
     };
 
     await axios
-      .delete("http://localhost:5000/api/notices/" + id, config)
+      .delete(process.env.REACT_APP_BACKEND_URL + "/api/notices/" + id, config)
       .then((response) => {
         console.log(response);
       });
@@ -203,7 +203,7 @@ export default function NoticesTable() {
     //rerender notice list(Get packagelist Data from the backend)
 
     await axios
-      .get("http://localhost:5000/api/notices", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/notices", config)
       .then(({ data }) => {
         if (data.length > 0) {
           setNoticeList(data);

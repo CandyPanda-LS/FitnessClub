@@ -9,7 +9,7 @@ export default function AdvertisementComponent() {
     const sendData = async () => {
       try {
         await axios
-          .get("http://localhost:5000/api/advertisement")
+          .get(process.env.REACT_APP_BACKEND_URL + "/api/advertisement")
           .then((res) => {
             console.log(res);
             setAdvertiesement(res.data);

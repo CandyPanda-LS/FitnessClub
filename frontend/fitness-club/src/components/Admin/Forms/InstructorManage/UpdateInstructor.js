@@ -28,7 +28,9 @@ export default class UpdateInstructor extends Component {
   componentDidMount() {
     axios
       .get(
-        "http://localhost:5000/api/instructors/" + this.props.match.params.id
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/instructors/" +
+          this.props.match.params.id
       )
       .then((response) => {
         this.setState({
@@ -47,7 +49,7 @@ export default class UpdateInstructor extends Component {
       });
 
     axios
-      .get("http://localhost:5000/api/instructors/")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/instructors/")
       .then((response) => {
         if (response.data.length > 0) {
           this.setState({
@@ -98,7 +100,8 @@ export default class UpdateInstructor extends Component {
 
     axios
       .put(
-        "http://localhost:5000/api/instructors/update/" +
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/instructors/update/" +
           this.props.match.params.id,
         instructor
       )

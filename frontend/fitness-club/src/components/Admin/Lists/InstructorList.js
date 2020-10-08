@@ -44,7 +44,7 @@ export default class InstructorList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:5000/api/instructors/")
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/instructors/")
       .then((response) => {
         this.setState({ instructors: response.data });
       })
@@ -60,7 +60,8 @@ export default class InstructorList extends Component {
 
     axios
       .post(
-        "http://localhost:5000/api/pdfgenerate/generateinstructorlist",
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generateinstructorlist",
         pdfText
       )
       .then(() => {
@@ -71,7 +72,7 @@ export default class InstructorList extends Component {
 
   deleteInstructor(id) {
     axios
-      .delete("http://localhost:5000/api/instructors/" + id)
+      .delete(process.env.REACT_APP_BACKEND_URL + "/api/instructors/" + id)
       .then((response) => {
         console.log(response.data);
       });

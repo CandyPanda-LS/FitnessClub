@@ -47,7 +47,10 @@ export default class PaymentDetails extends Component {
       };
 
       axios
-        .get("http://localhost:5000/api/packages/" + packageId, config)
+        .get(
+          process.env.REACT_APP_BACKEND_URL + "/api/packages/" + packageId,
+          config
+        )
         .then(({ data }) => {
           let newImgPath =
             "http://localhost:5000/packageImages/" + data.ImgPath;
@@ -77,7 +80,11 @@ export default class PaymentDetails extends Component {
     };
 
     await axios
-      .post("http://localhost:5000/api/profile/", PackageDetials, config)
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/",
+        PackageDetials,
+        config
+      )
       .then((res) => {
         if (res.data.package) {
           alert("Enrolled to a Package Successfully");

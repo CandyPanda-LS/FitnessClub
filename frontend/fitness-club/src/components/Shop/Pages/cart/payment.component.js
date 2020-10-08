@@ -21,7 +21,7 @@ export default function Payment() {
     };
     //fetching cartlist data from the backend
     axios
-      .get("http://localhost:5000/api/cart/me", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/cart/me", config)
       .then(({ data }) => {
         console.log(data.cartList);
         console.log(data.cartList.length);
@@ -45,14 +45,16 @@ export default function Payment() {
       });
 
     //fetching user details
-    axios.get("http://localhost:5000/api/userprofile/", config).then((res) => {
-      console.log("profile details : " + res.data);
-      setFirstName(res.data.firstName);
-      setLastName(res.data.lastName);
-      setEmail(res.data.email);
-      setAddress(res.data.address);
-      setContact(res.data.mobileNo);
-    });
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/userprofile/", config)
+      .then((res) => {
+        console.log("profile details : " + res.data);
+        setFirstName(res.data.firstName);
+        setLastName(res.data.lastName);
+        setEmail(res.data.email);
+        setAddress(res.data.address);
+        setContact(res.data.mobileNo);
+      });
   }, []);
 
   return (

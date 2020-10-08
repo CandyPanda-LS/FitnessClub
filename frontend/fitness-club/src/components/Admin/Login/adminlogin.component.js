@@ -55,7 +55,7 @@ export default class AdminLogin extends Component {
       };
 
       const loginResponse = await axios.post(
-        "http://localhost:5000/api/authadmin",
+        process.env.REACT_APP_BACKEND_URL + "/api/authadmin",
         loginDetails,
         config
       );
