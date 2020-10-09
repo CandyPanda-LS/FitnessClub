@@ -52,14 +52,13 @@ export default class PaymentDetails extends Component {
           config
         )
         .then(({ data }) => {
-          let newImgPath =
-            "http://localhost:5000/packageImages/" + data.ImgPath;
+       
           this.setState({
             packageName: data.PackageName,
             packageDescription: data.PackageDescriprion,
             packagePrice: data.PackagePrice,
             packagePeriod:data.PackagePeriod,
-            imgPath: newImgPath,
+            imgPath: data.ImgPath,
           });
         })
         .catch((error) => {
