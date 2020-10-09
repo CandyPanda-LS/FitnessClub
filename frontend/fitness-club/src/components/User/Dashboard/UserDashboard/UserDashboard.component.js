@@ -118,7 +118,7 @@ const UserDashboard = () => {
               //alert("Remaining DYAS " + (30 - dateDiffernce))
             }
             else{
-              setRemaingDates("Your profile has been expired. Please activate a gym package");
+              setRemaingDates("Your gym package has been expired");
               setErrorType("error")
             }
             
