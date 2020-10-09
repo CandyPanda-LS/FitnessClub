@@ -283,7 +283,7 @@ export default function MenuAppBar() {
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/join">
                       <i className="fas fa-briefcase"></i>
-                      <span>Chat For Fun</span>
+                      <span>Fun Chat  </span>
                     </Link>
                   </li>{" "}
                 </>
