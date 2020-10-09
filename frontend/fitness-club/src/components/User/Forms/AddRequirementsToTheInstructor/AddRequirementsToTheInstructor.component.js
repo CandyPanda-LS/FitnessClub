@@ -50,6 +50,38 @@ const AddRequirementsToTheInstructor = () => {
       });
   }, []);
 
+
+  function RemoveInstructor(e){
+
+    e.preventDefault();
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    const newInstructor = {
+      instructor: "null",
+    };
+
+    axios
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/unassigninstructor",
+        newInstructor,
+        config
+      )
+      .then(() => {
+        alert("unassigned");
+        window.location = "/dashboard"
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+
+  }
+
     
 
   function submitHandler(e) {
@@ -102,7 +134,7 @@ const AddRequirementsToTheInstructor = () => {
                     <p>Email : {instructorEmail}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger">Remove</button>
+        <button type="button" class="btn btn-danger" onClick = {RemoveInstructor}>Remove</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
       </div>

@@ -153,6 +153,7 @@ router.delete("/", auth, async (req, res) => {
   try {
     //todo - remove users posts
     //Remove Profile
+  
     await Profile.findOneAndRemove({ user: req.user.id });
     //Remove user
     //await User.findOneAndRemove({ _id: req.user.id });
@@ -446,6 +447,25 @@ router.post("/updateweightheight", auth, async (req, res) => {
       profile.currentHeight = req.body.currentHeight;
       profile.currentWeight = req.body.currentWeight;
 
+      profile
+        .save()
+        .then(() => res.json("Profile Updated"))
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
+
+//@route  POST  api/profile/unassigninstructor
+//@desc  unassign instructor
+//@access private
+//@author senura
+
+router.post("/unassigninstructor", auth, async (req, res) => {
+  Profile.findOneAndUpdate({ user: req.user.id })
+    .then((profile) => {
+      profile.instructor = req.body.instructor;
+     
       profile
         .save()
         .then(() => res.json("Profile Updated"))
