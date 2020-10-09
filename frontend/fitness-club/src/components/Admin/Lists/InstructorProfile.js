@@ -4,13 +4,10 @@ import axios from "axios";
 import Pic1 from "../Images/no_pic.jpg";
 import "../assets/css/styles.css";
 import Moment from "moment";
-import { Button } from "@material-ui/core";
 
 export default class InstructorProfile extends Component {
   constructor(props) {
     super(props);
-
-    this.generatePDF = this.generatePDF.bind(this);
 
     this.state = {
       instructorId: "",
@@ -22,20 +19,13 @@ export default class InstructorProfile extends Component {
       email: "",
       password: "",
       instructors: [],
-      userRequests: [],
     };
   }
 
   componentDidMount() {
-    if (!this.props.location.data) {
-      window.location = "/list";
-    }
-
     axios
       .get(
-        process.env.REACT_APP_BACKEND_URL +
-          "/api/instructors/" +
-          this.props.location.data
+        "http://localhost:5000/api/instructors/" + this.props.match.params.id
       )
       .then((response) => {
         this.setState({
@@ -48,34 +38,10 @@ export default class InstructorProfile extends Component {
           email: response.data.email,
           password: response.data.password,
         });
-
-        console.log("userRequests : " + response.data.userRequests);
-        console.log(response.data.userRequests.length);
-
-        if (response.data.userRequests.length > 0) {
-          this.setState({ userRequests: response.data.userRequests });
-        }
       })
       .catch(function (error) {
         console.log(error);
       });
-  }
-
-  generatePDF() {
-    const pdfText = {
-      userRequests: this.state.userRequests,
-    };
-
-    axios
-      .post(
-        process.env.REACT_APP_BACKEND_URL +
-          "/api/pdfgenerate/generateuserrequests",
-        pdfText
-      )
-      .then(() => {
-        alert("PDF Generated Successful");
-      })
-      .catch((err) => console.log(err.message));
   }
 
   render() {
@@ -98,7 +64,7 @@ export default class InstructorProfile extends Component {
                   <h5>{this.state.name}</h5>
                   <h6>Gym Instructor</h6>
                   <p class="proile-rating">
-                    RATING : <span>8/10</span>
+                    <span>Fitness Club</span>
                   </p>
                   <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -131,9 +97,12 @@ export default class InstructorProfile extends Component {
                 </div>
               </div>
               <div class="col-md-2">
-                <button className="btn btn-primary" onClick={this.generatePDF}>
-                  Generate PDF
-                </button>
+                <Link
+                  to={"/update/" + this.props.match.params.id}
+                  className="btn btn-primary"
+                >
+                  Edit
+                </Link>
               </div>
             </div>
             <div class="row">

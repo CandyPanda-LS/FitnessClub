@@ -46,6 +46,8 @@ import InsertInstructor from "../Admin/Forms/InstructorManage/InsertInstructor";
 import UpdateInstructor from "../Admin/Forms/InstructorManage/UpdateInstructor";
 import InstructorList from "../Admin/Lists/InstructorList";
 import InstructorProfile from "../Admin/Lists/InstructorProfile";
+import Join from "../Admin/Chat/Join";
+import Chat from "../Admin/Chat/Chat";
 
 // @desc import Components
 // @author Ayodya
@@ -641,7 +643,9 @@ export default function MenuAppBar() {
               <Route path="/insert" exact component={InsertInstructor} />
               <Route path="/update/:id" exact component={UpdateInstructor} />
               <Route path="/list" exact component={InstructorList} />
-              <Route path="/view" exact component={InstructorProfile} />
+              <Route path="/view/:id" exact component={InstructorProfile} />
+              <Route path="/join" exact component={Join} />
+              <Route path="/chat" component={Chat} />
               {/* Routes
               @author Ayodya */}
               <Route path="/InsertFeedback" exact component={InsertFeedback} />
