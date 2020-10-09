@@ -59,7 +59,7 @@ export default class Packages extends Component {
             >
               <div
                 style={{
-                  background: "rgba(0, 0, 0, 0.3)",
+                  background: "rgba(0, 0, 0, 0.6)",
                   color: "#fff",
                   borderRadius: "20px",
                 }}
