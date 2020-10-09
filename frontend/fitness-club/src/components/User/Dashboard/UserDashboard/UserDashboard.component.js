@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./UserDashboard.css";
 import axios from "axios";
 
+
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import HeaderCards from "../Cards/Cards.component";
 import HeaderCardsNoPackage from "../Cards/CardsNotSelected.component";
 import WorkoutList from "../../Lists/WorkoutList/WorkoutList.component";
@@ -14,8 +18,15 @@ import ExercisesPieChart from "../../Charts/ExercisesPieChart/ExercisesPieChart.
 import MealBarChart from "../../Charts/MealBarChart/MealBarChart.component";
 import BMICard from "../../BMI/bmicard";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+
 const UserDashboard = () => {
   const [profile, setProfile] = useState("true");
+  const [remainingDates, setRemaingDates] = useState(0);
+  const [errorType,setErrorType] = useState("success");
   /*Redirect to login page if there is no token*/
   useEffect(() => {
     const token = localStorage.getItem("x-auth-token");
@@ -44,6 +55,79 @@ const UserDashboard = () => {
           } else {
             setProfile("false");
           }
+
+          //check subscription date outdated or not
+          if (response.data.subscriptionDate) {
+
+
+
+            //get current data
+            var currentDate = new Date();
+            var date = currentDate.getDate();
+            var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+            var year = currentDate.getFullYear();
+              
+            //month-day-year
+              var currentDate =
+              (month + 1) +
+              "-" +
+              date +
+              "-" +
+              year;
+
+                  // //month-day-year
+                  // var currentDate =
+                  // 11+
+                  // "-" +
+                  // 19 +
+                  // "-" +
+                  // 2020;
+
+
+              //split subscribed date
+              var arraySubscribedDate = response.data.subscriptionDate.split("-")
+      
+
+              //month-day-year
+              var purchasedDate = arraySubscribedDate[1]+"-"+arraySubscribedDate[2]+"-"+arraySubscribedDate[0];
+           
+              // new Date("dateString") is browser-dependent and discouraged, so we'll write
+              // a simple parse function for U.S. date format (which does no error checking)
+              function parseDate(str) {
+                var mdy = str.split('-');
+                return new Date(mdy[2], mdy[0]-1, mdy[1]);
+              }
+
+              function datediff(first, second) {
+            // Take the difference between the dates and divide by milliseconds per day.
+            // Round to nearest whole number to deal with DST.
+                return Math.round((second-first)/(1000*60*60*24));
+            }
+
+
+            //alert("Current Date : " + currentDate)
+            //alert("purchasedDate Date : " + purchasedDate)
+
+
+            const dateDiffernce = parseInt(datediff(parseDate(purchasedDate), parseDate(currentDate)), 10);
+            //alert("Differnce Date : " + dateDiffernce);
+
+            const packageTimePeriod = (response.data.packagePeriod * 30);
+            if(dateDiffernce < packageTimePeriod){
+              setRemaingDates(packageTimePeriod - dateDiffernce);
+              setErrorType("success")
+              //alert("Remaining DYAS " + (30 - dateDiffernce))
+            }
+            else{
+              setRemaingDates("Your gym package has been expired");
+              setErrorType("error")
+            }
+            
+
+          }
+
+
+
         })
         .catch(setProfile("false"));
     }
@@ -53,9 +137,18 @@ const UserDashboard = () => {
 
   return (
     <>
-      <div>
-        {profile === "true" ? <HeaderCards /> : <HeaderCardsNoPackage />}
+      <div className="row">
+      <div className="col-md-12 col-xl-12 mb-4">
+      <Alert severity={errorType}>{errorType == "success" ? "You have another " +  remainingDates + " days to expire" : remainingDates}</Alert>
       </div>
+      </div>
+
+      <div>
+        {/* //if profile is true and errorType is success then customer can only navugate to those features */}
+        {profile === "true" &&  errorType === "success" ? <HeaderCards /> : <HeaderCardsNoPackage />}
+      </div>
+
+
 
       <div className="row">
         <div className="col-md-6 col-xl-4 mb-4">

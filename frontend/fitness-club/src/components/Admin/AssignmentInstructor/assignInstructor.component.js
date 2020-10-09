@@ -46,7 +46,7 @@ export default function AssignInstructor() {
   function userList() {
     //return a single Instructor component for each and every array Element
     return remainingUserList.map((currentuser) => {
-      if (!currentuser.instructor) {
+      if (!currentuser.instructor || currentuser.instructor === "null") {
         return (
           <UserRemain
             remainuser={currentuser}

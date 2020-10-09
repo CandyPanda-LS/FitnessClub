@@ -40,15 +40,16 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.post("/", upload.single("ImgPath"), async (req, res) => {
+router.post("/", async (req, res) => {
   var data = req.body;
-  var newImgPath = req.file.path.replace("packageImages/", "");
+  
   try {
     let package = new Packages({
-      ImgPath: newImgPath,
+      ImgPath: data.PackageImageURL,
       PackageName: data.PackageName,
       PackagePrice: data.PackagePrice,
       PackageDescriprion: data.PackageDescriprion,
+      PackagePeriod:data.PackagePeriod
     });
     await package.save();
     res.json(package);
@@ -71,16 +72,15 @@ router.get("/:id", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-router.put("/:id", upload.single("ImgPath"), async (req, res) => {
+router.put("/:id",async (req, res) => {
   var data = req.body;
-  if (typeof req.file !== "undefined" && req.file) {
-    var newImgPath = req.file.path.replace("packageImages/", "");
     try {
       let package = {
-        ImgPath: newImgPath,
+        ImgPath: data.PackageImageURL,
         PackageName: data.PackageName,
         PackagePrice: data.PackagePrice,
         PackageDescriprion: data.PackageDescriprion,
+        PackagePeriod:data.PackagePeriod
       };
       let id = req.params.id;
       await Packages.findByIdAndUpdate({ _id: id }, package);
@@ -89,21 +89,7 @@ router.put("/:id", upload.single("ImgPath"), async (req, res) => {
       console.error(error.message);
       res.status(500).send("Server Error");
     }
-  } else {
-    try {
-      let package = {
-        PackageName: data.PackageName,
-        PackagePrice: data.PackagePrice,
-        PackageDescriprion: data.PackageDescriprion,
-      };
-      let id = req.params.id;
-      await Packages.findByIdAndUpdate({ _id: id }, package);
-      res.json(package);
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Server Error");
-    }
-  }
+  
 });
 
 router.delete("/:id", async (req, res) => {

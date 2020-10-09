@@ -4,9 +4,13 @@ import axios from "axios";
 import "./AddRequirementsToTheInstructor.css";
 
 import Background from "./img/gymbannner.jpg";
+import { Modal } from "@material-ui/core";
 
 const AddRequirementsToTheInstructor = () => {
   const [instructorID, setInstructorID] = useState();
+  const [instructorName, setInstructorName] = useState();
+  const [instructorContact, setInstructorContact] = useState();
+  const [instructorEmail, setInstructorEmail] = useState();
   const [userProfile, setProfileID] = useState();
   const [userName, setUserName] = useState();
   const [weight, setWeight] = useState();
@@ -30,8 +34,55 @@ const AddRequirementsToTheInstructor = () => {
         setProfileID(res.data._id);
         setUserName(res.data.user.firstName + " " + res.data.user.lastName);
         setInstructorID(res.data.instructor);
+
+        axios.get(process.env.REACT_APP_BACKEND_URL + "/api/instructors/" + res.data.instructor ).then((res)=>{
+
+          setInstructorName(res.data.name);
+          setInstructorContact(res.data.phone);
+          setInstructorEmail(res.data.email);
+
+          console.log("Instructor Details :" + res)
+         // alert(res.data.name)
+
+        })
+
+
       });
   }, []);
+
+
+  function RemoveInstructor(e){
+
+    e.preventDefault();
+
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+
+    const newInstructor = {
+      instructor: "null",
+    };
+
+    axios
+      .post(
+        process.env.REACT_APP_BACKEND_URL + "/api/profile/unassigninstructor",
+        newInstructor,
+        config
+      )
+      .then(() => {
+        alert("unassigned");
+        window.location = "/dashboard"
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+
+  }
+
+    
 
   function submitHandler(e) {
     e.preventDefault();
@@ -61,7 +112,36 @@ const AddRequirementsToTheInstructor = () => {
   }
 
   return (
+
+
+
     <div class="container">
+
+{/* // Instructor Details Modal
+    // <!-- Modal --> */}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Instructor Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+                    <p>Instructor : {instructorName} </p>
+                    <p>Contact : {instructorContact}</p>
+                    <p>Email : {instructorEmail}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" onClick = {RemoveInstructor}>Remove</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
       <div class="row justify-content-center">
         <div class="col-md-9 col-lg-12 col-xl-10">
           <div
@@ -79,12 +159,26 @@ const AddRequirementsToTheInstructor = () => {
                     class="flex-grow-1 bg-login-image"
                     style={{ backgroundImage: `url(${Background})` }}
                   >
+                    
+                    
                     {" "}
                   </div>
                 </div>
                 <div class="col-lg-6">
                   <div class="p-5">
+                   
+                   <div className="text-center">
+                    {/* <!-- Button trigger modal --> */}
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        View Instructor Details
+                    </button>
+                   </div>
+
+       
+                    
+                    <hr/>
                     <div class="text-center">
+                  
                       <h4 class="text-dark mb-4">Add Your Requirement</h4>
                     </div>
                     <form class="user" onSubmit={submitHandler}>

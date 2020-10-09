@@ -44,7 +44,7 @@ export default class Packages extends Component {
               style={{
                 borderRadius: "20px",
                 // border: "2px solid blue",
-                backgroundImage: `url(http://localhost:5000/packageImages/${pack.ImgPath})`,
+                backgroundImage: `url(${pack.ImgPath})`,
                 backgroundRepeat: "no-repeat" /* Do not repeat the image */,
                 backgroundSize: "cover",
                 boxShadow: "10px 7px 10px rgba(110, 107, 107, 0.548)",
@@ -84,11 +84,15 @@ export default class Packages extends Component {
                 </ListItem>
                 <ListItem button style={{ paddingLeft: "30px" }}>
                   <ListItemIcon></ListItemIcon>
+                  <ListItemText primary={pack.PackagePeriod + " months"} />
+                </ListItem>
+                <ListItem button style={{ paddingLeft: "30px" }}>
+                  <ListItemIcon></ListItemIcon>
                   <ListItemText primary={pack.PackagePrice + "LKR"} />
                 </ListItem>
                 <div style={{ textAlign: "center", paddingBottom: "10px" }}>
                   <Link to={{ pathname: "/payment", data: pack._id }}>
-                    <button type="button" class="btn btn-outline-success">
+                    <button type="button" class="btn btn-success">
                       Join Now
                     </button>
                   </Link>
