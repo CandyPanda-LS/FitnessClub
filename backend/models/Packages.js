@@ -5,20 +5,24 @@ const PackageSchema = new Schema({
     //@author nayana
     PackageName: {
         type: String,
-        required: true,
+        //required: true,
 
     },
     PackagePrice: {
         type: String,
-        required: true,
+       // required: true,
     },
     PackageDescriprion: {
         type: String,
-        required: true,
+       // required: true,
+    },
+    PackagePeriod: {
+        type: String,
+       // required: true,
     },
     ImgPath: {
         type: String,
-        required: true,
+        //required: true,
     },
 
 });

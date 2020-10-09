@@ -44,7 +44,7 @@ export default class Packages extends Component {
               style={{
                 borderRadius: "20px",
                 // border: "2px solid blue",
-                backgroundImage: `url(http://localhost:5000/packageImages/${pack.ImgPath})`,
+                backgroundImage: `url(${pack.ImgPath})`,
                 backgroundRepeat: "no-repeat" /* Do not repeat the image */,
                 backgroundSize: "cover",
                 boxShadow: "10px 7px 10px rgba(110, 107, 107, 0.548)",
@@ -59,7 +59,7 @@ export default class Packages extends Component {
             >
               <div
                 style={{
-                  background: "rgba(0, 0, 0, 0.6)",
+                  background: "rgba(0, 0, 0, 0.3)",
                   color: "#fff",
                   borderRadius: "20px",
                 }}

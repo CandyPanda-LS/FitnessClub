@@ -79,6 +79,13 @@ const columns = [
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
+  {
+    id: "period",
+    label: "Package Period",
+    minWidth: 50,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+  },
 
   {
     id: "edit",
@@ -94,11 +101,12 @@ const columns = [
   },
 ];
 
-function createData(name, description, price, edit, deletePackage) {
+function createData(name, description, price,period, edit, deletePackage) {
   return {
     name,
     description,
     price,
+    period,
     edit,
     deletePackage,
   };
@@ -154,6 +162,7 @@ export default function PackageDetails() {
       pack.PackageName,
       pack.PackageDescriprion,
       pack.PackagePrice,
+      pack.PackagePeriod,
       pack._id,
       pack._id
     );
@@ -286,7 +295,7 @@ export default function PackageDetails() {
                             ) : column.id === "edit" ? (
                               <Link
                                 to={{
-                                  pathname: "/updateadvertisement",
+                                  pathname: "/ManageGymPackage",
                                   data: value,
                                 }}
                               >
