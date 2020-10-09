@@ -279,6 +279,12 @@ export default function MenuAppBar() {
                       <i className="fas fa-shopping-cart"></i>
                       <span>Cart</span>
                     </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/join">
+                      <i className="fas fa-briefcase"></i>
+                      <span>Chat For Fun</span>
+                    </Link>
                   </li>{" "}
                 </>
               ) : role === "admin" ? (

@@ -16,7 +16,7 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const ENDPOINT = "http://localhost:4000/";
+  const ENDPOINT = REACT_APP_CHAT_URL;
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);

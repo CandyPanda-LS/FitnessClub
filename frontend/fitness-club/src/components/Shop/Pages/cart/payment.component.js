@@ -14,6 +14,7 @@ export default function Payment() {
   let currentCartPrice = 0;
 
   useEffect(() => {
+
     const config = {
       headers: {
         "x-auth-token": localStorage.getItem("x-auth-token"),
@@ -65,7 +66,7 @@ export default function Payment() {
           <input
             type="hidden"
             name="return_url"
-            value="http://localhost:3000"
+            value="http://localhost:3000/cart"
           />
           <input
             type="hidden"
@@ -75,7 +76,7 @@ export default function Payment() {
           <input
             type="hidden"
             name="notify_url"
-            value="http://sample.com/notify"
+            value="http://localhost:5000/api/paymenthistory"
           />
           <br />
           <br />
@@ -188,6 +189,9 @@ export default function Payment() {
           <br />
         </form>
       </div>
+
+  
+
     </div>
   );
 }

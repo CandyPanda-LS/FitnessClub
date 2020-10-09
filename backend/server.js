@@ -28,6 +28,7 @@ app.use("/api/admins", require("./routes/api/admins"));
 app.use("/api/authadmin", require("./routes/api/authadmin"));
 app.use("/api/authinstructor", require("./routes/api/authinstructor"));
 app.use("/api/pdfgenerate", require("./routes/api/pdfgenerating/pdfgenerate"));
+app.use("/api/paymenthistory", require("./routes/api/paymenthistory"));
 
 //-------------------Lasal---------------------
 app.use("/api/shop", require("./routes/api/shop"));
