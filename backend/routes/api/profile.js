@@ -46,12 +46,37 @@ router.post(
       return res.status(400).json({ errors: errors });
     }
 
+    //subscription Date
+      //load cuurent time
+  var currentDate = new Date();
+
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var seconds = currentDate.getSeconds();
+  var date = currentDate.getDate();
+  var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+  var year = currentDate.getFullYear();
+  var subscriptionDate =
+    year +
+    "-" +
+    (month + 1) +
+    "-" +
+    date +
+    "-" +
+    hours +
+    "-" +
+    minutes +
+    "-" +
+    seconds;
+
     const { package } = req.body;
 
     //build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
     if (package) profileFields.package = package;
+    if (subscriptionDate) profileFields.subscriptionDate = subscriptionDate;
+
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });

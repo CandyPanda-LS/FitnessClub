@@ -12,6 +12,10 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
   },
   //@author Senura
+  subscriptionDate: {
+      type: String,
+    },
+  //@author Senura
   currentWeight: {
     type: String,
   },
