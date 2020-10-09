@@ -11,6 +11,9 @@ const ProfileSchema = new mongoose.Schema({
   package: {
     type: String,
   },
+  packagePeriod:{
+    type: String,
+  },
   //@author Senura
   subscriptionDate: {
       type: String,

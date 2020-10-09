@@ -69,12 +69,13 @@ router.post(
     "-" +
     seconds;
 
-    const { package } = req.body;
+    const { package,packagePeriod } = req.body;
 
     //build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
     if (package) profileFields.package = package;
+    if (packagePeriod) profileFields.packagePeriod = packagePeriod;
     if (subscriptionDate) profileFields.subscriptionDate = subscriptionDate;
 
 

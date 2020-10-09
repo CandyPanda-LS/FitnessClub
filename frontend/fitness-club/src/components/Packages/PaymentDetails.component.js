@@ -58,6 +58,7 @@ export default class PaymentDetails extends Component {
             packageName: data.PackageName,
             packageDescription: data.PackageDescriprion,
             packagePrice: data.PackagePrice,
+            packagePeriod:data.PackagePeriod,
             imgPath: newImgPath,
           });
         })
@@ -71,6 +72,7 @@ export default class PaymentDetails extends Component {
     e.preventDefault();
     const PackageDetials = {
       package: this.state.packageName,
+      packagePeriod : this.state.packagePeriod
     };
 
     const config = {

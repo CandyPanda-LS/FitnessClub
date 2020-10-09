@@ -84,11 +84,15 @@ export default class Packages extends Component {
                 </ListItem>
                 <ListItem button style={{ paddingLeft: "30px" }}>
                   <ListItemIcon></ListItemIcon>
+                  <ListItemText primary={pack.PackagePeriod + " months"} />
+                </ListItem>
+                <ListItem button style={{ paddingLeft: "30px" }}>
+                  <ListItemIcon></ListItemIcon>
                   <ListItemText primary={pack.PackagePrice + "LKR"} />
                 </ListItem>
                 <div style={{ textAlign: "center", paddingBottom: "10px" }}>
                   <Link to={{ pathname: "/payment", data: pack._id }}>
-                    <button type="button" class="btn btn-outline-success">
+                    <button type="button" class="btn btn-success">
                       Join Now
                     </button>
                   </Link>

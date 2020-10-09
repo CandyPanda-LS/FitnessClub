@@ -112,8 +112,9 @@ const UserDashboard = () => {
             const dateDiffernce = parseInt(datediff(parseDate(purchasedDate), parseDate(currentDate)), 10);
             //alert("Differnce Date : " + dateDiffernce);
 
-            if(dateDiffernce < 30){
-              setRemaingDates(30 - dateDiffernce);
+            const packageTimePeriod = (response.data.packagePeriod * 30);
+            if(dateDiffernce < packageTimePeriod){
+              setRemaingDates(packageTimePeriod - dateDiffernce);
               setErrorType("success")
               //alert("Remaining DYAS " + (30 - dateDiffernce))
             }
