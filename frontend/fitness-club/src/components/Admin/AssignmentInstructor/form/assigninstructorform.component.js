@@ -35,7 +35,7 @@ export default function Assigninstructorform(props) {
       });
   }, []);
 
-  function submitHandler(e) {
+  async function submitHandler(e) {
     e.preventDefault();
 
     const AssignInstructor = {
@@ -43,13 +43,14 @@ export default function Assigninstructorform(props) {
       instructorid: instructor,
     };
 
-    axios
+   await axios
       .post(
         process.env.REACT_APP_BACKEND_URL + "/api/profile/assigninstructor",
         AssignInstructor
       )
       .then(() => {
         alert("Successfuly Assigned");
+         new Promise(r => setTimeout(r, 6000));
         window.location = "/admin";
       })
       .catch((err) => {
@@ -99,6 +100,10 @@ export default function Assigninstructorform(props) {
               setInstructor(e.target.value);
             }}
           >
+            <option value="">
+                  InstructorList
+             </option>
+
             {instructorList.map((currentInstructor) => {
               return (
                 <option value={currentInstructor._id}>
