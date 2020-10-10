@@ -64,6 +64,18 @@ const ProfileSchema = new mongoose.Schema({
       date: { type: Date },
     },
   ],
+  time :[{
+    inTime: {
+      type: String,
+  },
+  outTime: {
+      type: String,
+  },
+  date: {
+    type: String,
+  },
+  
+  }],
 });
 
 module.exports = Profile = mongoose.model("profile", ProfileSchema);

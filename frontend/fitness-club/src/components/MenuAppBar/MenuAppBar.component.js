@@ -10,6 +10,7 @@ import Profile from "../Profile/profile";
 import UserRegistration from "../Register/registration.component";
 import ForgotPassword from "../ForgotPassword/forgotpassword.component";
 import ProfileUpdate from "../ProfileUpdate/profileUpdate.component";
+import AddTime from "../AddTime/addTime";
 
 // @desc import Components
 // @author Senura
@@ -527,6 +528,8 @@ export default function MenuAppBar() {
               <Route path="/userlogin" exact component={UserLogin} />
               <Route path="/profile" exact component={Profile} />
               <Route path="/forgotpassword" exact component={ForgotPassword} />
+              <Route path="/addTime" exact component={AddTime} />
+
               {/* Routes
               @author Senura */}
               <Route path="/" exact component={HomeComponent} />
