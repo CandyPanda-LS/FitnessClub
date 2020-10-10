@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 
 
 export default class AddTime extends Component{
@@ -12,22 +13,42 @@ export default class AddTime extends Component{
             outTime: "",
         };
 
+        this.addTime = this.addTime.bind(this);
+
     }
 
-    componentDidMount() {
 
-        const config = {
-          headers: {
-            "x-auth-token": localStorage.getItem("x-auth-token"),
-          },
-        };
-
-        // axios
-        //     .post()
-    }
-
-    onFormSubmit(e){
+    addTime(e){
         e.preventDefault();
+        // const config = {
+        //     headers: {
+        //       "x-auth-token": localStorage.getItem("x-auth-token"),
+        //     },
+        //   };
+  
+        const time = {
+            inTime:this.state.inTime,
+            outTime:this.state.outTime,
+            date:this.state.date
+        }
+
+        console.log(time);
+
+           axios.post(process.env.REACT_APP_BACKEND_URL + "/api/addTime",time)
+          .then((response) => {
+              this.setState({
+                  inTime:"",
+                  outTime:"",
+                  date:""
+              })
+          })
+          .catch((error) => {
+            console.log(error);
+            alert(error);
+          });
+
+          window.location = "/addTime";
+  
     }
 
     render(){

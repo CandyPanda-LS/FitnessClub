@@ -155,6 +155,10 @@ export default class Profile extends Component {
     window.location = "/profileUpdate";
   }
 
+  addTime(e){
+    window.location = "/addTime";
+  }
+
   render() {
     return (
       <div class="container-fluid">
@@ -205,7 +209,7 @@ export default class Profile extends Component {
                         Change
                       </button>
                     </div>
-                  </form>
+                  </form>                
                 </div>
               </div>
             </center>
@@ -375,6 +379,14 @@ export default class Profile extends Component {
               onClick={this.profileDelete}
             >
               Delete Profile
+            </button>
+            {" "}
+            <button
+              class="btn btn-primary btn-sm"
+              type="button"
+              onClick={this.addTime}
+            >
+              Add Time
             </button>
           </div>
         </center>
