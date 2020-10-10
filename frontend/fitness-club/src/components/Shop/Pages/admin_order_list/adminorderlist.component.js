@@ -111,11 +111,12 @@ export default class AdminOrderList extends Component {
           .get(process.env.REACT_APP_BACKEND_URL + "/api/addpayment")
           .then((response) => {
             this.setState({ orders: response.data });
-            window.location = "/adminorderlist";
           })
           .catch((error) => {
             console.log(error);
           });
+
+        window.location = "/adminorderlist";
       })
       .catch((err) => {
         alert(err);
