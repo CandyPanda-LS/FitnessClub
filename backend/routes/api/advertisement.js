@@ -56,7 +56,7 @@ router.get("/", async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-//@route  DELETE api/instructor/meal
+//@route  DELETE 
 //@desc  Delete Meal
 //@access Private
 //@author Senura

@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   var data = req.body;
-  
+
   try {
     let package = new Packages({
       ImgPath: data.PackageImageURL,
@@ -89,7 +89,7 @@ router.put("/:id",async (req, res) => {
       console.error(error.message);
       res.status(500).send("Server Error");
     }
-  
+
 });
 
 router.delete("/:id", async (req, res) => {

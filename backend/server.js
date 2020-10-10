@@ -33,6 +33,7 @@ app.use("/api/paymenthistory", require("./routes/api/paymenthistory"));
 //-------------------Lasal---------------------
 app.use("/api/shop", require("./routes/api/shop"));
 app.use("/api/cart", require("./routes/api/addtocart"));
+app.use("/api/addpayment", require("./routes/api/payment"));
 
 //-------------------Dilmi---------------------
 app.use("/api/userprofile", require("./routes/api/userprofile"));

@@ -120,4 +120,24 @@ router.delete("/cartlist/:itemid", auth, async (req, res) => {
   }
 });
 
+
+//@route  DELETE /api/cart/:deleteid
+//@desc  Delete Meal
+//@access Private
+//@author Senura
+
+router.delete("/:deleteid", async (req, res) => {
+  try {
+    //GET remove index
+    Cart.findByIdAndDelete(req.params.deleteid)
+      .then(() => {
+        res.json("Cart Deleted");
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

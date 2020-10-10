@@ -5,15 +5,23 @@ export default function Payment() {
   const [ItemsInCartList, setItemsInCartList] = useState([]);
   const [totalPrice, setTotal] = useState(0);
 
+  const [cartID,setCartID] = useState();
+  const [userProfile, setUserProfile] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [email, setEmail] = useState();
   const [contact, setContact] = useState();
   const [address, setAddress] = useState();
+  const [order_id, setOrder_id] = useState();
+  const [items, setItems] = useState();
+  const [amount, setAmount] = useState();
 
   let currentCartPrice = 0;
 
   useEffect(() => {
+
+    const generateOrderId =  Math.floor((Math.random() * 100000) + 1);
+    setOrder_id(generateOrderId);
 
     const config = {
       headers: {
@@ -23,9 +31,13 @@ export default function Payment() {
     //fetching cartlist data from the backend
     axios
       .get(process.env.REACT_APP_BACKEND_URL + "/api/cart/me", config)
-      .then(({ data }) => {
+      .then( ({ data }) => {
+        setCartID(data._id);
         console.log(data.cartList);
+        console.log("user profile id " +data.user._id);
         console.log(data.cartList.length);
+
+        setUserProfile(data.user._id)
 
         if (data.cartList.length > 0) {
           setItemsInCartList(data.cartList);
@@ -39,6 +51,14 @@ export default function Payment() {
           );
 
           setTotal(currentCartPrice);
+          setAmount(currentCartPrice + (currentCartPrice / 100.0) * 2.0);
+          setItems(  data.cartList.map((item)=>{
+            return(
+                item.ItemName + " X " + item.quantity
+            )
+          }))
+
+
         }
       })
       .catch((error) => {
@@ -58,48 +78,88 @@ export default function Payment() {
       });
   }, []);
 
+  function onPayment(e){
+
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("userProfile",userProfile);
+    formData.append("order_id", order_id);
+    formData.append("items", items);
+    formData.append("amount", amount);
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("phone", contact);
+    formData.append("address", address);
+
+
+
+    axios.post(process.env.REACT_APP_BACKEND_URL + "/api/addpayment",formData).then(()=>{
+
+
+      alert("Payment Success");
+
+      axios.delete(process.env.REACT_APP_BACKEND_URL +  "/api/cart/" + cartID).then(()=>{
+        alert("Cart Clear");
+        window.location = "/cart"
+      }).catch((err)=>{
+        alert(err)
+      })
+
+
+
+    }).catch((err)=>{
+      alert(err);
+    })
+
+
+
+  }
+
   return (
     <div>
       <div className="card" style={{ padding: "20px", margin: "10px" }}>
-        <form method="post" action="https://sandbox.payhere.lk/pay/checkout">
-          <input type="hidden" name="merchant_id" value="1215573" />
-          <input
-            type="hidden"
-            name="return_url"
-            value="http://localhost:3000/cart"
-          />
-          <input
-            type="hidden"
-            name="cancel_url"
-            value="http://sample.com/cancel"
-          />
-          <input
-            type="hidden"
-            name="notify_url"
-            value="http://localhost:5000/api/paymenthistory"
-          />
-          <br />
-          <br />
+        <form onSubmit={onPayment}>
+
+
+
           Item Details
           <br /> <br />
           <hr />
+          <label for="exampleInputEmail1">Order ID</label>
+
           <input
             type="text"
             name="order_id"
             class="form-control"
-            value="ItemNo12345"
-            hidden
+            value={order_id}
+
+
           />
           <div class="form-group">
             <label for="exampleInputEmail1">Items</label>
-
             <input
               type="text"
               class="form-control"
               name="items"
-              value={ItemsInCartList.map((currentItem) => {
-                return currentItem.ItemName;
-              })}
+              value = {items}
+              // value={ItemsInCartList.map((item)=>{
+              //   return(
+              //       item.ItemName + " X " + item.quantity
+              //   )
+              // })}
+              onChange = {
+                  (e)=>{
+                    setItems(
+                      ItemsInCartList.map((item)=>{
+                      return(
+                          item.ItemName + " X " + item.quantity
+                      )
+                    }))
+                  }
+              }
+
               readOnly
             />
           </div>
@@ -110,9 +170,10 @@ export default function Payment() {
               type="text"
               name="amount"
               class="form-control"
-              value={totalPrice + (totalPrice / 100.0) * 2.0}
+              value={amount}
               readOnly
             />
+
           </div>
           <br />
           <hr />
@@ -146,7 +207,10 @@ export default function Payment() {
               name="email"
               class="form-control"
               value={email}
-              readOnly
+              onChange = {(e)=>{
+                setEmail(e.target.value)
+              }}
+
             />
           </div>
           <div class="form-group">
@@ -156,7 +220,10 @@ export default function Payment() {
               name="phone"
               class="form-control"
               value={contact}
-              readOnly
+              onChange = {(e)=>{
+                setContact(e.target.value)
+              }}
+
             />
           </div>
           <div class="form-group">
@@ -166,31 +233,20 @@ export default function Payment() {
               name="address"
               class="form-control"
               value={address}
-              readOnly
+              onChange = {(e)=>{
+                setAddress(e.target.value)
+              }}
+
             />
           </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">City</label>
-            <input
-              type="text"
-              name="city"
-              class="form-control"
-              value="Colombo"
-            />
-          </div>
-          <input
-            type="hidden"
-            name="country"
-            class="form-c ontrol"
-            value="Sri Lanka"
-          />
+
           <input type="submit" value="Buy Now" className="btn btn-success" />
           <br />
           <br />
         </form>
       </div>
 
-  
+
 
     </div>
   );
