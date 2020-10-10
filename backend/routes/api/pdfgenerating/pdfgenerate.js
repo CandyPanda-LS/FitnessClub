@@ -288,4 +288,87 @@ router.post("/generateworkoutplan", async (req, res) => {
   //res.json("Generated Success");
 });
 
+//path localhost:5000/api/pdfgenerate/generateusergymtime
+// @desc generate pdf
+
+router.post("/generateusergymtime", async (req, res) => {
+  //load cuurent time
+  var currentDate = new Date();
+
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var seconds = currentDate.getSeconds();
+  var date = currentDate.getDate();
+  var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+  var year = currentDate.getFullYear();
+  var timestamp =
+    year +
+    "-" +
+    (month + 1) +
+    "-" +
+    date +
+    "-" +
+    hours +
+    "-" +
+    minutes +
+    "-" +
+    seconds;
+
+  // // Load the exericise
+
+  const gymTime = req.body.gymTime;
+  // // Create The PDF document
+
+  var myDoc = new PDFDocument({ bufferPages: true });
+
+  let buffers = [];
+  myDoc.on("data", buffers.push.bind(buffers));
+  myDoc.on("end", () => {
+    let pdfData = Buffer.concat(buffers);
+    res
+      .writeHead(200, {
+        "Content-Length": Buffer.byteLength(pdfData),
+        "Content-Type": "application/pdf",
+        "Content-disposition": `attachment;filename=instructorlist_${timestamp}.pdf`,
+      })
+      .end(pdfData);
+  });
+
+  //myDoc.font("Times-Roman").fontSize(12).text(`this is a test text`);
+  // Add the header - https://pspdfkit.com/blog/2019/generate-invoices-pdfkit-node/
+  myDoc
+    .fillColor("#444444")
+    .fontSize(20)
+    .text("Gym User Information.", 110, 57)
+    .fontSize(10)
+    .text("Fitness Club", 200, 50, { align: "right" })
+    .text("291/B,Galle Road", 200, 65, { align: "right" })
+    .text("Moratuwa", 200, 80, { align: "right" })
+    .moveDown();
+
+  // Create the table - https://www.andronio.me/2017/09/02/pdfkit-tables/
+  const table = {
+    headers: ["Date", "In Time", "Out Time"],
+    rows: [],
+  };
+
+  // Add the patients to the table
+  for (const insList of gymTime) {
+    table.rows.push([
+
+      insList.date,
+      insList.inTime,
+      insList.outTime,
+  
+    ]);
+  }
+
+  // Draw the table
+  myDoc.moveDown().table(table, 10, 125, { width: 590 });
+  myDoc.end();
+
+  //res.json("Generated Success");
+});
+
+
 module.exports = router;

@@ -11,31 +11,84 @@ export default class AddTime extends Component{
             date: "",
             inTime: "",
             outTime: "",
+            gymTime : []
         };
 
         this.addTime = this.addTime.bind(this);
+        this.generatePDF =this.generatePDF.bind(this);
+
+    }
+
+    //fetching gym time List data from the backend
+    componentDidMount(){
+      const config = {
+        headers: {
+          "x-auth-token": localStorage.getItem("x-auth-token"),
+        },
+      };
+      axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
+      .then(({ data }) => {
+        console.log("gymTimeList: " + data.time);
+        console.log(data.time.length);
+
+        if (data.time.length > 0) {
+          this.setState({
+            gymTime:data.time
+          })
+         
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     }
 
 
+     generatePDF(e) {
+
+      e.preventDefault();
+
+      const pdfText = {
+        gymTime: this.state.gymTime,
+      };
+  
+      axios
+        .post(
+          process.env.REACT_APP_BACKEND_URL +
+            "/api/pdfgenerate/generateusergymtime",
+          pdfText
+        )
+        .then(() => {
+          alert("PDF Generated Successful");
+        })
+        .catch((err) => console.log(err.message));
+    }
+
+
+
+
+
     addTime(e){
         e.preventDefault();
-        // const config = {
-        //     headers: {
-        //       "x-auth-token": localStorage.getItem("x-auth-token"),
-        //     },
-        //   };
+        const config = {
+            headers: {
+              "x-auth-token": localStorage.getItem("x-auth-token"),
+            },
+          };
   
         const time = {
+         
             inTime:this.state.inTime,
             outTime:this.state.outTime,
             date:this.state.date
         }
 
-        console.log(time);
-
-           axios.post(process.env.REACT_APP_BACKEND_URL + "/api/addTime",time)
+          axios.put(process.env.REACT_APP_BACKEND_URL + "/api/time/addgymusertime",time,config)
           .then((response) => {
+
+              alert("Gym Time Added");
               this.setState({
                   inTime:"",
                   outTime:"",
@@ -54,7 +107,7 @@ export default class AddTime extends Component{
     render(){
         return(
             <div>
-   <form class="time" onSubmit={this.onFormSubmit}>
+   <form class="time">
 
 <div class="form-row">
 <div class="col">
@@ -64,10 +117,15 @@ export default class AddTime extends Component{
           </label>
           <input
             class="form-control"
-            type="text"
+            type="date"
             placeholder="Date"
            // value={this.state.date}
             name="date"
+            onChange = {(e)=>{
+              this.setState({
+                date:e.target.value
+              })
+            }}
           />
         </div>
       </div>
@@ -78,10 +136,15 @@ export default class AddTime extends Component{
           </label>
           <input
             class="form-control"
-            type="text"
+            type="time"
             placeholder="In Time"
            // value={this.state.inTime}
             name="inTime"
+            onChange = {(e)=>{
+              this.setState({
+                inTime:e.target.value
+              })
+            }}
           />
         </div>
       </div>
@@ -92,9 +155,14 @@ export default class AddTime extends Component{
           </label>
           <input
             class="form-control"
-            type="outTime"
+            type="time"
             placeholder="Out Time"
-           // value={this.state.outTime}
+           value={this.state.outTime}
+           onChange = {(e)=>{
+            this.setState({
+              outTime:e.target.value
+            })
+          }}
             name="outTime"
           />
         </div>
@@ -105,7 +173,7 @@ export default class AddTime extends Component{
         <button
         class="btn btn-primary btn-sm"
         type="button"
-        onClick={this.generateReport}
+        onClick={this.generatePDF}
         >
         Generate Report
         </button>{" "}
