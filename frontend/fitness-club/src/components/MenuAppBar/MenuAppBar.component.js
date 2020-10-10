@@ -39,6 +39,7 @@ import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItems
 import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 import MainCart from "../Shop/Pages/cart/maincart.component";
 import AdminOrderList from "../Shop/Pages/admin_order_list/adminorderlist.component";
+import Cartsuccess from "../Shop/Pages/cart/cartsuccess.component";
 
 // @desc import Components
 // @author Rajindu
@@ -284,7 +285,7 @@ export default function MenuAppBar() {
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/join">
                       <i className="fas fa-briefcase"></i>
-                      <span>Fun Chat  </span>
+                      <span>Fun Chat </span>
                     </Link>
                   </li>{" "}
                 </>
@@ -573,7 +574,7 @@ export default function MenuAppBar() {
               <Route path="/PaymentCart" exact component={Payment} />
               {/* Routes
               @author Lasal */}
-              <Route path="/adminorderlist" exact component={AdminOrderList}/>
+              <Route path="/adminorderlist" exact component={AdminOrderList} />
               <Switch>
                 <Route exact path="/shopItem/:id" component={Item} />
               </Switch>
@@ -598,6 +599,7 @@ export default function MenuAppBar() {
                 exact
                 component={AdminDashboardShop}
               />
+              <Route path="/Cartsuccess/:id" exact component={Cartsuccess} />
               {/* Routes
               @author Dilumi */}
               <Route path="/inventorytable" exact component={InventoryGrid} />

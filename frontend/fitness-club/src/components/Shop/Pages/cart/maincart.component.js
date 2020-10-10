@@ -147,12 +147,27 @@ export default function MainCart() {
       <div class="row py-5 p-4 bg-white rounded shadow-sm">
         <div class="col-lg-6">
           <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">
-            Instructions for seller
+            Instructions for buyer
           </div>
           <div class="p-4">
             <p class="font-italic mb-4">
-              If you have some information for the seller you can leave them in
-              the box below
+              <ul>
+                <li>
+                  {" "}
+                  Deposit money to our BOC bank or eZCash (+94 763631711, + 2.5%
+                  commision for Dialog) account and email us the scanned bank
+                  slip (Before 12 noon, to ship the package on the same day)
+                </li>
+                <li>
+                  {" "}
+                  You can also use Frimi or Genie payment methods by scanning
+                  the QR codes from your mobile App.
+                </li>
+                <li>
+                  After confirming your payment the package will be handed over
+                  to a local courier service or post office
+                </li>
+              </ul>
             </p>
             <textarea
               name=""

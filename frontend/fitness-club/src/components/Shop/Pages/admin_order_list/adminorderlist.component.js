@@ -127,6 +127,7 @@ export default class AdminOrderList extends Component {
 
     alert(this.state.orderID);
 
+    //get single order from payment table
     axios
       .post(
         process.env.REACT_APP_BACKEND_URL +
