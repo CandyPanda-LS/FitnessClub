@@ -38,6 +38,7 @@ import Item from "../Shop/Pages/Item/Item.component";
 import AdminViewItemShop from "../Shop/Pages/admin_viewItems_shop/adminViewItemsShop.component";
 import AdminDashboardShop from "../Shop/Pages/admin_dashboard_shop/adminDashboardShop.component";
 import MainCart from "../Shop/Pages/cart/maincart.component";
+import AdminOrderList from "../Shop/Pages/admin_order_list/adminorderlist.component";
 
 // @desc import Components
 // @author Rajindu
@@ -572,6 +573,7 @@ export default function MenuAppBar() {
               <Route path="/PaymentCart" exact component={Payment} />
               {/* Routes
               @author Lasal */}
+              <Route path="/adminorderlist" exact component={AdminOrderList}/>
               <Switch>
                 <Route exact path="/shopItem/:id" component={Item} />
               </Switch>

@@ -90,6 +90,7 @@ export default class adminDashboardShop extends Component {
                   <div class="card-body">
                     <div class="row">
                       <div class="col">
+                        <Link to="/adminorderlist">
                         <button
                           class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
                           type="button"
@@ -97,6 +98,8 @@ export default class adminDashboardShop extends Component {
                         >
                           &nbsp;Genetrate report
                         </button>
+                        </Link>
+                       
                       </div>
                     </div>
                   </div>

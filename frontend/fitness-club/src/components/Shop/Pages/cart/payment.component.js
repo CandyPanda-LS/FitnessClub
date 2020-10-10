@@ -84,7 +84,7 @@ export default function Payment() {
 
     const formData = new FormData();
     formData.append("userProfile",userProfile);
-    formData.append("order_id", order_id);
+    formData.append("OrderID", order_id);
     formData.append("items", items);
     formData.append("amount", amount);
     formData.append("firstName", firstName);
