@@ -151,13 +151,37 @@ export default function InventoryGrid() {
     sendData();
   }, []);
 
+  function generatePDF() {
+    const pdfText = {
+      inventory: inventory,
+    };
+
+    axios
+      .post(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generateinventorylist",
+        pdfText
+      )
+      .then(() => {
+        alert("PDF Generated Successful");
+      })
+      .catch((err) => console.log(err.message));
+  }
+
   return (
     <div>
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row text-center">
+        <div class="col-md-6">
           <a href="/addinventoryitems">
             <button class="btn btn-primary additem-btn"> Add Item </button>
           </a>
+        </div>
+
+        <div class="col-md-6">
+          <button class="btn btn-primary additem-btn" onClick={generatePDF}>
+            {" "}
+            Generate Report{" "}
+          </button>
         </div>
       </div>
 
