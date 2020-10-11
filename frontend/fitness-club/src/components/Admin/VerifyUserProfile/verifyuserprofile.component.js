@@ -29,30 +29,30 @@ const OrderPayments = (props) => (
   </tr>
 );
 
-const SingleOrderPayments = (props) => (
-  <tr>
-    <td>{props.order._id}</td>
-    <td>{props.order.user.firstName + " " + props.order.user.lastName}</td>
-    <td>{props.order.user.email}</td>
-    <td>{props.order.package}</td>
+// const SingleOrderPayments = (props) => (
+//   <tr>
+//     <td>{props.order._id}</td>
+//     <td>{props.order.user.firstName + " " + props.order.user.lastName}</td>
+//     <td>{props.order.user.email}</td>
+//     <td>{props.order.package}</td>
 
-    <td>
-      {" "}
-      <form></form>
-      <button
-        onClick={() => {
-          props.completeOrderPayment(
-            props.order._id,
-            props.order.user.firstName,
-            props.order.user.email
-          );
-        }}
-      >
-        Verify Package
-      </button>
-    </td>
-  </tr>
-);
+//     <td>
+//       {" "}
+//       <form></form>
+//       <button
+//         onClick={() => {
+//           props.completeOrderPayment(
+//             props.order._id,
+//             props.order.user.firstName,
+//             props.order.user.email
+//           );
+//         }}
+//       >
+//         Verify Package
+//       </button>
+//     </td>
+//   </tr>
+// );
 
 export default class VerifyUserProfile extends Component {
   constructor(props) {
@@ -70,7 +70,7 @@ export default class VerifyUserProfile extends Component {
       singleOrder: "false",
 
       //state for single order details
-      orderSingle: null,
+      SingleUserGymPackageVerifyRequest: null,
     };
   }
 
@@ -151,50 +151,29 @@ export default class VerifyUserProfile extends Component {
       .fail(function (error) {
         alert("Oops... " + JSON.stringify(error));
       });
-
-    // axios
-    //   .post(
-    //     process.env.REACT_APP_BACKEND_URL + "/api/addpayment/complete/" + id
-    //   )
-    //   .then((response) => {
-    //     alert("Order Success");
-
-    //     axios
-    //       .get(process.env.REACT_APP_BACKEND_URL + "/api/addpayment")
-    //       .then((response) => {
-    //         this.setState({ orders: response.data });
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-
-    //     window.location = "/adminorderlist";
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
   }
 
-  searchOrder(e) {
-    e.preventDefault();
+  // searchOrder(e) {
+  //   e.preventDefault();
 
-    alert(this.state.orderID);
-
-    //get single order from payment table
-    axios
-      .post(
-        process.env.REACT_APP_BACKEND_URL +
-          "/api/addpayment/" +
-          this.state.orderID
-      )
-      .then((response) => {
-        console.log("single order " + response);
-        this.setState({ orderSingle: response.data, singleOrder: "true" });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //   //lert(this.state.orderID);
+  //   //get single order from payment table
+  //   axios
+  //     .get(
+  //       process.env.REACT_APP_BACKEND_URL +
+  //         "/api/profile/user/" +
+  //         this.state.orderID
+  //     )
+  //     .then((response) => {
+  //       this.setState({
+  //         SingleUserGymPackageVerifyRequest: response.data,
+  //         singleOrder: "true",
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   VerifyList() {
     //return a single Instructor component for each and every array Element
@@ -211,17 +190,17 @@ export default class VerifyUserProfile extends Component {
     });
   }
 
-  //   getSingleOrder() {
-  //     //return a single Instructor component for each and every array Element
+  // getSingleOrder() {
+  //   //return a single Instructor component for each and every array Element
 
-  //     return (
-  //       <SingleOrderPayments
-  //         order={this.state.orderSingle}
-  //         completeOrderPayment={this.completeOrderPayment}
-  //         key={this.state.orderSingle._id}
-  //       />
-  //     );
-  //   }
+  //   return (
+  //     <SingleOrderPayments
+  //       order={this.state.SingleUserGymPackageVerifyRequest}
+  //       completeOrderPayment={this.completeOrderPayment}
+  //       key={this.state.SingleUserGymPackageVerifyRequest._id}
+  //     />
+  //   );
+  // }
 
   render() {
     return (
@@ -231,7 +210,7 @@ export default class VerifyUserProfile extends Component {
         </button>
         <br />
         <br />
-        <div className="row">
+        {/* <div className="row">
           <div className="col-md-9">
             <input
               class="form-control"
@@ -250,7 +229,7 @@ export default class VerifyUserProfile extends Component {
               search
             </button>
           </div>
-        </div>
+        </div> */}
         <br /> <br />
         <h3>Verify User Gym Package Request List</h3>
         <table className="table">

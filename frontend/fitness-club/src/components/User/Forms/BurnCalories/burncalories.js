@@ -246,7 +246,8 @@ export default class BurnCalories extends Component {
       height: this.state.height_cm,
       exercise: this.state.query,
       time: this.state.time,
-      calories: this.state.nf_calories.toFixed(2),
+      calories: this.state.nf_calories,
+      // calories: this.state.nf_calories.toFixed(2),
       date: this.state.date,
     };
 
