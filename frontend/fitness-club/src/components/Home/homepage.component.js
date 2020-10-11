@@ -157,48 +157,6 @@ export default function HomeComponent() {
       </center>
       {/* End of Services Section */}
 
-      {/* Jumptron Section */}
-      {/* <div
-        class="row clearmargin clearpadding row-image-txt"
-        style={{ backgroundColor: "rgb(20,102,227)" }}
-      >
-        <div
-          class="col-xs-12 col-sm-6 col-md-6 clearmargin clearpadding col-sm-push-6"
-          style={{
-            backgroundImage: `url(${Background})`,
-            backgroundSize: "cover",
-            height: "400px",
-            backgroundPosition: "center",
-          }}
-        >
-          <div></div>
-        </div>
-        <div
-          class="col-xs-12 col-sm-6 col-md-6 col-sm-pull-6"
-          style={{ padding: "20px", color: "#ffffff" }}
-        >
-          <h1>Heading</h1>
-          <hr />
-          <p style={{ fontFamily: "Nunito, sans-serif", color: "#ffffff" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel
-            lorem a lectus finibus bibendum ut sagittis diam. Nunc egestas nulla
-            in elit congue, id pellentesque ex semper. Aenean euismod tellus
-            tincidunt massa eleifend, a efficitur lectus ultricies. Aliquam
-            bibendum et leo quis consectetur. Integer consequat consequat
-            mauris, id porttitor sem feugiat eu. Proin ac neque eu nisi viverra
-            mattis. Curabitur molestie lectus ac sollicitudin faucibus. Duis
-            congue ipsum eget justo egestas blandit.
-          </p>
-          <div style={{ textAlign: "center" }}>
-            <button class="btn btn-light btn-lg" type="button">
-              Lorem{" "}
-            </button>
-          </div>
-        </div>
-      </div> */}
-
-      {/* End of Jumptron Section */}
-
       {/* Image Grid */}
       <center>
         <h3>Meet Your Tribe</h3>
