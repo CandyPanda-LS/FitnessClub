@@ -284,6 +284,12 @@ export default function MenuAppBar() {
                     </Link>
                   </li>
                   <li className="nav-item" role="presentation">
+                    <Link className="nav-link" to="/InsertFeedback">
+                      <i className="fas fa-briefcase"></i>
+                      <span>InsertFeedback </span>
+                    </Link>
+                  </li>
+                  <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/join">
                       <i className="fas fa-briefcase"></i>
                       <span>Fun Chat </span>

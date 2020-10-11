@@ -35,14 +35,6 @@ export default function AssignInstructor() {
       });
   }, []);
 
-  //   function deleteInstructor(id) {
-  //     axios
-  //       .delete("http://localhost:5000/api/instructors/" + id)
-  //       .then((response) => {
-  //         console.log(response.data);
-  //       });
-  //   }
-
   function userList() {
     //return a single Instructor component for each and every array Element
     return remainingUserList.map((currentuser) => {

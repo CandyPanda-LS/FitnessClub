@@ -39,11 +39,12 @@ app.use("/api/addpayment", require("./routes/api/payment"));
 app.use("/api/userprofile", require("./routes/api/userprofile"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/users", require("./routes/api/users"));
-app.use("/api/forgotpassword",require("./routes/api/forgotpassword"));
-app.use("/api/time",require("./routes/api/time"));
+app.use("/api/forgotpassword", require("./routes/api/forgotpassword"));
+app.use("/api/time", require("./routes/api/time"));
 
 //-------------------Ayodya---------------------
 app.use("/api/advertisement", require("./routes/api/advertisement"));
+app.use("/api/feedback", require("./routes/api/feeback"));
 
 //-------------------Rajindu---------------------
 app.use("/api/instructors", require("./routes/api/instructors"));
