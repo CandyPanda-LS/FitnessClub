@@ -85,6 +85,7 @@ export default function CompletedExercises() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [completedExerciseList, setCompletedExerciseList] = useState([]);
+  const [searchExercises, setSearchExercises] = useState();
 
   //fetching completed Exercise List data from the backend
   useEffect(() => {
@@ -184,6 +185,101 @@ export default function CompletedExercises() {
 
   return (
     <div className="row">
+      <div className="col-md-12">
+        {/* <!-- Modal --> */}
+        <div
+          class="modal fade"
+          id="exampleModal2"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                  Search Exercise By Date
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div className="row">
+                  {/* Row 1 */}
+                  <div className="col-md-9">
+                    <input
+                      class="form-control"
+                      type="date"
+                      placeholder="Search by Date"
+                      aria-label="Search"
+                      onChange={(e) => {
+                        setSearchExercises(e.target.value.substring(0, 10));
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <hr />
+
+                {/* Row 2 */}
+                <div className="row">
+                  <table className="table">
+                    <thead className="thead-light">
+                      <tr>
+                        <th>Date</th>
+                        <th>Exercise</th>
+                        <th>Burned Calories</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        //return a single Instructor component for each and every array Element
+                        completedExerciseList.map((currentUserExercise) => {
+                          if (
+                            searchExercises ==
+                            currentUserExercise.date.substring(0, 10)
+                          )
+                            return (
+                              <tr>
+                                <td>
+                                  {currentUserExercise.date.substring(0, 10)}
+                                </td>
+                                <td>{currentUserExercise.exercise}</td>
+
+                                <td>{currentUserExercise.calories}</td>
+                              </tr>
+                            );
+                        })
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* End Model */}
+      </div>
       <div className="col-md-12" style={{ textAlign: "center" }}>
         <button
           className="btn btn-primary"
@@ -191,6 +287,16 @@ export default function CompletedExercises() {
           style={{ margin: "20px" }}
         >
           Generate Workout Report
+        </button>
+
+        {/* <!-- Button trigger modal --> */}
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal2"
+        >
+          Search By Date
         </button>
       </div>
       <div className="col-md-12">
