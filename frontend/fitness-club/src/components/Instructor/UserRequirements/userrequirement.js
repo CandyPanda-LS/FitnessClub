@@ -93,10 +93,6 @@ const useStyles = makeStyles({
   TableBody: {
     background: "linear-gradient(45deg, #ededed 30%, #fcfcfc 90%)",
     borderRadius: "20px",
-    // backgroundImage: `url(${Background})`,
-    // backgroundRepeat: "no-repeat" /* Do not repeat the image */,
-    // backgroundSize: "cover",
-    // backgroundOpacity: 0.5,
   },
 });
 
@@ -129,6 +125,23 @@ export default function RequestedPlansTable() {
       });
   }, []);
 
+  function generatePDF() {
+    const pdfText = {
+      userRequestList: userRequestList,
+    };
+
+    axios
+      .post(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generateuserrequestlist",
+        pdfText
+      )
+      .then(() => {
+        alert("PDF Generated Successful");
+      })
+      .catch((err) => console.log(err.message));
+  }
+
   //map table row data
   const rows = userRequestList.map((currentRequest) => {
     return createData(
@@ -150,39 +163,12 @@ export default function RequestedPlansTable() {
     setPage(0);
   };
 
-  // async function deleteMeal(id) {
-  //   const config = {
-  //     headers: {
-  //       "x-auth-token": localStorage.getItem("x-auth-token"),
-  //     },
-  //   };
-
-  //   console.log("Delete meal id is " + id);
-  //   await axios
-  //     .delete("http://localhost:5000/api/profile/dailymeallist/" + id, config)
-  //     .then((response) => {
-  //       console.log(response);
-  //     });
-
-  //   //rerender meal list(Get meallist Data from the backend)
-
-  //   await axios
-  //     .get("http://localhost:5000/api/profile/me", config)
-  //     .then(({ data }) => {
-  //       console.log(data.dailymeallist);
-  //       console.log(data.dailymeallist.length);
-
-  //       if (data.dailymeallist.length > 0) {
-  //         setDailyMealList(data.dailymeallist);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
-
   return (
     <>
+      <button className="btn btn-primary" onClick={generatePDF}>
+        Generate PDF
+      </button>
+      <hr />
       <Paper
         className={classes.root}
         style={{
