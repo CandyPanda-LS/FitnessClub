@@ -31,10 +31,10 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   const newFeedback = new Feedback({
-    radioFeedbackOne,
-    radioFeedbackTwo,
-    radioFeedbackThree,
-    radioFeedbackFour,
+    GymAppearance: radioFeedbackOne,
+    ActivitiesQuality: radioFeedbackTwo,
+    QualityOfStaff: radioFeedbackThree,
+    Overall: radioFeedbackFour,
   });
 
   //Save Data into the mongo database

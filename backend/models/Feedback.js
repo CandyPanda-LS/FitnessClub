@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 
 const FeedbackSchema = new Schema(
   {
-    radioFeedbackOne: { type: String },
+    GymAppearance: { type: String },
 
-    radioFeedbackTwo: { type: String },
+    ActivitiesQuality: { type: String },
 
-    radioFeedbackThree: { type: String },
+    QualityOfStaff: { type: String },
 
-    radioFeedbackFour: { type: String },
+    Overall: { type: String },
   },
   {
     timestamps: true, //it will automatically create fields when it is created or modified
