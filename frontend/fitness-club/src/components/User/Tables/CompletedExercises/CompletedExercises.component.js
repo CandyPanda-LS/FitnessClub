@@ -231,11 +231,11 @@ export default function CompletedExercises() {
                 {/* Row 2 */}
                 <div className="row">
                   <table className="table">
-                    <thead className="thead-light">
+                    <thead className="thead">
                       <tr>
                         <th>Date</th>
                         <th>Exercise</th>
-                        <th>Burned Calories</th>
+                        <th>Calories</th>
                       </tr>
                     </thead>
                     <tbody>
