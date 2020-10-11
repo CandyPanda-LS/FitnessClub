@@ -1,63 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
+import "./itemComponent.css";
 
-// material ui packages for the text feild
-// import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 //material ui packages for the +,- button
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-// atomize import for the side card
-// import { Div, Button, SideDrawer, Icon, Text } from "atomize";
-
-//end
-
-// text feild styling
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     "& > *": {
-//       margin: theme.spacing(1),
-//       width: "25ch",
-//     },
-//     color: "#ffffff",
-//   },
-//   extendedIcon: {
-//     marginRight: theme.spacing(1),
-//   },
-// }));
-// text feild styling close
-
-// cart code
-
-// const SizeSideDrawer = ({ isOpen, onClose }) => {
-//   return (
-//     <SideDrawer
-//       isOpen={isOpen}
-//       onClose={onClose}
-//       w={{ xs: "100vw", sm: "24rem" }}
-//     >
-//       <Div d="flex" m={{ b: "4rem" }}>
-//         <Icon name="AlertSolid" color="warning700" />
-//         <Text p={{ l: "0.5rem", t: "0.25rem" }}>This is the modal</Text>
-//       </Div>
-//       <Div d="flex" justify="flex-end">
-//         <Button
-//           onClick={onClose}
-//           bg="gray200"
-//           textColor="medium"
-//           m={{ r: "1rem" }}
-//         >
-//           Cancel
-//         </Button>
-//         <Button onClick={onClose} bg="info700">
-//           Submit
-//         </Button>
-//       </Div>
-//     </SideDrawer>
-//   );
-// };
-// cart code end
 
 export default class Item extends Component {
   constructor(props) {
@@ -92,11 +40,15 @@ export default class Item extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.location.data) {
+      window.location = "/shop";
+    }
+
     axios
       .get(
         process.env.REACT_APP_BACKEND_URL +
           "/api/shop/" +
-          this.props.match.params.id
+          this.props.location.data
       )
       .then((response) => {
         this.setState({
@@ -113,6 +65,11 @@ export default class Item extends Component {
 
   async addItemFunction(e) {
     e.preventDefault();
+
+    if (this.state.ItemQuantity === 0) {
+      alert("Item Quantity must be atleast one");
+      return false;
+    }
 
     const config = {
       headers: {
@@ -197,7 +154,9 @@ export default class Item extends Component {
   render() {
     return (
       <div>
+        {/*Start of  Desktop Version */}
         <div
+          id="CardSingleItemCartDesktopVersion"
           class="card shadow-lg"
           style={{
             width: "950px",
@@ -260,34 +219,7 @@ export default class Item extends Component {
                     <br />
                     <br />
                     <br />
-                    {/* size picker start                 */}
-                    {/* <div class="row" style={{ marginTop: "0px" }}>
-                      <div class="col">
-                        <Fab
-                          color="primary"
-                          aria-label="add"
-                          size="small"
-                          onClick={this.substractSize}
-                        >
-                          <RemoveIcon />
-                        </Fab>
-                        <TextField
-                          id="outlined-basic"
-                          variant="outlined"
-                          value={this.state.ItemSize}
-                          onChange={this.onChangeQuantity}
-                        />
-                        <Fab
-                          color="primary"
-                          size="small"
-                          aria-label="add"
-                          onClick={this.addSize}
-                        >
-                          <AddIcon />
-                        </Fab>
-                      </div>
-                    </div> */}
-                    {/* size picker end                 */}
+
                     {/* quantity picker start           */}
                     <div class="row" style={{ marginTop: "0px" }}>
                       <div class="col">
@@ -359,6 +291,79 @@ export default class Item extends Component {
             </div>
           </div>
         </div>
+        {/*End of  Desktop Version */}
+        {/*Start of  Mobile Version */}
+
+        <div
+          id="CardSingleItemCartMobileVersion"
+          class="card"
+          style={{
+            borderRadius: "25px",
+            // backgroundImage:
+            //   "linear-gradient(to right, #ffffff , steelblue,darkslategray)",
+          }}
+        >
+          <center>
+            <img
+              class="card-img-top"
+              src={this.state.ItemImage}
+              style={{ width: "250px", height: "250px" }}
+              alt="Card image cap"
+            />
+            <div class="card-body">
+              <h5 class="card-title"> {this.state.ItemName}</h5>
+
+              {/* quantity picker start           */}
+              <div class="row" style={{ marginTop: "0px" }}>
+                <div class="col">
+                  <Fab
+                    color="primary"
+                    aria-label="add"
+                    size="small"
+                    onClick={this.substractItem}
+                  >
+                    <RemoveIcon />
+                  </Fab>
+                  &nbsp;&nbsp; &nbsp;
+                  <input
+                    // id="outlined-basic"
+                    // variant="outlined"
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      background: "none",
+                      maxWidth: "30px",
+                    }}
+                    value={this.state.ItemQuantity}
+                    onChange={this.onChangeQuantity}
+                  />
+                  &nbsp; &nbsp; &nbsp;
+                  <Fab
+                    color="primary"
+                    size="small"
+                    aria-label="add"
+                    onClick={this.addItem}
+                  >
+                    <AddIcon />
+                  </Fab>
+                </div>
+              </div>
+              {/* quantity picker end                 */}
+              <br />
+              <p class="card-text">
+                {this.state.ItemPrice * this.state.ItemQuantity} LKR
+              </p>
+
+              <hr />
+
+              <button onClick={this.addItemFunction} class="btn btn-primary">
+                Add to Cart
+              </button>
+            </div>
+          </center>
+        </div>
+
+        {/*End of  Mobile Version */}
       </div>
     );
   }

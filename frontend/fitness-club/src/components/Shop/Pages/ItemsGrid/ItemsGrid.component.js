@@ -38,7 +38,12 @@ function Item({ id, ItemName, ItemDescriprion, ItemPrice, ItemImage }) {
           </h6>
           <div class="row">
             <div class="col">
-              <Link to={"/shopItem/" + id}>
+              <Link
+                to={{
+                  pathname: "/shopItem",
+                  data: id,
+                }}
+              >
                 <button
                   class="btn"
                   type="button"

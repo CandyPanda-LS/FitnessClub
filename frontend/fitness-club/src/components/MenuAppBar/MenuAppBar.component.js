@@ -579,7 +579,7 @@ export default function MenuAppBar() {
               @author Lasal */}
               <Route path="/adminorderlist" exact component={AdminOrderList} />
               <Switch>
-                <Route exact path="/shopItem/:id" component={Item} />
+                <Route exact path="/shopItem" component={Item} />
               </Switch>
               <Route path="/cart" exact component={MainCart} />
               <Route
