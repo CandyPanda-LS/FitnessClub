@@ -50,16 +50,7 @@ export default class InstructorProfile extends Component {
         <div class="container emp-profile">
           <form method="post">
             <div class="row">
-              <div class="col-md-4">
-                <div class="profile-img">
-                  <img src={Pic1} alt="" style={{ height: "170px" }} />
-                  <div class="file btn btn-lg btn-primary">
-                    Change Photo
-                    <input type="file" name="file" />
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
+             <div class="col-md-6">
                 <div class="profile-head">
                   <h5>{this.state.name}</h5>
                   <h6>Gym Instructor</h6>
@@ -106,7 +97,7 @@ export default class InstructorProfile extends Component {
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4"></div>
+              
               <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                   <div
@@ -168,13 +159,6 @@ export default class InstructorProfile extends Component {
                       </div>
                       <div class="col-md-6">
                         <p>{this.state.email}</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <label>Your Bio</label>
-                        <br />
-                        <p>Your detail description</p>
                       </div>
                     </div>
                   </div>
