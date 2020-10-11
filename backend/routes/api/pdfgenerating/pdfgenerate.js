@@ -59,7 +59,7 @@ router.post("/generateinstructorlist", async (req, res) => {
   myDoc
     .fillColor("#444444")
     .fontSize(20)
-    .text("Meal Schedule Information.", 110, 57)
+    .text("Instructor Information.", 110, 57)
     .fontSize(10)
     .text("Fitness Club", 200, 50, { align: "right" })
     .text("291/B,Galle Road", 200, 65, { align: "right" })
@@ -535,6 +535,104 @@ router.post("/generatfeedbacks", async (req, res) => {
       insList.QualityOfStaff,
       insList.Overall,
     ]);
+  }
+
+  // Draw the table
+  myDoc.moveDown().table(table, 10, 125, { width: 590 });
+  myDoc.end();
+
+  //res.json("Generated Success");
+});
+
+//author Lasal
+//path localhost:5000/api/pdfgenerate/generatecompletedorderlist
+// @desc generate pdf
+
+router.post("/generatecompletedorderlist", async (req, res) => {
+  //load cuurent time
+  var currentDate = new Date();
+
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var seconds = currentDate.getSeconds();
+  var date = currentDate.getDate();
+  var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+  var year = currentDate.getFullYear();
+  var timestamp =
+    year +
+    "-" +
+    (month + 1) +
+    "-" +
+    date +
+    "-" +
+    hours +
+    "-" +
+    minutes +
+    "-" +
+    seconds;
+
+  // // Load the exericise
+
+  const orders = req.body.orders;
+  // // Create The PDF document
+
+  var myDoc = new PDFDocument({ bufferPages: true });
+
+  let buffers = [];
+  myDoc.on("data", buffers.push.bind(buffers));
+  myDoc.on("end", () => {
+    let pdfData = Buffer.concat(buffers);
+    res
+      .writeHead(200, {
+        "Content-Length": Buffer.byteLength(pdfData),
+        "Content-Type": "application/pdf",
+        "Content-disposition": `attachment;filename=completedorderhistory_${timestamp}.pdf`,
+      })
+      .end(pdfData);
+  });
+
+  //myDoc.font("Times-Roman").fontSize(12).text(`this is a test text`);
+  // Add the header - https://pspdfkit.com/blog/2019/generate-invoices-pdfkit-node/
+  myDoc
+    .fillColor("#444444")
+    .fontSize(20)
+    .text("Completed Order Report", 110, 57)
+    .fontSize(10)
+    .text("Fitness Club", 200, 50, { align: "right" })
+    .text("291/B,Galle Road", 200, 65, { align: "right" })
+    .text("Moratuwa", 200, 80, { align: "right" })
+    .moveDown();
+
+  // Create the table - https://www.andronio.me/2017/09/02/pdfkit-tables/
+  const table = {
+    headers: [
+      "Order ID",
+      "Order Date",
+      "Order Completed Date",
+      "Items",
+      "Amount",
+      "Name",
+      "Email",
+      "Address",
+      "PaymentStatus",
+    ],
+    rows: [],
+  };
+
+  for (const insList of orders) {
+    if (insList.paymentStatus == "completed") {
+      table.rows.push([
+        insList.OrderID,
+        insList.createdAt,
+        insList.updatedAt,
+        insList.items,
+        insList.amount,
+        insList.firstName + " " + insList.lastName,
+        insList.email,
+        insList.address,
+        insList.paymentStatus,
+      ]);
+    }
   }
 
   // Draw the table

@@ -91,15 +91,14 @@ export default class adminDashboardShop extends Component {
                     <div class="row">
                       <div class="col">
                         <Link to="/adminorderlist">
-                        <button
-                          class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
-                          type="button"
-                          style={{ marginTop: "0px", fontSize: "12px" }}
-                        >
-                          &nbsp;Genetrate report
-                        </button>
+                          <button
+                            class="btn btn-primary d-flex flex-column-reverse flex-shrink-0 justify-content-center align-items-center align-content-center m-auto justify-content-xl-start"
+                            type="button"
+                            style={{ marginTop: "0px", fontSize: "12px" }}
+                          >
+                            &nbsp;Order History
+                          </button>
                         </Link>
-                       
                       </div>
                     </div>
                   </div>

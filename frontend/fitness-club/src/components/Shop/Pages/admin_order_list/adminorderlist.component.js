@@ -55,7 +55,7 @@ export default class AdminOrderList extends Component {
   constructor(props) {
     super(props);
 
-    //this.generatePDF = this.generatePDF.bind(this);
+    this.generatePDF = this.generatePDF.bind(this);
 
     //this.deleteInstructor = this.deleteInstructor.bind(this);
     this.searchOrder = this.searchOrder.bind(this);
@@ -82,22 +82,22 @@ export default class AdminOrderList extends Component {
       });
   }
 
-  // generatePDF() {
-  //   const pdfText = {
-  //     instructorList: this.state.instructors,
-  //   };
+  generatePDF() {
+    const pdfText = {
+      orders: this.state.orders,
+    };
 
-  //   axios
-  //     .post(
-  //       process.env.REACT_APP_BACKEND_URL +
-  //         "/api/pdfgenerate/generateinstructorlist",
-  //       pdfText
-  //     )
-  //     .then(() => {
-  //       alert("PDF Generated Successful");
-  //     })
-  //     .catch((err) => console.log(err.message));
-  // }
+    axios
+      .post(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generatecompletedorderlist",
+        pdfText
+      )
+      .then(() => {
+        alert("PDF Generated Successful");
+      })
+      .catch((err) => console.log(err.message));
+  }
 
   completeOrderPayment(id) {
     axios
@@ -170,7 +170,9 @@ export default class AdminOrderList extends Component {
   render() {
     return (
       <div>
-        <button className="btn btn-primary">Generate PDF</button>
+        <button className="btn btn-primary" onClick={this.generatePDF}>
+          Generate PDF
+        </button>
         <br />
         <br />
         <div className="row">
