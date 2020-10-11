@@ -12,6 +12,7 @@ import Background6 from "../../Images/6.jpg";
 import Background7 from "../../Images/7.jpg";
 import Background8 from "../../Images/8.jpg";
 import Background9 from "../../Images/9.jpg";
+import Background10 from "../../Images/10.jpg";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -63,7 +64,7 @@ export default function InstructorManage() {
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
-                  image={Background3}
+                  image={Background10}
                   title="Gym User Profile"
                 />
                 <CardContent>
