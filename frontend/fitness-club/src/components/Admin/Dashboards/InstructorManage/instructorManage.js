@@ -159,26 +159,28 @@ export default function InstructorManage() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Utils
+                    Feedbacks
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                    Manage Reports
+                    Manage Feedbacks
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  href="#contained-buttons"
-                  style={{ color: "white" }}
-                >
-                  Report
-                </Button>
+                <Link to="/FeedbackTable" style={{ textDecoration: "none" }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Report
+                  </Button>
+                </Link>
               </CardActions>
             </Card>
           </div>
