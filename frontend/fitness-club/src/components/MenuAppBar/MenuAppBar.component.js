@@ -285,13 +285,13 @@ export default function MenuAppBar() {
                   </li>
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/InsertFeedback">
-                      <i className="fas fa-briefcase"></i>
+                      <i class="fas fa-check-circle"></i>
                       <span>InsertFeedback </span>
                     </Link>
                   </li>
                   <li className="nav-item" role="presentation">
                     <Link className="nav-link" to="/join">
-                      <i className="fas fa-briefcase"></i>
+                      <i className="fas fa-comments"></i>
                       <span>Fun Chat </span>
                     </Link>
                   </li>{" "}
