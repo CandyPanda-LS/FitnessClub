@@ -602,7 +602,7 @@ export default function MenuAppBar() {
                 exact
                 component={AdminDashboardShop}
               />
-              <Route path="/Cartsuccess/:id" exact component={Cartsuccess} />
+              <Route path="/Cartsuccess" exact component={Cartsuccess} />
               {/* Routes
               @author Dilumi */}
               <Route path="/inventorytable" exact component={InventoryGrid} />

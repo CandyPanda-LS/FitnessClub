@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Cartsuccess(props) {
+export default function Cartsuccess() {
   const [orderID, setOrderID] = useState();
   const [customerOrderID, setCustomerOrder] = useState();
   const [customerOrderDate, setCustomerOrderDate] = useState();
 
   useEffect(() => {
-    setOrderID(props.match.params.id);
+    setOrderID(localStorage.getItem("orderID"));
 
     axios
       .post(
         process.env.REACT_APP_BACKEND_URL +
           "/api/addpayment/" +
-          props.match.params.id
+          localStorage.getItem("orderID")
       )
       .then((response) => {
         console.log("customer order " + response);
         setCustomerOrder(response.data.OrderID);
         setCustomerOrderDate(response.data.createdAt.substring(0, 10));
+        localStorage.removeItem(orderID);
       })
       .catch((error) => {
         console.log(error);

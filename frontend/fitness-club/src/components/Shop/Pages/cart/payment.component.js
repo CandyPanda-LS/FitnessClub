@@ -90,7 +90,7 @@ export default function Payment() {
       .then(
         (result) => {
           console.log(result.text);
-          console.log("Email Sent");
+          alert("Email Sent. Please Check Your Email");
         },
         (error) => {
           console.log(error.text);
@@ -116,8 +116,9 @@ export default function Payment() {
         axios
           .delete(process.env.REACT_APP_BACKEND_URL + "/api/cart/" + cartID)
           .then(() => {
-            console.log("Cart Clear");
-            window.location = "/Cartsuccess/" + order_id;
+            console.log("Cart Cleared");
+            localStorage.setItem("orderID", order_id);
+            window.location = "/Cartsuccess/";
           })
           .catch((err) => {
             alert(err);
