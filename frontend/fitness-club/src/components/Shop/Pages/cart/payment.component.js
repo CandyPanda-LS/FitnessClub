@@ -91,42 +91,48 @@ export default function Payment() {
         (result) => {
           console.log(result.text);
           alert("Email Sent. Please Check Your Email");
+
+          //send data to backend
+          const formData = new FormData();
+          formData.append("userProfile", userProfile);
+          formData.append("OrderID", order_id);
+          formData.append("items", items);
+          formData.append("amount", amount);
+          formData.append("firstName", firstName);
+          formData.append("lastName", lastName);
+          formData.append("email", email);
+          formData.append("phone", contact);
+          formData.append("address", address);
+
+          axios
+            .post(
+              process.env.REACT_APP_BACKEND_URL + "/api/addpayment",
+              formData
+            )
+            .then(() => {
+              console.log("Order Success");
+
+              axios
+                .delete(
+                  process.env.REACT_APP_BACKEND_URL + "/api/cart/" + cartID
+                )
+                .then(() => {
+                  console.log("Cart Cleared");
+                  localStorage.setItem("orderID", order_id);
+                  window.location = "/Cartsuccess/";
+                })
+                .catch((err) => {
+                  alert(err);
+                });
+            })
+            .catch((err) => {
+              alert(err);
+            });
         },
         (error) => {
           console.log(error.text);
         }
       );
-
-    const formData = new FormData();
-    formData.append("userProfile", userProfile);
-    formData.append("OrderID", order_id);
-    formData.append("items", items);
-    formData.append("amount", amount);
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("email", email);
-    formData.append("phone", contact);
-    formData.append("address", address);
-
-    axios
-      .post(process.env.REACT_APP_BACKEND_URL + "/api/addpayment", formData)
-      .then(() => {
-        console.log("Order Success");
-
-        axios
-          .delete(process.env.REACT_APP_BACKEND_URL + "/api/cart/" + cartID)
-          .then(() => {
-            console.log("Cart Cleared");
-            localStorage.setItem("orderID", order_id);
-            window.location = "/Cartsuccess/";
-          })
-          .catch((err) => {
-            alert(err);
-          });
-      })
-      .catch((err) => {
-        alert(err);
-      });
   }
 
   return (
