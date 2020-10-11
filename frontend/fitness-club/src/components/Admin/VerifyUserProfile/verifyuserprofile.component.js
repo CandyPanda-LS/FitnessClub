@@ -87,13 +87,13 @@ export default class VerifyUserProfile extends Component {
 
   generatePDF() {
     const pdfText = {
-      orders: this.state.orders,
+      userGymPackageVerifyRequest: this.state.userGymPackageVerifyRequest,
     };
 
     axios
       .post(
         process.env.REACT_APP_BACKEND_URL +
-          "/api/pdfgenerate/generatecompletedorderlist",
+          "/api/pdfgenerate/generateincompletedgymorderlist",
         pdfText
       )
       .then(() => {
