@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import "./ManageGymPackage.css";
 import axios from "axios";
@@ -15,17 +14,18 @@ export default class UpdateGymPackage extends Component {
       packageName: "",
       packageDescription: "",
       packagePrice: "",
-      packagePeriod:"",
-      imageURL: "https://previews.123rf.com/images/to2ss/to2ss1802/to2ss180200276/96440615-file-cloud-upload-digital-documents-file-folder-vector.jpg",
+      packagePeriod: "",
+      imageURL:
+        "https://previews.123rf.com/images/to2ss/to2ss1802/to2ss180200276/96440615-file-cloud-upload-digital-documents-file-folder-vector.jpg",
       file: null,
       editChanger: "",
       updateMode: "Insert",
-      uploadPercentage:0
+      uploadPercentage: 0,
     };
   }
   componentDidMount() {
-    if(!this.props.location.data){
-      window.location = "/PackageDetails"
+    if (!this.props.location.data) {
+      window.location = "/PackageDetails";
     }
     const packageId = this.props.location.data;
     if (packageId !== undefined) {
@@ -44,15 +44,13 @@ export default class UpdateGymPackage extends Component {
           config
         )
         .then(({ data }) => {
-          
           this.setState({
             packageName: data.PackageName,
             packageDescription: data.PackageDescriprion,
             packagePrice: data.PackagePrice,
-            packagePeriod:data.PackagePeriod,
+            packagePeriod: data.PackagePeriod,
             imageURL: data.ImgPath,
           });
-
         })
         .catch((error) => {
           console.log(error);
@@ -86,13 +84,11 @@ export default class UpdateGymPackage extends Component {
     });
   }
 
-
-  
-    uploadImage() {
-
-
+  uploadImage() {
     if (this.state.file !== null) {
-      const uploadTask = storage.ref(`gympackages/${this.state.file.name}`).put(this.state.file);
+      const uploadTask = storage
+        .ref(`gympackages/${this.state.file.name}`)
+        .put(this.state.file);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -100,7 +96,7 @@ export default class UpdateGymPackage extends Component {
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-          this.setState({uploadPercentage:progress});
+          this.setState({ uploadPercentage: progress });
         },
         (error) => {
           //error function
@@ -114,8 +110,8 @@ export default class UpdateGymPackage extends Component {
             .getDownloadURL()
             .then((url) => {
               console.log(url);
-              
-              this.setState({imageURL:url});
+
+              this.setState({ imageURL: url });
             });
         }
       );
@@ -123,10 +119,6 @@ export default class UpdateGymPackage extends Component {
       alert("First You Must Select An Image");
     }
   }
-
-
-
-  
 
   searchChange = (event) => {
     this.setState({
@@ -151,28 +143,23 @@ export default class UpdateGymPackage extends Component {
     return validate;
   }
 
-
   submitPackage(e) {
     if (this.formValidate()) {
       if (this.state.updateMode == "Update") {
         const packageId = this.props.location.data;
         try {
           const formData = {
-
-            PackageImageURL:this.state.imageURL,
-            PackageName:this.state.packageName,
-            PackageDescriprion:this.state.packageDescription,
-            PackagePrice:this.state.packagePrice,
-            PackagePeriod:this.state.packagePeriod
-
-
-          }
+            PackageImageURL: this.state.imageURL,
+            PackageName: this.state.packageName,
+            PackageDescriprion: this.state.packageDescription,
+            PackagePrice: this.state.packagePrice,
+            PackagePeriod: this.state.packagePeriod,
+          };
 
           axios
             .put(
               process.env.REACT_APP_BACKEND_URL + "/api/packages/" + packageId,
               formData
-              
             )
             .then((res) => {
               alert("successed");
@@ -183,31 +170,25 @@ export default class UpdateGymPackage extends Component {
         }
       } else {
         try {
-  
-
           const formData = {
-
-            PackageImageURL:this.state.imageURL,
-            PackageName:this.state.packageName,
-            PackageDescriprion:this.state.packageDescription,
-            PackagePrice:this.state.packagePrice,
-            PackagePeriod:this.state.packagePeriod
-
-
-          }
-
-   
+            PackageImageURL: this.state.imageURL,
+            PackageName: this.state.packageName,
+            PackageDescriprion: this.state.packageDescription,
+            PackagePrice: this.state.packagePrice,
+            PackagePeriod: this.state.packagePeriod,
+          };
 
           axios
             .post(
               process.env.REACT_APP_BACKEND_URL + "/api/packages/",
-              formData         
+              formData
             )
             .then((res) => {
               alert("successed");
               window.location = "/PackageDetails";
-            }).catch((err)=>{
-              alert(err)
+            })
+            .catch((err) => {
+              alert(err);
             });
         } catch (err) {
           console.log(err);
@@ -233,11 +214,12 @@ export default class UpdateGymPackage extends Component {
                   <div class="col-lg-6 d-none d-lg-flex">
                     <div
                       class="flex-grow-1 bg-login-image text-center"
-                      style={{marginTop:"50px"}}
-                   
+                      style={{ marginTop: "50px" }}
                     >
-                      <img src={this.state.imageURL}  style={{width:"300px",height:"300px"}}/>
-                      {" "}
+                      <img
+                        src={this.state.imageURL}
+                        style={{ width: "300px", height: "300px" }}
+                      />{" "}
                     </div>
                   </div>
                   <div class="col-lg-6">
@@ -304,32 +286,31 @@ export default class UpdateGymPackage extends Component {
                         </div>
 
                         <div class="row form-group">
-                        <div className="col-md-9">
-                          <input
-                            class="form-control form-control-user"
-                            type="file"
-                            id="packageImage"
-                            name="Image"
-                            style={{ padding: "2px" }}
-                            onChange={(e) => {
-                              this.setState({
-                                file: e.target.files[0],
-                              })
-                            }}
-                          />
-                        </div>
-
+                          <div className="col-md-9">
+                            <input
+                              class="form-control form-control-user"
+                              type="file"
+                              id="packageImage"
+                              name="Image"
+                              style={{ padding: "2px" }}
+                              onChange={(e) => {
+                                this.setState({
+                                  file: e.target.files[0],
+                                });
+                              }}
+                            />
+                          </div>
 
                           <div className="col-md-3">
-                          <i
-                            style={{ fontSize: "43px" }}
-                            class="fas fa-cloud-upload-alt ImageUploadButton"
-                            onClick={this.uploadImage}
-                          ></i>
+                            <i
+                              style={{ fontSize: "43px" }}
+                              class="fas fa-cloud-upload-alt ImageUploadButton"
+                              onClick={this.uploadImage}
+                            ></i>
                           </div>
                         </div>
                         <Progress percentage={this.state.uploadPercentage} />
-                        <br/>
+                        <br />
                         <div class="form-group">
                           <button
                             class="btn btn-primary btn-block text-white btn-user additemBtn"
