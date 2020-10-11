@@ -61,7 +61,7 @@ export default class VerifyUserProfile extends Component {
     this.generatePDF = this.generatePDF.bind(this);
 
     //this.deleteInstructor = this.deleteInstructor.bind(this);
-    this.searchOrder = this.searchOrder.bind(this);
+    //this.searchOrder = this.searchOrder.bind(this);
 
     this.state = {
       userGymPackageVerifyRequest: [],
