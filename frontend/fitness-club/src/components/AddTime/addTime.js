@@ -1,234 +1,215 @@
 import React, { Component } from "react";
-import axios from 'axios';
-
-const gymUserTimeList = (props) => (
-  <tr>
-    <td>{props.userTime.date}</td>
-    <td>{props.userTime.inTime}</td>
-    <td>{props.userTime.outTime}</td>
-  </tr>
-);
-
+import axios from "axios";
 
 export default class AddTime extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this.state = {
+      date: "",
+      inTime: "",
+      outTime: "",
+      gymTime: [],
+    };
 
-        this.state = {
-            date: "",
-            inTime: "",
-            outTime: "",
-            gymTime: []
-        };
+    this.addTime = this.addTime.bind(this);
+    this.generatePDF = this.generatePDF.bind(this);
+    //this.gymUserTimeFunction = this.gymUserTimeFunction.bind(this);
+  }
 
-        this.addTime = this.addTime.bind(this);
-        this.generatePDF = this.generatePDF.bind(this);
-        // this.gymUserTime = this.gymUserTime.bind(this);
+  //fetching gym time List data from the backend
+  componentDidMount() {
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
+    axios
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
+      .then(({ data }) => {
+        console.log("gymTimeList: " + data.time);
+        console.log(data.time.length);
 
-    }
-
-    //fetching gym time List data from the backend
-    componentDidMount() {
-        const config = {
-            headers: {
-                "x-auth-token": localStorage.getItem("x-auth-token"),
-            },
-        };
-        axios
-            .get(process.env.REACT_APP_BACKEND_URL + "/api/profile/me", config)
-            .then(({ data }) => {
-                console.log("gymTimeList: " + data.time);
-                console.log(data.time.length);
-
-                if (data.time.length > 0) {
-                    this.setState({
-                        gymTime: data.time
-                    })
-
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-    }
-
-
-    generatePDF(e) {
-
-        e.preventDefault();
-
-        const pdfText = {
-            gymTime: this.state.gymTime,
-        };
-
-        axios
-            .post(
-                process.env.REACT_APP_BACKEND_URL +
-                "/api/pdfgenerate/generateusergymtime",
-                pdfText
-            )
-            .then(() => {
-                alert("PDF Generated Successful");
-            })
-            .catch((err) => console.log(err.message));
-    }
-
-
-    gymUserTime() {
-      //return a single Instructor component for each and every array Element
-      return this.state.gymTime.map((currentUserTime) => {
-        return (
-          <gymUserTimeList
-            userTime={currentUserTime}
-            key={currentUserTime._id}
-          />
-        );
-      });
-    }
-
-
-    addTime(e) {
-        e.preventDefault();
-        const config = {
-            headers: {
-                "x-auth-token": localStorage.getItem("x-auth-token"),
-            },
-        };
-
-        const time = {
-
-            inTime: this.state.inTime,
-            outTime: this.state.outTime,
-            date: this.state.date
+        if (data.time.length > 0) {
+          this.setState({
+            gymTime: data.time,
+          });
         }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
-        axios.put(process.env.REACT_APP_BACKEND_URL + "/api/time/addgymusertime", time, config)
-            .then((response) => {
+  generatePDF(e) {
+    e.preventDefault();
 
-                alert("Gym Time Added");
-                this.setState({
-                    inTime: "",
-                    outTime: "",
-                    date: ""
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-                alert(error);
-            });
+    const pdfText = {
+      gymTime: this.state.gymTime,
+    };
 
-        window.location = "/addTime";
+    axios
+      .post(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/pdfgenerate/generateusergymtime",
+        pdfText
+      )
+      .then(() => {
+        alert("PDF Generated Successful");
+      })
+      .catch((err) => console.log(err.message));
+  }
 
-    }
+  gymUserTimeFunction() {
+    //return a single Instructor component for each and every array Element
+    return this.state.gymTime.map((currentUserGymTime) => {
+      return (
+        <tr>
+          <td>{currentUserGymTime.date}</td>
+          <td>{currentUserGymTime.inTime}</td>
+          <td>{currentUserGymTime.outTime}</td>
+        </tr>
+      );
+    });
+  }
 
-    render() {
-        return (
-            <div>
-                <div>
-                    <form class="time">
+  addTime(e) {
+    e.preventDefault();
+    const config = {
+      headers: {
+        "x-auth-token": localStorage.getItem("x-auth-token"),
+      },
+    };
 
-                        <div class="form-row">
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="inTime">
-                                        <strong>Date</strong>
-                                    </label>
-                                    <input
-                                        class="form-control"
-                                        type="date"
-                                        placeholder="Date"
-                                        // value={this.state.date}
-                                        name="date"
-                                        onChange={(e) => {
-                                            this.setState({
-                                                date: e.target.value
-                                            })
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="inTime">
-                                        <strong>In Time</strong>
-                                    </label>
-                                    <input
-                                        class="form-control"
-                                        type="time"
-                                        placeholder="In Time"
-                                        // value={this.state.inTime}
-                                        name="inTime"
-                                        onChange={(e) => {
-                                            this.setState({
-                                                inTime: e.target.value
-                                            })
-                                        }}
-                                    />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="outTime">
-                                        <strong> Out Time</strong>
-                                    </label>
-                                    <input
-                                        class="form-control"
-                                        type="time"
-                                        placeholder="Out Time"
-                                        value={this.state.outTime}
-                                        onChange={(e) => {
-                                            this.setState({
-                                                outTime: e.target.value
-                                            })
-                                        }}
-                                        name="outTime"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <center>
-                            <div class="mb-3">
-                                <button
-                                    class="btn btn-primary btn-sm"
-                                    type="button"
-                                    onClick={this.generatePDF}
-                                >
-                                    Generate Report
-        </button>{" "}
-                                <button
-                                    class="btn btn-primary btn-sm"
-                                    type="button"
-                                    onClick={this.addTime}
-                                >
-                                    Add
-        </button>
-                            </div>
-                        </center>
-                    </form>
+    const time = {
+      inTime: this.state.inTime,
+      outTime: this.state.outTime,
+      date: this.state.date,
+    };
 
+    axios
+      .put(
+        process.env.REACT_APP_BACKEND_URL + "/api/time/addgymusertime",
+        time,
+        config
+      )
+      .then((response) => {
+        alert("Gym Time Added");
+        this.setState({
+          inTime: "",
+          outTime: "",
+          date: "",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+      });
+
+    window.location = "/addTime";
+  }
+
+  render() {
+    return (
+      <div>
+        <div>
+          <form class="time">
+            <div class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="inTime">
+                    <strong>Date</strong>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="date"
+                    placeholder="Date"
+                    // value={this.state.date}
+                    name="date"
+                    onChange={(e) => {
+                      this.setState({
+                        date: e.target.value,
+                      });
+                    }}
+                  />
                 </div>
-
-                <div>
-                    {/* <button className="btn btn-primary" onClick={this.generatePDF}>
-                        Generate PDF
-</button> */}
-                    <br /> <br />
-                    <h3>Time Info</h3>
-                    <table className="table">
-                        <thead className="thead-light">
-                            <tr>
-                                <th>Date</th>
-                                <th>In Time</th>
-                                <th>Out Time</th>
-                              
-                            </tr>
-                        </thead>
-                        <tbody>{this.gymUserTime()}</tbody>
-                    </table>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="inTime">
+                    <strong>In Time</strong>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="time"
+                    placeholder="In Time"
+                    // value={this.state.inTime}
+                    name="inTime"
+                    onChange={(e) => {
+                      this.setState({
+                        inTime: e.target.value,
+                      });
+                    }}
+                  />
                 </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="outTime">
+                    <strong> Out Time</strong>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="time"
+                    placeholder="Out Time"
+                    value={this.state.outTime}
+                    onChange={(e) => {
+                      this.setState({
+                        outTime: e.target.value,
+                      });
+                    }}
+                    name="outTime"
+                  />
+                </div>
+              </div>
             </div>
-        )
-    }
+            <center>
+              <div class="mb-3">
+                <button
+                  class="btn btn-primary btn-sm"
+                  type="button"
+                  onClick={this.generatePDF}
+                >
+                  Generate Report
+                </button>{" "}
+                <button
+                  class="btn btn-primary btn-sm"
+                  type="button"
+                  onClick={this.addTime}
+                >
+                  Add
+                </button>
+              </div>
+            </center>
+          </form>
+        </div>
+
+        <div>
+          <hr />
+          <h3>Time Info</h3>
+          <table className="table">
+            <thead className="thead-light">
+              <tr>
+                <th>Date</th>
+                <th>In Time</th>
+                <th>Out Time</th>
+              </tr>
+            </thead>
+
+            <tbody>{this.gymUserTimeFunction()}</tbody>
+          </table>
+        </div>
+      </div>
+    );
+  }
 }
