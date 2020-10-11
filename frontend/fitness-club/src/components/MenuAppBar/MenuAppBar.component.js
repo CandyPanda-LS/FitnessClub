@@ -29,6 +29,7 @@ import Instructor from "../Instructor/dashboard/instructor.component";
 import Email from "../User/Email/email.component";
 
 import Payment from "../Shop/Pages/cart/payment.component";
+import VerifyUserProfile from "../Admin/VerifyUserProfile/verifyuserprofile.component";
 
 // @desc import Components
 // @author Lasal
@@ -581,6 +582,12 @@ export default function MenuAppBar() {
               <Route path="/email" exact component={Email} />
 
               <Route path="/PaymentCart" exact component={Payment} />
+
+              <Route
+                path="/verifyuserprofile"
+                exact
+                component={VerifyUserProfile}
+              />
               {/* Routes
               @author Lasal */}
               <Route path="/adminorderlist" exact component={AdminOrderList} />

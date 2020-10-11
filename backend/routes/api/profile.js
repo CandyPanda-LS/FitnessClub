@@ -47,37 +47,40 @@ router.post(
     }
 
     //subscription Date
-      //load cuurent time
-  var currentDate = new Date();
+    //load cuurent time
+    var currentDate = new Date();
 
-  var hours = currentDate.getHours();
-  var minutes = currentDate.getMinutes();
-  var seconds = currentDate.getSeconds();
-  var date = currentDate.getDate();
-  var month = currentDate.getMonth(); //Be careful! January is 0 not 1
-  var year = currentDate.getFullYear();
-  var subscriptionDate =
-    year +
-    "-" +
-    (month + 1) +
-    "-" +
-    date +
-    "-" +
-    hours +
-    "-" +
-    minutes +
-    "-" +
-    seconds;
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    var date = currentDate.getDate();
+    var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+    var year = currentDate.getFullYear();
+    var subscriptionDate =
+      year +
+      "-" +
+      (month + 1) +
+      "-" +
+      date +
+      "-" +
+      hours +
+      "-" +
+      minutes +
+      "-" +
+      seconds;
 
-    const { package,packagePeriod } = req.body;
+    const { package, packagePeriod, verify } = req.body;
 
     //build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
     if (package) profileFields.package = package;
     if (packagePeriod) profileFields.packagePeriod = packagePeriod;
-    if (subscriptionDate) profileFields.subscriptionDate = subscriptionDate;
-
+    if (verify == "yes") {
+      if (subscriptionDate) profileFields.subscriptionDate = subscriptionDate;
+    } else {
+      if (subscriptionDate) profileFields.subscriptionDate = null;
+    }
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
@@ -105,6 +108,71 @@ router.post(
   }
 );
 
+//@route  POST api/profile/verifygympayment/:profileid
+//@desc   Update a User Profile (verify a gym package package by admin)
+//@access Private
+//@author chamodi
+
+router.post("/verifygympayment/:profileid", async (req, res) => {
+  //subscription Date
+  //load cuurent time
+  var currentDate = new Date();
+
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var seconds = currentDate.getSeconds();
+  var date = currentDate.getDate();
+  var month = currentDate.getMonth(); //Be careful! January is 0 not 1
+  var year = currentDate.getFullYear();
+  var subscriptionDate =
+    year +
+    "-" +
+    (month + 1) +
+    "-" +
+    date +
+    "-" +
+    hours +
+    "-" +
+    minutes +
+    "-" +
+    seconds;
+
+  const { verify } = req.body;
+
+  //build profile object
+  const profileFields = {};
+
+  if (verify == "yes") {
+    if (subscriptionDate) profileFields.subscriptionDate = subscriptionDate;
+  } else {
+    if (subscriptionDate) profileFields.subscriptionDate = null;
+  }
+
+  try {
+    let profile = await Profile.findById(req.params.profileid);
+
+    if (profile) {
+      //UPDATE
+      profile = await Profile.findOneAndUpdate(
+        { _id: req.params.profileid },
+        { $set: profileFields },
+        { new: true }
+      );
+
+      return res.json(profile);
+    }
+
+    //Create
+    profile = new Profile(profileFields);
+
+    await profile.save();
+    res.json(profile); //return the profile
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // //@route  GET  api/profile
 // //@desc  GET All Profile
 // //@access Public
@@ -114,6 +182,7 @@ router.get("/", async (req, res) => {
     const profiles = await Profile.find().populate("user", [
       "firstName",
       "lastName",
+      "email",
     ]);
     res.json(profiles);
   } catch (err) {
@@ -153,7 +222,7 @@ router.delete("/", auth, async (req, res) => {
   try {
     //todo - remove users posts
     //Remove Profile
-  
+
     await Profile.findOneAndRemove({ user: req.user.id });
     //Remove user
     //await User.findOneAndRemove({ _id: req.user.id });
@@ -455,7 +524,6 @@ router.post("/updateweightheight", auth, async (req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
-
 //@route  POST  api/profile/unassigninstructor
 //@desc  unassign instructor
 //@access private
@@ -465,7 +533,7 @@ router.post("/unassigninstructor", auth, async (req, res) => {
   Profile.findOneAndUpdate({ user: req.user.id })
     .then((profile) => {
       profile.instructor = req.body.instructor;
-     
+
       profile
         .save()
         .then(() => res.json("Profile Updated"))

@@ -54,6 +54,49 @@ export default function InstructorManage() {
     <div style={{ marginBottom: "100px" }}>
       <div className="container">
         <div className="row">
+          {/*   Gym User Profile */}
+          <div
+            className="col-sm-6 col-md-4 col-lg-4"
+            style={{ marginTop: "30px" }}
+          >
+            <Card className={classes.root}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={Background3}
+                  title="Gym User Profile"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Verify User Profile
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Verify User Profile
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Link
+                  to="/verifyuserprofile"
+                  style={{ textDecoration: "none" }}
+                >
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    href="#contained-buttons"
+                    style={{ color: "white" }}
+                  >
+                    Manage
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </div>
+
           {/* Instructor Manage */}
           <div
             className="col-sm-6 col-md-4 col-lg-4"

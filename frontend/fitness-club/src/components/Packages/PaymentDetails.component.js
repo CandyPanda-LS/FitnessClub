@@ -1,11 +1,12 @@
 /*
  *
- * @author nayana
+ * @author chamodi
  *
  */
 import React, { Component } from "react";
 import "./PaymentDetails.css";
 import axios from "axios";
+import emailjs from "emailjs-com";
 
 export default class PaymentDetails extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ export default class PaymentDetails extends Component {
       Img: "",
       editChanger: "",
       updateMode: "Insert",
+      email: "",
     };
   }
   componentDidMount() {
@@ -52,18 +54,32 @@ export default class PaymentDetails extends Component {
           config
         )
         .then(({ data }) => {
-       
           this.setState({
             packageName: data.PackageName,
             packageDescription: data.PackageDescriprion,
             packagePrice: data.PackagePrice,
-            packagePeriod:data.PackagePeriod,
+            packagePeriod: data.PackagePeriod,
             imgPath: data.ImgPath,
           });
         })
         .catch((error) => {
           console.log(error);
         });
+
+      axios
+        .get(process.env.REACT_APP_BACKEND_URL + "/api/auth", config)
+        .then((res) => {
+          console.log("Profile Details " + res);
+          console.log("Profile Email " + res.data.email);
+          this.setState({
+            email: res.data.email,
+          });
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    } else {
+      window.location = "/";
     }
   }
 
@@ -71,7 +87,8 @@ export default class PaymentDetails extends Component {
     e.preventDefault();
     const PackageDetials = {
       package: this.state.packageName,
-      packagePeriod : this.state.packagePeriod
+      packagePeriod: this.state.packagePeriod,
+      verify: "no",
     };
 
     const config = {
@@ -80,24 +97,44 @@ export default class PaymentDetails extends Component {
       },
     };
 
-    await axios
-      .post(
-        process.env.REACT_APP_BACKEND_URL + "/api/profile/",
-        PackageDetials,
-        config
+    emailjs
+      .sendForm(
+        "gmail",
+        "template_ilseot7",
+        e.target,
+        "user_DhIeLbwU5Tqi2wCHTnphz"
       )
-      .then((res) => {
-        if (res.data.package) {
-          alert("Enrolled to a Package Successfully");
-          window.location = "/dashboard";
-        } else {
-          alert("You have already enrolled to a package");
+      .then(
+        (result) => {
+          console.log(result.text);
+          alert("Email Sent");
+
+          //enroll to a package send data to package
+          axios
+            .post(
+              process.env.REACT_APP_BACKEND_URL + "/api/profile/",
+              PackageDetials,
+              config
+            )
+            .then((res) => {
+              if (res.data.package) {
+                alert(
+                  "Enrolled to a Package Successfully.Please Check Your Email. Your Package will not be activated until the funds have cleared in our account."
+                );
+                window.location = "/dashboard";
+              } else {
+                alert("You have already enrolled to a package");
+              }
+            })
+            .catch((err) => {
+              alert("Unuccessfully");
+              console.log(err);
+            });
+        },
+        (error) => {
+          console.log(error.text);
         }
-      })
-      .catch((err) => {
-        alert("Unuccessfully");
-        console.log(err);
-      });
+      );
   }
 
   render() {
@@ -169,13 +206,38 @@ export default class PaymentDetails extends Component {
                           </div>
                           <br />
                           <div>
-                            <button
-                              onClick={this.selectPackage}
-                              class="btn btn-primary btn-block text-white btn-user additemBtn"
-                              type="button"
-                            >
-                              Pay
-                            </button>
+                            <form onSubmit={this.selectPackage}>
+                              <input
+                                type="text"
+                                name="packageName"
+                                value={this.state.packageName}
+                                hidden
+                              />
+                              <input
+                                type="text"
+                                name="packagePrice"
+                                value={this.state.packagePrice}
+                                hidden
+                              />
+                              <input
+                                type="text"
+                                name="packageDescription"
+                                value={this.state.packageDescription}
+                                hidden
+                              />
+                              <input
+                                type="text"
+                                name="email"
+                                value={this.state.email}
+                                hidden
+                              />
+                              <button
+                                class="btn btn-primary btn-block text-white btn-user additemBtn"
+                                type="submit"
+                              >
+                                Pay
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </div>
