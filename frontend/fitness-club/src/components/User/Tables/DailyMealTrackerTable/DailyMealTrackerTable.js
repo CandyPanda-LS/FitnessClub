@@ -284,7 +284,10 @@ export default function DailyMealTrackerTable() {
 
         {/* End Model */}
       </div>
-      <div className="col-md-12" style={{ textAlign: "center" }}>
+      <div
+        className="col-md-12"
+        style={{ textAlign: "center", margin: "5px", padding: "10px" }}
+      >
         <button
           className="btn btn-primary"
           onClick={generatePDF}
