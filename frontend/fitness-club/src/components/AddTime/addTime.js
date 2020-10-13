@@ -10,6 +10,7 @@ export default class AddTime extends Component {
       inTime: "",
       outTime: "",
       gymTime: [],
+      searchTime: "",
     };
 
     this.addTime = this.addTime.bind(this);
@@ -113,6 +114,70 @@ export default class AddTime extends Component {
     return (
       <div>
         <div>
+          <div>
+            <div
+              class="modal fade bd-example-modal-xl"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="myExtraLargeModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content" style={{ padding: "20px" }}>
+                  {" "}
+                  <div className="row">
+                    {/* Row 1 */}
+                    <div className="col-md-9">
+                      <input
+                        class="form-control"
+                        type="date"
+                        placeholder="Search by Date"
+                        aria-label="Search"
+                        onChange={(e) => {
+                          this.setState({
+                            searchTime: e.target.value.substring(0, 10),
+                          });
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <hr />
+                  {/* Row 2 */}
+                  <div className="row">
+                    <table className="table">
+                      <thead className="thead">
+                        <tr>
+                          <th>Date</th>
+                          <th>Gym In Time</th>
+                          <th>Gym Out Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          //return a single feedback component for each and every array Element
+                          this.state.gymTime.map((currentTime) => {
+                            if (
+                              this.state.searchTime ==
+                              currentTime.date.substring(0, 10)
+                            )
+                              return (
+                                <tr>
+                                  <td>{currentTime._id}</td>
+                                  <td>{currentTime.inTime}</td>
+                                  <td>{currentTime.outTime}</td>
+                                </tr>
+                              );
+                          })
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
           <form class="time">
             <div class="form-row">
               <div class="col">
@@ -175,10 +240,21 @@ export default class AddTime extends Component {
             </div>
             <center>
               <div class="mb-3">
+                {/* <!-- search feedback modal --> */}
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  data-toggle="modal"
+                  data-target=".bd-example-modal-xl"
+                  style={{ margin: "10px" }}
+                >
+                  search by date
+                </button>
                 <button
                   class="btn btn-primary btn-sm"
                   type="button"
                   onClick={this.generatePDF}
+                  style={{ margin: "10px" }}
                 >
                   Generate Report
                 </button>{" "}
@@ -186,6 +262,7 @@ export default class AddTime extends Component {
                   class="btn btn-primary btn-sm"
                   type="button"
                   onClick={this.addTime}
+                  style={{ margin: "10px" }}
                 >
                   Add
                 </button>
