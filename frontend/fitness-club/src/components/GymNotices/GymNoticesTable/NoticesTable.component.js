@@ -130,6 +130,7 @@ export default function NoticesTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [NoticeList, setNoticeList] = useState([]);
+  const [searchDate, setSearchDate] = useState();
 
   //fetching meallist data from the backend
   useEffect(() => {
@@ -218,6 +219,69 @@ export default function NoticesTable() {
 
   return (
     <>
+      <div>
+        <div>
+          <div>
+            <div
+              class="modal fade bd-example-modal-xl"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="myExtraLargeModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content" style={{ padding: "20px" }}>
+                  {" "}
+                  <div className="row">
+                    {/* Row 1 */}
+                    <div className="col-md-9">
+                      <input
+                        class="form-control"
+                        type="date"
+                        placeholder="Search by Date"
+                        aria-label="Search"
+                        onChange={(e) => {
+                          setSearchDate(e.target.value.substring(0, 10));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <hr />
+                  {/* Row 2 */}
+                  <div className="row">
+                    <table className="table">
+                      <thead className="thead">
+                        <tr>
+                          <th>Date</th>
+                          <th>Notice Title</th>
+                          <th>Notice Descriprion</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          //return a single notice component for each and every array Element
+                          NoticeList.map((currentNotice) => {
+                            if (
+                              searchDate == currentNotice.Date.substring(0, 10)
+                            )
+                              return (
+                                <tr>
+                                  <td>{currentNotice._id}</td>
+                                  <td>{currentNotice.NoticeTitle}</td>
+                                  <td>{currentNotice.NoticeDescriprion}</td>
+                                </tr>
+                              );
+                          })
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <Paper
         className={classes.root}
         style={{
@@ -232,10 +296,21 @@ export default function NoticesTable() {
               pathname: "/ManageNotice",
             }}
           >
-            <HoverAddButton>
+            <HoverAddButton style={{ margin: "10px" }}>
               <Add />
             </HoverAddButton>
           </Link>
+
+          {/* <!-- search feedback modal --> */}
+          <button
+            type="button"
+            class="btn btn-primary "
+            data-toggle="modal"
+            data-target=".bd-example-modal-xl"
+            style={{ margin: "10px" }}
+          >
+            search by date
+          </button>
         </div>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
