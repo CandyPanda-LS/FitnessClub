@@ -11,37 +11,27 @@ router.use(cors());
 //@desc   add time
 //@access Public
 
-router.put(
-    "/addgymusertime",
-      auth,
-    async (req, res) => {
-  
-      const {   
-        inTime,
-        outTime,
-        date } = req.body;
-  
-      const newUserGymTime = {
-        inTime,
-        outTime,
-        date
-      };
-  
-      try {
-        const profile = await Profile.findOne({ user: req.user.id });
-  
-        profile.time.unshift(newUserGymTime);
-  
-        await profile.save();
-  
-        res.json(profile);
-      } catch (err) {
-        console.error(err.message);
-        res.status(500).send("Server Error");
-      }
-    }
-  );
+router.put("/addgymusertime", auth, async (req, res) => {
+  const { inTime, outTime, date } = req.body;
 
-  
+  const newUserGymTime = {
+    inTime,
+    outTime,
+    date,
+  };
+
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    profile.time.unshift(newUserGymTime);
+
+    await profile.save();
+
+    res.json(profile);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;

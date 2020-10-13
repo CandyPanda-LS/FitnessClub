@@ -81,7 +81,7 @@ export default class AddTime extends Component {
       },
     };
 
-    const time = {
+    const Time = {
       inTime: this.state.inTime,
       outTime: this.state.outTime,
       date: this.state.date,
@@ -90,7 +90,7 @@ export default class AddTime extends Component {
     axios
       .put(
         process.env.REACT_APP_BACKEND_URL + "/api/time/addgymusertime",
-        time,
+        Time,
         config
       )
       .then((response) => {
@@ -100,13 +100,13 @@ export default class AddTime extends Component {
           outTime: "",
           date: "",
         });
+
+        window.location = "/addTime";
       })
       .catch((error) => {
         console.log(error);
-        alert(error);
+        alert("You need to select a gym package");
       });
-
-    window.location = "/addTime";
   }
 
   render() {
