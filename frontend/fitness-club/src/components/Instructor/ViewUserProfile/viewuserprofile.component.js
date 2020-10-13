@@ -6,6 +6,7 @@ import MealBarChart from "./Charts/MealBarChart/MealBarChart.component";
 import CompletedExercises from "./Tables/CompletedExercises/CompletedExercises.component";
 import DailyMealTrackerTable from "./Tables/DailyMealTrackerTable/DailyMealTrackerTable";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Viewuserprofile(props) {
   const [customer, setCustomer] = useState([]);
@@ -55,6 +56,9 @@ export default function Viewuserprofile(props) {
                 <p> {customerDetails.email}</p>
                 <p> {customerDetails.gender}</p>
                 <p> {customer.package} </p>
+                <Link to={"/userforms/" + customer._id}>
+                  <button className="btn btn-success">Assign Plan</button>
+                </Link>
               </div>
             </div>
           </div>
