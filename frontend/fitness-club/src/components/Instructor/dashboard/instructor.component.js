@@ -53,39 +53,26 @@ export default function Instructor() {
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Profile
+                    User Profiles
                   </Typography>
                   <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                    Manage Profile
+                    Assigned User Profiles
                   </Typography>
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Link
-                  to="/addinventoryitems"
-                  style={{ textDecoration: "none" }}
-                >
+                <Link to="/assigneduserlist" style={{ textDecoration: "none" }}>
                   <Button
                     variant="contained"
                     color="primary"
                     href="#contained-buttons"
                     style={{ color: "white" }}
                   >
-                    Add
-                  </Button>
-                </Link>
-                <Link to="/inventorytable" style={{ textDecoration: "none" }}>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    href="#contained-buttons"
-                    style={{ color: "white" }}
-                  >
-                    List | Remove | Update
+                    View
                   </Button>
                 </Link>
               </CardActions>

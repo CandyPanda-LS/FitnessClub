@@ -57,6 +57,8 @@ router.post(
       }
 
       const role = "user";
+      const profImage =
+        "https://icon-library.com/images/no-user-image-icon/no-user-image-icon-0.jpg";
 
       //create a user instance
       user = new User({
@@ -69,6 +71,7 @@ router.post(
         mobileNo,
         address,
         gender,
+        profImage,
       });
 
       //Encrypt Password

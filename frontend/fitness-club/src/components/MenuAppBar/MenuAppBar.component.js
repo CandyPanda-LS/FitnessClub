@@ -30,6 +30,8 @@ import Email from "../User/Email/email.component";
 
 import Payment from "../Shop/Pages/cart/payment.component";
 import VerifyUserProfile from "../Admin/VerifyUserProfile/verifyuserprofile.component";
+import Assigneduserlist from "../Instructor/AssignedUserList/assigneduserlist.component";
+import Viewuserprofile from "../Instructor/ViewUserProfile/viewuserprofile.component";
 
 // @desc import Components
 // @author Lasal
@@ -587,6 +589,16 @@ export default function MenuAppBar() {
                 path="/verifyuserprofile"
                 exact
                 component={VerifyUserProfile}
+              />
+              <Route
+                path="/assigneduserlist"
+                exact
+                component={Assigneduserlist}
+              />
+              <Route
+                path="/viewuserprofile"
+                exact
+                component={Viewuserprofile}
               />
               {/* Routes
               @author Lasal */}
