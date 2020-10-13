@@ -32,7 +32,7 @@ export default class InstructorList extends Component {
     this.generatePDF = this.generatePDF.bind(this);
     this.deleteInstructor = this.deleteInstructor.bind(this);
 
-    this.state = { instructors: [] };
+    this.state = { instructors: [], searchInstructor: "" };
   }
 
   componentDidMount() {
@@ -90,28 +90,141 @@ export default class InstructorList extends Component {
 
   render() {
     return (
-      <div>
-        <button className="btn btn-primary" onClick={this.generatePDF}>
-          Generate PDF
-        </button>
-        <br /> <br />
-        <h3>Instructor List</h3>
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th>Instructor ID</th>
-              <th>Name</th>
-              <th>DOB</th>
-              <th>Gender</th>
-              <th>Address</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>{this.instructorList()}</tbody>
-        </table>
-      </div>
+      <>
+        <div>
+          <div>
+            <div
+              class="modal fade bd-example-modal-xl"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="myExtraLargeModalLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content" style={{ padding: "20px" }}>
+                  {" "}
+                  <div className="row">
+                    {/* Row 1 */}
+                    <div className="col-md-9">
+                      <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Search by ID"
+                        aria-label="Search"
+                        onChange={(e) => {
+                          this.setState({
+                            searchInstructor: e.target.value,
+                          });
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <hr />
+                  {/* Row 2 */}
+                  <div className="row">
+                    <table className="table">
+                      <thead className="thead">
+                        <tr>
+                          <th>Instructor ID</th>
+                          <th>Name</th>
+                          <th>DOB</th>
+                          <th>Gender</th>
+                          <th>Address</th>
+                          <th>Phone</th>
+                          <th>Email</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          //return a single Instructor component for each and every array Element
+                          this.state.instructors.map((currentInstructor) => {
+                            if (
+                              this.state.searchInstructor ==
+                              currentInstructor.instructorID
+                            )
+                              return (
+                                <tr>
+                                  <td>{currentInstructor.instructorID}</td>
+                                  <td>{currentInstructor.name}</td>
+                                  <td>
+                                    {currentInstructor.dob.substring(0, 10)}
+                                  </td>
+                                  <td>{currentInstructor.gender}</td>
+                                  <td>{currentInstructor.address}</td>
+                                  <td>{currentInstructor.phone}</td>
+                                  <td>{currentInstructor.email}</td>
+                                  <td>
+                                    <Link to={"/view/" + currentInstructor._id}>
+                                      Profile
+                                    </Link>{" "}
+                                    |{" "}
+                                    <Link
+                                      to={"/update/" + currentInstructor._id}
+                                    >
+                                      Edit
+                                    </Link>{" "}
+                                    |{" "}
+                                    <a
+                                      href="/list"
+                                      onClick={() => {
+                                        this.deleteInstructor(
+                                          currentInstructor._id
+                                        );
+                                      }}
+                                    >
+                                      Delete
+                                    </a>
+                                  </td>
+                                </tr>
+                              );
+                          })
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            className="btn btn-primary"
+            onClick={this.generatePDF}
+            style={{ margin: "10px" }}
+          >
+            Generate PDF
+          </button>
+          {/* <!-- search feedback modal --> */}
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target=".bd-example-modal-xl"
+            style={{ margin: "10px" }}
+          >
+            search
+          </button>
+          <br /> <br />
+          <h3>Instructor List</h3>
+          <table className="table">
+            <thead className="thead-light">
+              <tr>
+                <th>Instructor ID</th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Gender</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>{this.instructorList()}</tbody>
+          </table>
+        </div>
+      </>
     );
   }
 }

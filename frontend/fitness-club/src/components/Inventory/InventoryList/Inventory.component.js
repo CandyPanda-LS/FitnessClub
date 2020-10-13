@@ -117,6 +117,7 @@ function InventoryList({
 
 export default function InventoryGrid() {
   const [inventory, setInventory] = useState([]);
+  const [searchInventory, setSearchInventory] = useState();
 
   useEffect(() => {
     //if there is no admin navigate to the login page
@@ -170,14 +171,92 @@ export default function InventoryGrid() {
 
   return (
     <div>
+      <div>
+        <div>
+          <div
+            class="modal fade bd-example-modal-xl"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="myExtraLargeModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content" style={{ padding: "20px" }}>
+                {" "}
+                <div className="row">
+                  {/* Row 1 */}
+                  <div className="col-md-9">
+                    <input
+                      class="form-control"
+                      type="date"
+                      placeholder="Search by Date"
+                      aria-label="Search"
+                      onChange={(e) => {
+                        setSearchInventory(e.target.value.substring(0, 10));
+                      }}
+                    />
+                  </div>
+                </div>
+                <hr />
+                {/* Row 2 */}
+                <div className="row">
+                  <table className="table">
+                    <thead className="thead">
+                      <tr>
+                        <th>Inventory ID</th>
+                        <th>Item Type</th>
+                        <th>Item Brand</th>
+                        <th>Service Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        //return a single inventory component for each and every array Element
+                        inventory.map((currentInventory) => {
+                          if (
+                            searchInventory ==
+                            currentInventory.ServiceDate.substring(0, 10)
+                          )
+                            return (
+                              <tr>
+                                <td>{currentInventory._id}</td>
+                                <td>{currentInventory.ItemType}</td>
+                                <td>{currentInventory.ItemBrand}</td>
+                                <td>{currentInventory.ServiceDate}</td>
+                              </tr>
+                            );
+                        })
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row text-center">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <a href="/addinventoryitems">
             <button class="btn btn-primary additem-btn"> Add Item </button>
           </a>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
+          {/* <!-- search inventory  modal --> */}
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target=".bd-example-modal-xl"
+            style={{ margin: "10px" }}
+          >
+            search by date
+          </button>
+        </div>
+
+        <div class="col-md-4">
           <button class="btn btn-primary additem-btn" onClick={generatePDF}>
             {" "}
             Generate Report{" "}
