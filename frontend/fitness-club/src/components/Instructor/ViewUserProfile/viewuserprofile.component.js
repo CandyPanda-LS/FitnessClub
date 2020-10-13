@@ -18,7 +18,7 @@ export default function Viewuserprofile(props) {
     }
 
     axios
-      .get("http://localhost:5000/api/profile/user/" + props.location.data)
+      .get(REACT_APP_BACKEND_URL + "/api/profile/user/" + props.location.data)
       .then((res) => {
         console.log(res);
         setCustomer(res.data);
