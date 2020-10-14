@@ -143,19 +143,21 @@ export default class Profile extends Component {
 
     axios
       .delete(process.env.REACT_APP_BACKEND_URL + "/api/userprofile/", config)
-      .then((response) => console.log("Profile Deleted"))
+      .then((response) => {
+        console.log("Profile Deleted");
+        localStorage.removeItem("x-auth-token");
+        window.location = "/";
+      })
       .catch((error) => {
         console.log(error);
       });
-
-    window.location = "/";
   }
 
   editInfo(e) {
     window.location = "/profileUpdate";
   }
 
-  addTime(e){
+  addTime(e) {
     window.location = "/addTime";
   }
 
@@ -209,7 +211,7 @@ export default class Profile extends Component {
                         Change
                       </button>
                     </div>
-                  </form>                
+                  </form>
                 </div>
               </div>
             </center>
@@ -379,8 +381,7 @@ export default class Profile extends Component {
               onClick={this.profileDelete}
             >
               Delete Profile
-            </button>
-            {" "}
+            </button>{" "}
             <button
               class="btn btn-primary btn-sm"
               type="button"
