@@ -14,7 +14,7 @@ export default function Assigneduserlist() {
     };
 
     axios
-      .get(REACT_APP_BACKEND_URL + "/api/authinstructor", config)
+      .get(process.env.REACT_APP_BACKEND_URL + "/api/authinstructor", config)
       .then((res) => {
         //console.log(res);
         setInstructorID(res.data._id);
@@ -25,7 +25,7 @@ export default function Assigneduserlist() {
   }, []);
 
   axios
-    .get(REACT_APP_BACKEND_URL + "/api/profile")
+    .get(process.env.REACT_APP_BACKEND_URL + "/api/profile")
     .then((res) => {
       console.log(res);
       setAssignedUserList(res.data);

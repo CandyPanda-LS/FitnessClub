@@ -18,7 +18,11 @@ export default function Viewuserprofile(props) {
     }
 
     axios
-      .get(REACT_APP_BACKEND_URL + "/api/profile/user/" + props.location.data)
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/profile/user/" +
+          props.location.data
+      )
       .then((res) => {
         console.log(res);
         setCustomer(res.data);

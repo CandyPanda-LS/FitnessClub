@@ -5,6 +5,7 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 
 const path = require("path"); //for image seting path
 const dirPath = path.join(
@@ -153,7 +154,7 @@ router.delete("/", auth, async (req, res) => {
   try {
     //Remove profile
 
-    await User.findOneAndRemove({ _id: req.user.id });
+    await Profile.findOneAndRemove({ user: req.user.id });
 
     //Remove user
     await User.findOneAndRemove({ _id: req.user.id });
