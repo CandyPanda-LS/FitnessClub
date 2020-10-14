@@ -38,14 +38,16 @@ export default function AssignInstructor() {
   function userList() {
     //return a single Instructor component for each and every array Element
     return remainingUserList.map((currentuser) => {
-      if (!currentuser.instructor || currentuser.instructor === "null") {
-        return (
-          <UserRemain
-            remainuser={currentuser}
-            //   deleteRemainingUser={deleteRemainingUser}
-            key={currentuser._id}
-          />
-        );
+      if (currentuser.subscriptionDate !== null) {
+        if (!currentuser.instructor || currentuser.instructor === "null") {
+          return (
+            <UserRemain
+              remainuser={currentuser}
+              //   deleteRemainingUser={deleteRemainingUser}
+              key={currentuser._id}
+            />
+          );
+        }
       }
     });
   }

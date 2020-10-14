@@ -44,15 +44,19 @@ export default class UserRegistration extends Component {
     let nam = event.target.name;
     let val = event.target.value;
     if (nam === "mobileNo") {
-      if (!Number(val)) {
-        alert("Your mobile number must include only digits");
-      }
+      // if (!Number(val)) {
+      //   alert("Your mobile number must include only digits");
+      // }
     }
     this.setState({ [nam]: val });
   };
 
   async onSubmit(e) {
     e.preventDefault();
+
+    if (!Number(this.state.mobileNo)) {
+      alert("Your mobile number must include only digits");
+    }
 
     if (this.state.password !== this.state.password2) {
       this.setState({
