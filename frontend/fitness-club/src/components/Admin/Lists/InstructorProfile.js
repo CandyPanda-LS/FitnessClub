@@ -25,7 +25,9 @@ export default class InstructorProfile extends Component {
   componentDidMount() {
     axios
       .get(
-        "http://localhost:5000/api/instructors/" + this.props.match.params.id
+        process.env.REACT_APP_BACKEND_URL +
+          "/api/instructors/" +
+          this.props.match.params.id
       )
       .then((response) => {
         this.setState({
@@ -50,7 +52,7 @@ export default class InstructorProfile extends Component {
         <div class="container emp-profile">
           <form method="post">
             <div class="row">
-             <div class="col-md-6">
+              <div class="col-md-6">
                 <div class="profile-head">
                   <h5>{this.state.name}</h5>
                   <h6>Gym Instructor</h6>
@@ -97,7 +99,6 @@ export default class InstructorProfile extends Component {
               </div>
             </div>
             <div class="row">
-              
               <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                   <div
