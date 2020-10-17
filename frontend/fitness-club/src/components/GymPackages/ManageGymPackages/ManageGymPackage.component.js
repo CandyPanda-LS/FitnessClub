@@ -24,9 +24,6 @@ export default class UpdateGymPackage extends Component {
     };
   }
   componentDidMount() {
-    if (!this.props.location.data) {
-      window.location = "/PackageDetails";
-    }
     const packageId = this.props.location.data;
     if (packageId !== undefined) {
       this.setState({
