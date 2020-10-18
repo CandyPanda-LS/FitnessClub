@@ -134,12 +134,14 @@ export default class ProfileUpdate extends Component {
         personal,
         config
       )
-      .then((response) => console.log(response.data), alert("Success"))
+      .then((response) => {
+        console.log(response.data);
+        alert("Success");
+        window.location = "/profile";
+      })
       .catch((error) => {
         alert(error);
       });
-
-    window.location = "/profile";
   }
 
   onSubmitContact(e) {
@@ -173,9 +175,10 @@ export default class ProfileUpdate extends Component {
         contact,
         config
       )
-      .then((response) => console.log(response.data));
-
-    window.location = "/profile";
+      .then((response) => {
+        console.log(response.data);
+        window.location = "/profile";
+      });
   }
 
   render() {
