@@ -61,14 +61,14 @@ export default function InsertFitnessUpdate() {
         alert("Post Added");
 
         console.log(formData);
+
+        window.location = "/FitnessUpdatesTable";
       })
       .catch((error) => {
         console.log(error.message);
         alert(error.message);
         console.log(formData);
       });
-
-    window.location = "/FitnessUpdatesTable";
   }
 
   function uploadImage(e) {
